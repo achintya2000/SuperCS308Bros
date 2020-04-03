@@ -16,14 +16,14 @@ Put any written documents related to your project here.
 * Creation of Game screen UI
 
 ## Benjamin Lu
-* 
-* 
-*
-*
-* 
-* 
-*
-*
+* Player player interaction
+* Player stage interaction
+* Hitbox Hurtbox collision
+* Move prioritization
+* Player launch physics
+* Player position updating
+* Creation of player class and its corresponding components
+* Player jump physics 
 
 ## Michael Dodd
 * 
