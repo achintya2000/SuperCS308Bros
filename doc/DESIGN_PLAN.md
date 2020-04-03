@@ -7,7 +7,7 @@ Two main components
         * getStocks(), setStocks()   
     * Stamina
         * getStamina(), setStamina() 
-    * abstract Character class
+    * Abstract Character class
         * Has basic moves: (Up, down side) attacks, side-to-side movement, and jumping
         * jump()
         * upTilt()
@@ -20,15 +20,16 @@ Two main components
 * CollsionDetector class
     * Player vs Player collisions (differentiate who is attacking)
     * Player vs Foreground (platforms)
+    * Player vs Boundary
+        * checkWithinBoundaries() 
         
-* Stage class
+* Abstract Stage class
     * Boundaries
-        * checkWithinBoundaries()
     * Background
         * Static or dynamic image 
         * getBackground(), setBackground() 
     * Foreground class
-        * Platforms
+        * Platforms (could be an arraylist of bounded imageviews)
             * getImagesViews() 
         
 * Menu Screen
@@ -53,7 +54,21 @@ Two main components
     
 * APIS
     * ModelInternal
-        *    
+        * eventHandlers for all moves
+        * getStocks()
+        * getStamina()
+        * jump()
+        * upTilt()
+        * downTilt()
+        * forwardTilt()
+        * down()
+        * left()
+        * right() 
+        * checkWithinBoundaries()
+        * setBackground()
     * ModelExternal
+        * setStock()  
+        * setStamina()
+        * getImagesViews()
     * ViewInternal
     * ViewExternal
