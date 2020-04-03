@@ -40,7 +40,9 @@ Two main components
         * setStage()
     * Game Screen
         * Results screen
+            * displayScore() 
         * Once finished go back to character selection screen
+            * resetGame()
         
 * Overall UI flow
     * SelectionScreen class (Abstract)
