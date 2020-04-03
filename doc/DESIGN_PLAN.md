@@ -4,7 +4,7 @@ Two main components
     * Moves
     * Stocks (lives)
     * Stamina
-    * Character
+    * Character class
         * Has basic moves: (Up, down side) attacks, side-to-side movement, and jumping
 * Stage class
     * Boundaries
@@ -20,7 +20,7 @@ Two main components
         * Results screen
         * Once finished go back to character selection screen
         
-* 3 types of visualizations
+* Overall UI flow
     * SelectionScreen class (Abstract)
         * CharacterScreen class
         * StageScreen class
