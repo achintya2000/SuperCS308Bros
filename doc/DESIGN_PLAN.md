@@ -14,8 +14,8 @@ Two main components
         * Platforms  
         
 Menu Screen
-    Character Selection screen
-    Stage Selection Screen
-    Game Screen
+    * Character Selection screen
+    * Stage Selection Screen
+    * Game Screen
         * Results screen
         * Once finished go back to character selection screen
