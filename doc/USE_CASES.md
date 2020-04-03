@@ -6,14 +6,14 @@ Put any written documents related to your project here.
 ### Use Cases
 
 ## Thomas Chemmanoor
-* Basic movements controls for 4 characters
-* Advanced movements and attack patterns for 4 characters
-* Basic map creation for at least 2 maps
-* Creation of character selection screen
-* Creation of stage selection screen
-* Creation of menu screen
-* Creation of Final Result screen
-* Creation of Game screen UI
+* Basic movements animations for 4 characters
+* Advanced movements and attack animations for 4 characters
+* Basic map creation for at least 1 map
+* Character selection screen showing all character options
+* Stage selection screen showing all stage options
+* Menu screen 
+* Creation of Final Result screen 
+* Creation of Percentage and Character Pitures during Games (Bottom of screen)
 
 ## Benjamin Lu
 * Player player interaction
