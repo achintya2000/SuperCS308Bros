@@ -9,13 +9,15 @@ Two main components
         * getStamina(), setStamina() 
     * Abstract Character class
         * Has basic moves: (Up, down side) attacks, side-to-side movement, and jumping
+        * jab()
+        * upSmash()
+        * downSmash()
+        * forwardSmash()
         * jump()
-        * upTilt()
-        * downTilt()
-        * forwardTilt()
         * down()
         * left()
         * right() 
+        * special()
          
 * CollsionDetector class
     * Player vs Player collisions (differentiate who is attacking)
