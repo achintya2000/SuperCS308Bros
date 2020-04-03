@@ -21,8 +21,10 @@ Two main components
         * checkWithinBoundaries()
     * Background
         * Static or dynamic image 
+        * getBackground(), setBackground() 
     * Foreground class
-        * Platforms  
+        * Platforms
+            * getImagesViews() 
         
 * Menu Screen
     * Character Selection screen
