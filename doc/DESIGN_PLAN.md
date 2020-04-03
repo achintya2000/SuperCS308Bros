@@ -6,9 +6,9 @@ Two main components
     * Stamina
     * Character
         * Has basic moves: (Up, down side) attacks, side-to-side movement, and jumping
-* Stage
+* Stage class
     * Boundaries
     * Background
         * Static or dynamic image 
-    * Foreground
+    * Foreground class
         * Platforms  
