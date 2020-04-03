@@ -21,7 +21,8 @@ Two main components
         * Once finished go back to character selection screen
         
 * 3 types of visualizations
-    * SelectionScreen (Abstract)
-        * CharacterScreen
-        * StageScreen
-    * Game Screen
+    * SelectionScreen class (Abstract)
+        * CharacterScreen class
+        * StageScreen class
+    * GameScreenVis class (bound)
+    * GameScreenModel class (bound)
