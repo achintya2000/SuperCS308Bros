@@ -1,4 +1,3 @@
-
 # ooga
 
 Put any written documents related to your project here.
@@ -46,12 +45,12 @@ Put any written documents related to your project here.
 * Will work on the networking extensions
 
 ## Sebastian Williams
-* 
-* 
-*
-*
-* 
-* 
-*
-*
+* Work on setting up properties file and getting images
+* Make basic GUI screens, like main menu
+* Work on dark mode
+* Work on networked players for multiplayer extensions
+* Work on getting animation collision working for the different characters
+* Use reflection to load the characters selected
+* Setup multiple background and ability to chose them
+* Have screen update with score, stamina, and lives
 
