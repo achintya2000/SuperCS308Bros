@@ -12,3 +12,10 @@ Two main components
         * Static or dynamic image 
     * Foreground class
         * Platforms  
+        
+Menu Screen
+    Character Selection screen
+    Stage Selection Screen
+    Game Screen
+        * Results screen
+        * Once finished go back to character selection screen
