@@ -13,14 +13,14 @@ Two main components
     * Foreground class
         * Platforms  
         
-Menu Screen
+* Menu Screen
     * Character Selection screen
     * Stage Selection Screen
     * Game Screen
         * Results screen
         * Once finished go back to character selection screen
         
-3 types of visualizations
+* 3 types of visualizations
     * SelectionScreen (Abstract)
         * CharacterScreen
         * StageScreen
