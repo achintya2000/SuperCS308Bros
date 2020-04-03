@@ -22,6 +22,7 @@ Two main components
     * Player vs Foreground (platforms)
     * Player vs Boundary
         * checkWithinBoundaries() 
+    * isGameOver()
         
 * Abstract Stage class
     * Boundaries
@@ -64,11 +65,23 @@ Two main components
         * down()
         * left()
         * right() 
-        * checkWithinBoundaries()
         * setBackground()
     * ModelExternal
         * setStock()  
         * setStamina()
         * getImagesViews()
+        * setCharacter()
+        * setStage()
+        * resetGame()
     * ViewInternal
+        * eventHandler that detects when character is chosen
+        * eventHandler that detects when stage is chosen
+        * displayScore()
+        * resetGame()
     * ViewExternal
+        * displayScore() 
+    * ControllerInternal()
+        * checkWithinBoundaries()
+        * isGameOver()
+    * ControllerExternal()
+        * 
