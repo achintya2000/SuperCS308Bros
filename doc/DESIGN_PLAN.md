@@ -16,7 +16,7 @@ Two main components
         * down()
         * left()
         * right() 
-        * 
+         
 * CollsionDetector class
     * Player vs Player collisions (differentiate who is attacking)
     * Player vs Foreground (platforms)
