@@ -1,3 +1,5 @@
+### Use Cases
+
 ## Thomas Chemmanoor
 * 
 * 
@@ -17,7 +19,7 @@
 *
 *
 
-Michael Dodd
+## Michael Dodd
 * 
 * 
 *
@@ -27,7 +29,7 @@ Michael Dodd
 *
 *
 
-Achintya Kumar
+## Achintya Kumar
 * 
 * 
 *
@@ -37,7 +39,7 @@ Achintya Kumar
 *
 *
 
-Sebastian Williams
+## Sebastian Williams
 * 
 * 
 *
