@@ -36,14 +36,14 @@ Put any written documents related to your project here.
 *
 
 ## Achintya Kumar
-* 
-* 
-*
-*
-* 
-* 
-*
-*
+* Work on back end implementation of Sprite movement
+* Will work on implementing Reflection to create characters
+* Interaction with view to display lives
+* Represent character and stage selection from frontend in backend
+* Work on game engine that will implement Ben's functions into one game event
+* Work on how moves are handled in the engine
+* Create future methods that need update the view from model
+* Will work on the networking extensions
 
 ## Sebastian Williams
 * 
