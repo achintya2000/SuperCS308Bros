@@ -16,6 +16,11 @@ Two main components
         * down()
         * left()
         * right() 
+        * 
+* CollsionDetector class
+    * Player vs Player collisions (differentiate who is attacking)
+    * Player vs Foreground (platforms)
+        
 * Stage class
     * Boundaries
         * checkWithinBoundaries()
@@ -28,7 +33,11 @@ Two main components
         
 * Menu Screen
     * Character Selection screen
+        * eventHandler that detects when character is chosen
+        * setCharacter()
     * Stage Selection Screen
+        * eventHandler that detects when stage is chosen
+        * setStage()
     * Game Screen
         * Results screen
         * Once finished go back to character selection screen
