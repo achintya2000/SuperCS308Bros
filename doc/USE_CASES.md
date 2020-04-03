@@ -25,14 +25,14 @@ Put any written documents related to your project here.
 * Player jump physics 
 
 ## Michael Dodd
-* 
-* 
-*
-*
-* 
-* 
-*
-*
+* Game ends and the correct screen is displaeyd
+* Load a new character based on the selection screen
+* The character moves using Sprite movements
+* A new game is created after losing the game
+* The players hits the bottom of a platform causing him to collide with it
+* Player enters multiplayer
+* Player pauses the game
+* The player hits another player with an attack
 
 ## Achintya Kumar
 * Work on back end implementation of Sprite movement
