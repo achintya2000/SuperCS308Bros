@@ -2,12 +2,23 @@ Two main components
 
 * Player class
     * Moves
+        * eventHandlers for all moves
     * Stocks (lives)
+        * getStocks(), setStocks()   
     * Stamina
-    * Character class
+        * getStamina(), setStamina() 
+    * abstract Character class
         * Has basic moves: (Up, down side) attacks, side-to-side movement, and jumping
+        * jump()
+        * upTilt()
+        * downTilt()
+        * forwardTilt()
+        * down()
+        * left()
+        * right() 
 * Stage class
     * Boundaries
+        * checkWithinBoundaries()
     * Background
         * Static or dynamic image 
     * Foreground class
@@ -26,3 +37,10 @@ Two main components
         * StageScreen class
     * GameScreenVis class (bound)
     * GameScreenModel class (bound)
+    
+* APIS
+    * ModelInternal
+        *    
+    * ModelExternal
+    * ViewInternal
+    * ViewExternal
