@@ -126,3 +126,16 @@ Two main components
         * isGameOver()
     * ControllerExternal()
         * 
+        
+        
+# Presentation Info
+* What should be open?
+    * Ability to add new characters and stages. Add new preferences. Add more than two players. Ability to add more UI components.
+* What should be closed?
+    * Networked players. Close the ability to add more movement options. Collision detection logic.
+* Controller API
+    * Collision Detector - Detect attacks between sprites in the game to determine if the attacks connected.
+* Model external API
+    * Sets stage, character, and stamina in the backend so the front end may reflect that backend for the player to see. 
+* Alternative designs
+    * We considered having all our classes in their own topic packages like an engine or a player package. The reason we aren't doing this is that we're still going to use this idea but separate those topical packages into the MVC. This will provide two layers of organization instead of just one.
