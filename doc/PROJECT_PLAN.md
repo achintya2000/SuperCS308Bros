@@ -1,3 +1,17 @@
+* What genre or game are you focusing on and what commonalities and differences have you identified
+    * We are making a 2-D fighting game. 
+* Who is expected to work on which parts of the project
+    * Sebastian and Thomas are going to be working on the front end parts of the game. Achintya, Ben, and Michael will be working on backend and game logic
+* What extensions you are expecting to work on?
+    * High Scores, Dark Mode, Save and Load Game, Save Game Data in the Web, Networked Players, Dynamic Game Content, Preferences
+* What features you expect to complete during each of the three Sprints
+    * Sprint 1: Player movement, 1 stage, fighting (attack) interactions, basic ui, add some preferences
+    * Sprint 2: Modernize UI (with dark mode), more characters and stages, selection screen and menu, local save and data
+    * Sprint 3: upload save and load data to web (create leaderboard), dynamic content (demo version), networked online play
+    
+
+
+
 *  Overview
     *  Sebastian and Thomas are going to be working on the front end parts of the game
     *  Achintya, Ben, and Michael will be working on backend and game logic
