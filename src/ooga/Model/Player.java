@@ -1,8 +1,16 @@
 package ooga.Model;
 
+/**
+ *
+ */
 public class Player {
   private int myStocks;
   private int myStamina;
+  private Character myCharacter;
+
+  public Player() {
+
+  }
 
   /**
    * Getter for myStamina
