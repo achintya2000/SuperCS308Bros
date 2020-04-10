@@ -27,7 +27,7 @@ public class SpriteTester extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Creating an image
-        Image IMAGE = new Image(new FileInputStream("src/ooga/Model/GameEngine/spritesheet.png"));
+        Image IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/spritesheet.png"));
 
         //Setting the image view
         ImageView imageView = new ImageView(IMAGE);
@@ -35,7 +35,7 @@ public class SpriteTester extends Application {
 
         imageView.preserveRatioProperty();
         imageView.setFitHeight(100);
-        imageView.setFitWidth(120);
+        imageView.setFitWidth(100);
 
         final Animation animation = new SpriteAnimation(
                 imageView,
@@ -46,7 +46,7 @@ public class SpriteTester extends Application {
         );
 
         animation.setCycleCount(Animation.INDEFINITE);
-        animation.play();
+        //animation.play();
 
         Group root = new Group(imageView);
 
@@ -64,7 +64,14 @@ public class SpriteTester extends Application {
 
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.D) {
+                animation.play();
                 imageView.setX(imageView.getX() + 30);
+            }
+        });
+
+        scene.setOnKeyReleased(e -> {
+            if (e.getCode() == KeyCode.D) {
+                animation.stop();
             }
         });
     }
