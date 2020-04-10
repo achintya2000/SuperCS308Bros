@@ -25,7 +25,7 @@ public class GameView extends Application implements ViewInternal {
 
   @Override
   public void start(Stage primaryStage) {
-    primaryStage.setScene(new Scene(new BorderPane(), 500, 500));
+    primaryStage.setScene(new Scene(new BorderPane(), 1200, 800));
     primaryStage.show();
   }
 }

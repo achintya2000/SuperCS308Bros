@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 public class Home extends Application {
 
+  private Stage currentStage;
   @Override
   public void start(Stage primaryStage) {
     try{
@@ -25,6 +26,7 @@ public class Home extends Application {
     } catch (IOException e){
       System.out.println(e.getLocalizedMessage());
     }
+    currentStage = primaryStage;
     primaryStage.show();
   }
 
@@ -64,6 +66,7 @@ public class Home extends Application {
 
 
    private void play() {
+    currentStage.hide();
     new GameView().start(new Stage());
    }
    private void help(){
