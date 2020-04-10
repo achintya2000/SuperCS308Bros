@@ -18,7 +18,7 @@ import java.util.Properties;
 public class CharacterSelectView extends Application implements ViewInternal {
 
   private Scene currentScene;
-  private BorderPane VB;
+  private BorderPane BP;
   private HBox HB1;
   private HBox HB2;
   private boolean p1IsReady = false;
@@ -40,8 +40,8 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   public void p1Ready()
   {
-    checkIfReady();
     p1IsReady = true;
+    checkIfReady();
     ImageView p1ReadyOverlay = new ImageView();
     p1ReadyOverlay.setImage(new Image("ReadyLeft.png",600,150,false,true));
     HB1.getChildren().add(p1ReadyOverlay);
@@ -51,14 +51,11 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   public void p2Ready()
   {
-    checkIfReady();
     p2IsReady = true;
+    checkIfReady();
     ImageView p2ReadyOverlay = new ImageView();
-    p2ReadyOverlay.setX(800);
-    p2ReadyOverlay.setY(100);
     p2ReadyOverlay.setImage(new Image("ReadyRight.png",600,150,false,true));
     HB2.getChildren().add(p2ReadyOverlay);
-    System.out.println("ASDhD");
   }
 
   public void checkIfReady()
@@ -66,18 +63,23 @@ public class CharacterSelectView extends Application implements ViewInternal {
     if(p1IsReady && p2IsReady)
     {
       ImageView readyOverlay = new ImageView();
-      readyOverlay.setImage(new Image("ReadyToFight.png",1200,800,false,true));
+      readyOverlay.setImage(new Image("ReadyToFight.png",1200,200,false,true));
+      HBox readyBox = new HBox();
+      readyBox.setAlignment(Pos.CENTER_LEFT);
+      readyBox.getChildren().add(readyOverlay);
+      BP.setCenter(readyBox);
+      System.out.println("ASDhD");
     }
   }
 
   private BorderPane makeBorderPane() throws IOException {
-    BorderPane myGP = new BorderPane();
+    BorderPane myBP = new BorderPane();
     VBox myBox = new VBox();
-    VB = myGP;
+    BP = myBP;
     BackgroundImage homeScreen = new BackgroundImage(new Image("CharacterSelectScreen.png",1245,763,false,true),
             BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
-    myGP.setBackground(new Background(homeScreen));
+    myBP.setBackground(new Background(homeScreen));
     HashMap<String, String> buttonMap = new HashMap<>();
     Properties props = new Properties();
     props.load(Home.class.getResourceAsStream("charSelect_buttons.properties"));
@@ -103,15 +105,16 @@ public class CharacterSelectView extends Application implements ViewInternal {
       }
       myBox.getChildren().add(b);
     }
-    myGP.setLeft(myBox);
+    myBP.setLeft(myBox);
     HB1 = new HBox();
+    HB1.setMaxWidth(600);
     HB2 = new HBox();
     HB1.setAlignment(Pos.BOTTOM_LEFT);
     HB2.setAlignment(Pos.BOTTOM_RIGHT);
     HBox bottomOverlays = new HBox();
     bottomOverlays.getChildren().addAll(HB1,HB2);
-    myGP.setBottom(bottomOverlays);
-    return myGP;
+    myBP.setBottom(bottomOverlays);
+    return myBP;
   }
 
   @Override
