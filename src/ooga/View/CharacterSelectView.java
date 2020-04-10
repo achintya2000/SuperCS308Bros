@@ -1,9 +1,11 @@
 package ooga.View;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -15,6 +17,12 @@ import java.util.Properties;
 
 public class CharacterSelectView extends Application implements ViewInternal {
 
+  private Scene currentScene;
+  private BorderPane VB;
+  private HBox HB1;
+  private HBox HB2;
+  private boolean p1IsReady = false;
+  private boolean p2IsReady = false;
   @Override
   public void resetGame() {
 
@@ -30,9 +38,43 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   }
 
-  private VBox makeGridPane() throws IOException {
-    VBox myGP = new VBox();
-    BackgroundImage homeScreen = new BackgroundImage(new Image("CharacterSelectScreen.png",1200,763,false,true),
+  public void p1Ready()
+  {
+    checkIfReady();
+    p1IsReady = true;
+    ImageView p1ReadyOverlay = new ImageView();
+    p1ReadyOverlay.setImage(new Image("ReadyLeft.png",600,150,false,true));
+    HB1.getChildren().add(p1ReadyOverlay);
+
+    System.out.println(p1ReadyOverlay.getX() + " "+  p1ReadyOverlay.getY());
+  }
+
+  public void p2Ready()
+  {
+    checkIfReady();
+    p2IsReady = true;
+    ImageView p2ReadyOverlay = new ImageView();
+    p2ReadyOverlay.setX(800);
+    p2ReadyOverlay.setY(100);
+    p2ReadyOverlay.setImage(new Image("ReadyRight.png",600,150,false,true));
+    HB2.getChildren().add(p2ReadyOverlay);
+    System.out.println("ASDhD");
+  }
+
+  public void checkIfReady()
+  {
+    if(p1IsReady && p2IsReady)
+    {
+      ImageView readyOverlay = new ImageView();
+      readyOverlay.setImage(new Image("ReadyToFight.png",1200,800,false,true));
+    }
+  }
+
+  private BorderPane makeBorderPane() throws IOException {
+    BorderPane myGP = new BorderPane();
+    VBox myBox = new VBox();
+    VB = myGP;
+    BackgroundImage homeScreen = new BackgroundImage(new Image("CharacterSelectScreen.png",1245,763,false,true),
             BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
     myGP.setBackground(new Background(homeScreen));
@@ -42,10 +84,10 @@ public class CharacterSelectView extends Application implements ViewInternal {
     for(String s : props.stringPropertyNames()){
       buttonMap.put(s, props.getProperty(s));
     }
-    Class<?> thisHome = Home.class;
+    Class<?> thisSelectScreen = CharacterSelectView.class;
     for(String key : buttonMap.keySet()){
       Button b = new Button(key);
-      for(Method m : thisHome.getDeclaredMethods()){
+      for(Method m : thisSelectScreen.getDeclaredMethods()){
         if(buttonMap.get(key).equals(m.getName())){
           b.setOnAction(e -> {
             try{
@@ -59,15 +101,25 @@ public class CharacterSelectView extends Application implements ViewInternal {
           });
         }
       }
-      myGP.getChildren().add(b);
+      myBox.getChildren().add(b);
     }
+    myGP.setLeft(myBox);
+    HB1 = new HBox();
+    HB2 = new HBox();
+    HB1.setAlignment(Pos.BOTTOM_LEFT);
+    HB2.setAlignment(Pos.BOTTOM_RIGHT);
+    HBox bottomOverlays = new HBox();
+    bottomOverlays.getChildren().addAll(HB1,HB2);
+    myGP.setBottom(bottomOverlays);
     return myGP;
   }
 
   @Override
   public void start(Stage primaryStage) {
     try{
-      primaryStage.setScene(new Scene(makeGridPane()));
+      Scene selectScene = new Scene(makeBorderPane());
+      currentScene = selectScene;
+      primaryStage.setScene(selectScene);
       primaryStage.setHeight(800);
       primaryStage.setWidth(1200);
       primaryStage.show();
