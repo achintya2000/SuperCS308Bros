@@ -18,11 +18,14 @@ public class Home extends Application {
   public void start(Stage primaryStage) {
     try{
       primaryStage.setScene(new Scene(makeGridPane()));
+      primaryStage.setHeight(800);
+      primaryStage.setWidth(800);
     } catch (IOException e){
       System.out.println(e.getLocalizedMessage());
     }
     primaryStage.show();
   }
+
   private VBox makeGridPane() throws IOException {
     VBox myGP = new VBox();
     HashMap<String, String> buttonMap = new HashMap<>();
