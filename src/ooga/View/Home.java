@@ -1,5 +1,6 @@
 package ooga.View;
 
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -8,26 +9,33 @@ import java.util.Properties;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class Home extends Application {
 
+  private Stage currentStage;
   @Override
   public void start(Stage primaryStage) {
     try{
-      primaryStage.setScene(new Scene(makeGridPane()));
+      Scene homeScreen = new Scene(makeGridPane());
+      primaryStage.setScene(homeScreen);
       primaryStage.setHeight(800);
-      primaryStage.setWidth(800);
+      primaryStage.setWidth(1200);
     } catch (IOException e){
       System.out.println(e.getLocalizedMessage());
     }
+    currentStage = primaryStage;
     primaryStage.show();
   }
 
   private VBox makeGridPane() throws IOException {
     VBox myGP = new VBox();
+    BackgroundImage homeScreen = new BackgroundImage(new Image("SmashHomeScreen.jpg",1200,800,false,true),
+            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
+    myGP.setBackground(new Background(homeScreen));
     HashMap<String, String> buttonMap = new HashMap<>();
     Properties props = new Properties();
     props.load(Home.class.getResourceAsStream("home_buttons.properties"));
@@ -58,6 +66,7 @@ public class Home extends Application {
 
 
    private void play() {
+    currentStage.hide();
     new GameView().start(new Stage());
    }
    private void help(){
