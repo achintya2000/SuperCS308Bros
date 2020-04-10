@@ -67,7 +67,7 @@ public class Home extends Application {
 
    private void play() {
     currentStage.hide();
-    new GameView().start(new Stage());
+    new CharacterSelectView().start(new Stage());
    }
    private void help(){
 
