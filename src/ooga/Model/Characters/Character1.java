@@ -7,12 +7,17 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import ooga.Model.Character;
 import ooga.Model.GameEngine.SpriteAnimation;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -32,6 +37,9 @@ public class Character1 implements Character {
 
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
+    Pane root;
+    Rectangle hitBox;
+    Rectangle dummy;
 
     public Character1() throws FileNotFoundException {
         spriteImageView = new ImageView(IDLE_IMAGE);
@@ -44,6 +52,9 @@ public class Character1 implements Character {
                 234, 442);
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
+        root = new Pane(spriteImageView);
+        dummy = getDummy();
+        root.getChildren().add(dummy);
     }
 
     public void idle(){
@@ -126,11 +137,38 @@ public class Character1 implements Character {
                 536, 495);
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
+        hitBox = getHitBox();
+        root.getChildren().add(hitBox);
 
+        if(hitBox.getBoundsInParent().intersects(dummy.getBoundsInParent())){
+            dummy.setFill(Color.GREEN);
+        }
         spriteAnimation.setOnFinished(event -> {
             spriteAnimation.stop();
+            root.getChildren().remove(hitBox);
+            dummy.setFill(Color.YELLOW);
             playIdleAnimation();
         });
+    }
+
+    private Rectangle getDummy(){
+        double x = 500;
+        double y = 0;
+        double height = spriteImageView.getImage().getHeight();
+        double width = 200;
+        Rectangle dummy = new Rectangle(x, y, width, height);
+        dummy.setFill(Color.YELLOW);
+        return dummy;
+    }
+
+    private Rectangle getHitBox(){
+        double x = spriteImageView.getBoundsInParent().getMaxX();
+        double y = spriteImageView.getBoundsInParent().getMinY();
+        double height = spriteImageView.getImage().getHeight();
+        double width = 200;
+        Rectangle hurtBox = new Rectangle(x, y, width, height);
+        hurtBox.setFill(Color.RED);
+        return hurtBox;
     }
 
     private void playJumpAnimation() {
@@ -154,6 +192,7 @@ public class Character1 implements Character {
     public ImageView getCharacterImage(){
         return spriteImageView;
     }
-
+    public Pane getRoot(){ return root;
+    }
 
 }

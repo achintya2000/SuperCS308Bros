@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ooga.Model.Characters.Character1;
@@ -24,7 +26,7 @@ public class SpriteTester extends Application {
 
         Character1 ninja = new Character1();
 
-        Group root = new Group(ninja.getCharacterImage());
+        Pane root = ninja.getRoot();
 
         //Creating a scene object
         Scene scene = new Scene(root, 1000, 1000);
