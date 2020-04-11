@@ -7,15 +7,17 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import ooga.Model.Characters.Character1;
+import ooga.Model.Characters.Character2;
 
 public class SpriteTester extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Character1 ninja = new Character1();
+        //Character1 ninja = new Character1();
+        Character2 bunny = new Character2();
 
-        Group root = new Group(ninja.getCharacterImage());
+        Group root = new Group(bunny.getCharacterImage());
 
         //Creating a scene object
         Scene scene = new Scene(root, 1000, 1000);
@@ -36,19 +38,19 @@ public class SpriteTester extends Application {
                 //Update and render
                 scene.setOnKeyPressed(e -> {
                     if (e.getCode() == KeyCode.D) {
-                        ninja.moveRight();
+                        bunny.moveRight();
                     }
                     if (e.getCode() == KeyCode.T) {
-                        ninja.attack();
+                        bunny.attack();
                     }
                     if (e.getCode() == KeyCode.W) {
-                        ninja.jump();
+                        bunny.jump();
                     }
                 });
 
                 scene.setOnKeyReleased(e -> {
                     if (e.getCode() == KeyCode.D) {
-                        ninja.idle();
+                        bunny.idle();
                     }
                     if (e.getCode() == KeyCode.T){
                         //if (spriteAnimation.)

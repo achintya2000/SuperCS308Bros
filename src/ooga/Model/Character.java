@@ -36,7 +36,7 @@ public interface Character {
    * Basic attack
    */
   public void attack();
-
+  
   public abstract void special();
 
 }
