@@ -69,6 +69,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
         playerList.get(currentPlayer-1).setMyCharacter(character);
+        playerList.get(currentPlayer-1).setHasChosenChar(true);
         System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
       });
       button.setDisable(true);
@@ -85,7 +86,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
   }
 
 
-  public void p1Ready() throws InterruptedException {
+  public void p1Ready() {
     for(Button button : buttonList)
     {
       button.setDisable(false);
@@ -102,7 +103,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
 //    System.out.println(p1ReadyOverlay.getX() + " "+  p1ReadyOverlay.getY());
   }
 
-  public void p2Ready() throws InterruptedException {
+  public void p2Ready(){
     for(Button button : buttonList)
     {
       button.setDisable(false);
@@ -118,7 +119,19 @@ public class CharacterSelectView extends Application implements ViewInternal {
 //    checkIfReady();
   }
 
-  public void checkIfReady() throws InterruptedException
+  public void createGame()
+  {
+    if(!checkAllPlayersChosen())
+    {
+      System.out.println("NOT ALL PLAYERS HAVE CHOSEN");
+      return;
+    }
+    System.out.println("Creating Game ... ");
+    currentStage.hide();
+    new GameView(playerList).start(new Stage());
+  }
+
+  public boolean checkAllPlayersChosen()
   {
     boolean allTrue = true;
     for(Player player :playerList)
@@ -128,19 +141,15 @@ public class CharacterSelectView extends Application implements ViewInternal {
         allTrue = false;
       }
     }
-    if(allTrue)
-    {
-      ImageView readyOverlay = new ImageView();
-      readyOverlay.setImage(new Image("ReadyToFight.png",1200,200,false,true));
-      HBox readyBox = new HBox();
-      readyBox.setAlignment(Pos.CENTER_LEFT);
-      readyBox.getChildren().add(readyOverlay);
-      BP.setCenter(readyBox);
-      System.out.println("Creating Game ... ");
-      Thread.sleep(2000);
-      currentStage.hide();
-      new GameView().start(new Stage());
-    }
+    return allTrue;
+
+    //Ready to fight picture
+//      ImageView readyOverlay = new ImageView();
+//      readyOverlay.setImage(new Image("ReadyToFight.png",1200,200,false,true));
+//      HBox readyBox = new HBox();
+//      readyBox.setAlignment(Pos.CENTER_LEFT);
+//      readyBox.getChildren().add(readyOverlay);
+//      BP.setCenter(readyBox);
   }
 
   private BorderPane makeBorderPane() throws IOException {

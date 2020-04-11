@@ -10,7 +10,7 @@ public class Player {
   private int myStocks;
   private int myStamina;
   private Character1 myCharacter;
-  private Boolean hasChosenChar;
+  private Boolean hasChosenChar = false;
   public Player() {
   }
 
