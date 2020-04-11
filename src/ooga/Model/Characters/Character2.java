@@ -1,6 +1,8 @@
 package ooga.Model.Characters;
 
 import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,7 +30,7 @@ public class Character2 implements Character {
     Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-right.png"));
     Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-left.png"));
     //Image ATTACK_IMAGE = new Image(new FileInputStream(""));
-    //Image JUMP_IMAGE = new Image(new FileInputStream(""));
+    Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump.png"));
 
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
@@ -80,7 +82,14 @@ public class Character2 implements Character {
 
     @Override
     public void jump() {
+        TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
+        jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
+        jump.setByY(-25);
+        jump.setAutoReverse(true);
+        jump.setCycleCount(2);
+        jump.play();
 
+        playJumpAnimation();
     }
 
     @Override
@@ -94,16 +103,16 @@ public class Character2 implements Character {
     }
 
     private void playIdleAnimation() {
-//        spriteImageView.setImage(IDLE_IMAGE);
-//        spriteAnimation.setAnimation(
-//                spriteImageView,
-//                Duration.millis(1000),
-//                COUNT, COLUMNS,
-//                OFFSET_X, OFFSET_Y,
-//                WIDTH, HEIGHT
-//        );
-//        spriteAnimation.setCycleCount(Animation.INDEFINITE);
-//        spriteAnimation.play();
+        spriteImageView.setImage(IDLE_IMAGE);
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT
+        );
+        spriteAnimation.setCycleCount(Animation.INDEFINITE);
+        spriteAnimation.play();
     }
 
     private void playRunRightAnimation() {
@@ -126,6 +135,24 @@ public class Character2 implements Character {
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT);
         spriteAnimation.play();
+    }
+
+    private void playJumpAnimation() {
+        spriteAnimation.stop();
+        spriteImageView.setImage(JUMP_IMAGE);
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT);
+        spriteAnimation.setCycleCount(1);
+        spriteAnimation.play();
+
+        spriteAnimation.setOnFinished(event -> {
+            spriteAnimation.stop();
+            playIdleAnimation();
+        });
     }
 
     public ImageView getCharacterImage(){
