@@ -32,6 +32,7 @@ public class Character1 extends CharacterSuper implements Character {
 
 
     public Character1() throws FileNotFoundException {
+      super();
         spriteImageView = new ImageView(IDLE_IMAGE);
         spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
         spriteAnimation = new SpriteAnimation(
