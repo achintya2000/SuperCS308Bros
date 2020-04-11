@@ -25,10 +25,10 @@ public class Character1 implements Character {
     private static final int WIDTH    = 366;
     private static final int HEIGHT   = 461;
 
-    Image RUN_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/run.png"));
-    Image IDLE_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/idle.png"));
-    Image ATTACK_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/attack.png"));
-    Image JUMP_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/jump.png"));
+    Image RUN_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/run.png"));
+    Image IDLE_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/idle.png"));
+    Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/attack.png"));
+    Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/jump.png"));
 
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
