@@ -25,6 +25,10 @@ public class Character1 implements Character {
     private static final int WIDTH    = 366;
     private static final int HEIGHT   = 461;
 
+    private int centerX = 100;
+    private int centerY = 200;
+    private int xSpeed = 25;
+
     Image RUN_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/run.png"));
     Image IDLE_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/idle.png"));
     Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/attack.png"));
@@ -35,6 +39,9 @@ public class Character1 implements Character {
 
     public Character1() throws FileNotFoundException {
         spriteImageView = new ImageView(IDLE_IMAGE);
+        spriteImageView.setX(centerX);
+        spriteImageView.setY(centerY);
+
         spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
         spriteAnimation = new SpriteAnimation(
                 spriteImageView,
@@ -42,6 +49,7 @@ public class Character1 implements Character {
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
                 234, 442);
+
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
     }
@@ -62,7 +70,7 @@ public class Character1 implements Character {
 
     public void moveRight() {
         playRunRightAnimation();
-        spriteImageView.setX(spriteImageView.getX() + 30);
+        spriteImageView.setX(centerX += xSpeed);
     }
 
     @Override
