@@ -16,7 +16,7 @@ import ooga.Model.GameEngine.SpriteAnimation;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Character1 implements Character {
+public class Character1 extends CharacterSuper implements Character {
 
     private static final int COLUMNS  =   10;
     private static final int COUNT    =  10;
@@ -34,10 +34,9 @@ public class Character1 implements Character {
     Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/attack.png"));
     Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/jump.png"));
 
-    ImageView spriteImageView;
-    SpriteAnimation spriteAnimation;
 
     public Character1() throws FileNotFoundException {
+      super();
         spriteImageView = new ImageView(IDLE_IMAGE);
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
