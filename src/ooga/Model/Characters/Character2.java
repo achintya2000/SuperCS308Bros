@@ -26,17 +26,24 @@ public class Character2 implements Character {
     private int centerY = 200;
     private int xSpeed = 25;
 
-    Image IDLE_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle.png"));
+    private boolean facingRight = true;
+
+    Image IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-right.png"));
+    Image IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-left.png"));
+
     Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-right.png"));
     Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-left.png"));
-    Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-right.png"));
+
+    Image ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-right.png"));
+    Image ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-left.png"));
+
     Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump.png"));
 
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
 
     public Character2() throws FileNotFoundException {
-        spriteImageView = new ImageView(IDLE_IMAGE);
+        spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
 
@@ -65,12 +72,14 @@ public class Character2 implements Character {
 
     @Override
     public void moveLeft() {
+        facingRight = false;
         playRunLeftAnimation();
         spriteImageView.setX(centerX -= xSpeed);
     }
 
     @Override
     public void moveRight() {
+        facingRight = true;
         playRunRightAnimation();
         spriteImageView.setX(centerX += xSpeed);
     }
@@ -103,16 +112,30 @@ public class Character2 implements Character {
     }
 
     private void playIdleAnimation() {
-        spriteImageView.setImage(IDLE_IMAGE);
-        spriteAnimation.setAnimation(
-                spriteImageView,
-                Duration.millis(1000),
-                COUNT, COLUMNS,
-                OFFSET_X, OFFSET_Y,
-                WIDTH, HEIGHT
-        );
-        spriteAnimation.setCycleCount(Animation.INDEFINITE);
-        spriteAnimation.play();
+        if (facingRight) {
+            spriteImageView.setImage(IDLE_IMAGE_RIGHT);
+            spriteAnimation.setAnimation(
+                    spriteImageView,
+                    Duration.millis(1000),
+                    COUNT, COLUMNS,
+                    OFFSET_X, OFFSET_Y,
+                    WIDTH, HEIGHT
+            );
+            spriteAnimation.setCycleCount(Animation.INDEFINITE);
+            spriteAnimation.play();
+        } else {
+            spriteImageView.setImage(IDLE_IMAGE_LEFT);
+            spriteAnimation.setAnimation(
+                    spriteImageView,
+                    Duration.millis(1000),
+                    COUNT, COLUMNS,
+                    OFFSET_X, OFFSET_Y,
+                    WIDTH, HEIGHT
+            );
+            spriteAnimation.setCycleCount(Animation.INDEFINITE);
+            spriteAnimation.play();
+        }
+
     }
 
     private void playRunRightAnimation() {
@@ -138,21 +161,40 @@ public class Character2 implements Character {
     }
 
     private void playAttackAnimation() {
-        spriteAnimation.stop();
-        spriteImageView.setImage(ATTACK_IMAGE);
-        spriteAnimation.setAnimation(
-                spriteImageView,
-                Duration.millis(1000),
-                6, 6,
-                OFFSET_X, OFFSET_Y,
-                WIDTH, HEIGHT);
-        spriteAnimation.setCycleCount(1);
-        spriteAnimation.play();
-
-        spriteAnimation.setOnFinished(event -> {
+        if (facingRight) {
             spriteAnimation.stop();
-            playIdleAnimation();
-        });
+            spriteImageView.setImage(ATTACK_IMAGE_RIGHT);
+            spriteAnimation.setAnimation(
+                    spriteImageView,
+                    Duration.millis(1000),
+                    6, 6,
+                    OFFSET_X, OFFSET_Y,
+                    WIDTH, HEIGHT);
+            spriteAnimation.setCycleCount(1);
+            spriteAnimation.play();
+
+            spriteAnimation.setOnFinished(event -> {
+                spriteAnimation.stop();
+                playIdleAnimation();
+            });
+        } else {
+            spriteAnimation.stop();
+            spriteImageView.setImage(ATTACK_IMAGE_LEFT);
+            spriteAnimation.setAnimation(
+                    spriteImageView,
+                    Duration.millis(1000),
+                    6, 6,
+                    OFFSET_X, OFFSET_Y,
+                    WIDTH, HEIGHT);
+            spriteAnimation.setCycleCount(1);
+            spriteAnimation.play();
+
+            spriteAnimation.setOnFinished(event -> {
+                spriteAnimation.stop();
+                playIdleAnimation();
+            });
+        }
+
     }
 
     private void playJumpAnimation() {
@@ -176,4 +218,13 @@ public class Character2 implements Character {
     public ImageView getCharacterImage(){
         return spriteImageView;
     }
+
+    public boolean getIsFacingRight() {
+        return facingRight;
+    }
+
+    public void setIsFacingRight(boolean facingRight) {
+        this.facingRight = facingRight;
+    }
+
 }
