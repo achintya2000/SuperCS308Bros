@@ -1,5 +1,7 @@
 package ooga.Model;
 
+import javafx.scene.layout.BorderPane;
+
 /**
  *
  */
@@ -7,9 +9,12 @@ public class Player {
   private int myStocks;
   private int myStamina;
   private Character myCharacter;
-
+  private Boolean hasChosenChar;
   public Player() {
+  }
 
+  public void setMyCharacter(Character myCharacter) {
+    this.myCharacter = myCharacter;
   }
 
   /**
@@ -18,6 +23,14 @@ public class Player {
    */
   public int getStamina() {
     return myStamina;
+  }
+
+  public Boolean getHasChosenChar() {
+    return hasChosenChar;
+  }
+
+  public void setHasChosenChar(Boolean hasChosenChar) {
+    this.hasChosenChar = hasChosenChar;
   }
 
   /**

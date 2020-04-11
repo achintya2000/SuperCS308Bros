@@ -2,6 +2,7 @@ package ooga.View;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -10,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import ooga.Model.Character;
 import ooga.Model.Characters.Character1;
+import ooga.Model.Player;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,6 +31,11 @@ public class CharacterSelectView extends Application implements ViewInternal {
   private boolean p2IsReady = false;
   private Stage currentStage;
   private ArrayList<Character1> characterList = new ArrayList<>();
+  private ArrayList<Button> buttonList = new ArrayList<>();
+  private Player player1;
+  private Player player2;
+  private ArrayList<Player> playerList = new ArrayList<>();
+  private int currentPlayer = 1;
 
   @Override
   public void resetGame() {
@@ -59,31 +66,54 @@ public class CharacterSelectView extends Application implements ViewInternal {
     int colThresh = 2;
     for(Character1 character : characterList)
     {
-      charGrid.add(character.getCharacterImage(), colCount,rowCount);
+      Button button = new Button();
+      button.setDisable(true);
+      button.setGraphic(character.getCharacterImage());
+      charGrid.add(button, colCount,rowCount);
       colCount++;
       if(colCount >= colThresh)
       {
         colCount = 0;
         rowCount++;
       }
+      buttonList.add(button);
     }
   }
 
+
   public void p1Ready() throws InterruptedException {
+    for(Button button : buttonList)
+    {
+      button.setDisable(false);
+    }
+    currentPlayer = 1;
     p1IsReady = true;
-    ImageView p1ReadyOverlay = new ImageView();
-    p1ReadyOverlay.setImage(new Image("ReadyLeft.png",600,150,false,true));
-    HB1.getChildren().add(p1ReadyOverlay);
-    checkIfReady();
-    System.out.println(p1ReadyOverlay.getX() + " "+  p1ReadyOverlay.getY());
+//    ImageView p1ReadyOverlay = new ImageView();
+//    p1ReadyOverlay.setImage(new Image("ReadyLeft.png",600,150,false,true));
+//    HB1.getChildren().add(p1ReadyOverlay);
+//    for(Button button : buttonList)
+//    {
+//      button.setDisable(false);
+//    }
+//    checkIfReady();
+//    System.out.println(p1ReadyOverlay.getX() + " "+  p1ReadyOverlay.getY());
   }
 
   public void p2Ready() throws InterruptedException {
+    for(Button button : buttonList)
+    {
+      button.setDisable(false);
+    }
+    currentPlayer = 2;
     p2IsReady = true;
-    ImageView p2ReadyOverlay = new ImageView();
-    p2ReadyOverlay.setImage(new Image("ReadyRight.png",600,150,false,true));
-    HB2.getChildren().add(p2ReadyOverlay);
-    checkIfReady();
+//    ImageView p2ReadyOverlay = new ImageView();
+//    p2ReadyOverlay.setImage(new Image("ReadyRight.png",600,150,false,true));
+//    HB2.getChildren().add(p2ReadyOverlay);
+//    for(Button button : buttonList)
+//    {
+//      button.setDisable(false);
+//    }
+//    checkIfReady();
   }
 
   public void checkIfReady() throws InterruptedException
@@ -157,6 +187,10 @@ public class CharacterSelectView extends Application implements ViewInternal {
       primaryStage.setScene(selectScene);
       primaryStage.setHeight(800);
       primaryStage.setWidth(1200);
+      player1 = new Player();
+      player2 = new Player();
+      playerList.add(player1);
+      playerList.add(player2);
       initCharacters();
       primaryStage.show();
     } catch (IOException e){
