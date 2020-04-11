@@ -29,7 +29,7 @@ public class Character2 implements Character {
     Image IDLE_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle.png"));
     Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-right.png"));
     Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-left.png"));
-    //Image ATTACK_IMAGE = new Image(new FileInputStream(""));
+    Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-right.png"));
     Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump.png"));
 
     ImageView spriteImageView;
@@ -94,7 +94,7 @@ public class Character2 implements Character {
 
     @Override
     public void attack() {
-
+        playAttackAnimation();
     }
 
     @Override
@@ -135,6 +135,24 @@ public class Character2 implements Character {
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT);
         spriteAnimation.play();
+    }
+
+    private void playAttackAnimation() {
+        spriteAnimation.stop();
+        spriteImageView.setImage(ATTACK_IMAGE);
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                6, 6,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT);
+        spriteAnimation.setCycleCount(1);
+        spriteAnimation.play();
+
+        spriteAnimation.setOnFinished(event -> {
+            spriteAnimation.stop();
+            playIdleAnimation();
+        });
     }
 
     private void playJumpAnimation() {
