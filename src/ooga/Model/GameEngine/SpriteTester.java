@@ -16,11 +16,12 @@ public class SpriteTester extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Character1 ninja = new Character1();
-        Character2 bunny = new Character2();
+        Character2 bunny = new Character2(100, 400);
+        Character2 bunny2 = new Character2(300, 400);
 
-        Pane root = ninja.getRoot();
-        root.getChildren().add(bunny.getRoot());
+
+        Pane root = bunny.getRoot();
+        root.getChildren().add(bunny2.getRoot());
 
 
         //Creating a scene object
@@ -42,22 +43,22 @@ public class SpriteTester extends Application {
                 //Update and render
                 scene.setOnKeyPressed(e -> {
                     if (e.getCode() == KeyCode.D) {
-                        ninja.moveRight();
+                        bunny.moveRight();
                     }
                     if (e.getCode() == KeyCode.T) {
-                        ninja.attack();
+                        bunny.attack();
                     }
                     if (e.getCode() == KeyCode.W) {
-                        ninja.jump();
+                        bunny.jump();
                     }
                     if (e.getCode() == KeyCode.A) {
-                        ninja.moveLeft();
+                        bunny.moveLeft();
                     }
                 });
 
                 scene.setOnKeyReleased(e -> {
                     if (e.getCode() == KeyCode.D || e.getCode() == KeyCode.A) {
-                        ninja.idle();
+                        bunny.idle();
                     }
                     if (e.getCode() == KeyCode.T){
                         //if (spriteAnimation.)

@@ -31,6 +31,7 @@ public class Character2 extends CharacterSuper implements Character {
     private int xSpeed = 25;
 
     private boolean facingRight = true;
+    private int health = 100;
 
     Image IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-right.png"));
     Image IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-left.png"));
@@ -50,8 +51,10 @@ public class Character2 extends CharacterSuper implements Character {
     Rectangle dummy;
     boolean attackFinish;
 
-    public Character2() throws FileNotFoundException {
+    public Character2(int x, int y) throws FileNotFoundException {
         spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
+        this.centerX = x;
+        this.centerY = y;
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
 
