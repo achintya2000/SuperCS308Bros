@@ -13,7 +13,7 @@ import ooga.Model.GameEngine.SpriteAnimation;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Character2 implements Character {
+public class Character2 extends CharacterSuper implements Character {
 
     private static final int COLUMNS  =  10;
     private static final int COUNT    =  10;
@@ -195,14 +195,6 @@ public class Character2 implements Character {
 
     public ImageView getCharacterImage(){
         return spriteImageView;
-    }
-
-    public boolean getIsFacingRight() {
-        return facingRight;
-    }
-
-    public void setIsFacingRight(boolean facingRight) {
-        this.facingRight = facingRight;
     }
 
 }
