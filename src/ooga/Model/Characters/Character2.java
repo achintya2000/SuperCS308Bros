@@ -114,27 +114,18 @@ public class Character2 implements Character {
     private void playIdleAnimation() {
         if (facingRight) {
             spriteImageView.setImage(IDLE_IMAGE_RIGHT);
-            spriteAnimation.setAnimation(
-                    spriteImageView,
-                    Duration.millis(1000),
-                    COUNT, COLUMNS,
-                    OFFSET_X, OFFSET_Y,
-                    WIDTH, HEIGHT
-            );
-            spriteAnimation.setCycleCount(Animation.INDEFINITE);
-            spriteAnimation.play();
         } else {
             spriteImageView.setImage(IDLE_IMAGE_LEFT);
-            spriteAnimation.setAnimation(
-                    spriteImageView,
-                    Duration.millis(1000),
-                    COUNT, COLUMNS,
-                    OFFSET_X, OFFSET_Y,
-                    WIDTH, HEIGHT
-            );
-            spriteAnimation.setCycleCount(Animation.INDEFINITE);
-            spriteAnimation.play();
         }
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT
+        );
+        spriteAnimation.setCycleCount(Animation.INDEFINITE);
+        spriteAnimation.play();
 
     }
 
@@ -161,39 +152,26 @@ public class Character2 implements Character {
     }
 
     private void playAttackAnimation() {
+        spriteAnimation.stop();
         if (facingRight) {
-            spriteAnimation.stop();
             spriteImageView.setImage(ATTACK_IMAGE_RIGHT);
-            spriteAnimation.setAnimation(
-                    spriteImageView,
-                    Duration.millis(1000),
-                    6, 6,
-                    OFFSET_X, OFFSET_Y,
-                    WIDTH, HEIGHT);
-            spriteAnimation.setCycleCount(1);
-            spriteAnimation.play();
 
-            spriteAnimation.setOnFinished(event -> {
-                spriteAnimation.stop();
-                playIdleAnimation();
-            });
         } else {
-            spriteAnimation.stop();
             spriteImageView.setImage(ATTACK_IMAGE_LEFT);
-            spriteAnimation.setAnimation(
-                    spriteImageView,
-                    Duration.millis(1000),
-                    6, 6,
-                    OFFSET_X, OFFSET_Y,
-                    WIDTH, HEIGHT);
-            spriteAnimation.setCycleCount(1);
-            spriteAnimation.play();
-
-            spriteAnimation.setOnFinished(event -> {
-                spriteAnimation.stop();
-                playIdleAnimation();
-            });
         }
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                6, 6,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT);
+        spriteAnimation.setCycleCount(1);
+        spriteAnimation.play();
+
+        spriteAnimation.setOnFinished(event -> {
+            spriteAnimation.stop();
+            playIdleAnimation();
+        });
 
     }
 
