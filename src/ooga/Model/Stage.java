@@ -17,8 +17,8 @@ public class Stage {
   }
 
   /**
-   *
-   * @return
+   * Getter for background ImageView
+   * @return background
    */
   public ImageView getBackground() {
     return background;
