@@ -2,6 +2,8 @@ package ooga.Model.GameEngine;
 
 import javafx.animation.Animation;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -12,7 +14,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import ooga.Model.GameEngine.SpriteAnimation;
 
-import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 
 public class SpriteTester extends Application {
@@ -27,28 +28,29 @@ public class SpriteTester extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Creating an image
-        Image IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/spritesheet.png"));
+        Image RUN_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/run.png"));
+        Image IDLE_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/idle.png"));
+        Image ATTACK_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/attack.png"));
 
         //Setting the image view
-        ImageView imageView = new ImageView(IMAGE);
-        imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
+        ImageView spriteImageView = new ImageView(IDLE_IMAGE);
+        spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
 
-        imageView.preserveRatioProperty();
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(100);
+        //spriteImageView.setPreserveRatio(true);
+        //spriteImageView.setFitHeight(100);
+        //imageView.setFitWidth(100);
 
-        final Animation animation = new SpriteAnimation(
-                imageView,
+        SpriteAnimation spriteAnimation = new SpriteAnimation(
+                spriteImageView,
                 Duration.millis(1000),
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
-                WIDTH, HEIGHT
+                234, 442
         );
-
-        animation.setCycleCount(Animation.INDEFINITE);
-        //animation.play();
-
-        Group root = new Group(imageView);
+        spriteAnimation.setCycleCount(Animation.INDEFINITE);
+        spriteAnimation.play();
+        
+        Group root = new Group(spriteImageView);
 
         //Creating a scene object
         Scene scene = new Scene(root, 1000, 1000);
@@ -64,14 +66,53 @@ public class SpriteTester extends Application {
 
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.D) {
-                animation.play();
-                imageView.setX(imageView.getX() + 30);
+                spriteImageView.setImage(RUN_IMAGE);
+                //spriteAnimation.stop();
+                spriteAnimation.setAnimation(spriteImageView, Duration.millis(1000),
+                        COUNT, COLUMNS,
+                        OFFSET_X, OFFSET_Y,
+                        WIDTH, HEIGHT);
+                spriteAnimation.play();
+
+                spriteImageView.setX(spriteImageView.getX() + 30);
+            }
+            if (e.getCode() == KeyCode.T) {
+                spriteAnimation.stop();
+                spriteImageView.setImage(ATTACK_IMAGE);
+                spriteAnimation.setAnimation(spriteImageView, Duration.millis(1000),
+                        COUNT, COLUMNS,
+                        OFFSET_X, OFFSET_Y,
+                        536, 495);
+                spriteAnimation.setCycleCount(1);
+                spriteAnimation.play();
+
+                spriteAnimation.setOnFinished(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        spriteAnimation.stop();
+                        spriteImageView.setImage(IDLE_IMAGE);
+                        spriteAnimation.setAnimation(spriteImageView, Duration.millis(1000),
+                                COUNT, COLUMNS,
+                                OFFSET_X, OFFSET_Y,
+                                234, 442);
+                        spriteAnimation.setCycleCount(Animation.INDEFINITE);
+                        spriteAnimation.play();
+                    }
+                });
             }
         });
 
         scene.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.D) {
-                animation.stop();
+                spriteImageView.setImage(IDLE_IMAGE);
+                spriteAnimation.setAnimation(spriteImageView, Duration.millis(1000),
+                        COUNT, COLUMNS,
+                        OFFSET_X, OFFSET_Y,
+                        234, 442);
+                spriteAnimation.play();
+            }
+            if (e.getCode() == KeyCode.T){
+                //if (spriteAnimation.)
             }
         });
     }
