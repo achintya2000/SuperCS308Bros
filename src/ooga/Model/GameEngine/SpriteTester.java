@@ -20,6 +20,7 @@ public class SpriteTester extends Application {
         Character2 bunny = new Character2();
 
         Pane root = ninja.getRoot();
+        root.getChildren().add(bunny.getRoot());
 
 
         //Creating a scene object
@@ -47,16 +48,16 @@ public class SpriteTester extends Application {
                         ninja.attack();
                     }
                     if (e.getCode() == KeyCode.W) {
-                        bunny.jump();
+                        ninja.jump();
                     }
                     if (e.getCode() == KeyCode.A) {
-                        bunny.moveLeft();
+                        ninja.moveLeft();
                     }
                 });
 
                 scene.setOnKeyReleased(e -> {
                     if (e.getCode() == KeyCode.D || e.getCode() == KeyCode.A) {
-                        bunny.idle();
+                        ninja.idle();
                     }
                     if (e.getCode() == KeyCode.T){
                         //if (spriteAnimation.)
