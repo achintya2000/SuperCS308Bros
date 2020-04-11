@@ -95,15 +95,6 @@ public class Character1 {
             public void handle(ActionEvent event) {
                 spriteAnimation.stop();
                 playIdleAnimation();
-//                spriteImageView.setImage(IDLE_IMAGE);
-//                spriteAnimation.setAnimation(
-//                        spriteImageView,
-//                        Duration.millis(1000),
-//                        COUNT, COLUMNS,
-//                        OFFSET_X, OFFSET_Y,
-//                        234, 442);
-//                spriteAnimation.setCycleCount(Animation.INDEFINITE);
-//                spriteAnimation.play();
             }
         });
     }
