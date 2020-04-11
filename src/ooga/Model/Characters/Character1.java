@@ -24,6 +24,7 @@ public class Character1 implements Character {
     private static final int OFFSET_Y =  0;
     private static final int WIDTH    = 366;
     private static final int HEIGHT   = 461;
+    private String name = "";
 
     Image RUN_RIGHT_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/runRight.png"));
     Image RUN_LEFT_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/runLeft.png"));
@@ -34,7 +35,8 @@ public class Character1 implements Character {
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
 
-    public Character1() throws FileNotFoundException {
+    public Character1(String name) throws FileNotFoundException {
+        setName(name);
         spriteImageView = new ImageView(IDLE_IMAGE);
         spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
         spriteAnimation = new SpriteAnimation(
@@ -49,6 +51,11 @@ public class Character1 implements Character {
 
     public void idle(){
         playIdleAnimation();
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     @Override
@@ -87,6 +94,11 @@ public class Character1 implements Character {
     @Override
     public void special() {
 
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void attack() {

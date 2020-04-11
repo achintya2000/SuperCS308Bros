@@ -22,7 +22,7 @@ public class SpriteTester extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Character1 ninja = new Character1();
+        Character1 ninja = new Character1("ninja1");
 
         Group root = new Group(ninja.getCharacterImage());
 

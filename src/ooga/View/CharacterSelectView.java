@@ -53,9 +53,9 @@ public class CharacterSelectView extends Application implements ViewInternal {
   }
 
   public void initCharacters() throws FileNotFoundException {
-    Character1 ninja = new Character1();
-    Character1 ninja2 = new Character1();
-    Character1 ninja3 = new Character1();
+    Character1 ninja = new Character1("ninja1");
+    Character1 ninja2 = new Character1("ninja2");
+    Character1 ninja3 = new Character1("ninja3");
     GridPane charGrid = new GridPane();
     BP.setCenter(charGrid);
     characterList.add(ninja);
@@ -67,6 +67,10 @@ public class CharacterSelectView extends Application implements ViewInternal {
     for(Character1 character : characterList)
     {
       Button button = new Button();
+      button.setOnMouseClicked((e) -> {
+        playerList.get(currentPlayer-1).setMyCharacter(character);
+        System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
+      });
       button.setDisable(true);
       button.setGraphic(character.getCharacterImage());
       charGrid.add(button, colCount,rowCount);
