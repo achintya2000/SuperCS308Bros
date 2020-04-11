@@ -27,8 +27,8 @@ public class CharacterSelectView extends Application implements ViewInternal {
   private BorderPane BP;
   private HBox HB1;
   private HBox HB2;
-  private boolean p1IsReady = false;
-  private boolean p2IsReady = false;
+//  private boolean p1IsReady = false;
+//  private boolean p2IsReady = false;
   private Stage currentStage;
   private ArrayList<Character1> characterList = new ArrayList<>();
   private ArrayList<Button> buttonList = new ArrayList<>();
@@ -87,7 +87,6 @@ public class CharacterSelectView extends Application implements ViewInternal {
       button.setDisable(false);
     }
     currentPlayer = 1;
-    p1IsReady = true;
 //    ImageView p1ReadyOverlay = new ImageView();
 //    p1ReadyOverlay.setImage(new Image("ReadyLeft.png",600,150,false,true));
 //    HB1.getChildren().add(p1ReadyOverlay);
@@ -105,7 +104,6 @@ public class CharacterSelectView extends Application implements ViewInternal {
       button.setDisable(false);
     }
     currentPlayer = 2;
-    p2IsReady = true;
 //    ImageView p2ReadyOverlay = new ImageView();
 //    p2ReadyOverlay.setImage(new Image("ReadyRight.png",600,150,false,true));
 //    HB2.getChildren().add(p2ReadyOverlay);
@@ -118,7 +116,15 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   public void checkIfReady() throws InterruptedException
   {
-    if(p1IsReady && p2IsReady)
+    boolean allTrue = true;
+    for(Player player :playerList)
+    {
+      if(!player.getHasChosenChar())
+      {
+        allTrue = false;
+      }
+    }
+    if(allTrue)
     {
       ImageView readyOverlay = new ImageView();
       readyOverlay.setImage(new Image("ReadyToFight.png",1200,200,false,true));
