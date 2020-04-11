@@ -19,12 +19,12 @@ import java.io.FileInputStream;
 
 public class SpriteTester extends Application {
 
-//    private static final int COLUMNS  =   10;
-//    private static final int COUNT    =  10;
-//    private static final int OFFSET_X =  0;
-//    private static final int OFFSET_Y =  0;
-//    private static final int WIDTH    = 366;
-//    private static final int HEIGHT   = 461;
+    private static final int COLUMNS  =   10;
+    private static final int COUNT    =  10;
+    private static final int OFFSET_X =  0;
+    private static final int OFFSET_Y =  0;
+    private static final int WIDTH    = 366;
+    private static final int HEIGHT   = 461;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -39,11 +39,11 @@ public class SpriteTester extends Application {
 //        //Setting the image view
 //        ImageView spriteImageView = new ImageView(IDLE_IMAGE);
 //        spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
-
-        //spriteImageView.setPreserveRatio(true);
-        //spriteImageView.setFitHeight(100);
-        //imageView.setFitWidth(100);
-
+//
+////        spriteImageView.setPreserveRatio(true);
+////        spriteImageView.setFitHeight(100);
+////        imageView.setFitWidth(100);
+//
 //        SpriteAnimation spriteAnimation = new SpriteAnimation(
 //                spriteImageView,
 //                Duration.millis(1000),
@@ -107,6 +107,7 @@ public class SpriteTester extends Application {
 
         scene.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.D) {
+                ninja.idle();
 //                spriteImageView.setImage(IDLE_IMAGE);
 //                spriteAnimation.setAnimation(spriteImageView, Duration.millis(1000),
 //                        COUNT, COLUMNS,

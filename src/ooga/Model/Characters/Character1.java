@@ -29,6 +29,17 @@ public class Character1 {
     public Character1() throws FileNotFoundException {
         spriteImageView = new ImageView(IDLE_IMAGE);
         spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
+        spriteAnimation = new SpriteAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                234, 442);
+        spriteAnimation.setCycleCount(Animation.INDEFINITE);
+        spriteAnimation.play();
+    }
+
+    public void idle(){
         playIdleAnimation();
     }
 
@@ -42,14 +53,14 @@ public class Character1 {
     }
 
     private void playIdleAnimation() {
-        spriteAnimation = new SpriteAnimation(
+        spriteImageView.setImage(IDLE_IMAGE);
+        spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
-                234, 442
+                234, 441
         );
-        spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
     }
 
