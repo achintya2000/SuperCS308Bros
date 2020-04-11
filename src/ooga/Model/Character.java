@@ -8,19 +8,24 @@ public interface Character {
   public void setSpriteSheet();
 
   /**
+   * Set idle info
+   */
+  public void idle();
+
+  /**
    * Move character left
    */
-  public void left();
+  public void moveLeft();
 
   /**
    * Move character right
    */
-  public void right();
+  public void moveRight();
 
   /**
    * Move character down
    */
-  public void down();
+  public void moveDown();
 
   /**
    * Has the character jump

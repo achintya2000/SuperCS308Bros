@@ -7,12 +7,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import ooga.Model.Character;
 import ooga.Model.GameEngine.SpriteAnimation;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Character1 {
+public class Character1 implements Character {
 
     private static final int COLUMNS  =   10;
     private static final int COUNT    =  10;
@@ -45,9 +46,34 @@ public class Character1 {
         playIdleAnimation();
     }
 
+    @Override
+    public void setSpriteSheet() {
+
+    }
+
+    @Override
+    public void moveLeft() {
+
+    }
+
     public void moveRight() {
         playRunRightAnimation();
         spriteImageView.setX(spriteImageView.getX() + 30);
+    }
+
+    @Override
+    public void moveDown() {
+
+    }
+
+    @Override
+    public void jump() {
+
+    }
+
+    @Override
+    public void special() {
+
     }
 
     public void attack() {
@@ -90,12 +116,9 @@ public class Character1 {
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
-        spriteAnimation.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                spriteAnimation.stop();
-                playIdleAnimation();
-            }
+        spriteAnimation.setOnFinished(event -> {
+            spriteAnimation.stop();
+            playIdleAnimation();
         });
     }
 
