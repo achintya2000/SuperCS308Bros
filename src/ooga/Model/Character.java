@@ -32,6 +32,11 @@ public interface Character {
    */
   public void jump();
 
+  /**
+   * Basic attack
+   */
+  public void attack();
+
   public abstract void special();
 
 }
