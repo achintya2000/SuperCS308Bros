@@ -47,16 +47,25 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   public void initCharacters() throws FileNotFoundException {
     Character1 ninja = new Character1();
+    Character1 ninja2 = new Character1();
+    Character1 ninja3 = new Character1();
     GridPane charGrid = new GridPane();
     BP.setCenter(charGrid);
     characterList.add(ninja);
+    characterList.add(ninja2);
+    characterList.add(ninja3);
     int colCount = 0;
     int rowCount = 0;
+    int colThresh = 2;
     for(Character1 character : characterList)
     {
-      charGrid.add(character.getCharacterImage(), rowCount,colCount);
-      rowCount++;
+      charGrid.add(character.getCharacterImage(), colCount,rowCount);
       colCount++;
+      if(colCount >= colThresh)
+      {
+        colCount = 0;
+        rowCount++;
+      }
     }
   }
 
