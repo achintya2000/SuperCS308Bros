@@ -43,6 +43,7 @@ public class Character2 extends CharacterSuper implements Character {
     SpriteAnimation spriteAnimation;
 
     public Character2() throws FileNotFoundException {
+        super();
         spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);

@@ -29,6 +29,8 @@ public class Character1 extends CharacterSuper implements Character {
     private int centerY = 200;
     private int xSpeed = 25;
 
+    private int health = 100;
+
     Image RUN_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/run.png"));
     Image IDLE_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/idle.png"));
     Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/attack.png"));
@@ -36,7 +38,7 @@ public class Character1 extends CharacterSuper implements Character {
 
 
     public Character1() throws FileNotFoundException {
-      super();
+        super();
         spriteImageView = new ImageView(IDLE_IMAGE);
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
@@ -162,5 +164,8 @@ public class Character1 extends CharacterSuper implements Character {
         return spriteImageView;
     }
 
+    public void printHealth() {
+        System.out.println(health);
+    }
 
 }
