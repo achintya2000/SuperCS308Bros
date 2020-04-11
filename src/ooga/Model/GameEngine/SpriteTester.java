@@ -45,6 +45,9 @@ public class SpriteTester extends Application {
             if (e.getCode() == KeyCode.T) {
                 ninja.attack();
             }
+            if (e.getCode() == KeyCode.W) {
+                ninja.jump();
+            }
         });
 
         scene.setOnKeyReleased(e -> {

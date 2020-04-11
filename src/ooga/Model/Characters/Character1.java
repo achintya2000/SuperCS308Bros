@@ -1,6 +1,9 @@
 package ooga.Model.Characters;
 
 import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
@@ -25,6 +28,7 @@ public class Character1 implements Character {
     Image RUN_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/run.png"));
     Image IDLE_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/idle.png"));
     Image ATTACK_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/attack.png"));
+    Image JUMP_IMAGE = new Image(new FileInputStream("resources/spritesheets/chracter1/jump.png"));
 
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
@@ -68,7 +72,14 @@ public class Character1 implements Character {
 
     @Override
     public void jump() {
+        TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
+        jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
+        jump.setByY(-50);
+        jump.setAutoReverse(true);
+        jump.setCycleCount(2);
+        jump.play();
 
+        playJumpAnimation();
     }
 
     @Override
@@ -113,6 +124,24 @@ public class Character1 implements Character {
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
                 536, 495);
+        spriteAnimation.setCycleCount(1);
+        spriteAnimation.play();
+
+        spriteAnimation.setOnFinished(event -> {
+            spriteAnimation.stop();
+            playIdleAnimation();
+        });
+    }
+
+    private void playJumpAnimation() {
+        spriteAnimation.stop();
+        spriteImageView.setImage(JUMP_IMAGE);
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                365, 486);
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
