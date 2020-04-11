@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -38,8 +39,9 @@ public class Character1 implements Character {
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
     Pane root;
-    Rectangle hitBox;
+    Circle hitBox;
     Rectangle dummy;
+    boolean attackFinish;
 
     public Character1() throws FileNotFoundException {
         spriteImageView = new ImageView(IDLE_IMAGE);
@@ -55,6 +57,7 @@ public class Character1 implements Character {
         root = new Pane(spriteImageView);
         dummy = getDummy();
         root.getChildren().add(dummy);
+        attackFinish = true;
     }
 
     public void idle(){
@@ -137,6 +140,7 @@ public class Character1 implements Character {
                 536, 495);
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
+        root.getChildren().remove(hitBox);
         hitBox = getHitBox();
         root.getChildren().add(hitBox);
 
@@ -161,12 +165,12 @@ public class Character1 implements Character {
         return dummy;
     }
 
-    private Rectangle getHitBox(){
-        double x = spriteImageView.getBoundsInParent().getMaxX();
-        double y = spriteImageView.getBoundsInParent().getMinY();
+    private Circle getHitBox(){
+        double x = spriteImageView.getBoundsInParent().getMaxX() + 120;
+        double y = spriteImageView.getBoundsInParent().getMaxY()/2;
         double height = spriteImageView.getImage().getHeight();
-        double width = 200;
-        Rectangle hurtBox = new Rectangle(x, y, width, height);
+        double radius = 100;
+        Circle hurtBox = new Circle(x, y, radius);
         hurtBox.setFill(Color.RED);
         return hurtBox;
     }
