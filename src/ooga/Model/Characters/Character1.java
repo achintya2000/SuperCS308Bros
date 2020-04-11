@@ -24,6 +24,8 @@ public class Character1 extends CharacterSuper implements Character {
     private static final int OFFSET_Y =  0;
     private static final int WIDTH    = 366;
     private static final int HEIGHT   = 461;
+    private String name = "";
+
 
     private int centerX = 100;
     private int centerY = 200;
@@ -37,8 +39,10 @@ public class Character1 extends CharacterSuper implements Character {
     Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/jump.png"));
 
 
-    public Character1() throws FileNotFoundException {
+
+    public Character1(String name) throws FileNotFoundException {
         super();
+        setName(name);
         spriteImageView = new ImageView(IDLE_IMAGE);
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
@@ -59,6 +63,11 @@ public class Character1 extends CharacterSuper implements Character {
         playIdleAnimation();
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
     @Override
     public void setSpriteSheet() {
 
@@ -66,7 +75,8 @@ public class Character1 extends CharacterSuper implements Character {
 
     @Override
     public void moveLeft() {
-
+        playRunAnimation(RUN_LEFT_IMAGE);
+        spriteImageView.setX(spriteImageView.getX() - 30);
     }
 
     public void moveRight() {
@@ -96,6 +106,11 @@ public class Character1 extends CharacterSuper implements Character {
 
     }
 
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void attack() {
         playAttackAnimation();
     }
@@ -113,12 +128,12 @@ public class Character1 extends CharacterSuper implements Character {
         spriteAnimation.play();
     }
 
-    private void playRunRightAnimation() {
-        spriteImageView.setImage(RUN_IMAGE);
+    private void playRunAnimation(Image runImage) {
+        spriteImageView.setImage(runImage);
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
-                COUNT, COLUMNS,
+                10, 20,
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT);
         spriteAnimation.play();

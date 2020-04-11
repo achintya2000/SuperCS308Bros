@@ -5,6 +5,9 @@ import javafx.application.Preloader.StateChangeNotification;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import ooga.Model.Player;
+
+import java.util.ArrayList;
 
 public class GameView extends Application implements ViewInternal {
 
@@ -20,6 +23,11 @@ public class GameView extends Application implements ViewInternal {
 
   @Override
   public void setStage() {
+
+  }
+
+  public GameView(ArrayList playerlist)
+  {
 
   }
 
