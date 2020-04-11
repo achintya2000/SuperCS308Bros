@@ -33,7 +33,8 @@ public class Character1 extends CharacterSuper implements Character {
 
     private int health = 100;
 
-    Image RUN_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/run.png"));
+    Image RUN_LEFT_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/runLeft.png"));
+    Image RUN_RIGHT_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/runRight.png"));
     Image IDLE_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/idle.png"));
     Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/attack.png"));
     Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/jump.png"));
@@ -80,7 +81,7 @@ public class Character1 extends CharacterSuper implements Character {
     }
 
     public void moveRight() {
-        playRunRightAnimation();
+        playRunAnimation(RUN_RIGHT_IMAGE);
         spriteImageView.setX(centerX += xSpeed);
     }
 
