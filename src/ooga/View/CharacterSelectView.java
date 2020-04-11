@@ -8,10 +8,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import ooga.Model.Character;
+import ooga.Model.Characters.Character1;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -23,6 +27,9 @@ public class CharacterSelectView extends Application implements ViewInternal {
   private HBox HB2;
   private boolean p1IsReady = false;
   private boolean p2IsReady = false;
+  private Stage currentStage;
+  private ArrayList<Character1> characterList = new ArrayList<>();
+
   @Override
   public void resetGame() {
 
@@ -38,27 +45,39 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   }
 
-  public void p1Ready()
-  {
+  public void initCharacters() throws FileNotFoundException {
+    Character1 ninja = new Character1();
+    GridPane charGrid = new GridPane();
+    BP.setCenter(charGrid);
+    characterList.add(ninja);
+    int colCount = 0;
+    int rowCount = 0;
+    for(Character1 character : characterList)
+    {
+      charGrid.add(character.getCharacterImage(), rowCount,colCount);
+      rowCount++;
+      colCount++;
+    }
+  }
+
+  public void p1Ready() throws InterruptedException {
     p1IsReady = true;
-    checkIfReady();
     ImageView p1ReadyOverlay = new ImageView();
     p1ReadyOverlay.setImage(new Image("ReadyLeft.png",600,150,false,true));
     HB1.getChildren().add(p1ReadyOverlay);
-
+    checkIfReady();
     System.out.println(p1ReadyOverlay.getX() + " "+  p1ReadyOverlay.getY());
   }
 
-  public void p2Ready()
-  {
+  public void p2Ready() throws InterruptedException {
     p2IsReady = true;
-    checkIfReady();
     ImageView p2ReadyOverlay = new ImageView();
     p2ReadyOverlay.setImage(new Image("ReadyRight.png",600,150,false,true));
     HB2.getChildren().add(p2ReadyOverlay);
+    checkIfReady();
   }
 
-  public void checkIfReady()
+  public void checkIfReady() throws InterruptedException
   {
     if(p1IsReady && p2IsReady)
     {
@@ -68,7 +87,10 @@ public class CharacterSelectView extends Application implements ViewInternal {
       readyBox.setAlignment(Pos.CENTER_LEFT);
       readyBox.getChildren().add(readyOverlay);
       BP.setCenter(readyBox);
-      System.out.println("ASDhD");
+      System.out.println("Creating Game ... ");
+      Thread.sleep(2000);
+      currentStage.hide();
+      new GameView().start(new Stage());
     }
   }
 
@@ -76,11 +98,11 @@ public class CharacterSelectView extends Application implements ViewInternal {
     BorderPane myBP = new BorderPane();
     VBox myBox = new VBox();
     BP = myBP;
-    BackgroundImage homeScreen = new BackgroundImage(new Image("CharacterSelectScreen.png",1245,763,false,true),
-            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-            BackgroundSize.DEFAULT);
-    myBP.setBackground(new Background(homeScreen));
-    HashMap<String, String> buttonMap = new HashMap<>();
+//    BackgroundImage homeScreen = new BackgroundImage(new Image("CharacterSelectScreen.png",1245,763,false,true),
+//            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+//            BackgroundSize.DEFAULT);
+//    myBP.setBackground(new Background(homeScreen));
+   HashMap<String, String> buttonMap = new HashMap<>();
     Properties props = new Properties();
     props.load(Home.class.getResourceAsStream("charSelect_buttons.properties"));
     for(String s : props.stringPropertyNames()){
@@ -122,9 +144,11 @@ public class CharacterSelectView extends Application implements ViewInternal {
     try{
       Scene selectScene = new Scene(makeBorderPane());
       currentScene = selectScene;
+      currentStage = primaryStage;
       primaryStage.setScene(selectScene);
       primaryStage.setHeight(800);
       primaryStage.setWidth(1200);
+      initCharacters();
       primaryStage.show();
     } catch (IOException e){
       System.out.println(e.getLocalizedMessage());

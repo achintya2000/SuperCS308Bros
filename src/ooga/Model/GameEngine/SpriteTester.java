@@ -42,6 +42,9 @@ public class SpriteTester extends Application {
             if (e.getCode() == KeyCode.D) {
                 ninja.moveRight();
             }
+            if (e.getCode() == KeyCode.A) {
+                ninja.moveLeft();
+            }
             if (e.getCode() == KeyCode.T) {
                 ninja.attack();
             }
@@ -51,9 +54,9 @@ public class SpriteTester extends Application {
         });
 
         scene.setOnKeyReleased(e -> {
-            if (e.getCode() == KeyCode.D) {
-                ninja.idle();
-            }
+            if (e.getCode() == KeyCode.D || e.getCode() == KeyCode.A) {
+                    ninja.idle();
+                }
             if (e.getCode() == KeyCode.T){
                 //if (spriteAnimation.)
             }

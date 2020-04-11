@@ -25,7 +25,8 @@ public class Character1 implements Character {
     private static final int WIDTH    = 366;
     private static final int HEIGHT   = 461;
 
-    Image RUN_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/run.png"));
+    Image RUN_RIGHT_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/runRight.png"));
+    Image RUN_LEFT_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/runLeft.png"));
     Image IDLE_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/idle.png"));
     Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/attack.png"));
     Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/jump.png"));
@@ -57,11 +58,12 @@ public class Character1 implements Character {
 
     @Override
     public void moveLeft() {
-
+        playRunAnimation(RUN_LEFT_IMAGE);
+        spriteImageView.setX(spriteImageView.getX() - 30);
     }
 
     public void moveRight() {
-        playRunRightAnimation();
+        playRunAnimation(RUN_RIGHT_IMAGE);
         spriteImageView.setX(spriteImageView.getX() + 30);
     }
 
@@ -104,12 +106,12 @@ public class Character1 implements Character {
         spriteAnimation.play();
     }
 
-    private void playRunRightAnimation() {
-        spriteImageView.setImage(RUN_IMAGE);
+    private void playRunAnimation(Image runImage) {
+        spriteImageView.setImage(runImage);
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
-                COUNT, COLUMNS,
+                10, 20,
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT);
         spriteAnimation.play();

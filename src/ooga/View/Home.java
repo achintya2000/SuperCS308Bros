@@ -69,6 +69,7 @@ public class Home extends Application {
     currentStage.hide();
     new CharacterSelectView().start(new Stage());
    }
+
    private void help(){
 
    }
