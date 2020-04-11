@@ -24,16 +24,17 @@ public class Character2 implements Character {
     private int centerY = 200;
     private int xSpeed = 25;
 
-    Image IDLE_IMAGE = new Image(new FileInputStream(""));
-    Image RUN_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-right.png"));
-    Image ATTACK_IMAGE = new Image(new FileInputStream(""));
-    Image JUMP_IMAGE = new Image(new FileInputStream(""));
+    Image IDLE_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle.png"));
+    Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-right.png"));
+    Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-left.png"));
+    //Image ATTACK_IMAGE = new Image(new FileInputStream(""));
+    //Image JUMP_IMAGE = new Image(new FileInputStream(""));
 
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
 
     public Character2() throws FileNotFoundException {
-        spriteImageView = new ImageView(RUN_IMAGE);
+        spriteImageView = new ImageView(IDLE_IMAGE);
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
 
@@ -62,13 +63,14 @@ public class Character2 implements Character {
 
     @Override
     public void moveLeft() {
-        playRunRightAnimation();
-        spriteImageView.setX(centerX += xSpeed);
+        playRunLeftAnimation();
+        spriteImageView.setX(centerX -= xSpeed);
     }
 
     @Override
     public void moveRight() {
-
+        playRunRightAnimation();
+        spriteImageView.setX(centerX += xSpeed);
     }
 
     @Override
@@ -92,20 +94,31 @@ public class Character2 implements Character {
     }
 
     private void playIdleAnimation() {
-        spriteImageView.setImage(IDLE_IMAGE);
+//        spriteImageView.setImage(IDLE_IMAGE);
+//        spriteAnimation.setAnimation(
+//                spriteImageView,
+//                Duration.millis(1000),
+//                COUNT, COLUMNS,
+//                OFFSET_X, OFFSET_Y,
+//                WIDTH, HEIGHT
+//        );
+//        spriteAnimation.setCycleCount(Animation.INDEFINITE);
+//        spriteAnimation.play();
+    }
+
+    private void playRunRightAnimation() {
+        spriteImageView.setImage(RUN_IMAGE_RIGHT);
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
-                WIDTH, HEIGHT
-        );
-        spriteAnimation.setCycleCount(Animation.INDEFINITE);
+                WIDTH, HEIGHT);
         spriteAnimation.play();
     }
 
-    private void playRunRightAnimation() {
-        spriteImageView.setImage(RUN_IMAGE);
+    private void playRunLeftAnimation() {
+        spriteImageView.setImage(RUN_IMAGE_LEFT);
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),

@@ -46,10 +46,13 @@ public class SpriteTester extends Application {
                     if (e.getCode() == KeyCode.W) {
                         bunny.jump();
                     }
+                    if (e.getCode() == KeyCode.A) {
+                        bunny.moveLeft();
+                    }
                 });
 
                 scene.setOnKeyReleased(e -> {
-                    if (e.getCode() == KeyCode.D) {
+                    if (e.getCode() == KeyCode.D || e.getCode() == KeyCode.A) {
                         bunny.idle();
                     }
                     if (e.getCode() == KeyCode.T){
