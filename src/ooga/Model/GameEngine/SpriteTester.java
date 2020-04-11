@@ -80,6 +80,7 @@ public class SpriteTester extends Application {
 //                spriteImageView.setX(spriteImageView.getX() + 30);
             }
             if (e.getCode() == KeyCode.T) {
+                ninja.attack();
 //                spriteAnimation.stop();
 //                spriteImageView.setImage(ATTACK_IMAGE);
 //                spriteAnimation.setAnimation(spriteImageView, Duration.millis(1000),

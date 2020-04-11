@@ -1,6 +1,8 @@
 package ooga.Model.Characters;
 
 import javafx.animation.Animation;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -48,8 +50,8 @@ public class Character1 {
         spriteImageView.setX(spriteImageView.getX() + 30);
     }
 
-    public ImageView getCharacterImage(){
-        return spriteImageView;
+    public void attack() {
+        playAttackAnimation();
     }
 
     private void playIdleAnimation() {
@@ -61,16 +63,53 @@ public class Character1 {
                 OFFSET_X, OFFSET_Y,
                 234, 441
         );
+        spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
     }
 
     private void playRunRightAnimation() {
         spriteImageView.setImage(RUN_IMAGE);
-        spriteAnimation.setAnimation(spriteImageView, Duration.millis(1000),
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT);
         spriteAnimation.play();
+    }
+
+    private void playAttackAnimation() {
+        spriteAnimation.stop();
+        spriteImageView.setImage(ATTACK_IMAGE);
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                536, 495);
+        spriteAnimation.setCycleCount(1);
+        spriteAnimation.play();
+
+        spriteAnimation.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                spriteAnimation.stop();
+                playIdleAnimation();
+//                spriteImageView.setImage(IDLE_IMAGE);
+//                spriteAnimation.setAnimation(
+//                        spriteImageView,
+//                        Duration.millis(1000),
+//                        COUNT, COLUMNS,
+//                        OFFSET_X, OFFSET_Y,
+//                        234, 442);
+//                spriteAnimation.setCycleCount(Animation.INDEFINITE);
+//                spriteAnimation.play();
+            }
+        });
+    }
+
+    public ImageView getCharacterImage(){
+        return spriteImageView;
     }
 
 
