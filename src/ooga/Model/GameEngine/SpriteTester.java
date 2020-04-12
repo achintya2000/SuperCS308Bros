@@ -15,7 +15,7 @@ public class SpriteTester extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         //Character1 ninja = new Character1();
-        Character2 bunny = new Character2();
+        Character2 bunny = new Character2("bunny");
 
         Group root = new Group(bunny.getCharacterImage());
 

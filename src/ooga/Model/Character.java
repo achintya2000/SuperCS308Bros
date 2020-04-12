@@ -39,14 +39,4 @@ public interface Character {
   
   public abstract void special();
 
-  /**
-   * set name
-   */
-  public void setName(String name);
-
-  /**
-   * get name
-   */
-  public String getName();
-
 }

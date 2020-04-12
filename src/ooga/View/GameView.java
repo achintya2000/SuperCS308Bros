@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class GameView extends Application implements ViewInternal {
 
+  private ArrayList<Player> playerList;
   @Override
   public void resetGame() {
 
@@ -28,7 +29,7 @@ public class GameView extends Application implements ViewInternal {
 
   public GameView(ArrayList playerlist)
   {
-
+    this.playerList = playerlist;
   }
 
   @Override

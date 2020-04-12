@@ -26,8 +26,6 @@ public class Character2 extends CharacterSuper implements Character {
     private int centerY = 200;
     private int xSpeed = 25;
 
-    private String name = "";
-
     private boolean facingRight = true;
 
     Image IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-right.png"));
@@ -44,8 +42,8 @@ public class Character2 extends CharacterSuper implements Character {
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
 
-    public Character2() throws FileNotFoundException {
-        super();
+    public Character2(String name) throws FileNotFoundException {
+        super(name);
         spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
@@ -112,16 +110,6 @@ public class Character2 extends CharacterSuper implements Character {
     @Override
     public void special() {
 
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     private void playIdleAnimation() {

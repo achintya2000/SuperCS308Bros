@@ -7,12 +7,16 @@ public abstract class CharacterSuper {
 
   private int myStocks;
   private int myStamina;
+  private int health = 100;
+  private String name;
 
   ImageView spriteImageView;
   SpriteAnimation spriteAnimation;
 
-  public CharacterSuper() {
-
+  public CharacterSuper(String name) {
+    this.name = name;
+    System.out.println(name);
+    System.out.println(this.name);
   }
 
   /**
@@ -45,6 +49,19 @@ public abstract class CharacterSuper {
    */
   public void setStocks(int newStock) {
     myStocks = newStock;
+  }
+
+  public ImageView getCharacterImage(){
+    return spriteImageView;
+  }
+
+  public void printHealth() {
+    System.out.println(health);
+  }
+
+  public String getName()
+  {
+    return name;
   }
 
 }

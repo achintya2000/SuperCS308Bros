@@ -24,7 +24,6 @@ public class Character1 extends CharacterSuper implements Character {
     private static final int OFFSET_Y =  0;
     private static final int WIDTH    = 366;
     private static final int HEIGHT   = 461;
-    private String name = "";
 
 
     private int centerX = 100;
@@ -42,8 +41,7 @@ public class Character1 extends CharacterSuper implements Character {
 
 
     public Character1(String name) throws FileNotFoundException {
-        super();
-        setName(name);
+        super(name);
         spriteImageView = new ImageView(IDLE_IMAGE);
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
@@ -62,11 +60,6 @@ public class Character1 extends CharacterSuper implements Character {
 
     public void idle(){
         playIdleAnimation();
-    }
-
-    public String getName()
-    {
-        return name;
     }
 
     @Override
@@ -105,11 +98,6 @@ public class Character1 extends CharacterSuper implements Character {
     @Override
     public void special() {
 
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void attack() {

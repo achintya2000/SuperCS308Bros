@@ -11,6 +11,8 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import ooga.Model.Character;
 import ooga.Model.Characters.Character1;
+import ooga.Model.Characters.Character2;
+import ooga.Model.Characters.CharacterSuper;
 import ooga.Model.Player;
 
 import java.io.FileNotFoundException;
@@ -30,7 +32,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
 //  private boolean p1IsReady = false;
 //  private boolean p2IsReady = false;
   private Stage currentStage;
-  private ArrayList<Character1> characterList = new ArrayList<>();
+  private ArrayList<CharacterSuper> characterList = new ArrayList<>();
   private ArrayList<Button> buttonList = new ArrayList<>();
   private Player player1;
   private Player player2;
@@ -54,7 +56,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   public void initCharacters() throws FileNotFoundException {
     Character1 ninja = new Character1("ninja1");
-    Character1 ninja2 = new Character1("ninja2");
+    Character2 ninja2 = new Character2("bunny2");
     Character1 ninja3 = new Character1("ninja3");
     GridPane charGrid = new GridPane();
     BP.setCenter(charGrid);
@@ -64,7 +66,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
     int colCount = 0;
     int rowCount = 0;
     int colThresh = 2;
-    for(Character1 character : characterList)
+    for(CharacterSuper character : characterList)
     {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
@@ -128,7 +130,8 @@ public class CharacterSelectView extends Application implements ViewInternal {
     }
     System.out.println("Creating Game ... ");
     currentStage.hide();
-    new GameView(playerList).start(new Stage());
+    GameView game = new GameView(playerList);
+    game.start(new Stage());
   }
 
   public boolean checkAllPlayersChosen()
