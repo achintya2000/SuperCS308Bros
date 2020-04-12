@@ -31,7 +31,6 @@ public class SpriteTester extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-
         Character2 bunny = new Character2("bunny", 100, 400);
         Character2 bunny2 = new Character2("bunny2", 400, 500);
 

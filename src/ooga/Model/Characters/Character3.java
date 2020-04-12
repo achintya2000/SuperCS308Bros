@@ -28,7 +28,7 @@ public class Character3 extends CharacterSuper implements Character {
 
     private int centerX;
     private int centerY;
-    private int xSpeed = 25;
+    private int xSpeed = 10;
 
     private String name = "";
 
@@ -124,7 +124,7 @@ public class Character3 extends CharacterSuper implements Character {
     public void jump() {
         TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
         jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
-        jump.setByY(-25);
+        jump.setByY(-150);
         jump.setAutoReverse(true);
         jump.setCycleCount(2);
         jump.play();
@@ -224,6 +224,10 @@ public class Character3 extends CharacterSuper implements Character {
             spriteAnimation.stop();
             playIdleAnimation();
         });
+    }
+
+    public ImageView getCharacterImage(){
+        return spriteImageView;
     }
 
     public Pane getRoot(){ return root; }

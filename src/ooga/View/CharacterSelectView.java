@@ -10,9 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import ooga.Exceptions.ExceptionHelper;
-import ooga.Model.Character;
 import ooga.Model.Characters.Character1;
 import ooga.Model.Characters.Character2;
+import ooga.Model.Characters.Character3;
 import ooga.Model.Characters.CharacterSuper;
 import ooga.Model.Player;
 
@@ -56,14 +56,15 @@ public class CharacterSelectView extends Application implements ViewInternal {
   }
 
   public void initCharacters() throws FileNotFoundException {
-    Character1 ninja = new Character1("ninja1");
-    Character2 ninja2 = new Character2("bunny2");
-    Character1 ninja3 = new Character1("ninja3");
+    Character2 bunny = new Character2("bunny", 200, 200);
+    Character2 bunny2 = new Character2("bunny2", 200, 200);
+    Character3 ghost = new Character3("ghost", 400, 200);
+
     GridPane charGrid = new GridPane();
     BP.setCenter(charGrid);
-    characterList.add(ninja);
-    characterList.add(ninja2);
-    characterList.add(ninja3);
+    characterList.add(bunny);
+    characterList.add(bunny2);
+    characterList.add(ghost);
     int colCount = 0;
     int rowCount = 0;
     int colThresh = 2;
@@ -74,7 +75,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
         try
         {
           Class<?> cls = Class.forName(character.getClass().getName());
-          CharacterSuper newCharacter = (CharacterSuper) cls.getDeclaredConstructors()[0].newInstance(character.getName());
+          CharacterSuper newCharacter = (CharacterSuper) cls.getDeclaredConstructors()[0].newInstance(character.getName(), 200, 400);
           playerList.get(currentPlayer-1).setMyCharacter(newCharacter);
           playerList.get(currentPlayer-1).setHasChosenChar(true);
           System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
