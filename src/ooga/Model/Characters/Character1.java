@@ -7,12 +7,18 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import ooga.Model.Character;
 import ooga.Model.GameEngine.SpriteAnimation;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -38,6 +44,13 @@ public class Character1 extends CharacterSuper implements Character {
     Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/attack.png"));
     Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/jump.png"));
 
+    ImageView spriteImageView;
+    SpriteAnimation spriteAnimation;
+    Pane root;
+    Circle hitBox;
+    Rectangle dummy;
+    boolean attackFinish;
+
 
 
     public Character1(String name) throws FileNotFoundException {
@@ -56,6 +69,10 @@ public class Character1 extends CharacterSuper implements Character {
 
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
+        root = new Pane(spriteImageView);
+        dummy = getDummy();
+        root.getChildren().add(dummy);
+        attackFinish = true;
     }
 
     public void idle(){
@@ -139,11 +156,38 @@ public class Character1 extends CharacterSuper implements Character {
                 536, 495);
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
+        root.getChildren().remove(hitBox);
+        hitBox = getHitBox();
+        root.getChildren().add(hitBox);
 
+        if(hitBox.getBoundsInParent().intersects(dummy.getBoundsInParent())){
+            dummy.setFill(Color.GREEN);
+        }
         spriteAnimation.setOnFinished(event -> {
             spriteAnimation.stop();
+            root.getChildren().remove(hitBox);
+            dummy.setFill(Color.YELLOW);
             playIdleAnimation();
         });
+    }
+
+    private Rectangle getDummy(){
+        double x = 500;
+        double y = 0;
+        double height = spriteImageView.getImage().getHeight();
+        double width = 200;
+        Rectangle dummy = new Rectangle(x, y, width, height);
+        dummy.setFill(Color.YELLOW);
+        return dummy;
+    }
+
+    private Circle getHitBox(){
+        double x = spriteImageView.getBoundsInParent().getMaxX() + 120;
+        double y = spriteImageView.getBoundsInParent().getMaxY()/2;
+        double radius = 100;
+        Circle hurtBox = new Circle(x, y, radius);
+        hurtBox.setFill(Color.RED);
+        return hurtBox;
     }
 
     private void playJumpAnimation() {
@@ -168,8 +212,12 @@ public class Character1 extends CharacterSuper implements Character {
         return spriteImageView;
     }
 
+    public Pane getRoot(){ return root; }
+
     public void printHealth() {
         System.out.println(health);
     }
+
+
 
 }
