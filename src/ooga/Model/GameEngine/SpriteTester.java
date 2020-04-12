@@ -4,17 +4,14 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import ooga.Model.Characters.Character1;
-import ooga.Model.Characters.Character2;
-import ooga.Model.Characters.Character3;
+import ooga.Model.Characters.Bunny;
+import ooga.Model.Characters.Ghost;
 
 public class SpriteTester extends Application {
 
@@ -26,15 +23,13 @@ public class SpriteTester extends Application {
     private BooleanProperty LEFT_PRESSED = new SimpleBooleanProperty();
     private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
 
-
-
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Character2 bunny = new Character2("bunny", 100, 400);
-        Character2 bunny2 = new Character2("bunny2", 400, 500);
+        Bunny bunny = new Bunny("bunny", 100, 400);
+        Bunny bunny2 = new Bunny("bunny2", 400, 500);
 
-        Character3 ghost = new Character3("ghost", 300, 400);
+        Ghost ghost = new Ghost("ghost", 300, 400);
 
         Rectangle stage = new Rectangle(100, 800, 500, 100);
 

@@ -11,13 +11,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import ooga.Model.Character;
 import ooga.Model.GameEngine.SpriteAnimation;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Character2 extends CharacterSuper implements Character {
+public class Bunny extends AbstractCharacter {
 
     private static final int COLUMNS  =  10;
     private static final int COUNT    =  10;
@@ -25,10 +24,6 @@ public class Character2 extends CharacterSuper implements Character {
     private static final int OFFSET_Y =   0;
     private static final int WIDTH    = 100;
     private static final int HEIGHT   = 100;
-
-    private int centerX;
-    private int centerY;
-    private int xSpeed = 10;
 
     private boolean facingRight = true;
     private int health = 100;
@@ -51,7 +46,7 @@ public class Character2 extends CharacterSuper implements Character {
     Rectangle dummy;
     Rectangle hurtBox;
 
-    public Character2(String name, int x, int y) throws FileNotFoundException {
+    public Bunny(String name, int x, int y) throws FileNotFoundException {
         super(name);
         spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
         this.centerX = x;
@@ -113,11 +108,6 @@ public class Character2 extends CharacterSuper implements Character {
         hurtbox.setStroke(Color.YELLOW);
         hurtbox.setFill(Color.rgb(200, 200, 200, 0.5));
         return hurtbox;
-
-    }
-
-    @Override
-    public void setSpriteSheet() {
 
     }
 

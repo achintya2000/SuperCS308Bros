@@ -2,18 +2,14 @@ package ooga.View;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import ooga.Exceptions.ExceptionHelper;
-import ooga.Model.Characters.Character1;
-import ooga.Model.Characters.Character2;
-import ooga.Model.Characters.Character3;
-import ooga.Model.Characters.CharacterSuper;
+import ooga.Model.Characters.Bunny;
+import ooga.Model.Characters.Ghost;
+import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
 
 import java.io.FileNotFoundException;
@@ -33,7 +29,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
 //  private boolean p1IsReady = false;
 //  private boolean p2IsReady = false;
   private Stage currentStage;
-  private ArrayList<CharacterSuper> characterList = new ArrayList<>();
+  private ArrayList<AbstractCharacter> characterList = new ArrayList<>();
   private ArrayList<Button> buttonList = new ArrayList<>();
   private Player player1;
   private Player player2;
@@ -56,9 +52,9 @@ public class CharacterSelectView extends Application implements ViewInternal {
   }
 
   public void initCharacters() throws FileNotFoundException {
-    Character2 bunny = new Character2("bunny", 200, 200);
-    Character2 bunny2 = new Character2("bunny2", 200, 200);
-    Character3 ghost = new Character3("ghost", 400, 200);
+    Bunny bunny = new Bunny("bunny", 200, 200);
+    Bunny bunny2 = new Bunny("bunny2", 200, 200);
+    Ghost ghost = new Ghost("ghost", 400, 200);
 
     GridPane charGrid = new GridPane();
     BP.setCenter(charGrid);
@@ -68,14 +64,14 @@ public class CharacterSelectView extends Application implements ViewInternal {
     int colCount = 0;
     int rowCount = 0;
     int colThresh = 2;
-    for(CharacterSuper character : characterList)
+    for(AbstractCharacter character : characterList)
     {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
         try
         {
           Class<?> cls = Class.forName(character.getClass().getName());
-          CharacterSuper newCharacter = (CharacterSuper) cls.getDeclaredConstructors()[0].newInstance(character.getName(), 200, 400);
+          AbstractCharacter newCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0].newInstance(character.getName(), 200, 400);
           playerList.get(currentPlayer-1).setMyCharacter(newCharacter);
           playerList.get(currentPlayer-1).setHasChosenChar(true);
           System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());

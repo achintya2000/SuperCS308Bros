@@ -2,17 +2,13 @@ package ooga.View;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.application.Preloader.StateChangeNotification;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import ooga.Model.Characters.Character2;
-import ooga.Model.Characters.CharacterSuper;
+import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
 
 import java.util.ArrayList;
@@ -28,8 +24,8 @@ public class GameView extends Application implements ViewInternal {
   private BooleanProperty LEFT_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
 
-  CharacterSuper bunny;
-  CharacterSuper bunny2;
+  AbstractCharacter bunny;
+  AbstractCharacter bunny2;
 
   @Override
   public void resetGame() {

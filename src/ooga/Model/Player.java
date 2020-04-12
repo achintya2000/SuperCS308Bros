@@ -1,8 +1,6 @@
 package ooga.Model;
 
-import javafx.scene.layout.BorderPane;
-import ooga.Model.Characters.Character1;
-import ooga.Model.Characters.CharacterSuper;
+import ooga.Model.Characters.AbstractCharacter;
 
 /**
  *
@@ -10,16 +8,16 @@ import ooga.Model.Characters.CharacterSuper;
 public class Player {
   private int myStocks;
   private int myStamina;
-  private CharacterSuper myCharacter;
+  private AbstractCharacter myCharacter;
   private Boolean hasChosenChar = false;
   public Player() {
   }
 
-  public void setMyCharacter(CharacterSuper myCharacter) {
+  public void setMyCharacter(AbstractCharacter myCharacter) {
     this.myCharacter = myCharacter;
   }
 
-  public CharacterSuper getMyCharacter()
+  public AbstractCharacter getMyCharacter()
   {
     return  myCharacter;
   }

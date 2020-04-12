@@ -2,47 +2,50 @@ package ooga.Model.Characters;
 
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
-import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import ooga.Model.Character;
 import ooga.Model.GameEngine.SpriteAnimation;
 
-import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Character1 extends CharacterSuper implements Character {
+public class Ghost extends AbstractCharacter implements Character {
 
-    private static final int COLUMNS  =   10;
+    private static final int COLUMNS  =  10;
     private static final int COUNT    =  10;
-    private static final int OFFSET_X =  0;
-    private static final int OFFSET_Y =  0;
-    private static final int WIDTH    = 366;
-    private static final int HEIGHT   = 461;
+    private static final int OFFSET_X =   0;
+    private static final int OFFSET_Y =   0;
+    private static final int WIDTH    = 100;
+    private static final int HEIGHT   = 100;
 
+    private int centerX;
+    private int centerY;
+    private int xSpeed = 10;
 
-    private int centerX = 100;
-    private int centerY = 200;
-    private int xSpeed = 25;
+    private String name = "";
 
+    private boolean facingRight = true;
     private int health = 100;
 
-    Image RUN_LEFT_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/runLeft.png"));
-    Image RUN_RIGHT_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/runRight.png"));
-    Image IDLE_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/idle.png"));
-    Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/attack.png"));
-    Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/jump.png"));
+    Image IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-idle-right.png"));
+    Image IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-idle-left.png"));
+
+    Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-run-right.png"));
+    Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-run-left.png"));
+
+    Image ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-attack-right.png"));
+    Image ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-attack-left.png"));
+
+    Image JUMP_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-jump-right.png"));
+    Image JUMP_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-jump-left.png"));
 
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
@@ -51,11 +54,11 @@ public class Character1 extends CharacterSuper implements Character {
     Rectangle dummy;
     boolean attackFinish;
 
-
-
-    public Character1(String name) throws FileNotFoundException {
+    public Ghost(String name, int x, int y) throws FileNotFoundException {
         super(name);
-        spriteImageView = new ImageView(IDLE_IMAGE);
+        spriteImageView = new ImageView(IDLE_IMAGE_LEFT);
+        this.centerX = x;
+        this.centerY = y;
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
 
@@ -63,112 +66,18 @@ public class Character1 extends CharacterSuper implements Character {
         spriteAnimation = new SpriteAnimation(
                 spriteImageView,
                 Duration.millis(1000),
-                COUNT, COLUMNS,
+                4, 4,
                 OFFSET_X, OFFSET_Y,
-                234, 442);
+                WIDTH, HEIGHT
+        );
 
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
+
         root = new Pane(spriteImageView);
         dummy = getDummy();
         root.getChildren().add(dummy);
         attackFinish = true;
-    }
-
-    public void idle(){
-        playIdleAnimation();
-    }
-
-    @Override
-    public void setSpriteSheet() {
-
-    }
-
-    @Override
-    public void moveLeft() {
-        playRunAnimation(RUN_LEFT_IMAGE);
-        spriteImageView.setX(spriteImageView.getX() - 30);
-    }
-
-    public void moveRight() {
-        playRunAnimation(RUN_RIGHT_IMAGE);
-        spriteImageView.setX(centerX += xSpeed);
-    }
-
-    @Override
-    public void moveDown() {
-
-    }
-
-    @Override
-    public void jump() {
-        TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
-        jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
-        jump.setByY(-50);
-        jump.setAutoReverse(true);
-        jump.setCycleCount(2);
-        jump.play();
-
-        playJumpAnimation();
-    }
-
-    @Override
-    public void special() {
-
-    }
-
-    public void attack() {
-        playAttackAnimation();
-    }
-
-    private void playIdleAnimation() {
-        spriteImageView.setImage(IDLE_IMAGE);
-        spriteAnimation.setAnimation(
-                spriteImageView,
-                Duration.millis(1000),
-                COUNT, COLUMNS,
-                OFFSET_X, OFFSET_Y,
-                234, 441
-        );
-        spriteAnimation.setCycleCount(Animation.INDEFINITE);
-        spriteAnimation.play();
-    }
-
-    private void playRunAnimation(Image runImage) {
-        spriteImageView.setImage(runImage);
-        spriteAnimation.setAnimation(
-                spriteImageView,
-                Duration.millis(1000),
-                10, 20,
-                OFFSET_X, OFFSET_Y,
-                WIDTH, HEIGHT);
-        spriteAnimation.play();
-    }
-
-    private void playAttackAnimation() {
-        spriteAnimation.stop();
-        spriteImageView.setImage(ATTACK_IMAGE);
-        spriteAnimation.setAnimation(
-                spriteImageView,
-                Duration.millis(1000),
-                COUNT, COLUMNS,
-                OFFSET_X, OFFSET_Y,
-                536, 495);
-        spriteAnimation.setCycleCount(1);
-        spriteAnimation.play();
-        root.getChildren().remove(hitBox);
-        hitBox = getHitBox();
-        root.getChildren().add(hitBox);
-
-        if(hitBox.getBoundsInParent().intersects(dummy.getBoundsInParent())){
-            dummy.setFill(Color.GREEN);
-        }
-        spriteAnimation.setOnFinished(event -> {
-            spriteAnimation.stop();
-            root.getChildren().remove(hitBox);
-            dummy.setFill(Color.YELLOW);
-            playIdleAnimation();
-        });
     }
 
     private Rectangle getDummy(){
@@ -181,24 +90,133 @@ public class Character1 extends CharacterSuper implements Character {
         return dummy;
     }
 
-    private Circle getHitBox(){
-        double x = spriteImageView.getBoundsInParent().getMaxX() + 120;
-        double y = spriteImageView.getBoundsInParent().getMaxY()/2;
-        double radius = 100;
-        Circle hurtBox = new Circle(x, y, radius);
-        hurtBox.setFill(Color.RED);
-        return hurtBox;
+
+    @Override
+    public void setSpriteSheet() {
+
+    }
+
+    @Override
+    public void idle() {
+        playIdleAnimation();
+    }
+
+    @Override
+    public void moveLeft() {
+        facingRight = false;
+        playRunLeftAnimation();
+        spriteImageView.setX(centerX -= xSpeed);
+    }
+
+    @Override
+    public void moveRight() {
+        facingRight = true;
+        playRunRightAnimation();
+        spriteImageView.setX(centerX += xSpeed);
+    }
+
+    @Override
+    public void moveDown() {
+
+    }
+
+    @Override
+    public void jump() {
+        TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
+        jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
+        jump.setByY(-150);
+        jump.setAutoReverse(true);
+        jump.setCycleCount(2);
+        jump.play();
+
+        playJumpAnimation();
+    }
+
+    @Override
+    public void attack() {
+        playAttackAnimation();
+    }
+
+    @Override
+    public void special() {
+
+    }
+
+    private void playIdleAnimation() {
+        if (facingRight) {
+            spriteImageView.setImage(IDLE_IMAGE_RIGHT);
+        } else {
+            spriteImageView.setImage(IDLE_IMAGE_LEFT);
+        }
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                4, 4,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT
+        );
+        spriteAnimation.setCycleCount(Animation.INDEFINITE);
+        spriteAnimation.play();
+    }
+
+    private void playRunRightAnimation() {
+        spriteImageView.setImage(RUN_IMAGE_RIGHT);
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                6, 6,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT);
+        spriteAnimation.play();
+    }
+
+    private void playRunLeftAnimation() {
+        spriteImageView.setImage(RUN_IMAGE_LEFT);
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                6, 6,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT);
+        spriteAnimation.play();
+    }
+
+    private void playAttackAnimation() {
+        spriteAnimation.stop();
+        if (facingRight) {
+            spriteImageView.setImage(ATTACK_IMAGE_RIGHT);
+
+        } else {
+            spriteImageView.setImage(ATTACK_IMAGE_LEFT);
+        }
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                5, 5,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT);
+        spriteAnimation.setCycleCount(1);
+        spriteAnimation.play();
+
+        spriteAnimation.setOnFinished(event -> {
+            spriteAnimation.stop();
+            playIdleAnimation();
+        });
     }
 
     private void playJumpAnimation() {
         spriteAnimation.stop();
-        spriteImageView.setImage(JUMP_IMAGE);
+        if (facingRight){
+            spriteImageView.setImage(JUMP_IMAGE_RIGHT);
+        } else {
+            spriteImageView.setImage(JUMP_IMAGE_LEFT);
+        }
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
-                365, 486);
+                WIDTH, HEIGHT);
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
@@ -213,11 +231,5 @@ public class Character1 extends CharacterSuper implements Character {
     }
 
     public Pane getRoot(){ return root; }
-
-    public void printHealth() {
-        System.out.println(health);
-    }
-
-
 
 }
