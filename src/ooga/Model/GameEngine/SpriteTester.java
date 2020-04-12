@@ -21,9 +21,11 @@ public class SpriteTester extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Character2 bunny = new Character2(100, 400);
+        Character2 bunny2 = new Character2(300, 400);
+
         Character3 ghost = new Character3(300, 400);
 
-        Rectangle stage = new Rectangle(100, 600, 500, 100);
+        Rectangle stage = new Rectangle(100, 800, 500, 100);
 
         Pane root = bunny.getRoot();
         root.getChildren().add(ghost.getRoot());
@@ -48,17 +50,23 @@ public class SpriteTester extends Application {
             @Override
             public void handle(long now) {
 
-                y += 10;
-
-                bunny.setCenterY(y);
+                if (!bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
+                {
+                    y += 10;
+                    bunny.setCenterY(y);
+                }
 
                 //Update and render
+
                 scene.setOnKeyPressed(e -> {
                     if (e.getCode() == KeyCode.D) {
                         bunny.moveRight();
                     }
                     if (e.getCode() == KeyCode.T) {
                         bunny.attack();
+                        if(bunny.getHitBox().getBoundsInParent().intersects(bunny2.getHurtBox().getBoundsInParent())){
+                            bunny2.getHurtBox().setStroke(Color.GREEN);
+                        }
                     }
                     if (e.getCode() == KeyCode.W) {
                         bunny.jump();
