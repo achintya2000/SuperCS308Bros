@@ -30,6 +30,8 @@ public class Character2 extends CharacterSuper implements Character {
     private int centerY = 200;
     private int xSpeed = 25;
 
+    private String name = "";
+
     private boolean facingRight = true;
     private int health = 100;
 
@@ -145,6 +147,16 @@ public class Character2 extends CharacterSuper implements Character {
     @Override
     public void special() {
 
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     private void playIdleAnimation() {
