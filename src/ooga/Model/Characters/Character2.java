@@ -150,7 +150,7 @@ public class Character2 extends CharacterSuper implements Character {
     public void jump() {
         TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
         jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
-        jump.setByY(-75);
+        jump.setByY(-150);
         jump.setAutoReverse(true);
         jump.setCycleCount(2);
         jump.play();
