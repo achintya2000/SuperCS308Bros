@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Model.Characters.Character1;
@@ -41,12 +42,16 @@ public class SpriteTester extends Application {
             @Override
             public void handle(long now) {
                 //Update and render
+
                 scene.setOnKeyPressed(e -> {
                     if (e.getCode() == KeyCode.D) {
                         bunny.moveRight();
                     }
                     if (e.getCode() == KeyCode.T) {
                         bunny.attack();
+                        if(bunny.getHitBox().getBoundsInParent().intersects(bunny2.getHurtBox().getBoundsInParent())){
+                            bunny2.getHurtBox().setStroke(Color.GREEN);
+                        }
                     }
                     if (e.getCode() == KeyCode.W) {
                         bunny.jump();
