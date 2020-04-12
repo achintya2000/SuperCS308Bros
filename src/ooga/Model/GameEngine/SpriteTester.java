@@ -48,10 +48,10 @@ public class SpriteTester extends Application {
                         bunny.moveRight();
                     }
                     if (e.getCode() == KeyCode.T) {
-                        bunny.attack();
                         if(bunny.getHitBox().getBoundsInParent().intersects(bunny2.getHurtBox().getBoundsInParent())){
                             bunny2.getHurtBox().setStroke(Color.GREEN);
                         }
+                        bunny.attack();
                     }
                     if (e.getCode() == KeyCode.W) {
                         bunny.jump();

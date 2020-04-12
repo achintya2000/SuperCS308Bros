@@ -77,6 +77,7 @@ public class Character2 extends CharacterSuper implements Character {
         root.getChildren().add(dummy);
         hurtBox = makeHurtBox(x, y);
         root.getChildren().add(hurtBox);
+        hitBox = makeHitBox();
 
     }
 
