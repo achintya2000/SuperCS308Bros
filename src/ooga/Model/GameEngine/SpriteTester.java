@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Model.Characters.Character1;
@@ -21,13 +22,14 @@ public class SpriteTester extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Character2 bunny = new Character2(100, 400);
-        Character2 bunny2 = new Character2(300, 400);
+        Character2 bunny2 = new Character2(400, 500);
 
         Character3 ghost = new Character3(300, 400);
 
         Rectangle stage = new Rectangle(100, 800, 500, 100);
 
         Pane root = bunny.getRoot();
+        root.getChildren().add((bunny2.getRoot()));
         root.getChildren().add(ghost.getRoot());
         root.getChildren().add(stage);
 
@@ -54,6 +56,7 @@ public class SpriteTester extends Application {
                 {
                     y += 10;
                     bunny.setCenterY(y);
+                    bunny2.setCenterY(y);
                 }
 
                 //Update and render
@@ -61,12 +64,14 @@ public class SpriteTester extends Application {
                 scene.setOnKeyPressed(e -> {
                     if (e.getCode() == KeyCode.D) {
                         bunny.moveRight();
+                        bunny2.getHurtBox().setStroke(Color.YELLOW);
                     }
                     if (e.getCode() == KeyCode.T) {
-                        if(bunny.getHitBox().getBoundsInParent().intersects(bunny2.getHurtBox().getBoundsInParent())){
+                        bunny.attack();
+                        if(bunny.getHitBox().intersects(bunny2.getHurtBox().getBoundsInParent())) {
+                            System.out.println("HIT");
                             bunny2.getHurtBox().setStroke(Color.GREEN);
                         }
-                        bunny.attack();
                     }
                     if (e.getCode() == KeyCode.W) {
                         bunny.jump();

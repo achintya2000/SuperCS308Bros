@@ -76,7 +76,7 @@ public class Character2 extends CharacterSuper implements Character {
         root = new Pane(spriteImageView);
         dummy = getDummy();
         root.getChildren().add(dummy);
-        hurtBox = makeHurtBox(x, y);
+        hurtBox = makeHurtBox(x,y);
         root.getChildren().add(hurtBox);
         hitBox = makeHitBox();
 
@@ -108,11 +108,14 @@ public class Character2 extends CharacterSuper implements Character {
         return hitbox;
     }
 
-    private Rectangle makeHurtBox(int x, int y){
-        Rectangle hurtbox = new Rectangle(x, y, 100, 100);
+    private Rectangle makeHurtBox(int x , int y){
+        int width = 50;
+        int newX = x + (100 - width)/2;
+        Rectangle hurtbox = new Rectangle(newX, y, width, 100);
         hurtbox.setStroke(Color.YELLOW);
         hurtbox.setFill(Color.rgb(200, 200, 200, 0.5));
         return hurtbox;
+
     }
 
     @Override
@@ -130,8 +133,8 @@ public class Character2 extends CharacterSuper implements Character {
         facingRight = false;
         playRunLeftAnimation();
         spriteImageView.setX(centerX -= xSpeed);
-        hurtBox.setX(spriteImageView.getBoundsInParent().getMinX());
-
+        double x = hurtBox.getX() - xSpeed;
+        hurtBox.setX(x);
     }
 
     @Override
@@ -139,7 +142,9 @@ public class Character2 extends CharacterSuper implements Character {
         facingRight = true;
         playRunRightAnimation();
         spriteImageView.setX(centerX += xSpeed);
-        hurtBox.setX(spriteImageView.getBoundsInParent().getMinX());
+        double x = hurtBox.getX() + xSpeed;
+        hurtBox.setX(x);
+
     }
 
     @Override
@@ -242,14 +247,9 @@ public class Character2 extends CharacterSuper implements Character {
         hitBox = makeHitBox();
         root.getChildren().add(hitBox);
 
-        if(hitBox.getBoundsInParent().intersects(dummy.getBoundsInParent())){
-            dummy.setFill(Color.GREEN);
-        }
-
         spriteAnimation.setOnFinished(event -> {
-            spriteAnimation.stop();
             root.getChildren().remove(hitBox);
-            dummy.setFill(Color.YELLOW);
+            spriteAnimation.stop();
             playIdleAnimation();
         });
     }
@@ -285,6 +285,7 @@ public class Character2 extends CharacterSuper implements Character {
     public void setCenterY(int centerY) {
         spriteImageView.setY(centerY);
         hurtBox.setY(spriteImageView.getBoundsInParent().getMinY());
+
     }
 
     public Circle getHitBox(){
