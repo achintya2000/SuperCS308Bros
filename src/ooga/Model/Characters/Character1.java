@@ -223,10 +223,13 @@ public class Character1 extends CharacterSuper implements Character {
     public ImageView getCharacterImage(){
         return spriteImageView;
     }
-    public Pane getRoot(){ return root;}
+
+    public Pane getRoot(){ return root; }
 
     public void printHealth() {
         System.out.println(health);
     }
+
+
 
 }
