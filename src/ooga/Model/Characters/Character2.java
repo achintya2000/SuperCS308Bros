@@ -78,7 +78,7 @@ public class Character2 extends CharacterSuper implements Character {
 
     private Rectangle getDummy(){
         double x = 500;
-        double y = 0;
+        double y = 500;
         double height = spriteImageView.getImage().getHeight();
         double width = 200;
         Rectangle dummy = new Rectangle(x, y, width, height);
@@ -204,8 +204,18 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
+        root.getChildren().remove(hitBox);
+        hitBox = getHitBox();
+        root.getChildren().add(hitBox);
+
+        if(hitBox.getBoundsInParent().intersects(dummy.getBoundsInParent())){
+            dummy.setFill(Color.GREEN);
+        }
+
         spriteAnimation.setOnFinished(event -> {
             spriteAnimation.stop();
+            root.getChildren().remove(hitBox);
+            dummy.setFill(Color.YELLOW);
             playIdleAnimation();
         });
 

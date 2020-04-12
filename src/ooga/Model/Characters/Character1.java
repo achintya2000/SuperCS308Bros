@@ -178,7 +178,6 @@ public class Character1 extends CharacterSuper implements Character {
     private Circle getHitBox(){
         double x = spriteImageView.getBoundsInParent().getMaxX() + 120;
         double y = spriteImageView.getBoundsInParent().getMaxY()/2;
-        double height = spriteImageView.getImage().getHeight();
         double radius = 100;
         Circle hurtBox = new Circle(x, y, radius);
         hurtBox.setFill(Color.RED);
