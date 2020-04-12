@@ -1,30 +1,23 @@
 package ooga.Model.GameEngine;
 
-import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import ooga.Model.Characters.Character1;
-import ooga.Model.GameEngine.SpriteAnimation;
-
-import java.io.FileInputStream;
+import ooga.Model.Characters.Character2;
 
 public class SpriteTester extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Character1 ninja = new Character1();
+        //Character1 ninja = new Character1();
+        Character2 bunny = new Character2();
 
-        Group root = new Group(ninja.getCharacterImage());
+        Group root = new Group(bunny.getCharacterImage());
 
         //Creating a scene object
         Scene scene = new Scene(root, 1000, 1000);
@@ -38,26 +31,38 @@ public class SpriteTester extends Application {
         //Displaying the contents of the stage
         primaryStage.show();
 
-        scene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.D) {
-                ninja.moveRight();
-            }
-            if (e.getCode() == KeyCode.T) {
-                ninja.attack();
-            }
-            if (e.getCode() == KeyCode.W) {
-                ninja.jump();
-            }
-        });
+        // Main game loop
+        AnimationTimer animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                //Update and render
+                scene.setOnKeyPressed(e -> {
+                    if (e.getCode() == KeyCode.D) {
+                        bunny.moveRight();
+                    }
+                    if (e.getCode() == KeyCode.T) {
+                        bunny.attack();
+                    }
+                    if (e.getCode() == KeyCode.W) {
+                        bunny.jump();
+                    }
+                    if (e.getCode() == KeyCode.A) {
+                        bunny.moveLeft();
+                    }
+                });
 
-        scene.setOnKeyReleased(e -> {
-            if (e.getCode() == KeyCode.D) {
-                ninja.idle();
+                scene.setOnKeyReleased(e -> {
+                    if (e.getCode() == KeyCode.D || e.getCode() == KeyCode.A) {
+                        bunny.idle();
+                    }
+                    if (e.getCode() == KeyCode.T){
+                        //if (spriteAnimation.)
+                    }
+                });
+
             }
-            if (e.getCode() == KeyCode.T){
-                //if (spriteAnimation.)
-            }
-        });
+        };
+        animationTimer.start();
     }
 
     public static void main(String args[]) {

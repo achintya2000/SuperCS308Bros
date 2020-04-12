@@ -36,7 +36,17 @@ public interface Character {
    * Basic attack
    */
   public void attack();
-
+  
   public abstract void special();
+
+  /**
+   * set name
+   */
+  public void setName(String name);
+
+  /**
+   * get name
+   */
+  public String getName();
 
 }

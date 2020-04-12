@@ -2,10 +2,7 @@ package ooga.Model.Characters;
 
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
-import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,35 +13,40 @@ import ooga.Model.GameEngine.SpriteAnimation;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Character1 extends CharacterSuper implements Character {
+public class Character2 extends CharacterSuper implements Character {
 
-    private static final int COLUMNS  =   10;
+    private static final int COLUMNS  =  10;
     private static final int COUNT    =  10;
-    private static final int OFFSET_X =  0;
-    private static final int OFFSET_Y =  0;
-    private static final int WIDTH    = 366;
-    private static final int HEIGHT   = 461;
-    private String name = "";
+    private static final int OFFSET_X =   0;
+    private static final int OFFSET_Y =   0;
+    private static final int WIDTH    = 100;
+    private static final int HEIGHT   = 100;
 
-
-    private int centerX = 100;
+    private int centerX = 400;
     private int centerY = 200;
     private int xSpeed = 25;
 
-    private int health = 100;
+    private String name = "";
 
-    Image RUN_LEFT_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/runLeft.png"));
-    Image RUN_RIGHT_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/runRight.png"));
-    Image IDLE_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/idle.png"));
-    Image ATTACK_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/attack.png"));
-    Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/chracter1/jump.png"));
+    private boolean facingRight = true;
 
+    Image IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-right.png"));
+    Image IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-left.png"));
 
+    Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-right.png"));
+    Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-left.png"));
 
-    public Character1(String name) throws FileNotFoundException {
+    Image ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-right.png"));
+    Image ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-left.png"));
+
+    Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump.png"));
+
+    ImageView spriteImageView;
+    SpriteAnimation spriteAnimation;
+
+    public Character2() throws FileNotFoundException {
         super();
-        setName(name);
-        spriteImageView = new ImageView(IDLE_IMAGE);
+        spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
 
@@ -54,19 +56,11 @@ public class Character1 extends CharacterSuper implements Character {
                 Duration.millis(1000),
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
-                234, 442);
+                WIDTH, HEIGHT
+        );
 
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
-    }
-
-    public void idle(){
-        playIdleAnimation();
-    }
-
-    public String getName()
-    {
-        return name;
     }
 
     @Override
@@ -75,13 +69,21 @@ public class Character1 extends CharacterSuper implements Character {
     }
 
     @Override
-    public void moveLeft() {
-        playRunAnimation(RUN_LEFT_IMAGE);
-        spriteImageView.setX(spriteImageView.getX() - 30);
+    public void idle() {
+        playIdleAnimation();
     }
 
+    @Override
+    public void moveLeft() {
+        facingRight = false;
+        playRunLeftAnimation();
+        spriteImageView.setX(centerX -= xSpeed);
+    }
+
+    @Override
     public void moveRight() {
-        playRunAnimation(RUN_RIGHT_IMAGE);
+        facingRight = true;
+        playRunRightAnimation();
         spriteImageView.setX(centerX += xSpeed);
     }
 
@@ -94,12 +96,17 @@ public class Character1 extends CharacterSuper implements Character {
     public void jump() {
         TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
         jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
-        jump.setByY(-50);
+        jump.setByY(-25);
         jump.setAutoReverse(true);
         jump.setCycleCount(2);
         jump.play();
 
         playJumpAnimation();
+    }
+
+    @Override
+    public void attack() {
+        playAttackAnimation();
     }
 
     @Override
@@ -112,29 +119,46 @@ public class Character1 extends CharacterSuper implements Character {
         this.name = name;
     }
 
-    public void attack() {
-        playAttackAnimation();
+    @Override
+    public String getName() {
+        return name;
     }
 
     private void playIdleAnimation() {
-        spriteImageView.setImage(IDLE_IMAGE);
+        if (facingRight) {
+            spriteImageView.setImage(IDLE_IMAGE_RIGHT);
+        } else {
+            spriteImageView.setImage(IDLE_IMAGE_LEFT);
+        }
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
-                234, 441
+                WIDTH, HEIGHT
         );
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
+
     }
 
-    private void playRunAnimation(Image runImage) {
-        spriteImageView.setImage(runImage);
+    private void playRunRightAnimation() {
+        spriteImageView.setImage(RUN_IMAGE_RIGHT);
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
-                10, 20,
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT);
+        spriteAnimation.play();
+    }
+
+    private void playRunLeftAnimation() {
+        spriteImageView.setImage(RUN_IMAGE_LEFT);
+        spriteAnimation.setAnimation(
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT);
         spriteAnimation.play();
@@ -142,13 +166,18 @@ public class Character1 extends CharacterSuper implements Character {
 
     private void playAttackAnimation() {
         spriteAnimation.stop();
-        spriteImageView.setImage(ATTACK_IMAGE);
+        if (facingRight) {
+            spriteImageView.setImage(ATTACK_IMAGE_RIGHT);
+
+        } else {
+            spriteImageView.setImage(ATTACK_IMAGE_LEFT);
+        }
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
-                COUNT, COLUMNS,
+                6, 6,
                 OFFSET_X, OFFSET_Y,
-                536, 495);
+                WIDTH, HEIGHT);
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
@@ -156,6 +185,7 @@ public class Character1 extends CharacterSuper implements Character {
             spriteAnimation.stop();
             playIdleAnimation();
         });
+
     }
 
     private void playJumpAnimation() {
@@ -166,7 +196,7 @@ public class Character1 extends CharacterSuper implements Character {
                 Duration.millis(1000),
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
-                365, 486);
+                WIDTH, HEIGHT);
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
@@ -178,10 +208,6 @@ public class Character1 extends CharacterSuper implements Character {
 
     public ImageView getCharacterImage(){
         return spriteImageView;
-    }
-
-    public void printHealth() {
-        System.out.println(health);
     }
 
 }

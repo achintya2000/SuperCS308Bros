@@ -1,25 +1,18 @@
-package ooga.Model;
+package ooga.Model.Characters;
 
-import javafx.scene.layout.BorderPane;
-import ooga.Model.Characters.Character1;
+import javafx.scene.image.ImageView;
+import ooga.Model.GameEngine.SpriteAnimation;
 
-/**
- *
- */
-public class Player {
+public abstract class CharacterSuper {
+
   private int myStocks;
   private int myStamina;
-  private Character1 myCharacter;
-  private Boolean hasChosenChar = false;
-  public Player() {
-  }
 
-  public void setMyCharacter(Character1 myCharacter) {
-    this.myCharacter = myCharacter;
-  }
-  public Character1 getMyCharacter()
-  {
-    return  myCharacter;
+  ImageView spriteImageView;
+  SpriteAnimation spriteAnimation;
+
+  public CharacterSuper() {
+
   }
 
   /**
@@ -28,14 +21,6 @@ public class Player {
    */
   public int getStamina() {
     return myStamina;
-  }
-
-  public Boolean getHasChosenChar() {
-    return hasChosenChar;
-  }
-
-  public void setHasChosenChar(Boolean hasChosenChar) {
-    this.hasChosenChar = hasChosenChar;
   }
 
   /**
@@ -61,4 +46,5 @@ public class Player {
   public void setStocks(int newStock) {
     myStocks = newStock;
   }
+
 }
