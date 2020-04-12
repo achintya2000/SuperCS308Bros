@@ -1,6 +1,7 @@
 package ooga.Model.Characters;
 
 import javafx.scene.image.ImageView;
+import ooga.Model.Character;
 import ooga.Model.GameEngine.SpriteAnimation;
 
 public abstract class CharacterSuper {
@@ -64,4 +65,10 @@ public abstract class CharacterSuper {
     return name;
   }
 
+  public abstract void moveLeft();
+  public abstract void moveRight();
+  public abstract void moveDown();
+  public abstract void attack();
+  public abstract void jump();
+  public abstract void idle();
 }
