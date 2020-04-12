@@ -24,6 +24,12 @@ public class GameView extends Application implements ViewInternal {
   private BooleanProperty LEFT_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
 
+  private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty UP_PRESSED = new SimpleBooleanProperty();
+
+  private BooleanProperty T_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty L_PRESSED = new SimpleBooleanProperty();
+
   AbstractCharacter bunny;
   AbstractCharacter bunny2;
 

@@ -11,13 +11,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import ooga.Model.Character;
 import ooga.Model.GameEngine.SpriteAnimation;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Ghost extends AbstractCharacter implements Character {
+public class Ghost extends AbstractCharacter {
 
     private static final int COLUMNS  =  10;
     private static final int COUNT    =  10;
@@ -26,36 +25,16 @@ public class Ghost extends AbstractCharacter implements Character {
     private static final int WIDTH    = 100;
     private static final int HEIGHT   = 100;
 
-    private int centerX;
-    private int centerY;
-    private int xSpeed = 10;
-
     private String name = "";
 
     private boolean facingRight = true;
     private int health = 100;
 
-    Image IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-idle-right.png"));
-    Image IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-idle-left.png"));
-
-    Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-run-right.png"));
-    Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-run-left.png"));
-
-    Image ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-attack-right.png"));
-    Image ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-attack-left.png"));
-
-    Image JUMP_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-jump-right.png"));
-    Image JUMP_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-jump-left.png"));
-
-    ImageView spriteImageView;
-    SpriteAnimation spriteAnimation;
-    Pane root;
-    Circle hitBox;
-    Rectangle dummy;
     boolean attackFinish;
 
     public Ghost(String name, int x, int y) throws FileNotFoundException {
         super(name);
+        setImageFiles();
         spriteImageView = new ImageView(IDLE_IMAGE_LEFT);
         this.centerX = x;
         this.centerY = y;
@@ -88,12 +67,6 @@ public class Ghost extends AbstractCharacter implements Character {
         Rectangle dummy = new Rectangle(x, y, width, height);
         dummy.setFill(Color.YELLOW);
         return dummy;
-    }
-
-
-    @Override
-    public void setSpriteSheet() {
-
     }
 
     @Override
@@ -226,10 +199,21 @@ public class Ghost extends AbstractCharacter implements Character {
         });
     }
 
-    public ImageView getCharacterImage(){
-        return spriteImageView;
-    }
-
     public Pane getRoot(){ return root; }
+
+    @Override
+    public void setImageFiles() throws FileNotFoundException {
+        IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-idle-right.png"));
+        IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-idle-left.png"));
+
+        RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-run-right.png"));
+        RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-run-left.png"));
+
+        ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-attack-right.png"));
+        ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-attack-left.png"));
+
+        JUMP_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-jump-right.png"));
+        JUMP_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-jump-left.png"));
+    }
 
 }

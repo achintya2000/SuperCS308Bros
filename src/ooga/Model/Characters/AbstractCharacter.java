@@ -1,7 +1,14 @@
 package ooga.Model.Characters;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import ooga.Model.GameEngine.SpriteAnimation;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public abstract class AbstractCharacter {
 
@@ -14,8 +21,24 @@ public abstract class AbstractCharacter {
   protected int centerY;
   protected int xSpeed = 10;
 
-  ImageView spriteImageView;
-  SpriteAnimation spriteAnimation;
+  /* Image files for character */
+  protected Image IDLE_IMAGE_RIGHT;
+  protected Image IDLE_IMAGE_LEFT;
+  protected Image RUN_IMAGE_RIGHT;
+  protected Image RUN_IMAGE_LEFT;
+  protected Image ATTACK_IMAGE_RIGHT;
+  protected Image ATTACK_IMAGE_LEFT;
+  protected Image JUMP_IMAGE_RIGHT;
+  protected Image JUMP_IMAGE_LEFT;
+
+  protected boolean facingRight = true;
+
+  protected ImageView spriteImageView;
+  protected SpriteAnimation spriteAnimation;
+  protected Pane root;
+  protected Circle hitBox;
+  protected Rectangle dummy;
+  protected Rectangle hurtBox;
 
   public AbstractCharacter(String name) {
     this.name = name;
@@ -75,4 +98,6 @@ public abstract class AbstractCharacter {
   public abstract void jump();
   public abstract void idle();
   public abstract void special();
+  public abstract void setImageFiles() throws FileNotFoundException;
+
 }

@@ -25,29 +25,9 @@ public class Bunny extends AbstractCharacter {
     private static final int WIDTH    = 100;
     private static final int HEIGHT   = 100;
 
-    private boolean facingRight = true;
-    private int health = 100;
-
-    Image IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-right.png"));
-    Image IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-left.png"));
-
-    Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-right.png"));
-    Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-left.png"));
-
-    Image ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-right.png"));
-    Image ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-left.png"));
-
-    Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump.png"));
-
-    ImageView spriteImageView;
-    SpriteAnimation spriteAnimation;
-    Pane root;
-    Circle hitBox;
-    Rectangle dummy;
-    Rectangle hurtBox;
-
     public Bunny(String name, int x, int y) throws FileNotFoundException {
         super(name);
+        setImageFiles();
         spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
         this.centerX = x;
         this.centerY = y;
@@ -234,7 +214,11 @@ public class Bunny extends AbstractCharacter {
 
     private void playJumpAnimation() {
         spriteAnimation.stop();
-        spriteImageView.setImage(JUMP_IMAGE);
+        if(facingRight){
+            spriteImageView.setImage(JUMP_IMAGE_RIGHT);
+        } else {
+            spriteImageView.setImage(JUMP_IMAGE_LEFT);
+        }
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
@@ -248,10 +232,6 @@ public class Bunny extends AbstractCharacter {
             spriteAnimation.stop();
             playIdleAnimation();
         });
-    }
-
-    public ImageView getCharacterImage(){
-        return spriteImageView;
     }
 
     public Pane getRoot(){ return root; }
@@ -272,6 +252,20 @@ public class Bunny extends AbstractCharacter {
 
     public Rectangle getHurtBox(){
         return hurtBox;
+    }
+
+    public void setImageFiles() throws FileNotFoundException {
+        IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-right.png"));
+        IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-left.png"));
+
+        RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-right.png"));
+        RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-left.png"));
+
+        ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-right.png"));
+        ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-left.png"));
+
+        JUMP_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump-right.png"));
+        JUMP_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump-left.png"));
     }
 
 }
