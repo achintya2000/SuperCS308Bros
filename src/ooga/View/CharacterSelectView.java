@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Character;
 import ooga.Model.Characters.Character1;
 import ooga.Model.Characters.Character2;
@@ -70,9 +71,18 @@ public class CharacterSelectView extends Application implements ViewInternal {
     {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
-        playerList.get(currentPlayer-1).setMyCharacter(character);
-        playerList.get(currentPlayer-1).setHasChosenChar(true);
-        System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
+        try
+        {
+          Class<?> cls = Class.forName(character.getClass().getName());
+          CharacterSuper newCharacter = (CharacterSuper) cls.getDeclaredConstructors()[0].newInstance(character.getName());
+          playerList.get(currentPlayer-1).setMyCharacter(newCharacter);
+          playerList.get(currentPlayer-1).setHasChosenChar(true);
+          System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
+        }
+        catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException ex)
+        {
+          new ExceptionHelper(ex);
+        }
       });
       button.setDisable(true);
       button.setGraphic(character.getCharacterImage());
