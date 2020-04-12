@@ -17,7 +17,7 @@ import ooga.Model.GameEngine.SpriteAnimation;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Character2 extends CharacterSuper implements Character {
+public class Character3 extends CharacterSuper implements Character {
 
     private static final int COLUMNS  =  10;
     private static final int COUNT    =  10;
@@ -35,16 +35,17 @@ public class Character2 extends CharacterSuper implements Character {
     private boolean facingRight = true;
     private int health = 100;
 
-    Image IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-right.png"));
-    Image IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-left.png"));
+    Image IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-idle-right.png"));
+    Image IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-idle-left.png"));
 
-    Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-right.png"));
-    Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-left.png"));
+    Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-run-right.png"));
+    Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-run-left.png"));
 
-    Image ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-right.png"));
-    Image ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-left.png"));
+    Image ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-attack-right.png"));
+    Image ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-attack-left.png"));
 
-    Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump.png"));
+    Image JUMP_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-jump-right.png"));
+    Image JUMP_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-jump-left.png"));
 
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
@@ -53,9 +54,9 @@ public class Character2 extends CharacterSuper implements Character {
     Rectangle dummy;
     boolean attackFinish;
 
-    public Character2(int x, int y) throws FileNotFoundException {
+    public Character3(int x, int y) throws FileNotFoundException {
         super();
-        spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
+        spriteImageView = new ImageView(IDLE_IMAGE_LEFT);
         this.centerX = x;
         this.centerY = y;
         spriteImageView.setX(centerX);
@@ -65,7 +66,7 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation = new SpriteAnimation(
                 spriteImageView,
                 Duration.millis(1000),
-                COUNT, COLUMNS,
+                4, 4,
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT
         );
@@ -89,15 +90,6 @@ public class Character2 extends CharacterSuper implements Character {
         return dummy;
     }
 
-    private Circle getHitBox(){
-        double x = spriteImageView.getBoundsInParent().getMaxX() + 120;
-        double y = spriteImageView.getBoundsInParent().getMaxY()/2;
-        double height = spriteImageView.getImage().getHeight();
-        double radius = 100;
-        Circle hurtBox = new Circle(x, y, radius);
-        hurtBox.setFill(Color.RED);
-        return hurtBox;
-    }
 
     @Override
     public void setSpriteSheet() {
@@ -150,16 +142,6 @@ public class Character2 extends CharacterSuper implements Character {
 
     }
 
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
     private void playIdleAnimation() {
         if (facingRight) {
             spriteImageView.setImage(IDLE_IMAGE_RIGHT);
@@ -169,13 +151,12 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
-                COUNT, COLUMNS,
+                4, 4,
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT
         );
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
-
     }
 
     private void playRunRightAnimation() {
@@ -183,7 +164,7 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
-                COUNT, COLUMNS,
+                6, 6,
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT);
         spriteAnimation.play();
@@ -194,7 +175,7 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
-                COUNT, COLUMNS,
+                6, 6,
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT);
         spriteAnimation.play();
@@ -211,7 +192,7 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
-                6, 6,
+                5, 5,
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT);
         spriteAnimation.setCycleCount(1);
@@ -225,7 +206,11 @@ public class Character2 extends CharacterSuper implements Character {
 
     private void playJumpAnimation() {
         spriteAnimation.stop();
-        spriteImageView.setImage(JUMP_IMAGE);
+        if (facingRight){
+            spriteImageView.setImage(JUMP_IMAGE_RIGHT);
+        } else {
+            spriteImageView.setImage(JUMP_IMAGE_LEFT);
+        }
         spriteAnimation.setAnimation(
                 spriteImageView,
                 Duration.millis(1000),
@@ -241,8 +226,14 @@ public class Character2 extends CharacterSuper implements Character {
         });
     }
 
-    public ImageView getCharacterImage(){
-        return spriteImageView;
+    @Override
+    public void setName(String name) {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
     }
 
     public Pane getRoot(){ return root; }

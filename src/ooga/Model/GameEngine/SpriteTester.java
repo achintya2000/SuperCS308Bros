@@ -10,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Model.Characters.Character1;
 import ooga.Model.Characters.Character2;
+import ooga.Model.Characters.Character3;
 
 public class SpriteTester extends Application {
 
@@ -17,11 +18,11 @@ public class SpriteTester extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Character2 bunny = new Character2(100, 400);
-        Character2 bunny2 = new Character2(300, 400);
+        Character3 ghost = new Character3(300, 400);
 
 
         Pane root = bunny.getRoot();
-        root.getChildren().add(bunny2.getRoot());
+        root.getChildren().add(ghost.getRoot());
 
 
         //Creating a scene object
@@ -54,14 +55,26 @@ public class SpriteTester extends Application {
                     if (e.getCode() == KeyCode.A) {
                         bunny.moveLeft();
                     }
+                    if (e.getCode() == KeyCode.LEFT) {
+                        ghost.moveLeft();
+                    }
+                    if (e.getCode() == KeyCode.RIGHT) {
+                        ghost.moveRight();
+                    }
+                    if (e.getCode() == KeyCode.UP) {
+                        ghost.jump();
+                    }
+                    if (e.getCode() == KeyCode.L) {
+                        ghost.attack();
+                    }
                 });
 
                 scene.setOnKeyReleased(e -> {
                     if (e.getCode() == KeyCode.D || e.getCode() == KeyCode.A) {
                         bunny.idle();
                     }
-                    if (e.getCode() == KeyCode.T){
-                        //if (spriteAnimation.)
+                    if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.RIGHT){
+                        ghost.idle();
                     }
                 });
 

@@ -2,16 +2,22 @@ package ooga.View;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import ooga.Model.Character;
+import ooga.Model.Characters.Character1;
+import ooga.Model.Player;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -21,8 +27,16 @@ public class CharacterSelectView extends Application implements ViewInternal {
   private BorderPane BP;
   private HBox HB1;
   private HBox HB2;
-  private boolean p1IsReady = false;
-  private boolean p2IsReady = false;
+//  private boolean p1IsReady = false;
+//  private boolean p2IsReady = false;
+  private Stage currentStage;
+  private ArrayList<Character1> characterList = new ArrayList<>();
+  private ArrayList<Button> buttonList = new ArrayList<>();
+  private Player player1;
+  private Player player2;
+  private ArrayList<Player> playerList = new ArrayList<>();
+  private int currentPlayer = 1;
+
   @Override
   public void resetGame() {
 
@@ -38,49 +52,115 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   }
 
-  public void p1Ready()
-  {
-    p1IsReady = true;
-    checkIfReady();
-    ImageView p1ReadyOverlay = new ImageView();
-    p1ReadyOverlay.setImage(new Image("ReadyLeft.png",600,150,false,true));
-    HB1.getChildren().add(p1ReadyOverlay);
-
-    System.out.println(p1ReadyOverlay.getX() + " "+  p1ReadyOverlay.getY());
-  }
-
-  public void p2Ready()
-  {
-    p2IsReady = true;
-    checkIfReady();
-    ImageView p2ReadyOverlay = new ImageView();
-    p2ReadyOverlay.setImage(new Image("ReadyRight.png",600,150,false,true));
-    HB2.getChildren().add(p2ReadyOverlay);
-  }
-
-  public void checkIfReady()
-  {
-    if(p1IsReady && p2IsReady)
+  public void initCharacters() throws FileNotFoundException {
+    Character1 ninja = new Character1("ninja1");
+    Character1 ninja2 = new Character1("ninja2");
+    Character1 ninja3 = new Character1("ninja3");
+    GridPane charGrid = new GridPane();
+    BP.setCenter(charGrid);
+    characterList.add(ninja);
+    characterList.add(ninja2);
+    characterList.add(ninja3);
+    int colCount = 0;
+    int rowCount = 0;
+    int colThresh = 2;
+    for(Character1 character : characterList)
     {
-      ImageView readyOverlay = new ImageView();
-      readyOverlay.setImage(new Image("ReadyToFight.png",1200,200,false,true));
-      HBox readyBox = new HBox();
-      readyBox.setAlignment(Pos.CENTER_LEFT);
-      readyBox.getChildren().add(readyOverlay);
-      BP.setCenter(readyBox);
-      System.out.println("ASDhD");
+      Button button = new Button();
+      button.setOnMouseClicked((e) -> {
+        playerList.get(currentPlayer-1).setMyCharacter(character);
+        playerList.get(currentPlayer-1).setHasChosenChar(true);
+        System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
+      });
+      button.setDisable(true);
+      button.setGraphic(character.getCharacterImage());
+      charGrid.add(button, colCount,rowCount);
+      colCount++;
+      if(colCount >= colThresh)
+      {
+        colCount = 0;
+        rowCount++;
+      }
+      buttonList.add(button);
     }
+  }
+
+
+  public void p1Ready() {
+    for(Button button : buttonList)
+    {
+      button.setDisable(false);
+    }
+    currentPlayer = 1;
+//    ImageView p1ReadyOverlay = new ImageView();
+//    p1ReadyOverlay.setImage(new Image("ReadyLeft.png",600,150,false,true));
+//    HB1.getChildren().add(p1ReadyOverlay);
+//    for(Button button : buttonList)
+//    {
+//      button.setDisable(false);
+//    }
+//    checkIfReady();
+//    System.out.println(p1ReadyOverlay.getX() + " "+  p1ReadyOverlay.getY());
+  }
+
+  public void p2Ready(){
+    for(Button button : buttonList)
+    {
+      button.setDisable(false);
+    }
+    currentPlayer = 2;
+//    ImageView p2ReadyOverlay = new ImageView();
+//    p2ReadyOverlay.setImage(new Image("ReadyRight.png",600,150,false,true));
+//    HB2.getChildren().add(p2ReadyOverlay);
+//    for(Button button : buttonList)
+//    {
+//      button.setDisable(false);
+//    }
+//    checkIfReady();
+  }
+
+  public void createGame()
+  {
+    if(!checkAllPlayersChosen())
+    {
+      System.out.println("NOT ALL PLAYERS HAVE CHOSEN");
+      return;
+    }
+    System.out.println("Creating Game ... ");
+    currentStage.hide();
+    new GameView(playerList).start(new Stage());
+  }
+
+  public boolean checkAllPlayersChosen()
+  {
+    boolean allTrue = true;
+    for(Player player :playerList)
+    {
+      if(!player.getHasChosenChar())
+      {
+        allTrue = false;
+      }
+    }
+    return allTrue;
+
+    //Ready to fight picture
+//      ImageView readyOverlay = new ImageView();
+//      readyOverlay.setImage(new Image("ReadyToFight.png",1200,200,false,true));
+//      HBox readyBox = new HBox();
+//      readyBox.setAlignment(Pos.CENTER_LEFT);
+//      readyBox.getChildren().add(readyOverlay);
+//      BP.setCenter(readyBox);
   }
 
   private BorderPane makeBorderPane() throws IOException {
     BorderPane myBP = new BorderPane();
     VBox myBox = new VBox();
     BP = myBP;
-    BackgroundImage homeScreen = new BackgroundImage(new Image("CharacterSelectScreen.png",1245,763,false,true),
-            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-            BackgroundSize.DEFAULT);
-    myBP.setBackground(new Background(homeScreen));
-    HashMap<String, String> buttonMap = new HashMap<>();
+//    BackgroundImage homeScreen = new BackgroundImage(new Image("CharacterSelectScreen.png",1245,763,false,true),
+//            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+//            BackgroundSize.DEFAULT);
+//    myBP.setBackground(new Background(homeScreen));
+   HashMap<String, String> buttonMap = new HashMap<>();
     Properties props = new Properties();
     props.load(Home.class.getResourceAsStream("charSelect_buttons.properties"));
     for(String s : props.stringPropertyNames()){
@@ -122,9 +202,15 @@ public class CharacterSelectView extends Application implements ViewInternal {
     try{
       Scene selectScene = new Scene(makeBorderPane());
       currentScene = selectScene;
+      currentStage = primaryStage;
       primaryStage.setScene(selectScene);
       primaryStage.setHeight(800);
       primaryStage.setWidth(1200);
+      player1 = new Player();
+      player2 = new Player();
+      playerList.add(player1);
+      playerList.add(player2);
+      initCharacters();
       primaryStage.show();
     } catch (IOException e){
       System.out.println(e.getLocalizedMessage());
