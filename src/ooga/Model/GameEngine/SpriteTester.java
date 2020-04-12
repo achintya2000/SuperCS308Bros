@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Model.Characters.Character1;
@@ -31,13 +32,14 @@ public class SpriteTester extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Character2 bunny = new Character2(100, 400);
-        Character2 bunny2 = new Character2(300, 400);
+        Character2 bunny2 = new Character2(400, 500);
 
         Character3 ghost = new Character3(300, 400);
 
         Rectangle stage = new Rectangle(100, 800, 500, 100);
 
         Pane root = bunny.getRoot();
+        root.getChildren().add((bunny2.getRoot()));
         root.getChildren().add(ghost.getRoot());
         root.getChildren().add(stage);
         root.getChildren().add(bunny2.getRoot());
@@ -118,6 +120,7 @@ public class SpriteTester extends Application {
                 {
                     y += 3;
                     bunny.setCenterY(y);
+                    bunny2.setCenterY(y);
                 }
                 if (!bunny2.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
                 {
@@ -126,7 +129,6 @@ public class SpriteTester extends Application {
                 }
 
                 //Update and render
-
                 if (D_PRESSED.get()){
                     bunny.moveRight();
                 }
