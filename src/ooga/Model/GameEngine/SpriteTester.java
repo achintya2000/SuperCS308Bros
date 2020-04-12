@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Model.Characters.Character1;
@@ -14,16 +15,19 @@ import ooga.Model.Characters.Character3;
 
 public class SpriteTester extends Application {
 
+    int y;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         Character2 bunny = new Character2(100, 400);
         Character3 ghost = new Character3(300, 400);
 
+        Rectangle stage = new Rectangle(100, 600, 500, 100);
 
         Pane root = bunny.getRoot();
         root.getChildren().add(ghost.getRoot());
-
+        root.getChildren().add(stage);
 
         //Creating a scene object
         Scene scene = new Scene(root, 1000, 1000);
@@ -37,10 +41,17 @@ public class SpriteTester extends Application {
         //Displaying the contents of the stage
         primaryStage.show();
 
+        y = bunny.getCenterY();
+
         // Main game loop
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+
+                y += 10;
+
+                bunny.setCenterY(y);
+
                 //Update and render
                 scene.setOnKeyPressed(e -> {
                     if (e.getCode() == KeyCode.D) {

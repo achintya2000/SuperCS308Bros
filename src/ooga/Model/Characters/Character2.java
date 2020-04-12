@@ -247,4 +247,12 @@ public class Character2 extends CharacterSuper implements Character {
 
     public Pane getRoot(){ return root; }
 
+    public int getCenterY() {
+        return (int) spriteImageView.getY();
+    }
+
+    public void setCenterY(int centerY) {
+        spriteImageView.setY(centerY);
+    }
+
 }
