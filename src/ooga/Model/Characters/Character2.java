@@ -4,6 +4,8 @@ import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -46,13 +48,11 @@ public class Character2 extends CharacterSuper implements Character {
 
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
-    Pane root;
     Circle hitBox;
-    Rectangle dummy;
     Rectangle hurtBox;
 
-    public Character2(String name, int x, int y) throws FileNotFoundException {
-        super(name);
+    public Character2 (String name, Group mainRoot, int x, int y) throws FileNotFoundException {
+        super(name, mainRoot);
         spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
         this.centerX = x;
         this.centerY = y;
@@ -71,23 +71,11 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
 
-        root = new Pane(spriteImageView);
-        dummy = getDummy();
-        root.getChildren().add(dummy);
         hurtBox = makeHurtBox(x,y);
-        root.getChildren().add(hurtBox);
+        mainRoot.getChildren().add(hurtBox);
         hitBox = makeHitBox();
+        mainRoot.getChildren().add(spriteImageView);
 
-    }
-
-    private Rectangle getDummy(){
-        double x = 500;
-        double y = 400;
-        double height = spriteImageView.getImage().getHeight();
-        double width = 100;
-        Rectangle dummy = new Rectangle(x, y, width, height);
-        dummy.setFill(Color.YELLOW);
-        return dummy;
     }
 
     private Circle makeHitBox(){
@@ -152,16 +140,20 @@ public class Character2 extends CharacterSuper implements Character {
 
     @Override
     public void jump() {
-        TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
+        jumpTransition(spriteImageView);
+        jumpTransition(hurtBox);
+
+        playJumpAnimation();
+
+    }
+
+    private void jumpTransition(Node jumpNode) {
+        TranslateTransition jump = new TranslateTransition(Duration.millis(500), jumpNode);
         jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
         jump.setByY(-150);
         jump.setAutoReverse(true);
         jump.setCycleCount(2);
         jump.play();
-
-        playJumpAnimation();
-        hurtBox.setY(spriteImageView.getBoundsInParent().getMinY());
-
     }
 
     @Override
@@ -231,12 +223,12 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
-        root.getChildren().remove(hitBox);
+        super.getRoot().getChildren().remove(hitBox);
         hitBox = makeHitBox();
-        root.getChildren().add(hitBox);
+        super.getRoot().getChildren().add(hitBox);
 
         spriteAnimation.setOnFinished(event -> {
-            root.getChildren().remove(hitBox);
+            super.getRoot().getChildren().remove(hitBox);
             spriteAnimation.stop();
             playIdleAnimation();
         });
@@ -263,8 +255,6 @@ public class Character2 extends CharacterSuper implements Character {
     public ImageView getCharacterImage(){
         return spriteImageView;
     }
-
-    public Pane getRoot(){ return root; }
 
     public int getCenterY() {
         return (int) spriteImageView.getY();
