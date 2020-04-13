@@ -24,11 +24,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import static javafx.geometry.Pos.*;
 
 public class CharacterSelectView extends Application implements ViewInternal {
 
+  public static final ResourceBundle buttonStyles = ResourceBundle.getBundle("ooga.Resources.stylesheets.buttonStyle");
   private Scene currentScene;
   private BorderPane BP;
   private VBox VB1;
@@ -218,9 +220,16 @@ public class CharacterSelectView extends Application implements ViewInternal {
     VB2.setMinWidth(300);
     VB1.setMinHeight(300);
     VB2.setMinHeight(300);
-    Label player1Text = new Label("PLAYER 1");
+    Button player1Text = new Button("PLAYER 1");
     player1Text.setAlignment(BOTTOM_CENTER);
-    Label player2Text = new Label("PLAYER 2");
+    player1Text.setStyle(buttonStyles.getString("playerText"));
+    player1Text.setMinWidth(300);
+    player1Text.setOnMouseClicked((e) -> {p1Ready();});
+
+    Button player2Text = new Button("PLAYER 2");
+    player2Text.setOnMouseClicked((e) -> {p2Ready();});
+    player2Text.setMinWidth(300);
+    player2Text.setStyle(buttonStyles.getString("playerText"));
     player2Text.setAlignment(BOTTOM_CENTER);
     VB1.setStyle("-fx-background-color: rgba(230, 0, 0, 0.7)");
     VB2.setStyle("-fx-background-color: rgba(0, 0, 230, 0.7)");

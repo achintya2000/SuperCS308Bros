@@ -33,7 +33,7 @@ public class GameView extends Application implements ViewInternal {
   CharacterSuper bunny2;
   int y;
   int y2;
-  Rectangle stage = new Rectangle(100, 600, 500, 100);;
+  Rectangle stage = new Rectangle(100, 600, 500, 100);
 
   @Override
   public void resetGame() {
@@ -119,8 +119,7 @@ public class GameView extends Application implements ViewInternal {
     bunny2 = playerList.get(1).getMyCharacter();
     y = bunny.getCenterY();
     y2 = bunny2.getCenterY();
-    root.getChildren().add(stage);
-
+    root.getChildren().addAll(stage);
   }
 
   @Override
