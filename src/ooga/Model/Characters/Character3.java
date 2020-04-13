@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -54,8 +55,8 @@ public class Character3 extends CharacterSuper implements Character {
     Rectangle dummy;
     boolean attackFinish;
 
-    public Character3(String name, int x, int y) throws FileNotFoundException {
-        super(name);
+    public Character3(String name, Group mainRoot, int x, int y) throws FileNotFoundException {
+        super(name, mainRoot);
         spriteImageView = new ImageView(IDLE_IMAGE_LEFT);
         this.centerX = x;
         this.centerY = y;
@@ -78,6 +79,8 @@ public class Character3 extends CharacterSuper implements Character {
         dummy = getDummy();
         root.getChildren().add(dummy);
         attackFinish = true;
+        mainRoot.getChildren().add(spriteImageView);
+
     }
 
     private Rectangle getDummy(){
@@ -99,6 +102,16 @@ public class Character3 extends CharacterSuper implements Character {
     @Override
     public void idle() {
         playIdleAnimation();
+    }
+
+    @Override
+    public int getCenterY() {
+        return 0;
+    }
+
+    @Override
+    public void setCenterY(int y) {
+
     }
 
     @Override
@@ -229,7 +242,5 @@ public class Character3 extends CharacterSuper implements Character {
     public ImageView getCharacterImage(){
         return spriteImageView;
     }
-
-    public Pane getRoot(){ return root; }
 
 }

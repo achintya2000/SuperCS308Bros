@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Model.Characters.Character2;
 import ooga.Model.Characters.CharacterSuper;
@@ -30,6 +31,9 @@ public class GameView extends Application implements ViewInternal {
 
   CharacterSuper bunny;
   CharacterSuper bunny2;
+  int y;
+  int y2;
+  Rectangle stage = new Rectangle(100, 600, 500, 100);
 
   @Override
   public void resetGame() {
@@ -51,6 +55,31 @@ public class GameView extends Application implements ViewInternal {
     AnimationTimer animationTimer = new AnimationTimer() {
       @Override
       public void handle(long now) {
+        if (!bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
+        {
+          y += 1;
+          //bunny.getHurtBox().setY(bunny.getHurtBox().getY() + 1);
+          bunny.setCenterY(y);
+        }
+        if (!bunny2.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
+        {
+          y2 += 1;
+          //bunny2.getHurtBox().setY(bunny2.getHurtBox().getY() + 1);
+          bunny2.setCenterY(y2);
+        }
+//        if (bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
+//        {
+//          y -= 4;
+//          //bunny.getHurtBox().setY(bunny.getHurtBox().getY() + 1);
+//          bunny.setCenterY(y);
+//
+//        }
+//        if (bunny2.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
+//        {
+//          y2 -= 4;
+//          //bunny2.getHurtBox().setY(bunny2.getHurtBox().getY() + 1);
+//          bunny2.setCenterY(y2);
+//        }
 
 //        if (!bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
 //        {
@@ -82,30 +111,32 @@ public class GameView extends Application implements ViewInternal {
     animationTimer.start();
   }
 
-  public GameView(ArrayList playerlist)
+  public GameView(ArrayList playerlist, Group root)
   {
     this.playerList = playerlist;
+    this.root = root;
     bunny = playerList.get(0).getMyCharacter();
     bunny2 = playerList.get(1).getMyCharacter();
+    y = bunny.getCenterY();
+    y2 = bunny2.getCenterY();
+    root.getChildren().addAll(stage);
   }
 
   @Override
   public void start(Stage primaryStage) {
-    root = new Group();
-    for (Player player : playerList) {
-      root.getChildren().add(player.getMyCharacter().getCharacterImage());
-    }
     scene = new Scene(root, 1200, 800);
 
     scene.setOnKeyPressed(e -> {
       if (e.getCode() == KeyCode.D) {
         D_PRESSED.set(true);
+        bunny2.getHurtBox().setStroke(Color.YELLOW);
       }
       if (e.getCode() == KeyCode.T) {
         bunny.attack();
-//        if(bunny.getHitBox().getBoundsInParent().intersects(bunny2.getHurtBox().getBoundsInParent())){
-//          bunny2.getHurtBox().setStroke(Color.GREEN);
-//        }
+        if(bunny.getHitBox().getBoundsInParent().intersects(bunny2.getHurtBox().getBoundsInParent())){
+          bunny2.getHurtBox().setStroke(Color.RED);
+        }
+
       }
       if (e.getCode() == KeyCode.W) {
         bunny.jump();
