@@ -5,7 +5,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.Character2;
@@ -20,6 +24,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
+
+import static javafx.geometry.Pos.CENTER;
+import static javafx.geometry.Pos.TOP_CENTER;
 
 public class CharacterSelectView extends Application implements ViewInternal {
 
@@ -58,7 +65,11 @@ public class CharacterSelectView extends Application implements ViewInternal {
     Character3 ghost = new Character3("ghost", root,400, 200);
 
     GridPane charGrid = new GridPane();
-    BP.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7)");
+    charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
+    charGrid.setGridLinesVisible(true);
+    charGrid.setMaxHeight(300);
+    charGrid.setMaxWidth(800);
+    BP.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
     BP.setCenter(charGrid);
     characterList.add(bunny);
     characterList.add(ghost);
@@ -165,13 +176,18 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   private BorderPane makeBorderPane() throws IOException {
     BorderPane myBP = new BorderPane();
-    VBox myBox = new VBox();
+    VBox header = new VBox();
+    header.setAlignment(CENTER);
+    HBox toolbar = new HBox();
+    toolbar.setSpacing(10);
+    toolbar.setAlignment(TOP_CENTER);
+    header.getChildren().add(toolbar);
     BP = myBP;
 //    BackgroundImage homeScreen = new BackgroundImage(new Image("CharacterSelectScreen.png",1245,763,false,true),
 //            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 //            BackgroundSize.DEFAULT);
 //    myBP.setBackground(new Background(homeScreen));
-   HashMap<String, String> buttonMap = new HashMap<>();
+    HashMap<String, String> buttonMap = new HashMap<>();
     Properties props = new Properties();
     props.load(Home.class.getResourceAsStream("charSelect_buttons.properties"));
     for(String s : props.stringPropertyNames()){
@@ -194,12 +210,12 @@ public class CharacterSelectView extends Application implements ViewInternal {
           });
         }
       }
-      myBox.getChildren().add(b);
+      toolbar.getChildren().add(b);
     }
-    myBP.setLeft(myBox);
+    myBP.setTop(header);
     HB1 = new HBox();
-    HB1.setMaxWidth(600);
     HB2 = new HBox();
+    HB1.setMaxWidth(600);
     HB1.setAlignment(Pos.BOTTOM_LEFT);
     HB2.setAlignment(Pos.BOTTOM_RIGHT);
     HBox bottomOverlays = new HBox();
