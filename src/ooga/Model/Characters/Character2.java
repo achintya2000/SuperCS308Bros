@@ -54,8 +54,8 @@ public class Character2 extends CharacterSuper implements Character {
     public Character2 (String name, Group mainRoot, int x, int y) throws FileNotFoundException {
         super(name, mainRoot);
         spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
-        this.centerX = x;
-        this.centerY = y;
+        this.centerX = x + 50;
+        this.centerY = y + 50;
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
 
@@ -71,7 +71,7 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
 
-        hurtBox = makeHurtBox(x,y);
+        hurtBox = makeHurtBox(centerX, centerY);
         mainRoot.getChildren().add(hurtBox);
         hitBox = makeHitBox();
         mainRoot.getChildren().add(spriteImageView);
@@ -141,7 +141,7 @@ public class Character2 extends CharacterSuper implements Character {
     @Override
     public void jump() {
         jumpTransition(spriteImageView);
-        jumpTransition(hurtBox);
+        //\jumpTransition(hurtBox);
 
         playJumpAnimation();
 
@@ -257,7 +257,7 @@ public class Character2 extends CharacterSuper implements Character {
     }
 
     public int getCenterY() {
-        return (int) spriteImageView.getY();
+        return (int) (spriteImageView.getBoundsInParent().getMaxY() + spriteImageView.getBoundsInParent().getMinY())/2;
     }
 
     public void setCenterY(int centerY) {

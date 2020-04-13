@@ -54,7 +54,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
   }
 
   public void initCharacters() throws FileNotFoundException {
-    Character2 bunny = new Character2("bunny", root, 200, 200);
+    Character2 bunny = new Character2("bunny", root, 200, 100);
     Character3 ghost = new Character3("ghost", root,400, 200);
 
     GridPane charGrid = new GridPane();

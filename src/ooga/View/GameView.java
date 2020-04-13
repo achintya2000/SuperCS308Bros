@@ -55,19 +55,31 @@ public class GameView extends Application implements ViewInternal {
     AnimationTimer animationTimer = new AnimationTimer() {
       @Override
       public void handle(long now) {
-
         if (!bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
         {
-          y += 3;
-          bunny.getHurtBox().setY(bunny.getHurtBox().getY() + 3);
+          y += 1;
+          //bunny.getHurtBox().setY(bunny.getHurtBox().getY() + 1);
           bunny.setCenterY(y);
         }
         if (!bunny2.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
         {
-          y2 += 3;
-          bunny2.getHurtBox().setY(bunny2.getHurtBox().getY() + 3);
+          y2 += 1;
+          //bunny2.getHurtBox().setY(bunny2.getHurtBox().getY() + 1);
           bunny2.setCenterY(y2);
         }
+//        if (bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
+//        {
+//          y -= 4;
+//          //bunny.getHurtBox().setY(bunny.getHurtBox().getY() + 1);
+//          bunny.setCenterY(y);
+//
+//        }
+//        if (bunny2.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
+//        {
+//          y2 -= 4;
+//          //bunny2.getHurtBox().setY(bunny2.getHurtBox().getY() + 1);
+//          bunny2.setCenterY(y2);
+//        }
 
 //        if (!bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
 //        {
