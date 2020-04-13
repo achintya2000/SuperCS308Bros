@@ -1,11 +1,16 @@
 package ooga.View;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -32,9 +37,11 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   public static final ResourceBundle buttonStyles = ResourceBundle.getBundle("ooga.Resources.stylesheets.buttonStyle");
   private Scene currentScene;
-  private BorderPane BP;
-  private BorderPane VB1;
-  private BorderPane VB2;
+  private BorderPane borderPane;
+  private BorderPane playerViewBox1;
+  private BorderPane playerViewBox2;
+  private Label player1ViewBoxPic;
+  private Label player2ViewBoxPic;
 //  private boolean p1IsReady = false;
 //  private boolean p2IsReady = false;
   private Stage currentStage;
@@ -45,6 +52,8 @@ public class CharacterSelectView extends Application implements ViewInternal {
   private ArrayList<Player> playerList = new ArrayList<>();
   private int currentPlayer = 1;
   private Group root = new Group();
+
+
 
   @Override
   public void resetGame() {
@@ -62,6 +71,10 @@ public class CharacterSelectView extends Application implements ViewInternal {
   }
 
   public void initCharacters() throws FileNotFoundException {
+    ArrayList<Label> playerViewList = new ArrayList<>();
+    playerViewList.add(player1ViewBoxPic);
+    playerViewList.add(player2ViewBoxPic);
+    
     Character2 bunny = new Character2("bunny", root, 200, 100);
     Character3 ghost = new Character3("ghost", root,400, 200);
 
@@ -70,8 +83,8 @@ public class CharacterSelectView extends Application implements ViewInternal {
     charGrid.setGridLinesVisible(true);
     charGrid.setMaxHeight(300);
     charGrid.setMaxWidth(800);
-    BP.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
-    BP.setCenter(charGrid);
+    borderPane.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
+    borderPane.setCenter(charGrid);
     characterList.add(bunny);
     characterList.add(ghost);
     int colCount = 0;
@@ -87,6 +100,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
           CharacterSuper newCharacter = (CharacterSuper) cls.getDeclaredConstructors()[0].newInstance(character.getName(), root, 200, 400);
           playerList.get(currentPlayer-1).setMyCharacter(newCharacter);
           playerList.get(currentPlayer-1).setHasChosenChar(true);
+          playerViewList.get(currentPlayer-1).setGraphic(newCharacter.getCharacterImage());
           System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
         }
         catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException ex)
@@ -172,22 +186,22 @@ public class CharacterSelectView extends Application implements ViewInternal {
 //      HBox readyBox = new HBox();
 //      readyBox.setAlignment(Pos.CENTER_LEFT);
 //      readyBox.getChildren().add(readyOverlay);
-//      BP.setCenter(readyBox);
+//      borderPane.setCenter(readyBox);
   }
 
   private BorderPane makeBorderPane() throws IOException {
-    BorderPane myBP = new BorderPane();
+    BorderPane myborderPane = new BorderPane();
     VBox header = new VBox();
     header.setAlignment(CENTER);
     HBox toolbar = new HBox();
     toolbar.setSpacing(10);
     toolbar.setAlignment(TOP_CENTER);
     header.getChildren().add(toolbar);
-    BP = myBP;
+    borderPane = myborderPane;
 //    BackgroundImage homeScreen = new BackgroundImage(new Image("CharacterSelectScreen.png",1245,763,false,true),
 //            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 //            BackgroundSize.DEFAULT);
-//    myBP.setBackground(new Background(homeScreen));
+//    myborderPane.setBackground(new Background(homeScreen));
     HashMap<String, String> buttonMap = new HashMap<>();
     Properties props = new Properties();
     props.load(Home.class.getResourceAsStream("charSelect_buttons.properties"));
@@ -213,13 +227,22 @@ public class CharacterSelectView extends Application implements ViewInternal {
       }
       toolbar.getChildren().add(b);
     }
-    BP.setTop(header);
-    VB1 = new BorderPane();
-    VB2 = new BorderPane();
-    VB1.setMinWidth(300);
-    VB2.setMinWidth(300);
-    VB1.setMinHeight(300);
-    VB2.setMinHeight(300);
+    VBox picAndName1 = new VBox();
+    VBox picAndName2 = new VBox();
+    player1ViewBoxPic = new Label();
+    player2ViewBoxPic = new Label();
+    picAndName1.getChildren().add(player1ViewBoxPic);
+    picAndName2.getChildren().add(player2ViewBoxPic);
+    picAndName1.setAlignment(CENTER);
+    picAndName2.setAlignment(CENTER);
+
+    borderPane.setTop(header);
+    playerViewBox1 = new BorderPane();
+    playerViewBox2 = new BorderPane();
+    playerViewBox1.setMinWidth(300);
+    playerViewBox2.setMinWidth(300);
+    playerViewBox1.setMinHeight(300);
+    playerViewBox2.setMinHeight(300);
     Button player1Text = new Button("PLAYER 1");
     player1Text.setStyle(buttonStyles.getString("playerText"));
     player1Text.setMinWidth(300);
@@ -232,15 +255,17 @@ public class CharacterSelectView extends Application implements ViewInternal {
     player2Text.setMinHeight(100);
     player2Text.setStyle(buttonStyles.getString("playerText"));
 
-    VB1.setStyle("-fx-background-color: rgba(230, 0, 0, 0.7)");
-    VB2.setStyle("-fx-background-color: rgba(0, 0, 230, 0.7)");
-    VB1.setBottom(player1Text);
-    VB2.setBottom(player2Text);
+    playerViewBox1.setStyle("-fx-background-color: rgba(230, 0, 0, 0.7)");
+    playerViewBox2.setStyle("-fx-background-color: rgba(0, 0, 230, 0.7)");
+    playerViewBox1.setCenter(picAndName1);
+    playerViewBox2.setCenter(picAndName2);
+    playerViewBox1.setBottom(player1Text);
+    playerViewBox2.setBottom(player2Text);
     HBox bottomOverlays = new HBox();
     bottomOverlays.setAlignment(Pos.CENTER);
-    bottomOverlays.getChildren().addAll(VB1,VB2);
-    BP.setBottom(bottomOverlays);
-    return BP;
+    bottomOverlays.getChildren().addAll(playerViewBox1,playerViewBox2);
+    borderPane.setBottom(bottomOverlays);
+    return borderPane;
   }
 
   @Override
