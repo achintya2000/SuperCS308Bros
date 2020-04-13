@@ -58,6 +58,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
     Character3 ghost = new Character3("ghost", root,400, 200);
 
     GridPane charGrid = new GridPane();
+    BP.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7)");
     BP.setCenter(charGrid);
     characterList.add(bunny);
     characterList.add(ghost);
