@@ -55,8 +55,8 @@ public class Character3 extends CharacterSuper implements Character {
     Rectangle dummy;
     boolean attackFinish;
 
-    public Character3(String name, Group mainRoot, int x, int y) throws FileNotFoundException {
-        super(name, mainRoot);
+    public Character3(String name, int x, int y) throws FileNotFoundException {
+        super(name);
         spriteImageView = new ImageView(IDLE_IMAGE_LEFT);
         this.centerX = x;
         this.centerY = y;
@@ -79,8 +79,7 @@ public class Character3 extends CharacterSuper implements Character {
         dummy = getDummy();
         root.getChildren().add(dummy);
         attackFinish = true;
-        mainRoot.getChildren().add(spriteImageView);
-
+        getGroup().getChildren().addAll(getCharacterImage());
     }
 
     private Rectangle getDummy(){
