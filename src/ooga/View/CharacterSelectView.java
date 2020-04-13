@@ -40,6 +40,10 @@ public class CharacterSelectView extends Application implements ViewInternal {
   private BorderPane borderPane;
   private BorderPane playerViewBox1;
   private BorderPane playerViewBox2;
+
+  Label char1NameText;
+  Label char2NameText;
+
   private Label player1ViewBoxPic;
   private Label player2ViewBoxPic;
 //  private boolean p1IsReady = false;
@@ -74,6 +78,10 @@ public class CharacterSelectView extends Application implements ViewInternal {
     ArrayList<Label> playerViewList = new ArrayList<>();
     playerViewList.add(player1ViewBoxPic);
     playerViewList.add(player2ViewBoxPic);
+
+    ArrayList<Label> charNameLabelList = new ArrayList<>();
+    charNameLabelList.add(char1NameText);
+    charNameLabelList.add(char2NameText);
     
     Character2 bunny = new Character2("bunny", root, 200, 100);
     Character3 ghost = new Character3("ghost", root,400, 200);
@@ -101,6 +109,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
           playerList.get(currentPlayer-1).setMyCharacter(newCharacter);
           playerList.get(currentPlayer-1).setHasChosenChar(true);
           playerViewList.get(currentPlayer-1).setGraphic(newCharacter.getCharacterImage());
+          charNameLabelList.get(currentPlayer-1).setText(character.getName());
           System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
         }
         catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException ex)
@@ -227,12 +236,18 @@ public class CharacterSelectView extends Application implements ViewInternal {
       }
       toolbar.getChildren().add(b);
     }
-    VBox picAndName1 = new VBox();
-    VBox picAndName2 = new VBox();
+
+
+    char1NameText = new Label();
+    char2NameText = new Label();
+    char1NameText.setStyle(buttonStyles.getString("characterText"));
+    char2NameText.setStyle(buttonStyles.getString("characterText"));
+    VBox picAndName1 = new VBox(10);
+    VBox picAndName2 = new VBox(10);
     player1ViewBoxPic = new Label();
     player2ViewBoxPic = new Label();
-    picAndName1.getChildren().add(player1ViewBoxPic);
-    picAndName2.getChildren().add(player2ViewBoxPic);
+    picAndName1.getChildren().addAll(player1ViewBoxPic, char1NameText);
+    picAndName2.getChildren().addAll(player2ViewBoxPic, char2NameText);
     picAndName1.setAlignment(CENTER);
     picAndName2.setAlignment(CENTER);
 
