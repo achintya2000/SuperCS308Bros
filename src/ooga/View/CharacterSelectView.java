@@ -25,15 +25,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
-import static javafx.geometry.Pos.CENTER;
-import static javafx.geometry.Pos.TOP_CENTER;
+import static javafx.geometry.Pos.*;
 
 public class CharacterSelectView extends Application implements ViewInternal {
 
   private Scene currentScene;
   private BorderPane BP;
-  private HBox HB1;
-  private HBox HB2;
+  private VBox VB1;
+  private VBox VB2;
 //  private boolean p1IsReady = false;
 //  private boolean p2IsReady = false;
   private Stage currentStage;
@@ -212,16 +211,28 @@ public class CharacterSelectView extends Application implements ViewInternal {
       }
       toolbar.getChildren().add(b);
     }
-    myBP.setTop(header);
-    HB1 = new HBox();
-    HB2 = new HBox();
-    HB1.setMaxWidth(600);
-    HB1.setAlignment(Pos.BOTTOM_LEFT);
-    HB2.setAlignment(Pos.BOTTOM_RIGHT);
+    BP.setTop(header);
+    VB1 = new VBox();
+    VB2 = new VBox();
+    VB1.setMinWidth(300);
+    VB2.setMinWidth(300);
+    VB1.setMinHeight(300);
+    VB2.setMinHeight(300);
+    Label player1Text = new Label("PLAYER 1");
+    player1Text.setAlignment(BOTTOM_CENTER);
+    Label player2Text = new Label("PLAYER 2");
+    player2Text.setAlignment(BOTTOM_CENTER);
+    VB1.setStyle("-fx-background-color: rgba(230, 0, 0, 0.7)");
+    VB2.setStyle("-fx-background-color: rgba(0, 0, 230, 0.7)");
+    VB1.setAlignment(Pos.CENTER_LEFT);
+    VB2.setAlignment(Pos.CENTER_RIGHT);
+    VB1.getChildren().add(player1Text);
+    VB2.getChildren().add(player2Text);
     HBox bottomOverlays = new HBox();
-    bottomOverlays.getChildren().addAll(HB1,HB2);
-    myBP.setBottom(bottomOverlays);
-    return myBP;
+    bottomOverlays.setAlignment(Pos.CENTER);
+    bottomOverlays.getChildren().addAll(VB1,VB2);
+    BP.setBottom(bottomOverlays);
+    return BP;
   }
 
   @Override
