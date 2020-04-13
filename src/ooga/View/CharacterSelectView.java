@@ -110,6 +110,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
           playerList.get(currentPlayer-1).setHasChosenChar(true);
           playerViewList.get(currentPlayer-1).setGraphic(newCharacter.getCharacterImage());
           charNameLabelList.get(currentPlayer-1).setText(character.getName());
+          charNameLabelList.get(currentPlayer-1).setStyle(buttonStyles.getString("characterText"));
           System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
         }
         catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException ex)
@@ -240,8 +241,6 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
     char1NameText = new Label();
     char2NameText = new Label();
-    char1NameText.setStyle(buttonStyles.getString("characterText"));
-    char2NameText.setStyle(buttonStyles.getString("characterText"));
     VBox picAndName1 = new VBox(10);
     VBox picAndName2 = new VBox(10);
     player1ViewBoxPic = new Label();
