@@ -1,7 +1,5 @@
 package ooga.Model;
 
-import javafx.scene.layout.BorderPane;
-import ooga.Model.Characters.Character1;
 import ooga.Model.Characters.CharacterSuper;
 
 /**
