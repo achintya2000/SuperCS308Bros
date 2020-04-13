@@ -33,8 +33,8 @@ public class CharacterSelectView extends Application implements ViewInternal {
   public static final ResourceBundle buttonStyles = ResourceBundle.getBundle("ooga.Resources.stylesheets.buttonStyle");
   private Scene currentScene;
   private BorderPane BP;
-  private VBox VB1;
-  private VBox VB2;
+  private BorderPane VB1;
+  private BorderPane VB2;
 //  private boolean p1IsReady = false;
 //  private boolean p2IsReady = false;
   private Stage currentStage;
@@ -214,29 +214,28 @@ public class CharacterSelectView extends Application implements ViewInternal {
       toolbar.getChildren().add(b);
     }
     BP.setTop(header);
-    VB1 = new VBox();
-    VB2 = new VBox();
+    VB1 = new BorderPane();
+    VB2 = new BorderPane();
     VB1.setMinWidth(300);
     VB2.setMinWidth(300);
     VB1.setMinHeight(300);
     VB2.setMinHeight(300);
     Button player1Text = new Button("PLAYER 1");
-    player1Text.setAlignment(BOTTOM_CENTER);
     player1Text.setStyle(buttonStyles.getString("playerText"));
     player1Text.setMinWidth(300);
+    player1Text.setMinHeight(100);
     player1Text.setOnMouseClicked((e) -> {p1Ready();});
 
     Button player2Text = new Button("PLAYER 2");
     player2Text.setOnMouseClicked((e) -> {p2Ready();});
     player2Text.setMinWidth(300);
+    player2Text.setMinHeight(100);
     player2Text.setStyle(buttonStyles.getString("playerText"));
-    player2Text.setAlignment(BOTTOM_CENTER);
+
     VB1.setStyle("-fx-background-color: rgba(230, 0, 0, 0.7)");
     VB2.setStyle("-fx-background-color: rgba(0, 0, 230, 0.7)");
-    VB1.setAlignment(Pos.CENTER_LEFT);
-    VB2.setAlignment(Pos.CENTER_RIGHT);
-    VB1.getChildren().add(player1Text);
-    VB2.getChildren().add(player2Text);
+    VB1.setBottom(player1Text);
+    VB2.setBottom(player2Text);
     HBox bottomOverlays = new HBox();
     bottomOverlays.setAlignment(Pos.CENTER);
     bottomOverlays.getChildren().addAll(VB1,VB2);
