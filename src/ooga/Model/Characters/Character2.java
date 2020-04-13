@@ -51,8 +51,8 @@ public class Character2 extends CharacterSuper implements Character {
     Circle hitBox;
     Rectangle hurtBox;
 
-    public Character2 (String name, Group mainRoot, int x, int y) throws FileNotFoundException {
-        super(name, mainRoot);
+    public Character2 (String name, int x, int y) throws FileNotFoundException {
+        super(name);
         spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
         this.centerX = x + 50;
         this.centerY = y + 50;
@@ -72,10 +72,10 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation.play();
 
         hurtBox = makeHurtBox(centerX, centerY);
-        mainRoot.getChildren().add(hurtBox);
-        hitBox = makeHitBox();
-        mainRoot.getChildren().add(spriteImageView);
 
+        hitBox = makeHitBox();
+
+        getGroup().getChildren().addAll(hurtBox,getCharacterImage());
     }
 
     private Circle makeHitBox(){
@@ -223,12 +223,12 @@ public class Character2 extends CharacterSuper implements Character {
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
-        super.getRoot().getChildren().remove(hitBox);
+        super.getGroup().getChildren().remove(hitBox);
         hitBox = makeHitBox();
-        super.getRoot().getChildren().add(hitBox);
+        super.getGroup().getChildren().add(hitBox);
 
         spriteAnimation.setOnFinished(event -> {
-            super.getRoot().getChildren().remove(hitBox);
+            super.getGroup().getChildren().remove(hitBox);
             spriteAnimation.stop();
             playIdleAnimation();
         });

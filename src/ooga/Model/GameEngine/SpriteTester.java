@@ -28,18 +28,18 @@ public class SpriteTester extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Character2 bunny = new Character2("bunny", root, 100, 400);
-        Character2 bunny2 = new Character2("bunny2", root,400, 500);
+        Character2 bunny = new Character2("bunny",  100, 400);
+        Character2 bunny2 = new Character2("bunny2", 400, 500);
 
-        Character3 ghost = new Character3("ghost", root,300, 400);
+        Character3 ghost = new Character3("ghost", 300, 400);
 
         Rectangle stage = new Rectangle(100, 800, 500, 100);
 
         //Group root = bunny.getRoot();
-        root.getChildren().add((bunny2.getRoot()));
-        root.getChildren().add(ghost.getRoot());
+        root.getChildren().add((bunny2.getGroup()));
+        root.getChildren().add(ghost.getGroup());
         root.getChildren().add(stage);
-        root.getChildren().add(bunny2.getRoot());
+        root.getChildren().add(bunny2.getGroup());
 
         //Creating a scene object
         Scene scene = new Scene(root, 1000, 1000);

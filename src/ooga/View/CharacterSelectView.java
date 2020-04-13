@@ -41,14 +41,15 @@ public class CharacterSelectView extends Application implements ViewInternal {
   private BorderPane playerViewBox1;
   private BorderPane playerViewBox2;
 
-  Label char1NameText;
-  Label char2NameText;
+  private Label char1NameText;
+  private Label char2NameText;
 
   private Label player1ViewBoxPic;
   private Label player2ViewBoxPic;
 //  private boolean p1IsReady = false;
 //  private boolean p2IsReady = false;
   private Stage currentStage;
+
   private ArrayList<CharacterSuper> characterList = new ArrayList<>();
   private ArrayList<Button> buttonList = new ArrayList<>();
   private Player player1;
@@ -71,7 +72,6 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   @Override
   public void setStage() {
-
   }
 
   public void initCharacters() throws FileNotFoundException {
@@ -83,8 +83,8 @@ public class CharacterSelectView extends Application implements ViewInternal {
     charNameLabelList.add(char1NameText);
     charNameLabelList.add(char2NameText);
     
-    Character2 bunny = new Character2("bunny", root, 200, 100);
-    Character3 ghost = new Character3("ghost", root,400, 200);
+    Character2 bunny = new Character2("bunny",200, 100);
+    Character3 ghost = new Character3("ghost",400, 200);
 
     GridPane charGrid = new GridPane();
     charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
@@ -105,10 +105,12 @@ public class CharacterSelectView extends Application implements ViewInternal {
         try
         {
           Class<?> cls = Class.forName(character.getClass().getName());
-          CharacterSuper newCharacter = (CharacterSuper) cls.getDeclaredConstructors()[0].newInstance(character.getName(), root, 200, 400);
+          CharacterSuper imageCharacter = (CharacterSuper) cls.getDeclaredConstructors()[0].newInstance(character.getName(), 200, 400);
+          CharacterSuper newCharacter = (CharacterSuper) cls.getDeclaredConstructors()[0].newInstance(character.getName(), 200, 400);
+
           playerList.get(currentPlayer-1).setMyCharacter(newCharacter);
           playerList.get(currentPlayer-1).setHasChosenChar(true);
-          playerViewList.get(currentPlayer-1).setGraphic(newCharacter.getCharacterImage());
+          playerViewList.get(currentPlayer-1).setGraphic(imageCharacter.getCharacterImage());
           charNameLabelList.get(currentPlayer-1).setText(character.getName());
           charNameLabelList.get(currentPlayer-1).setStyle(buttonStyles.getString("characterText"));
           System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
@@ -174,6 +176,11 @@ public class CharacterSelectView extends Application implements ViewInternal {
     }
     System.out.println("Creating Game ... ");
     currentStage.hide();
+    root.getChildren().clear();
+    for(Player player:playerList) {
+      root.getChildren().add(player.getMyCharacter().getGroup());
+    }
+
     GameView game = new GameView(playerList, root);
     game.start(new Stage());
   }

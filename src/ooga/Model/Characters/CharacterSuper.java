@@ -13,19 +13,17 @@ public abstract class CharacterSuper {
   private int myStamina;
   private int health = 100;
   private String name;
-  private Group root;
   private Circle hitBox;
   private Rectangle hurtBox;
+  private Group charGroup = new Group();
 
   ImageView spriteImageView;
   SpriteAnimation spriteAnimation;
 
-  public CharacterSuper(String name, Group mainRoot) {
+  public CharacterSuper(String name) {
     this.name = name;
     System.out.println(name);
     System.out.println(this.name);
-    root = mainRoot;
-
   }
 
   /**
@@ -73,14 +71,17 @@ public abstract class CharacterSuper {
     return name;
   }
 
-  public Group getRoot(){ return root;}
-
   public Circle getHitBox(){
     return hitBox;
   }
 
   public Rectangle getHurtBox(){
     return hurtBox;
+  }
+
+  public Group getGroup()
+  {
+    return charGroup;
   }
 
   public abstract void moveLeft();
