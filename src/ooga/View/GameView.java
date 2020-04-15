@@ -32,6 +32,9 @@ public class GameView extends Application implements ViewInternal {
   private BooleanProperty D_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty LEFT_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty S_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty DOWN_PRESSED = new SimpleBooleanProperty();
+
 
   CharacterSuper bunny;
   CharacterSuper bunny2;
@@ -70,6 +73,10 @@ public class GameView extends Application implements ViewInternal {
             y += 1;
             //bunny.getHurtBox().setY(bunny.getHurtBox().getY() + 1);
             bunny.setCenterY(y);
+          }
+          if(bunny2.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())){
+            y2 -= 4;
+            bunny2.setCenterY(y2);
           }
           if (!bunny2.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent()))
           {
@@ -118,6 +125,14 @@ public class GameView extends Application implements ViewInternal {
         if (RIGHT_PRESSED.get()) {
           bunny2.moveRight();
         }
+        if(S_PRESSED.get()){
+          y += 3;
+          bunny.setCenterY(y);
+        }
+        if(DOWN_PRESSED.get()){
+          y2 += 3;
+          bunny2.setCenterY(y2);
+        }
       }
     };
     animationTimer.start();
@@ -148,6 +163,9 @@ public class GameView extends Application implements ViewInternal {
         D_PRESSED.set(true);
         bunny2.getHurtBox().setStroke(Color.YELLOW);
       }
+      if(e.getCode() == KeyCode.S){
+        S_PRESSED.set(true);
+      }
       if (e.getCode() == KeyCode.T) {
         bunny.attack();
         if(bunny.getHitBox().getBoundsInParent().intersects(bunny2.getHurtBox().getBoundsInParent())){
@@ -167,6 +185,9 @@ public class GameView extends Application implements ViewInternal {
       if (e.getCode() == KeyCode.RIGHT) {
         RIGHT_PRESSED.set(true);
       }
+      if (e.getCode() == KeyCode.DOWN) {
+        DOWN_PRESSED.set(true);
+      }
       if (e.getCode() == KeyCode.UP) {
         bunny2.jump();
       }
@@ -181,6 +202,12 @@ public class GameView extends Application implements ViewInternal {
               }
               if (e.getCode() == KeyCode.D) {
                 D_PRESSED.set(false);
+              }
+              if(e.getCode() == KeyCode.S) {
+                S_PRESSED.set(false);
+              }
+              if(e.getCode() == KeyCode.DOWN){
+                DOWN_PRESSED.set(false);
               }
               if (e.getCode() == KeyCode.LEFT) {
                 LEFT_PRESSED.set(false);
