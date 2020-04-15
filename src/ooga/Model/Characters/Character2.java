@@ -44,7 +44,8 @@ public class Character2 extends CharacterSuper implements Character {
     Image ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-right.png"));
     Image ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-left.png"));
 
-    Image JUMP_IMAGE = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump.png"));
+    Image JUMP_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump-right.png"));
+    Image JUMP_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump-left.png"));
 
     ImageView spriteImageView;
     SpriteAnimation spriteAnimation;
@@ -140,11 +141,14 @@ public class Character2 extends CharacterSuper implements Character {
 
     @Override
     public void jump() {
-        jumpTransition(spriteImageView);
-        //\jumpTransition(hurtBox);
+        TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
+        jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
+        jump.setByY(-150);
+        jump.setAutoReverse(true);
+        jump.setCycleCount(2);
+        jump.play();
 
         playJumpAnimation();
-
     }
 
     private void jumpTransition(Node jumpNode) {
@@ -236,13 +240,17 @@ public class Character2 extends CharacterSuper implements Character {
 
     private void playJumpAnimation() {
         spriteAnimation.stop();
-        spriteImageView.setImage(JUMP_IMAGE);
+        if (facingRight){
+            spriteImageView.setImage(JUMP_IMAGE_RIGHT);
+        } else {
+            spriteImageView.setImage(JUMP_IMAGE_LEFT);
+        }
         spriteAnimation.setAnimation(
-                spriteImageView,
-                Duration.millis(1000),
-                COUNT, COLUMNS,
-                OFFSET_X, OFFSET_Y,
-                WIDTH, HEIGHT);
+            spriteImageView,
+            Duration.millis(1000),
+            COUNT, COLUMNS,
+            OFFSET_X, OFFSET_Y,
+            WIDTH, HEIGHT);
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
