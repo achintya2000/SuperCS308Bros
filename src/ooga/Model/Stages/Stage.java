@@ -1,15 +1,14 @@
 package ooga.Model.Stages;
 
 import java.awt.Rectangle;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.image.Image;
-import javax.swing.text.Element;
-import javax.swing.text.html.ImageView;
+import javafx.scene.image.ImageView;
 
 public abstract class Stage {
-  protected ImageView background;
+  protected javafx.scene.image.ImageView background;
   protected List<Rectangle> platforms;
 
   public Stage() throws FileNotFoundException {
@@ -24,4 +23,8 @@ public abstract class Stage {
   public ImageView getBackground() {
     return background;
   }
+
+  protected abstract ArrayList<javafx.scene.shape.Rectangle> makePlatforms();
+
+  public abstract ArrayList<javafx.scene.shape.Rectangle> getPlatforms();
 }

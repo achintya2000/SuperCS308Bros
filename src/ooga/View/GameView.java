@@ -1,7 +1,9 @@
 package ooga.View;
 
+import java.io.FileNotFoundException;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.application.Preloader.StateChangeNotification;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -12,11 +14,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.Character2;
 import ooga.Model.Characters.CharacterSuper;
 import ooga.Model.Player;
 
 import java.util.ArrayList;
+import ooga.Model.Stages.BattleField;
 
 public class GameView extends Application implements ViewInternal {
 
@@ -33,7 +37,8 @@ public class GameView extends Application implements ViewInternal {
   CharacterSuper bunny2;
   int y;
   int y2;
-  Rectangle stage = new Rectangle(100, 600, 500, 100);
+
+  ArrayList<Rectangle> platforms;
 
   @Override
   public void resetGame() {
@@ -55,18 +60,25 @@ public class GameView extends Application implements ViewInternal {
     AnimationTimer animationTimer = new AnimationTimer() {
       @Override
       public void handle(long now) {
-        if (!bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
-        {
-          y += 1;
-          //bunny.getHurtBox().setY(bunny.getHurtBox().getY() + 1);
-          bunny.setCenterY(y);
+        for(Rectangle platform : platforms){
+          if(bunny.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())){
+            y -= 4;
+            bunny.setCenterY(y);
+          }
+          if (!bunny.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent()))
+          {
+            y += 1;
+            //bunny.getHurtBox().setY(bunny.getHurtBox().getY() + 1);
+            bunny.setCenterY(y);
+          }
+          if (!bunny2.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent()))
+          {
+            y2 += 1;
+            //bunny2.getHurtBox().setY(bunny2.getHurtBox().getY() + 1);
+            bunny2.setCenterY(y2);
+          }
         }
-        if (!bunny2.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
-        {
-          y2 += 1;
-          //bunny2.getHurtBox().setY(bunny2.getHurtBox().getY() + 1);
-          bunny2.setCenterY(y2);
-        }
+
 //        if (bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
 //        {
 //          y -= 4;
@@ -119,7 +131,12 @@ public class GameView extends Application implements ViewInternal {
     bunny2 = playerList.get(1).getMyCharacter();
     y = bunny.getCenterY();
     y2 = bunny2.getCenterY();
-    root.getChildren().addAll(stage);
+    try {
+      platforms = new BattleField().getPlatforms();
+    } catch (FileNotFoundException e) {
+      new ExceptionHelper(e);
+    }
+    root.getChildren().addAll(platforms);
   }
 
   @Override
