@@ -71,6 +71,7 @@ public abstract class CharacterSuper {
     return name;
   }
 
+
   public Circle getHitBox(){
     return hitBox;
   }
