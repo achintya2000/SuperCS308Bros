@@ -1,18 +1,11 @@
 package ooga.View;
 
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Properties;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import ooga.Exceptions.ExceptionHelper;
 
 public class Home extends Application {
 
@@ -40,7 +33,7 @@ public class Home extends Application {
 
    private void play() {
     currentStage.hide();
-    new CharacterSelectView().start(new Stage());
+    new StageSelect().start(new Stage());
    }
 
    private void help(){
