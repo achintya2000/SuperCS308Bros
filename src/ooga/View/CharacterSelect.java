@@ -201,10 +201,7 @@ public class CharacterSelect extends Application implements ViewInternal {
     toolbar.setAlignment(TOP_CENTER);
     header.getChildren().add(toolbar);
     borderPane = myborderPane;
-//    BackgroundImage homeScreen = new BackgroundImage(new Image("CharacterSelectScreen.png",1245,763,false,true),
-//            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-//            BackgroundSize.DEFAULT);
-//    myborderPane.setBackground(new Background(homeScreen));
+
     HashMap<String, String> buttonMap = new HashMap<>();
     Properties props = new Properties();
     props.load(Home.class.getResourceAsStream("charSelect_buttons.properties"));
