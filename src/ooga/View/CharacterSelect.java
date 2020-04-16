@@ -1,21 +1,13 @@
 package ooga.View;
 
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.Character2;
@@ -34,7 +26,7 @@ import java.util.ResourceBundle;
 
 import static javafx.geometry.Pos.*;
 
-public class CharacterSelectView extends Application implements ViewInternal {
+public class CharacterSelect extends Application implements ViewInternal {
 
   public static final ResourceBundle buttonStyles = ResourceBundle.getBundle("ooga.Resources.stylesheets.buttonStyle");
   private Scene currentScene;
@@ -60,6 +52,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
   private ArrayList<Player> playerList = new ArrayList<>();
   private int currentPlayer = 1;
   private Group root = new Group();
+  private ooga.Model.Stages.Stage chosenStage;
 
 
 
@@ -75,6 +68,11 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   @Override
   public void setStage() {
+  }
+
+  public CharacterSelect(ooga.Model.Stages.Stage chosenStage)
+  {
+    this.chosenStage = chosenStage;
   }
 
   public void initCharacters() throws FileNotFoundException {
@@ -166,7 +164,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
       root.getChildren().add(player.getMyCharacter().getGroup());
     }
     Pane newRoot = new Pane(root);
-    GameView game = new GameView(playerList, newRoot);
+    GameView game = new GameView(playerList, newRoot, chosenStage);
     game.start(new Stage());
   }
 
@@ -213,7 +211,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
     for(String s : props.stringPropertyNames()){
       buttonMap.put(s, props.getProperty(s));
     }
-    Class<?> thisSelectScreen = CharacterSelectView.class;
+    Class<?> thisSelectScreen = CharacterSelect.class;
     for(String key : buttonMap.keySet()){
       Button b = new Button(key);
       for(Method m : thisSelectScreen.getDeclaredMethods()){

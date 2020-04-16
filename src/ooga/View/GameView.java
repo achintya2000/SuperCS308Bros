@@ -23,7 +23,7 @@ import ooga.Model.Stages.StageBuilder;
 public class GameView extends Application implements ViewInternal {
 
   private final int GRAVITY = 1;
-  private final int RECTANGLE_OFFSET = 5;
+  private final int RECTANGLE_OFFSET = 2;
 
   private ArrayList<Player> playerList;
   private Scene scene;
@@ -111,7 +111,7 @@ public class GameView extends Application implements ViewInternal {
     animationTimer.start();
   }
 
-  public GameView(ArrayList playerlist, Pane root)
+  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage)
   {
     this.playerList = playerlist;
     this.root = root;
@@ -119,16 +119,11 @@ public class GameView extends Application implements ViewInternal {
     bunny2 = playerList.get(1).getMyCharacter();
     y = bunny.getCenterY();
     y2 = bunny2.getCenterY();
-    try {
-      StageBuilder sb = new StageBuilder("battlefield.properties");
-      platforms = sb.getPlatforms();
-      BackgroundImage stageBackground = new BackgroundImage(sb.getBackground(),
-              BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-              BackgroundSize.DEFAULT);
-      root.setBackground(new Background(stageBackground));
-    } catch (FileNotFoundException e) {
-      new ExceptionHelper(e);
-    }
+    platforms = chosenStage.getPlatforms();
+    BackgroundImage stageBackground = new BackgroundImage(chosenStage.getBackground(),
+            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
+    root.setBackground(new Background(stageBackground));
     root.getChildren().addAll(platforms);
   }
 
