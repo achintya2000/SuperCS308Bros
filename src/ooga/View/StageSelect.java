@@ -60,9 +60,11 @@ public class StageSelect extends Application implements ViewInternal {
   public void initStages() throws FileNotFoundException {
     StageBuilder battlefield = new StageBuilder("battlefield.properties");
     StageBuilder fd = new StageBuilder("finalDestination.properties");
+    StageBuilder bridge = new StageBuilder("bridgeOfEldin.properties");
 
     stageList.add(battlefield);
     stageList.add(fd);
+    stageList.add(bridge);
     GridPane charGrid = new GridPane();
     charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
     charGrid.setGridLinesVisible(true);

@@ -98,7 +98,7 @@ public class CharacterSelect extends Application implements ViewInternal {
     characterList.add(ghost);
     int colCount = 0;
     int rowCount = 0;
-    int colThresh = 2;
+    int colThresh = 8;
     for(CharacterSuper character : characterList)
     {
       Button button = new Button();
