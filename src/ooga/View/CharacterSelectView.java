@@ -182,11 +182,11 @@ public class CharacterSelectView extends Application implements ViewInternal {
       }
     }
     System.out.println("CREATING READY TO FIGHT BUTTON");
-    Button readyToFight = new Button("READY TO FIGHT");
-    readyToFight.setStyle(buttonStyles.getString("fightText"));
+    Button readyToFight = new Button();
+    BackgroundImage backgroundImage = new BackgroundImage( new Image( getClass().getResource("/ReadytoFightButton.png").toExternalForm()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    Background readyToFightImage = new Background(backgroundImage);
+    readyToFight.setBackground(readyToFightImage);
     readyToFight.setAlignment(BOTTOM_CENTER);
-    readyToFight.setLayoutX(200);
-    readyToFight.setLayoutY(500);
     centerElements.setTop(readyToFight);
     readyToFight.setMinWidth(1185);
     readyToFight.setMinHeight(100);
