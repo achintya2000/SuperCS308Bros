@@ -54,7 +54,7 @@ public class Character3 extends CharacterSuper implements Character {
 
     public Character3 (String name, int x, int y) throws FileNotFoundException {
         super(name);
-        spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
+        spriteImageView = new ImageView(JUMP_IMAGE_LEFT);
         this.centerX = x + 50;
         this.centerY = y + 50;
         spriteImageView.setX(centerX);
@@ -263,6 +263,7 @@ public class Character3 extends CharacterSuper implements Character {
     public ImageView getCharacterImage(){
         return spriteImageView;
     }
+
 
     public int getCenterY() {
         return (int) (spriteImageView.getBoundsInParent().getMaxY() + spriteImageView.getBoundsInParent().getMinY())/2;

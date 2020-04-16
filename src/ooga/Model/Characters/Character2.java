@@ -264,6 +264,7 @@ public class Character2 extends CharacterSuper implements Character {
         return spriteImageView;
     }
 
+
     public int getCenterY() {
         return (int) (spriteImageView.getBoundsInParent().getMaxY() + spriteImageView.getBoundsInParent().getMinY())/2;
     }
