@@ -28,7 +28,7 @@ public class StageBuilder extends Stage {
     }
     for (String key : propsMap.keySet()) {
       if (key.equals("image"))
-        background = new ImageView(new Image(new FileInputStream(propsMap.get(key)[0])));
+        background = new Image(new FileInputStream(propsMap.get(key)[0]));
       else {
         int x = Integer.valueOf(propsMap.get(key)[1]);
         int y = Integer.valueOf(propsMap.get(key)[1]);
@@ -43,6 +43,7 @@ public class StageBuilder extends Stage {
   protected ArrayList<Rectangle> makePlatforms() {
     return null;
   }
+
 
   @Override
   public ArrayList<Rectangle> getPlatforms() {

@@ -180,8 +180,8 @@ public class CharacterSelectView extends Application implements ViewInternal {
     for(Player player:playerList) {
       root.getChildren().add(player.getMyCharacter().getGroup());
     }
-
-    GameView game = new GameView(playerList, root);
+    Pane newRoot = new Pane(root);
+    GameView game = new GameView(playerList, newRoot);
     game.start(new Stage());
   }
 

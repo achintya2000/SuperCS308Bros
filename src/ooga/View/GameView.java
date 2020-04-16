@@ -7,7 +7,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -25,7 +27,7 @@ public class GameView extends Application implements ViewInternal {
 
   private ArrayList<Player> playerList;
   private Scene scene;
-  private Group root;
+  private Pane root;
 
   private BooleanProperty A_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty D_PRESSED = new SimpleBooleanProperty();
@@ -109,7 +111,7 @@ public class GameView extends Application implements ViewInternal {
     animationTimer.start();
   }
 
-  public GameView(ArrayList playerlist, Group root)
+  public GameView(ArrayList playerlist, Pane root)
   {
     this.playerList = playerlist;
     this.root = root;
@@ -118,7 +120,12 @@ public class GameView extends Application implements ViewInternal {
     y = bunny.getCenterY();
     y2 = bunny2.getCenterY();
     try {
-      platforms = new StageBuilder("battlefield.properties").getPlatforms();
+      StageBuilder sb = new StageBuilder("battlefield.properties");
+      platforms = sb.getPlatforms();
+      BackgroundImage stageBackground = new BackgroundImage(sb.getBackground(),
+              BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+              BackgroundSize.DEFAULT);
+      root.setBackground(new Background(stageBackground));
     } catch (FileNotFoundException e) {
       new ExceptionHelper(e);
     }
@@ -128,7 +135,6 @@ public class GameView extends Application implements ViewInternal {
   @Override
   public void start(Stage primaryStage) {
     scene = new Scene(root, 1200, 800);
-
     scene.setOnKeyPressed(e -> {
       if (e.getCode() == KeyCode.D) {
         D_PRESSED.set(true);
