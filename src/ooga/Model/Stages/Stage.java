@@ -11,11 +11,6 @@ public abstract class Stage {
   protected javafx.scene.image.ImageView background;
   protected List<Rectangle> platforms;
 
-  public Stage() {
-
-
-  }
-
   /**
    * Getter for background ImageView
    * @return background

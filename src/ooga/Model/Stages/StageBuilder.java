@@ -14,7 +14,7 @@ import ooga.Exceptions.ExceptionHelper;
 public class StageBuilder extends Stage {
 
   public StageBuilder(String propertiesPath) throws FileNotFoundException {
-    platforms = new ArrayList<Rectangle>();
+    platforms = new ArrayList<>();
     Properties props = new Properties();
     try {
       props.load(StageBuilder.class.getResourceAsStream(propertiesPath));
