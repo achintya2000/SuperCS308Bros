@@ -24,7 +24,16 @@ public abstract class Stage {
     return background;
   }
 
+  /**
+   * Method for making the platforms for the private collection
+   * field 'platforms'.
+   * @return the rectangles to be stored in the class
+   */
   protected abstract ArrayList<javafx.scene.shape.Rectangle> makePlatforms();
 
+  /**
+   * Method for the GameView to access the Rectangle collections for rendering
+   * @return platforms from the Stage class
+   */
   public abstract ArrayList<javafx.scene.shape.Rectangle> getPlatforms();
 }
