@@ -1,11 +1,14 @@
 package ooga.Model.Characters;
 
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import ooga.Model.Character;
 import ooga.Model.GameEngine.SpriteAnimation;
+
+import java.io.FileInputStream;
 
 public abstract class CharacterSuper {
 
@@ -19,6 +22,18 @@ public abstract class CharacterSuper {
 
   ImageView spriteImageView;
   SpriteAnimation spriteAnimation;
+
+  private Image IDLE_IMAGE_RIGHT;
+  private Image IDLE_IMAGE_LEFT;
+
+  private Image RUN_IMAGE_RIGHT;
+  private Image RUN_IMAGE_LEFT;
+
+  private Image ATTACK_IMAGE_RIGHT;
+  private Image ATTACK_IMAGE_LEFT;
+
+  private Image JUMP_IMAGE_RIGHT;
+  private Image JUMP_IMAGE_LEFT;
 
   public CharacterSuper(String name) {
     this.name = name;
@@ -95,4 +110,5 @@ public abstract class CharacterSuper {
   public abstract int getCenterY();
 
   public abstract void setCenterY(int y);
+
 }

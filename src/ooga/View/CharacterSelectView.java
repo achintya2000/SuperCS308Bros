@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -46,6 +47,8 @@ public class CharacterSelectView extends Application implements ViewInternal {
 
   private Label player1ViewBoxPic;
   private Label player2ViewBoxPic;
+  private BorderPane centerElements;
+  private Insets inset = new Insets(10);
 //  private boolean p1IsReady = false;
 //  private boolean p2IsReady = false;
   private Stage currentStage;
@@ -114,6 +117,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
           charNameLabelList.get(currentPlayer-1).setText(character.getName());
           charNameLabelList.get(currentPlayer-1).setStyle(buttonStyles.getString("characterText"));
           System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
+          checkAllPlayersChosen();
         }
         catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException ex)
         {
@@ -140,15 +144,7 @@ public class CharacterSelectView extends Application implements ViewInternal {
       button.setDisable(false);
     }
     currentPlayer = 1;
-//    ImageView p1ReadyOverlay = new ImageView();
-//    p1ReadyOverlay.setImage(new Image("ReadyLeft.png",600,150,false,true));
-//    HB1.getChildren().add(p1ReadyOverlay);
-//    for(Button button : buttonList)
-//    {
-//      button.setDisable(false);
-//    }
-//    checkIfReady();
-//    System.out.println(p1ReadyOverlay.getX() + " "+  p1ReadyOverlay.getY());
+    //player1.setHasChosenChar(true);
   }
 
   public void p2Ready(){
@@ -157,53 +153,45 @@ public class CharacterSelectView extends Application implements ViewInternal {
       button.setDisable(false);
     }
     currentPlayer = 2;
-//    ImageView p2ReadyOverlay = new ImageView();
-//    p2ReadyOverlay.setImage(new Image("ReadyRight.png",600,150,false,true));
-//    HB2.getChildren().add(p2ReadyOverlay);
-//    for(Button button : buttonList)
-//    {
-//      button.setDisable(false);
-//    }
-//    checkIfReady();
+    //player2.setHasChosenChar(true);
   }
 
   public void createGame()
   {
-    if(!checkAllPlayersChosen())
-    {
-      System.out.println("NOT ALL PLAYERS HAVE CHOSEN");
-      return;
-    }
+
     System.out.println("Creating Game ... ");
     currentStage.hide();
     root.getChildren().clear();
     for(Player player:playerList) {
       root.getChildren().add(player.getMyCharacter().getGroup());
     }
-
-    GameView game = new GameView(playerList, root);
+    Pane newRoot = new Pane(root);
+    GameView game = new GameView(playerList, newRoot);
     game.start(new Stage());
   }
 
-  public boolean checkAllPlayersChosen()
+  public void checkAllPlayersChosen()
   {
-    boolean allTrue = true;
     for(Player player :playerList)
     {
       if(!player.getHasChosenChar())
       {
-        allTrue = false;
+
+        System.out.println("NOT ALL PLAYERS HAVE CHOSEN");
+        return;
       }
     }
-    return allTrue;
+    System.out.println("CREATING READY TO FIGHT BUTTON");
+    Button readyToFight = new Button("READY TO FIGHT");
+    readyToFight.setStyle(buttonStyles.getString("fightText"));
+    readyToFight.setAlignment(BOTTOM_CENTER);
+    readyToFight.setLayoutX(200);
+    readyToFight.setLayoutY(500);
+    centerElements.setTop(readyToFight);
+    readyToFight.setMinWidth(1185);
+    readyToFight.setMinHeight(100);
+    readyToFight.setOnMouseClicked((e) -> { createGame(); });
 
-    //Ready to fight picture
-//      ImageView readyOverlay = new ImageView();
-//      readyOverlay.setImage(new Image("ReadyToFight.png",1200,200,false,true));
-//      HBox readyBox = new HBox();
-//      readyBox.setAlignment(Pos.CENTER_LEFT);
-//      readyBox.getChildren().add(readyOverlay);
-//      borderPane.setCenter(readyBox);
   }
 
   private BorderPane makeBorderPane() throws IOException {
@@ -282,10 +270,14 @@ public class CharacterSelectView extends Application implements ViewInternal {
     playerViewBox2.setCenter(picAndName2);
     playerViewBox1.setBottom(player1Text);
     playerViewBox2.setBottom(player2Text);
+    centerElements = new BorderPane();
     HBox bottomOverlays = new HBox();
-    bottomOverlays.setAlignment(Pos.CENTER);
+    bottomOverlays.setAlignment(CENTER);
+    centerElements.setBottom(bottomOverlays);
+    centerElements.setMargin(bottomOverlays,inset);
+    //bottomOverlays.setAlignment(BOTTOM_CENTER);
     bottomOverlays.getChildren().addAll(playerViewBox1,playerViewBox2);
-    borderPane.setBottom(bottomOverlays);
+    borderPane.setBottom(centerElements);
     return borderPane;
   }
 

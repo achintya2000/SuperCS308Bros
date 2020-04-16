@@ -8,14 +8,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Stage {
-  protected javafx.scene.image.ImageView background;
+  protected Image background;
   protected List<Rectangle> platforms;
 
   /**
    * Getter for background ImageView
    * @return background
    */
-  public ImageView getBackground() {
+  public Image getBackground() {
     return background;
   }
 
