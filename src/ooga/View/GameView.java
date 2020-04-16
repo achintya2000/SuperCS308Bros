@@ -64,29 +64,27 @@ public class GameView extends Application implements ViewInternal {
     AnimationTimer animationTimer = new AnimationTimer() {
       @Override
       public void handle(long now) {
-        for(Rectangle platform : platforms){
-          if(bunny.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())){
+        for (Rectangle platform : platforms) {
+          if (bunny.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
             y -= RECTANGLE_OFFSET;
             bunny.setCenterY(y);
           }
-          if (!bunny.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent()))
-          {
+          if (!bunny.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
             y += GRAVITY;
             bunny.setCenterY(y);
           }
-          if(bunny2.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())){
+          if (bunny2.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
             y2 -= RECTANGLE_OFFSET;
             bunny2.setCenterY(y2);
           }
-          if (!bunny2.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent()))
-          {
+          if (!bunny2.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
             y2 += GRAVITY;
             bunny2.setCenterY(y2);
           }
         }
 
         //Update and render
-        if (D_PRESSED.get()){
+        if (D_PRESSED.get()) {
           bunny.moveRight();
         }
         if (A_PRESSED.get()) {
@@ -98,11 +96,11 @@ public class GameView extends Application implements ViewInternal {
         if (RIGHT_PRESSED.get()) {
           bunny2.moveRight();
         }
-        if(S_PRESSED.get()){
+        if (S_PRESSED.get()) {
           y += 3;
           bunny.setCenterY(y);
         }
-        if(DOWN_PRESSED.get()){
+        if (DOWN_PRESSED.get()) {
           y2 += 3;
           bunny2.setCenterY(y2);
         }
@@ -111,8 +109,7 @@ public class GameView extends Application implements ViewInternal {
     animationTimer.start();
   }
 
-  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage)
-  {
+  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage) {
     this.playerList = playerlist;
     this.root = root;
     bunny = playerList.get(0).getMyCharacter();
@@ -121,8 +118,8 @@ public class GameView extends Application implements ViewInternal {
     y2 = bunny2.getCenterY();
     platforms = chosenStage.getPlatforms();
     BackgroundImage stageBackground = new BackgroundImage(chosenStage.getBackground(),
-            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-            BackgroundSize.DEFAULT);
+        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);
     root.setBackground(new Background(stageBackground));
     root.getChildren().addAll(platforms);
   }
@@ -135,12 +132,13 @@ public class GameView extends Application implements ViewInternal {
         D_PRESSED.set(true);
         bunny2.getHurtBox().setStroke(Color.YELLOW);
       }
-      if(e.getCode() == KeyCode.S){
+      if (e.getCode() == KeyCode.S) {
         S_PRESSED.set(true);
       }
       if (e.getCode() == KeyCode.T) {
         bunny.attack();
-        if(bunny.getHitBox().getBoundsInParent().intersects(bunny2.getHurtBox().getBoundsInParent())){
+        if (bunny.getHitBox().getBoundsInParent()
+            .intersects(bunny2.getHurtBox().getBoundsInParent())) {
           bunny2.getHurtBox().setStroke(Color.RED);
         }
 
@@ -169,31 +167,31 @@ public class GameView extends Application implements ViewInternal {
     });
 
     scene.setOnKeyReleased(e -> {
-              if (e.getCode() == KeyCode.A) {
-                A_PRESSED.set(false);
-              }
-              if (e.getCode() == KeyCode.D) {
-                D_PRESSED.set(false);
-              }
-              if(e.getCode() == KeyCode.S) {
-                S_PRESSED.set(false);
-              }
-              if(e.getCode() == KeyCode.DOWN){
-                DOWN_PRESSED.set(false);
-              }
-              if (e.getCode() == KeyCode.LEFT) {
-                LEFT_PRESSED.set(false);
-              }
-              if (e.getCode() == KeyCode.RIGHT) {
-                RIGHT_PRESSED.set(false);
-              }
+      if (e.getCode() == KeyCode.A) {
+        A_PRESSED.set(false);
+      }
+      if (e.getCode() == KeyCode.D) {
+        D_PRESSED.set(false);
+      }
+      if (e.getCode() == KeyCode.S) {
+        S_PRESSED.set(false);
+      }
+      if (e.getCode() == KeyCode.DOWN) {
+        DOWN_PRESSED.set(false);
+      }
+      if (e.getCode() == KeyCode.LEFT) {
+        LEFT_PRESSED.set(false);
+      }
+      if (e.getCode() == KeyCode.RIGHT) {
+        RIGHT_PRESSED.set(false);
+      }
 
     });
 
     primaryStage.setTitle("FIGHT!");
-      primaryStage.setScene(scene);
-      primaryStage.show();
-      setKeyBinds();
+    primaryStage.setScene(scene);
+    primaryStage.show();
+    setKeyBinds();
 
   }
 }

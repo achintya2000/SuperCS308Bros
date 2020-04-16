@@ -43,6 +43,7 @@ public abstract class CharacterSuper {
 
   /**
    * Getter for myStamina
+   *
    * @return
    */
   public int getStamina() {
@@ -51,6 +52,7 @@ public abstract class CharacterSuper {
 
   /**
    * Setter for myStamina
+   *
    * @param newStamina the new amount of stocks
    */
   public void setStamina(int newStamina) {
@@ -59,6 +61,7 @@ public abstract class CharacterSuper {
 
   /**
    * Getter for myStocks
+   *
    * @return
    */
   public int getStocks() {
@@ -67,13 +70,14 @@ public abstract class CharacterSuper {
 
   /**
    * Setter for myStocks
+   *
    * @param newStock the new amount of stocks
    */
   public void setStocks(int newStock) {
     myStocks = newStock;
   }
 
-  public ImageView getCharacterImage(){
+  public ImageView getCharacterImage() {
     return spriteImageView;
   }
 
@@ -81,30 +85,33 @@ public abstract class CharacterSuper {
     System.out.println(health);
   }
 
-  public String getName()
-  {
+  public String getName() {
     return name;
   }
 
 
-  public Circle getHitBox(){
+  public Circle getHitBox() {
     return hitBox;
   }
 
-  public Rectangle getHurtBox(){
+  public Rectangle getHurtBox() {
     return hurtBox;
   }
 
-  public Group getGroup()
-  {
+  public Group getGroup() {
     return charGroup;
   }
 
   public abstract void moveLeft();
+
   public abstract void moveRight();
+
   public abstract void moveDown();
+
   public abstract void attack();
+
   public abstract void jump();
+
   public abstract void idle();
 
   public abstract int getCenterY();

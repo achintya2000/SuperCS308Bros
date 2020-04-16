@@ -30,7 +30,8 @@ import static javafx.geometry.Pos.*;
 
 public class StageSelect extends Application implements ViewInternal {
 
-  public static final ResourceBundle buttonStyles = ResourceBundle.getBundle("ooga.Resources.stylesheets.buttonStyle");
+  public static final ResourceBundle buttonStyles = ResourceBundle
+      .getBundle("ooga.Resources.stylesheets.buttonStyle");
   private Scene currentScene;
   private BorderPane borderPane;
   private Button go;
@@ -40,7 +41,6 @@ public class StageSelect extends Application implements ViewInternal {
   private ArrayList<ooga.Model.Stages.Stage> stageList = new ArrayList<>();
   private ArrayList<Button> buttonList = new ArrayList<>();
   private Group root = new Group();
-
 
 
   @Override
@@ -76,8 +76,7 @@ public class StageSelect extends Application implements ViewInternal {
     int colCount = 0;
     int rowCount = 0;
     int colThresh = 8;
-    for(ooga.Model.Stages.Stage stage : stageList)
-    {
+    for (ooga.Model.Stages.Stage stage : stageList) {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
         chosenStage = stage;
@@ -87,10 +86,9 @@ public class StageSelect extends Application implements ViewInternal {
       stageBackground.setFitHeight(100);
       stageBackground.setFitWidth(100);
       button.setGraphic(stageBackground);
-      charGrid.add(button, colCount,rowCount);
+      charGrid.add(button, colCount, rowCount);
       colCount++;
-      if(colCount >= colThresh)
-      {
+      if (colCount >= colThresh) {
         colCount = 0;
         rowCount++;
       }
@@ -98,8 +96,7 @@ public class StageSelect extends Application implements ViewInternal {
   }
 
 
-  public void goToSelectScreen()
-  {
+  public void goToSelectScreen() {
     System.out.println("Going to Select Screen ... ");
     currentStage.hide();
     CharacterSelect characterSelect = new CharacterSelect(chosenStage);
@@ -120,16 +117,16 @@ public class StageSelect extends Application implements ViewInternal {
     HashMap<String, String> buttonMap = new HashMap<>();
     Properties props = new Properties();
     props.load(Home.class.getResourceAsStream("charSelect_buttons.properties"));
-    for(String s : props.stringPropertyNames()){
+    for (String s : props.stringPropertyNames()) {
       buttonMap.put(s, props.getProperty(s));
     }
     Class<?> thisSelectScreen = StageSelect.class;
-    for(String key : buttonMap.keySet()){
+    for (String key : buttonMap.keySet()) {
       Button b = new Button(key);
-      for(Method m : thisSelectScreen.getDeclaredMethods()){
-        if(buttonMap.get(key).equals(m.getName())){
+      for (Method m : thisSelectScreen.getDeclaredMethods()) {
+        if (buttonMap.get(key).equals(m.getName())) {
           b.setOnAction(e -> {
-            try{
+            try {
               m.setAccessible(true);
               m.invoke(this);
             } catch (IllegalAccessException ex) {
@@ -149,7 +146,9 @@ public class StageSelect extends Application implements ViewInternal {
     go.setStyle(buttonStyles.getString("playerText"));
     go.setMinWidth(300);
     go.setMinHeight(100);
-    go.setOnMouseClicked((e) -> {goToSelectScreen();});
+    go.setOnMouseClicked((e) -> {
+      goToSelectScreen();
+    });
     go.setDisable(true);
     VBox bottomElements = new VBox();
     bottomElements.getChildren().add(go);
@@ -160,7 +159,7 @@ public class StageSelect extends Application implements ViewInternal {
 
   @Override
   public void start(Stage primaryStage) {
-    try{
+    try {
       Scene selectScene = new Scene(makeBorderPane());
       currentScene = selectScene;
       currentStage = primaryStage;
@@ -169,7 +168,7 @@ public class StageSelect extends Application implements ViewInternal {
       primaryStage.setWidth(1200);
       initStages();
       primaryStage.show();
-    } catch (IOException e){
+    } catch (IOException e) {
       System.out.println(e.getLocalizedMessage());
     }
   }
