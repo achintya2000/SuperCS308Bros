@@ -42,7 +42,7 @@ public class Ghost extends AbstractCharacter {
         spriteAnimation = new SpriteAnimation(
             spriteImageView,
             Duration.millis(1000),
-            COUNT, COLUMNS,
+            4, 4,
             OFFSET_X, OFFSET_Y,
             WIDTH, HEIGHT
         );
@@ -152,7 +152,7 @@ public class Ghost extends AbstractCharacter {
         spriteAnimation.setAnimation(
             spriteImageView,
             Duration.millis(1000),
-            COUNT, COLUMNS,
+            4, 4,
             OFFSET_X, OFFSET_Y,
             WIDTH, HEIGHT
         );
@@ -166,7 +166,7 @@ public class Ghost extends AbstractCharacter {
         spriteAnimation.setAnimation(
             spriteImageView,
             Duration.millis(1000),
-            COUNT, COLUMNS,
+            6, 6,
             OFFSET_X, OFFSET_Y,
             WIDTH, HEIGHT);
         spriteAnimation.play();
@@ -177,7 +177,7 @@ public class Ghost extends AbstractCharacter {
         spriteAnimation.setAnimation(
             spriteImageView,
             Duration.millis(1000),
-            COUNT, COLUMNS,
+            6, 6,
             OFFSET_X, OFFSET_Y,
             WIDTH, HEIGHT);
         spriteAnimation.play();
@@ -194,7 +194,7 @@ public class Ghost extends AbstractCharacter {
         spriteAnimation.setAnimation(
             spriteImageView,
             Duration.millis(1000),
-            6, 6,
+            5, 5,
             OFFSET_X, OFFSET_Y,
             WIDTH, HEIGHT);
         spriteAnimation.setCycleCount(1);
