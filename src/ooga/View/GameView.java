@@ -174,8 +174,11 @@ public class GameView extends Application implements ViewInternal {
         bunny2.jump();
       }
       if (e.getCode() == KeyCode.L) {
-        L_PRESSED.set(true);
-        //bunny2.attack();
+        bunny2.attack();
+        if (bunny2.getHitBox().getBoundsInParent()
+                .intersects(bunny.getHurtBox().getBoundsInParent())) {
+          bunny.getHurtBox().setStroke(Color.RED);
+        }
       }
     });
 
