@@ -99,5 +99,7 @@ public abstract class AbstractCharacter {
   public abstract void idle();
   public abstract void special();
   public abstract void setImageFiles() throws FileNotFoundException;
+  public abstract int getCenterY();
+  public abstract void setCenterY(int centerY);
 
 }

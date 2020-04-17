@@ -79,6 +79,12 @@ public class GameView extends Application implements ViewInternal {
         if (RIGHT_PRESSED.get()) {
           bunny2.moveRight();
         }
+        if (T_PRESSED.get()) {
+          bunny.attack();
+        }
+        if (L_PRESSED.get()) {
+          bunny2.attack();
+        }
       }
     };
     animationTimer.start();
@@ -104,7 +110,8 @@ public class GameView extends Application implements ViewInternal {
         D_PRESSED.set(true);
       }
       if (e.getCode() == KeyCode.T) {
-        bunny.attack();
+        T_PRESSED.set(true);
+//        bunny.attack();
 //        if(bunny.getHitBox().getBoundsInParent().intersects(bunny2.getHurtBox().getBoundsInParent())){
 //          bunny2.getHurtBox().setStroke(Color.GREEN);
 //        }
@@ -125,24 +132,30 @@ public class GameView extends Application implements ViewInternal {
         bunny2.jump();
       }
       if (e.getCode() == KeyCode.L) {
-        bunny2.attack();
+        L_PRESSED.set(true);
+        //bunny2.attack();
       }
     });
 
     scene.setOnKeyReleased(e -> {
-              if (e.getCode() == KeyCode.A) {
-                A_PRESSED.set(false);
-              }
-              if (e.getCode() == KeyCode.D) {
-                D_PRESSED.set(false);
-              }
-              if (e.getCode() == KeyCode.LEFT) {
-                LEFT_PRESSED.set(false);
-              }
-              if (e.getCode() == KeyCode.RIGHT) {
-                RIGHT_PRESSED.set(false);
-              }
-
+      if (e.getCode() == KeyCode.A) {
+        A_PRESSED.set(false);
+      }
+      if (e.getCode() == KeyCode.D) {
+        D_PRESSED.set(false);
+      }
+      if (e.getCode() == KeyCode.LEFT) {
+        LEFT_PRESSED.set(false);
+      }
+      if (e.getCode() == KeyCode.RIGHT) {
+        RIGHT_PRESSED.set(false);
+      }
+      if (e.getCode() == KeyCode.T) {
+        T_PRESSED.set(false);
+      }
+      if (e.getCode() == KeyCode.L) {
+        L_PRESSED.set(false);
+      }
     });
 
     primaryStage.setTitle("FIGHT!");
