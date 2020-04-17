@@ -34,7 +34,7 @@ public class SpriteTester extends Application {
         Rectangle stage = new Rectangle(100, 800, 500, 100);
 
         Pane root = bunny.getRoot();
-        root.getChildren().add((bunny2.getRoot()));
+        root.getChildren().add(bunny2.getRoot());
         root.getChildren().add(ghost.getRoot());
         root.getChildren().add(stage);
         root.getChildren().add(bunny2.getRoot());

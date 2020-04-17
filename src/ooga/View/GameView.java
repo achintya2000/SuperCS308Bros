@@ -66,11 +66,35 @@ public class GameView extends Application implements ViewInternal {
   }
 
 
-  public void setKeyBinds() {
-    // Main game loop
+  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage) {
+    this.playerList = playerlist;
+    this.root = root;
+    bunny = playerList.get(0).getMyCharacter();
+    bunny2 = playerList.get(1).getMyCharacter();
+    y = bunny.getCenterY();
+    y2 = bunny2.getCenterY();
+    platforms = chosenStage.getPlatforms();
+    BackgroundImage stageBackground = new BackgroundImage(chosenStage.getBackground(),
+        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);
+    root.setBackground(new Background(stageBackground));
+    root.getChildren().addAll(platforms);
+  }
+
+  @Override
+  public void start(Stage primaryStage) {
+    scene = new Scene(root, 1200, 800);
+
+    setKeyBinds();
+
+    primaryStage.setTitle("FIGHT!");
+    primaryStage.setScene(scene);
+    primaryStage.show();
+
     AnimationTimer animationTimer = new AnimationTimer() {
       @Override
       public void handle(long now) {
+        // Update and render
         for (Rectangle platform : platforms) {
           if (bunny.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
             y -= RECTANGLE_OFFSET;
@@ -90,56 +114,43 @@ public class GameView extends Application implements ViewInternal {
           }
         }
 
-        //Update and render
-        if (D_PRESSED.get()) {
-            bunny.moveRight();
-        }
-        if (A_PRESSED.get()) {
-            bunny.moveLeft();
-        }
-        if (LEFT_PRESSED.get()) {
-            bunny2.moveLeft();
-        }
-        if (RIGHT_PRESSED.get()) {
-            bunny2.moveRight();
-        }
-        if (T_PRESSED.get()) {
-            bunny.attack();
-        }
-        if (L_PRESSED.get()) {
-            bunny2.attack();
-        }
-        if (S_PRESSED.get()) {
-            y += 3;
-            bunny.setCenterY(y);
-        }
-        if (DOWN_PRESSED.get()) {
-            y2 += 3;
-            bunny2.setCenterY(y2);
-        }
+        checkKeys();
       }
     };
     animationTimer.start();
+
   }
 
-  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage) {
-    this.playerList = playerlist;
-    this.root = root;
-    bunny = playerList.get(0).getMyCharacter();
-    bunny2 = playerList.get(1).getMyCharacter();
-    y = bunny.getCenterY();
-    y2 = bunny2.getCenterY();
-    platforms = chosenStage.getPlatforms();
-    BackgroundImage stageBackground = new BackgroundImage(chosenStage.getBackground(),
-        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-        BackgroundSize.DEFAULT);
-    root.setBackground(new Background(stageBackground));
-    root.getChildren().addAll(platforms);
+  private void checkKeys() {
+    if (D_PRESSED.get()) {
+      bunny.moveRight();
+    }
+    if (A_PRESSED.get()) {
+      bunny.moveLeft();
+    }
+    if (LEFT_PRESSED.get()) {
+      bunny2.moveLeft();
+    }
+    if (RIGHT_PRESSED.get()) {
+      bunny2.moveRight();
+    }
+    if (T_PRESSED.get()) {
+      bunny.attack();
+    }
+    if (L_PRESSED.get()) {
+      bunny2.attack();
+    }
+    if (S_PRESSED.get()) {
+      y += 3;
+      bunny.setCenterY(y);
+    }
+    if (DOWN_PRESSED.get()) {
+      y2 += 3;
+      bunny2.setCenterY(y2);
+    }
   }
 
-  @Override
-  public void start(Stage primaryStage) {
-    scene = new Scene(root, 1200, 800);
+  private void setKeyBinds() {
     scene.setOnKeyPressed(e -> {
       if (e.getCode() == KeyCode.D) {
         D_PRESSED.set(true);
@@ -207,12 +218,8 @@ public class GameView extends Application implements ViewInternal {
       if (e.getCode() == KeyCode.L) {
         L_PRESSED.set(false);
       }
+      bunny.idle();
+      bunny2.idle();
     });
-
-    primaryStage.setTitle("FIGHT!");
-    primaryStage.setScene(scene);
-    primaryStage.show();
-    setKeyBinds();
-
   }
 }
