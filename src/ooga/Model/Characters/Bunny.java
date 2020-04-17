@@ -4,6 +4,8 @@ import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -29,8 +31,8 @@ public class Bunny extends AbstractCharacter {
         super(name);
         setImageFiles();
         spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
-        this.centerX = x;
-        this.centerY = y;
+        this.centerX = x + 50;
+        this.centerY = y + 50;
         spriteImageView.setX(centerX);
         spriteImageView.setY(centerY);
 
@@ -46,23 +48,11 @@ public class Bunny extends AbstractCharacter {
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
 
-        root = new Pane(spriteImageView);
-        dummy = getDummy();
-        root.getChildren().add(dummy);
-        hurtBox = makeHurtBox(x,y);
-        root.getChildren().add(hurtBox);
+        hurtBox = makeHurtBox(centerX, centerY);
+
         hitBox = makeHitBox();
 
-    }
-
-    private Rectangle getDummy(){
-        double x = 500;
-        double y = 400;
-        double height = spriteImageView.getImage().getHeight();
-        double width = 100;
-        Rectangle dummy = new Rectangle(x, y, width, height);
-        dummy.setFill(Color.YELLOW);
-        return dummy;
+        getGroup().getChildren().addAll(hurtBox,getCharacterImage());
     }
 
     private Circle makeHitBox(){
@@ -130,8 +120,15 @@ public class Bunny extends AbstractCharacter {
         jump.play();
 
         playJumpAnimation();
-        hurtBox.setY(spriteImageView.getBoundsInParent().getMinY());
+    }
 
+    private void jumpTransition(Node jumpNode) {
+        TranslateTransition jump = new TranslateTransition(Duration.millis(500), jumpNode);
+        jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
+        jump.setByY(-150);
+        jump.setAutoReverse(true);
+        jump.setCycleCount(2);
+        jump.play();
     }
 
     @Override
@@ -201,12 +198,12 @@ public class Bunny extends AbstractCharacter {
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
-        root.getChildren().remove(hitBox);
+        super.getGroup().getChildren().remove(hitBox);
         hitBox = makeHitBox();
-        root.getChildren().add(hitBox);
+        super.getGroup().getChildren().add(hitBox);
 
         spriteAnimation.setOnFinished(event -> {
-            root.getChildren().remove(hitBox);
+            super.getGroup().getChildren().remove(hitBox);
             spriteAnimation.stop();
             playIdleAnimation();
         });
@@ -220,11 +217,11 @@ public class Bunny extends AbstractCharacter {
             spriteImageView.setImage(JUMP_IMAGE_LEFT);
         }
         spriteAnimation.setAnimation(
-                spriteImageView,
-                Duration.millis(1000),
-                COUNT, COLUMNS,
-                OFFSET_X, OFFSET_Y,
-                WIDTH, HEIGHT);
+            spriteImageView,
+            Duration.millis(1000),
+            COUNT, COLUMNS,
+            OFFSET_X, OFFSET_Y,
+            WIDTH, HEIGHT);
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
@@ -234,10 +231,15 @@ public class Bunny extends AbstractCharacter {
         });
     }
 
+
     public Pane getRoot(){ return root; }
 
+    public ImageView getCharacterImage(){
+        return spriteImageView;
+    }
+
     public int getCenterY() {
-        return (int) spriteImageView.getY();
+        return (int) (spriteImageView.getBoundsInParent().getMaxY() + spriteImageView.getBoundsInParent().getMinY())/2;
     }
 
     public void setCenterY(int centerY) {

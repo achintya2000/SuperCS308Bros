@@ -1,5 +1,6 @@
 package ooga.Model.Characters;
 
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -16,6 +17,7 @@ public abstract class AbstractCharacter {
   private int myStamina;
   private int health = 100;
   private String name;
+  private Group charGroup = new Group();
 
   protected int centerX;
   protected int centerY;
@@ -37,8 +39,8 @@ public abstract class AbstractCharacter {
   protected SpriteAnimation spriteAnimation;
   protected Pane root;
   protected Circle hitBox;
-  protected Rectangle dummy;
   protected Rectangle hurtBox;
+  protected Rectangle dummy;
 
   public AbstractCharacter(String name) {
     this.name = name;
@@ -48,6 +50,7 @@ public abstract class AbstractCharacter {
 
   /**
    * Getter for myStamina
+   *
    * @return
    */
   public int getStamina() {
@@ -56,6 +59,7 @@ public abstract class AbstractCharacter {
 
   /**
    * Setter for myStamina
+   *
    * @param newStamina the new amount of stocks
    */
   public void setStamina(int newStamina) {
@@ -64,6 +68,7 @@ public abstract class AbstractCharacter {
 
   /**
    * Getter for myStocks
+   *
    * @return
    */
   public int getStocks() {
@@ -72,13 +77,14 @@ public abstract class AbstractCharacter {
 
   /**
    * Setter for myStocks
+   *
    * @param newStock the new amount of stocks
    */
   public void setStocks(int newStock) {
     myStocks = newStock;
   }
 
-  public ImageView getCharacterImage(){
+  public ImageView getCharacterImage() {
     return spriteImageView;
   }
 
@@ -86,20 +92,41 @@ public abstract class AbstractCharacter {
     System.out.println(health);
   }
 
-  public String getName()
-  {
+  public String getName() {
     return name;
   }
 
+
+  public Circle getHitBox() {
+    return hitBox;
+  }
+
+  public Rectangle getHurtBox() {
+    return hurtBox;
+  }
+
+  public Group getGroup() {
+    return charGroup;
+  }
+
   public abstract void moveLeft();
+
   public abstract void moveRight();
+
   public abstract void moveDown();
+
   public abstract void attack();
+
   public abstract void jump();
+
   public abstract void idle();
+
   public abstract void special();
+
   public abstract void setImageFiles() throws FileNotFoundException;
+
   public abstract int getCenterY();
+
   public abstract void setCenterY(int centerY);
 
 }

@@ -103,39 +103,35 @@ public class SpriteTester extends Application {
 //            if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.RIGHT){
 //                bunny2.idle();
 //            }
-        });
+    });
 
+    // Main game loop
+    AnimationTimer animationTimer = new AnimationTimer() {
+      @Override
+      public void handle(long now) {
 
-        // Main game loop
-        AnimationTimer animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
+        if (!bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent())) {
+          y += 3;
+          bunny.setCenterY(y);
+        }
+        if (!bunny2.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent())) {
+          y2 += 3;
+          bunny2.setCenterY(y);
+        }
 
-                if (!bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
-                {
-                    y += 3;
-                    bunny.setCenterY(y);
-                    bunny2.setCenterY(y);
-                }
-                if (!bunny2.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
-                {
-                    y2 += 3;
-                    bunny2.setCenterY(y);
-                }
-
-                //Update and render
-                if (D_PRESSED.get()){
-                    bunny.moveRight();
-                }
-                if (A_PRESSED.get()) {
-                    bunny.moveLeft();
-                }
-                if (LEFT_PRESSED.get()) {
-                    bunny2.moveLeft();
-                }
-                if (RIGHT_PRESSED.get()) {
-                    bunny2.moveRight();
-                }
+        //Update and render
+        if (D_PRESSED.get()) {
+          bunny.moveRight();
+        }
+        if (A_PRESSED.get()) {
+          bunny.moveLeft();
+        }
+        if (LEFT_PRESSED.get()) {
+          bunny2.moveLeft();
+        }
+        if (RIGHT_PRESSED.get()) {
+          bunny2.moveRight();
+        }
 
 //                scene.setOnKeyPressed(e -> {
 //                    if (e.getCode() == KeyCode.D) {
@@ -176,12 +172,12 @@ public class SpriteTester extends Application {
 //                    }
 //                });
 
-            }
-        };
-        animationTimer.start();
-    }
+      }
+    };
+    animationTimer.start();
+  }
 
-    public static void main(String args[]) {
-        launch(args);
-    }
+  public static void main(String args[]) {
+    launch(args);
+  }
 }
