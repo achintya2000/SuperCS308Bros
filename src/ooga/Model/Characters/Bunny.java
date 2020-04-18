@@ -13,13 +13,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import ooga.Model.Character;
 import ooga.Model.GameEngine.SpriteAnimation;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Character3 extends CharacterSuper implements Character {
+public class Bunny extends AbstractCharacter {
 
     private static final int COLUMNS  =  10;
     private static final int COUNT    =  10;
@@ -28,33 +27,10 @@ public class Character3 extends CharacterSuper implements Character {
     private static final int WIDTH    = 100;
     private static final int HEIGHT   = 100;
 
-    private int centerX;
-    private int centerY;
-    private int xSpeed = 10;
-
-    private boolean facingRight = true;
-    private int health = 100;
-
-    Image IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-idle-right.png"));
-    Image IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-idle-left.png"));
-
-    Image RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-run-right.png"));
-    Image RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-run-left.png"));
-
-    Image ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-attack-right.png"));
-    Image ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-attack-left.png"));
-
-    Image JUMP_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-jump-right.png"));
-    Image JUMP_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/ghost/ghost-jump-left.png"));
-
-    ImageView spriteImageView;
-    SpriteAnimation spriteAnimation;
-    Circle hitBox;
-    Rectangle hurtBox;
-
-    public Character3 (String name, int x, int y) throws FileNotFoundException {
+    public Bunny(String name, int x, int y) throws FileNotFoundException {
         super(name);
-        spriteImageView = new ImageView(JUMP_IMAGE_LEFT);
+        setImageFiles();
+        spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
         this.centerX = x + 50;
         this.centerY = y + 50;
         spriteImageView.setX(centerX);
@@ -62,11 +38,11 @@ public class Character3 extends CharacterSuper implements Character {
 
         spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
         spriteAnimation = new SpriteAnimation(
-            spriteImageView,
-            Duration.millis(1000),
-            COUNT, COLUMNS,
-            OFFSET_X, OFFSET_Y,
-            WIDTH, HEIGHT
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT
         );
 
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
@@ -102,11 +78,6 @@ public class Character3 extends CharacterSuper implements Character {
         hurtbox.setStroke(Color.YELLOW);
         hurtbox.setFill(Color.rgb(200, 200, 200, 0.5));
         return hurtbox;
-
-    }
-
-    @Override
-    public void setSpriteSheet() {
 
     }
 
@@ -177,11 +148,11 @@ public class Character3 extends CharacterSuper implements Character {
             spriteImageView.setImage(IDLE_IMAGE_LEFT);
         }
         spriteAnimation.setAnimation(
-            spriteImageView,
-            Duration.millis(1000),
-            COUNT, COLUMNS,
-            OFFSET_X, OFFSET_Y,
-            WIDTH, HEIGHT
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT
         );
         spriteAnimation.setCycleCount(Animation.INDEFINITE);
         spriteAnimation.play();
@@ -191,22 +162,22 @@ public class Character3 extends CharacterSuper implements Character {
     private void playRunRightAnimation() {
         spriteImageView.setImage(RUN_IMAGE_RIGHT);
         spriteAnimation.setAnimation(
-            spriteImageView,
-            Duration.millis(1000),
-            COUNT, COLUMNS,
-            OFFSET_X, OFFSET_Y,
-            WIDTH, HEIGHT);
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT);
         spriteAnimation.play();
     }
 
     private void playRunLeftAnimation() {
         spriteImageView.setImage(RUN_IMAGE_LEFT);
         spriteAnimation.setAnimation(
-            spriteImageView,
-            Duration.millis(1000),
-            COUNT, COLUMNS,
-            OFFSET_X, OFFSET_Y,
-            WIDTH, HEIGHT);
+                spriteImageView,
+                Duration.millis(1000),
+                COUNT, COLUMNS,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT);
         spriteAnimation.play();
     }
 
@@ -219,11 +190,11 @@ public class Character3 extends CharacterSuper implements Character {
             spriteImageView.setImage(ATTACK_IMAGE_LEFT);
         }
         spriteAnimation.setAnimation(
-            spriteImageView,
-            Duration.millis(1000),
-            6, 6,
-            OFFSET_X, OFFSET_Y,
-            WIDTH, HEIGHT);
+                spriteImageView,
+                Duration.millis(1000),
+                6, 6,
+                OFFSET_X, OFFSET_Y,
+                WIDTH, HEIGHT);
         spriteAnimation.setCycleCount(1);
         spriteAnimation.play();
 
@@ -240,7 +211,7 @@ public class Character3 extends CharacterSuper implements Character {
 
     private void playJumpAnimation() {
         spriteAnimation.stop();
-        if (facingRight){
+        if(facingRight){
             spriteImageView.setImage(JUMP_IMAGE_RIGHT);
         } else {
             spriteImageView.setImage(JUMP_IMAGE_LEFT);
@@ -260,10 +231,12 @@ public class Character3 extends CharacterSuper implements Character {
         });
     }
 
+
+    public Pane getRoot(){ return root; }
+
     public ImageView getCharacterImage(){
         return spriteImageView;
     }
-
 
     public int getCenterY() {
         return (int) (spriteImageView.getBoundsInParent().getMaxY() + spriteImageView.getBoundsInParent().getMinY())/2;
@@ -281,6 +254,20 @@ public class Character3 extends CharacterSuper implements Character {
 
     public Rectangle getHurtBox(){
         return hurtBox;
+    }
+
+    public void setImageFiles() throws FileNotFoundException {
+        IDLE_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-right.png"));
+        IDLE_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-idle-left.png"));
+
+        RUN_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-right.png"));
+        RUN_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-run-left.png"));
+
+        ATTACK_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-right.png"));
+        ATTACK_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-attack-left.png"));
+
+        JUMP_IMAGE_RIGHT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump-right.png"));
+        JUMP_IMAGE_LEFT = new Image(new FileInputStream("data/spritesheets/bunny/bunny-jump-left.png"));
     }
 
 }

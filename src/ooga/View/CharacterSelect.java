@@ -10,9 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import ooga.Exceptions.ExceptionHelper;
-import ooga.Model.Characters.Character2;
-import ooga.Model.Characters.Character3;
-import ooga.Model.Characters.CharacterSuper;
+import ooga.Model.Characters.AbstractCharacter;
+import ooga.Model.Characters.Bunny;
+import ooga.Model.Characters.Ghost;
 import ooga.Model.Player;
 
 import java.io.FileNotFoundException;
@@ -28,7 +28,8 @@ import static javafx.geometry.Pos.*;
 
 public class CharacterSelect extends Application implements ViewInternal {
 
-  public static final ResourceBundle buttonStyles = ResourceBundle.getBundle("ooga.Resources.stylesheets.buttonStyle");
+  public static final ResourceBundle buttonStyles = ResourceBundle
+      .getBundle("ooga.Resources.stylesheets.buttonStyle");
   private Scene currentScene;
   private BorderPane borderPane;
   private BorderPane playerViewBox1;
@@ -41,11 +42,11 @@ public class CharacterSelect extends Application implements ViewInternal {
   private Label player2ViewBoxPic;
   private BorderPane centerElements;
   private Insets inset = new Insets(10);
-//  private boolean p1IsReady = false;
+  //  private boolean p1IsReady = false;
 //  private boolean p2IsReady = false;
   private Stage currentStage;
 
-  private ArrayList<CharacterSuper> characterList = new ArrayList<>();
+  private ArrayList<AbstractCharacter> characterList = new ArrayList<>();
   private ArrayList<Button> buttonList = new ArrayList<>();
   private Player player1;
   private Player player2;
@@ -53,7 +54,6 @@ public class CharacterSelect extends Application implements ViewInternal {
   private int currentPlayer = 1;
   private Group root = new Group();
   private ooga.Model.Stages.Stage chosenStage;
-
 
 
   @Override
@@ -70,8 +70,7 @@ public class CharacterSelect extends Application implements ViewInternal {
   public void setStage() {
   }
 
-  public CharacterSelect(ooga.Model.Stages.Stage chosenStage)
-  {
+  public CharacterSelect(ooga.Model.Stages.Stage chosenStage) {
     this.chosenStage = chosenStage;
   }
 
@@ -83,9 +82,9 @@ public class CharacterSelect extends Application implements ViewInternal {
     ArrayList<Label> charNameLabelList = new ArrayList<>();
     charNameLabelList.add(char1NameText);
     charNameLabelList.add(char2NameText);
-    
-    Character2 bunny = new Character2("bunny",200, 100);
-    Character3 ghost = new Character3("ghost",400, 200);
+
+    Bunny bunny = new Bunny("bunny", 200, 100);
+    Ghost ghost = new Ghost("ghost", 400, 200);
 
     GridPane charGrid = new GridPane();
     charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
@@ -99,35 +98,35 @@ public class CharacterSelect extends Application implements ViewInternal {
     int colCount = 0;
     int rowCount = 0;
     int colThresh = 8;
-    for(CharacterSuper character : characterList)
-    {
+    for (AbstractCharacter character : characterList) {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
-        try
-        {
+        try {
           Class<?> cls = Class.forName(character.getClass().getName());
-          CharacterSuper imageCharacter = (CharacterSuper) cls.getDeclaredConstructors()[0].newInstance(character.getName(), 200, 400);
-          CharacterSuper newCharacter = (CharacterSuper) cls.getDeclaredConstructors()[0].newInstance(character.getName(), 200, 400);
+          AbstractCharacter imageCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0]
+              .newInstance(character.getName(), 200, 400);
+          AbstractCharacter newCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0]
+              .newInstance(character.getName(), 200, 400);
 
-          playerList.get(currentPlayer-1).setMyCharacter(newCharacter);
-          playerList.get(currentPlayer-1).setHasChosenChar(true);
-          playerViewList.get(currentPlayer-1).setGraphic(imageCharacter.getCharacterImage());
-          charNameLabelList.get(currentPlayer-1).setText(character.getName());
-          charNameLabelList.get(currentPlayer-1).setStyle(buttonStyles.getString("characterText"));
-          System.out.println("Player " + currentPlayer + "  character: " + playerList.get(currentPlayer-1).getMyCharacter().getName());
+          playerList.get(currentPlayer - 1).setMyCharacter(newCharacter);
+          playerList.get(currentPlayer - 1).setHasChosenChar(true);
+          playerViewList.get(currentPlayer - 1).setGraphic(imageCharacter.getCharacterImage());
+          charNameLabelList.get(currentPlayer - 1).setText(character.getName());
+          charNameLabelList.get(currentPlayer - 1)
+              .setStyle(buttonStyles.getString("characterText"));
+          System.out.println(
+              "Player " + currentPlayer + "  character: " + playerList.get(currentPlayer - 1)
+                  .getMyCharacter().getName());
           checkAllPlayersChosen();
-        }
-        catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException ex)
-        {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException ex) {
           new ExceptionHelper(ex);
         }
       });
       button.setDisable(true);
       button.setGraphic(character.getCharacterImage());
-      charGrid.add(button, colCount,rowCount);
+      charGrid.add(button, colCount, rowCount);
       colCount++;
-      if(colCount >= colThresh)
-      {
+      if (colCount >= colThresh) {
         colCount = 0;
         rowCount++;
       }
@@ -137,30 +136,27 @@ public class CharacterSelect extends Application implements ViewInternal {
 
 
   public void p1Ready() {
-    for(Button button : buttonList)
-    {
+    for (Button button : buttonList) {
       button.setDisable(false);
     }
     currentPlayer = 1;
     //player1.setHasChosenChar(true);
   }
 
-  public void p2Ready(){
-    for(Button button : buttonList)
-    {
+  public void p2Ready() {
+    for (Button button : buttonList) {
       button.setDisable(false);
     }
     currentPlayer = 2;
     //player2.setHasChosenChar(true);
   }
 
-  public void createGame()
-  {
+  public void createGame() {
 
     System.out.println("Creating Game ... ");
     currentStage.hide();
     root.getChildren().clear();
-    for(Player player:playerList) {
+    for (Player player : playerList) {
       root.getChildren().add(player.getMyCharacter().getGroup());
     }
     Pane newRoot = new Pane(root);
@@ -168,12 +164,9 @@ public class CharacterSelect extends Application implements ViewInternal {
     game.start(new Stage());
   }
 
-  public void checkAllPlayersChosen()
-  {
-    for(Player player :playerList)
-    {
-      if(!player.getHasChosenChar())
-      {
+  public void checkAllPlayersChosen() {
+    for (Player player : playerList) {
+      if (!player.getHasChosenChar()) {
 
         System.out.println("NOT ALL PLAYERS HAVE CHOSEN");
         return;
@@ -181,14 +174,19 @@ public class CharacterSelect extends Application implements ViewInternal {
     }
     System.out.println("CREATING READY TO FIGHT BUTTON");
     Button readyToFight = new Button();
-    BackgroundImage backgroundImage = new BackgroundImage( new Image( getClass().getResource("/ReadytoFightButton.png").toExternalForm()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    BackgroundImage backgroundImage = new BackgroundImage(
+        new Image(getClass().getResource("/ReadytoFightButton.png").toExternalForm()),
+        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);
     Background readyToFightImage = new Background(backgroundImage);
     readyToFight.setBackground(readyToFightImage);
     readyToFight.setAlignment(BOTTOM_CENTER);
     centerElements.setTop(readyToFight);
     readyToFight.setMinWidth(1185);
     readyToFight.setMinHeight(100);
-    readyToFight.setOnMouseClicked((e) -> { createGame(); });
+    readyToFight.setOnMouseClicked((e) -> {
+      createGame();
+    });
 
   }
 
@@ -205,16 +203,16 @@ public class CharacterSelect extends Application implements ViewInternal {
     HashMap<String, String> buttonMap = new HashMap<>();
     Properties props = new Properties();
     props.load(Home.class.getResourceAsStream("charSelect_buttons.properties"));
-    for(String s : props.stringPropertyNames()){
+    for (String s : props.stringPropertyNames()) {
       buttonMap.put(s, props.getProperty(s));
     }
     Class<?> thisSelectScreen = CharacterSelect.class;
-    for(String key : buttonMap.keySet()){
+    for (String key : buttonMap.keySet()) {
       Button b = new Button(key);
-      for(Method m : thisSelectScreen.getDeclaredMethods()){
-        if(buttonMap.get(key).equals(m.getName())){
+      for (Method m : thisSelectScreen.getDeclaredMethods()) {
+        if (buttonMap.get(key).equals(m.getName())) {
           b.setOnAction(e -> {
-            try{
+            try {
               m.setAccessible(true);
               m.invoke(this);
             } catch (IllegalAccessException ex) {
@@ -227,7 +225,6 @@ public class CharacterSelect extends Application implements ViewInternal {
       }
       toolbar.getChildren().add(b);
     }
-
 
     char1NameText = new Label();
     char2NameText = new Label();
@@ -251,10 +248,14 @@ public class CharacterSelect extends Application implements ViewInternal {
     player1Text.setStyle(buttonStyles.getString("playerText"));
     player1Text.setMinWidth(300);
     player1Text.setMinHeight(100);
-    player1Text.setOnMouseClicked((e) -> {p1Ready();});
+    player1Text.setOnMouseClicked((e) -> {
+      p1Ready();
+    });
 
     Button player2Text = new Button("PLAYER 2");
-    player2Text.setOnMouseClicked((e) -> {p2Ready();});
+    player2Text.setOnMouseClicked((e) -> {
+      p2Ready();
+    });
     player2Text.setMinWidth(300);
     player2Text.setMinHeight(100);
     player2Text.setStyle(buttonStyles.getString("playerText"));
@@ -269,16 +270,16 @@ public class CharacterSelect extends Application implements ViewInternal {
     HBox bottomOverlays = new HBox();
     bottomOverlays.setAlignment(CENTER);
     centerElements.setBottom(bottomOverlays);
-    centerElements.setMargin(bottomOverlays,inset);
+    centerElements.setMargin(bottomOverlays, inset);
     //bottomOverlays.setAlignment(BOTTOM_CENTER);
-    bottomOverlays.getChildren().addAll(playerViewBox1,playerViewBox2);
+    bottomOverlays.getChildren().addAll(playerViewBox1, playerViewBox2);
     borderPane.setBottom(centerElements);
     return borderPane;
   }
 
   @Override
   public void start(Stage primaryStage) {
-    try{
+    try {
       Scene selectScene = new Scene(makeBorderPane());
       currentScene = selectScene;
       currentStage = primaryStage;
@@ -291,7 +292,7 @@ public class CharacterSelect extends Application implements ViewInternal {
       playerList.add(player2);
       initCharacters();
       primaryStage.show();
-    } catch (IOException e){
+    } catch (IOException e) {
       System.out.println(e.getLocalizedMessage());
     }
   }

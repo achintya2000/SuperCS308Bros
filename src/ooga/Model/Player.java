@@ -1,29 +1,32 @@
 package ooga.Model;
 
-import ooga.Model.Characters.CharacterSuper;
+import ooga.Model.Characters.AbstractCharacter;
 
 /**
  *
  */
 public class Player {
+
   private int myStocks;
   private int myStamina;
-  private CharacterSuper myCharacter;
+  private AbstractCharacter myCharacter;
   private Boolean hasChosenChar = false;
+
   public Player() {
   }
 
-  public void setMyCharacter(CharacterSuper myCharacter) {
+  public void setMyCharacter(AbstractCharacter myCharacter) {
     this.myCharacter = myCharacter;
   }
 
-  public CharacterSuper getMyCharacter()
+  public AbstractCharacter getMyCharacter()
   {
     return  myCharacter;
   }
 
   /**
    * Getter for myStamina
+   *
    * @return
    */
   public int getStamina() {
@@ -40,6 +43,7 @@ public class Player {
 
   /**
    * Setter for myStamina
+   *
    * @param newStamina the new amount of stocks
    */
   public void setStamina(int newStamina) {
@@ -48,6 +52,7 @@ public class Player {
 
   /**
    * Getter for myStocks
+   *
    * @return
    */
   public int getStocks() {
@@ -56,6 +61,7 @@ public class Player {
 
   /**
    * Setter for myStocks
+   *
    * @param newStock the new amount of stocks
    */
   public void setStocks(int newStock) {

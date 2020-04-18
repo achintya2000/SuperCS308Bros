@@ -3,39 +3,46 @@ package ooga.Model.Characters;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import ooga.Model.Character;
 import ooga.Model.GameEngine.SpriteAnimation;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
-public abstract class CharacterSuper {
+public abstract class AbstractCharacter {
 
   private int myStocks;
   private int myStamina;
   private int health = 100;
   private String name;
-  private Circle hitBox;
-  private Rectangle hurtBox;
   private Group charGroup = new Group();
 
-  ImageView spriteImageView;
-  SpriteAnimation spriteAnimation;
+  protected int centerX;
+  protected int centerY;
+  protected int xSpeed = 10;
 
-  private Image IDLE_IMAGE_RIGHT;
-  private Image IDLE_IMAGE_LEFT;
+  /* Image files for character */
+  protected Image IDLE_IMAGE_RIGHT;
+  protected Image IDLE_IMAGE_LEFT;
+  protected Image RUN_IMAGE_RIGHT;
+  protected Image RUN_IMAGE_LEFT;
+  protected Image ATTACK_IMAGE_RIGHT;
+  protected Image ATTACK_IMAGE_LEFT;
+  protected Image JUMP_IMAGE_RIGHT;
+  protected Image JUMP_IMAGE_LEFT;
 
-  private Image RUN_IMAGE_RIGHT;
-  private Image RUN_IMAGE_LEFT;
+  protected boolean facingRight = true;
 
-  private Image ATTACK_IMAGE_RIGHT;
-  private Image ATTACK_IMAGE_LEFT;
+  protected ImageView spriteImageView;
+  protected SpriteAnimation spriteAnimation;
+  protected Pane root;
+  protected Circle hitBox;
+  protected Rectangle hurtBox;
+  protected Rectangle dummy;
 
-  private Image JUMP_IMAGE_RIGHT;
-  private Image JUMP_IMAGE_LEFT;
-
-  public CharacterSuper(String name) {
+  public AbstractCharacter(String name) {
     this.name = name;
     System.out.println(name);
     System.out.println(this.name);
@@ -43,6 +50,7 @@ public abstract class CharacterSuper {
 
   /**
    * Getter for myStamina
+   *
    * @return
    */
   public int getStamina() {
@@ -51,6 +59,7 @@ public abstract class CharacterSuper {
 
   /**
    * Setter for myStamina
+   *
    * @param newStamina the new amount of stocks
    */
   public void setStamina(int newStamina) {
@@ -59,6 +68,7 @@ public abstract class CharacterSuper {
 
   /**
    * Getter for myStocks
+   *
    * @return
    */
   public int getStocks() {
@@ -67,13 +77,14 @@ public abstract class CharacterSuper {
 
   /**
    * Setter for myStocks
+   *
    * @param newStock the new amount of stocks
    */
   public void setStocks(int newStock) {
     myStocks = newStock;
   }
 
-  public ImageView getCharacterImage(){
+  public ImageView getCharacterImage() {
     return spriteImageView;
   }
 
@@ -81,34 +92,41 @@ public abstract class CharacterSuper {
     System.out.println(health);
   }
 
-  public String getName()
-  {
+  public String getName() {
     return name;
   }
 
 
-  public Circle getHitBox(){
+  public Circle getHitBox() {
     return hitBox;
   }
 
-  public Rectangle getHurtBox(){
+  public Rectangle getHurtBox() {
     return hurtBox;
   }
 
-  public Group getGroup()
-  {
+  public Group getGroup() {
     return charGroup;
   }
 
   public abstract void moveLeft();
+
   public abstract void moveRight();
+
   public abstract void moveDown();
+
   public abstract void attack();
+
   public abstract void jump();
+
   public abstract void idle();
+
+  public abstract void special();
+
+  public abstract void setImageFiles() throws FileNotFoundException;
 
   public abstract int getCenterY();
 
-  public abstract void setCenterY(int y);
+  public abstract void setCenterY(int centerY);
 
 }

@@ -4,14 +4,14 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import ooga.Model.Characters.Character2;
-import ooga.Model.Characters.Character3;
+import ooga.Model.Characters.Bunny;
+import ooga.Model.Characters.Ghost;
 
 public class SpriteTester extends Application {
 
@@ -22,24 +22,22 @@ public class SpriteTester extends Application {
     private BooleanProperty D_PRESSED = new SimpleBooleanProperty();
     private BooleanProperty LEFT_PRESSED = new SimpleBooleanProperty();
     private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
-    private Group root = new Group();
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Character2 bunny = new Character2("bunny",  100, 400);
-        Character2 bunny2 = new Character2("bunny2", 400, 500);
+        Bunny bunny = new Bunny("bunny", 100, 400);
+        Bunny bunny2 = new Bunny("bunny2", 400, 500);
 
-        Character3 ghost = new Character3("ghost", 300, 400);
+        Ghost ghost = new Ghost("ghost", 300, 400);
 
         Rectangle stage = new Rectangle(100, 800, 500, 100);
 
-        //Group root = bunny.getRoot();
-        root.getChildren().add((bunny2.getGroup()));
-        root.getChildren().add(ghost.getGroup());
+        Pane root = bunny.getRoot();
+        root.getChildren().add(bunny2.getRoot());
+        root.getChildren().add(ghost.getRoot());
         root.getChildren().add(stage);
-        root.getChildren().add(bunny2.getGroup());
+        root.getChildren().add(bunny2.getRoot());
 
         //Creating a scene object
         Scene scene = new Scene(root, 1000, 1000);
@@ -105,38 +103,35 @@ public class SpriteTester extends Application {
 //            if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.RIGHT){
 //                bunny2.idle();
 //            }
-        });
+    });
 
+    // Main game loop
+    AnimationTimer animationTimer = new AnimationTimer() {
+      @Override
+      public void handle(long now) {
 
-        // Main game loop
-        AnimationTimer animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
+        if (!bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent())) {
+          y += 3;
+          bunny.setCenterY(y);
+        }
+        if (!bunny2.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent())) {
+          y2 += 3;
+          bunny2.setCenterY(y);
+        }
 
-                if (!bunny.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
-                {
-                    y += 3;
-                    bunny.setCenterY(y);
-                }
-                if (!bunny2.getHurtBox().getBoundsInParent().intersects(stage.getBoundsInParent()))
-                {
-                    y2 += 3;
-                    bunny2.setCenterY(y);
-                }
-
-                //Update and render
-                if (D_PRESSED.get()){
-                    bunny.moveRight();
-                }
-                if (A_PRESSED.get()) {
-                    bunny.moveLeft();
-                }
-                if (LEFT_PRESSED.get()) {
-                    bunny2.moveLeft();
-                }
-                if (RIGHT_PRESSED.get()) {
-                    bunny2.moveRight();
-                }
+        //Update and render
+        if (D_PRESSED.get()) {
+          bunny.moveRight();
+        }
+        if (A_PRESSED.get()) {
+          bunny.moveLeft();
+        }
+        if (LEFT_PRESSED.get()) {
+          bunny2.moveLeft();
+        }
+        if (RIGHT_PRESSED.get()) {
+          bunny2.moveRight();
+        }
 
 //                scene.setOnKeyPressed(e -> {
 //                    if (e.getCode() == KeyCode.D) {
@@ -177,12 +172,12 @@ public class SpriteTester extends Application {
 //                    }
 //                });
 
-            }
-        };
-        animationTimer.start();
-    }
+      }
+    };
+    animationTimer.start();
+  }
 
-    public static void main(String args[]) {
-        launch(args);
-    }
+  public static void main(String args[]) {
+    launch(args);
+  }
 }
