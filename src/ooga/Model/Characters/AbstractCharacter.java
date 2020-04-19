@@ -1,5 +1,7 @@
 package ooga.Model.Characters;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,11 +43,40 @@ public abstract class AbstractCharacter {
   protected Circle hitBox;
   protected Rectangle hurtBox;
   protected Rectangle dummy;
+  protected BooleanProperty RIGHT_COLLIDE = new SimpleBooleanProperty();
+  protected BooleanProperty LEFT_COLLIDE = new SimpleBooleanProperty();
+  protected BooleanProperty INTERSECTS = new SimpleBooleanProperty();
 
   public AbstractCharacter(String name) {
     this.name = name;
     System.out.println(name);
     System.out.println(this.name);
+    RIGHT_COLLIDE.set(false);
+    LEFT_COLLIDE.set(false);
+    INTERSECTS.set(false);
+  }
+  public boolean getINTERSECTS(){
+    return INTERSECTS.get();
+  }
+
+  public void setINTERSECTS(boolean flag){
+    INTERSECTS.set(flag);
+  }
+
+  public boolean getRIGHT_COLLIDE(){
+    return RIGHT_COLLIDE.get();
+  }
+
+  public boolean getLEFT_COLLIDE(){
+    return LEFT_COLLIDE.get();
+  }
+
+  public void setRIGHT_COLLIDE(boolean flag){
+    RIGHT_COLLIDE.set(flag);
+  }
+
+  public void setLEFT_COLLIDE(boolean flag){
+    LEFT_COLLIDE.set(flag);
   }
 
   /**
@@ -127,6 +158,6 @@ public abstract class AbstractCharacter {
 
   public abstract int getCenterY();
 
-  public abstract void setCenterY(int centerY);
+  public abstract void setCenterY(double centerY);
 
 }

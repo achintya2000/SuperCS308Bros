@@ -283,7 +283,7 @@ public class CharacterSelect extends Application implements ViewInternal {
     try {
 
       KeyBindManager keyBindManager = new KeyBindManager();
-      keyBindManager.setPlayer1KeyBinds("Z", "C", "S", "X", "F");
+      //keyBindManager.setPlayer1KeyBinds("Z", "C", "S", "X", "F");
 
       Scene selectScene = new Scene(makeBorderPane());
       currentScene = selectScene;
