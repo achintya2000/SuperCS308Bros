@@ -39,9 +39,5 @@ class CharacterSelectTest extends Application {
   void checkAllPlayersChosen() {
   }
 
-  @Test
-  void start() {
-  }
-
 
 }
