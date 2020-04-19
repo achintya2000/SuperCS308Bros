@@ -1,25 +1,21 @@
 package ooga.View;
 
-import java.io.FileNotFoundException;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
-import ooga.Model.Characters.AbstractCharacter;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import ooga.Controller.KeyBindManager;
 import ooga.Exceptions.ExceptionHelper;
+import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
 
 import java.util.ArrayList;
-import ooga.Model.Stages.StageBuilder;
 
 public class GameView extends Application implements ViewInternal {
 
@@ -37,11 +33,11 @@ public class GameView extends Application implements ViewInternal {
   private BooleanProperty S_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty DOWN_PRESSED = new SimpleBooleanProperty();
 
-  private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
-  private BooleanProperty UP_PRESSED = new SimpleBooleanProperty();
+  //private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
+  //private BooleanProperty UP_PRESSED = new SimpleBooleanProperty();
 
-  private BooleanProperty T_PRESSED = new SimpleBooleanProperty();
-  private BooleanProperty L_PRESSED = new SimpleBooleanProperty();
+  //private BooleanProperty T_PRESSED = new SimpleBooleanProperty();
+  //private BooleanProperty L_PRESSED = new SimpleBooleanProperty();
 
   AbstractCharacter bunny;
   AbstractCharacter bunny2;
@@ -134,12 +130,12 @@ public class GameView extends Application implements ViewInternal {
     if (RIGHT_PRESSED.get()) {
       bunny2.moveRight();
     }
-    if (T_PRESSED.get()) {
-      bunny.attack();
-    }
-    if (L_PRESSED.get()) {
-      bunny2.attack();
-    }
+//    if (T_PRESSED.get()) {
+//      bunny.attack();
+//    }
+//    if (L_PRESSED.get()) {
+//      bunny2.attack();
+//    }
     if (S_PRESSED.get()) {
       y += 3;
       bunny.setCenterY(y);
@@ -151,75 +147,149 @@ public class GameView extends Application implements ViewInternal {
   }
 
   private void setKeyBinds() {
-    scene.setOnKeyPressed(e -> {
-      if (e.getCode() == KeyCode.D) {
-        D_PRESSED.set(true);
-        bunny2.getHurtBox().setStroke(Color.YELLOW);
-      }
-      if (e.getCode() == KeyCode.S) {
-        S_PRESSED.set(true);
-      }
-      if (e.getCode() == KeyCode.T) {
-        bunny.attack();
-        if (bunny.getHitBox().getBoundsInParent()
-            .intersects(bunny2.getHurtBox().getBoundsInParent())) {
-          bunny2.getHurtBox().setStroke(Color.RED);
-        }
-      }
-      if (e.getCode() == KeyCode.W) {
-        bunny.jump();
-      }
-      if (e.getCode() == KeyCode.A) {
-        A_PRESSED.set(true);
-      }
-      if (e.getCode() == KeyCode.LEFT) {
-        LEFT_PRESSED.set(true);
-      }
-      if (e.getCode() == KeyCode.RIGHT) {
-        RIGHT_PRESSED.set(true);
-      }
-      if (e.getCode() == KeyCode.DOWN) {
-        DOWN_PRESSED.set(true);
-      }
-      if (e.getCode() == KeyCode.UP) {
-        bunny2.jump();
-      }
-      if (e.getCode() == KeyCode.L) {
-        bunny2.attack();
-        if (bunny2.getHitBox().getBoundsInParent()
-                .intersects(bunny.getHurtBox().getBoundsInParent())) {
-          bunny.getHurtBox().setStroke(Color.RED);
-        }
-      }
-    });
+    KeyBindManager keyBindManager = new KeyBindManager();
 
-    scene.setOnKeyReleased(e -> {
-      if (e.getCode() == KeyCode.A) {
-        A_PRESSED.set(false);
-      }
-      if (e.getCode() == KeyCode.D) {
-        D_PRESSED.set(false);
-      }
-      if (e.getCode() == KeyCode.S) {
-        S_PRESSED.set(false);
-      }
-      if (e.getCode() == KeyCode.DOWN) {
-        DOWN_PRESSED.set(false);
-      }
-      if (e.getCode() == KeyCode.LEFT) {
-        LEFT_PRESSED.set(false);
-      }
-      if (e.getCode() == KeyCode.RIGHT) {
-        RIGHT_PRESSED.set(false);
-      }
-      if (e.getCode() == KeyCode.T) {
-        T_PRESSED.set(false);
-      }
-      if (e.getCode() == KeyCode.L) {
-        L_PRESSED.set(false);
-      }
-      bunny.idle();
-      bunny2.idle();
-    });
+      scene.setOnKeyPressed(e -> {
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LRightKey()).get(null)) {
+            D_PRESSED.set(true);
+            bunny2.getHurtBox().setStroke(Color.YELLOW);
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LeftKey()).get(null)) {
+            A_PRESSED.set(true);
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
+            bunny.jump();
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1FallKey()).get(null)) {
+            S_PRESSED.set(true);
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1AttackKey()).get(null)) {
+            bunny.attack();
+            if (bunny.getHitBox().getBoundsInParent()
+                    .intersects(bunny2.getHurtBox().getBoundsInParent())) {
+              bunny2.getHurtBox().setStroke(Color.RED);
+            }
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        //~~~~~~~~~~~~~~~ Player 2 ~~~~~~~~~~~~~~//
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2LeftKey()).get(null)) {
+            LEFT_PRESSED.set(true);
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2RightKey()).get(null)) {
+            RIGHT_PRESSED.set(true);
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2FallKey()).get(null)) {
+            DOWN_PRESSED.set(true);
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2JumpKey()).get(null)) {
+            bunny2.jump();
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2AttackKey()).get(null)) {
+            bunny2.attack();
+            if (bunny2.getHitBox().getBoundsInParent()
+                    .intersects(bunny.getHurtBox().getBoundsInParent())) {
+              bunny.getHurtBox().setStroke(Color.RED);
+            }
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+      });
+
+      scene.setOnKeyReleased(e -> {
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LeftKey()).get(null)) {
+            A_PRESSED.set(false);
+            bunny.idle();
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LRightKey()).get(null)) {
+            D_PRESSED.set(false);
+            bunny.idle();
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1FallKey()).get(null)) {
+            S_PRESSED.set(false);
+            bunny.idle();
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2FallKey()).get(null)) {
+            DOWN_PRESSED.set(false);
+            bunny2.idle();
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2LeftKey()).get(null)) {
+            LEFT_PRESSED.set(false);
+            bunny2.idle();
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2RightKey()).get(null)) {
+            RIGHT_PRESSED.set(false);
+            bunny2.idle();
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+//        if (e.getCode() == KeyCode.T) {
+//          T_PRESSED.set(false);
+//        }
+//        if (e.getCode() == KeyCode.L) {
+//          L_PRESSED.set(false);
+//        }
+//        bunny.idle();
+//        bunny2.idle();
+      });
   }
+
 }
