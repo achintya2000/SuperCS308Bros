@@ -26,9 +26,9 @@ public class Home extends Application {
     currentStage = primaryStage;
     primaryStage.show();
 
-    Media music = new Media(new File("/Users/achintya20/CS308/final_team11/data/sound/MainMenu.mp3").toURI().toString());
+    Media music = new Media(getClass().getClassLoader().getResource("sound/Battlefield.mp3").toString());
     MediaPlayer mediaPlayer = new MediaPlayer(music);
-    mediaPlayer.setAutoPlay(true);
+    mediaPlayer.play();
   }
 
   private VBox makeGridPane() {
