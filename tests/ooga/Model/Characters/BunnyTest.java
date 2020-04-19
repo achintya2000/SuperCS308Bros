@@ -5,7 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class BunnyTest extends AbstractCharacter {
+abstract class BunnyTest extends AbstractCharacter {
+
+  public BunnyTest(String name) {
+    super(name);
+  }
 
   @BeforeEach
   void setUp() {
