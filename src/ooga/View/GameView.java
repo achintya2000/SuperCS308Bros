@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import ooga.Controller.KeyBindManager;
 import ooga.Model.Characters.AbstractCharacter;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -90,7 +91,6 @@ public class GameView extends Application implements ViewInternal {
   public void start(Stage primaryStage) {
     scene = new Scene(root, 1200, 800);
 
-
     setKeyBinds();
 
     primaryStage.setTitle("FIGHT!");
@@ -158,28 +158,51 @@ public class GameView extends Application implements ViewInternal {
 
   private void setKeyBinds() {
 
-      scene.setOnKeyPressed(e -> {
+    KeyBindManager keyBindManager = new KeyBindManager();
+    System.out.println(keyBindManager.getPlayer1LeftKey());
 
-        if (e.getCode() == KeyCode.D) {
-          D_PRESSED.set(true);
-          bunny2.getHurtBox().setStroke(Color.YELLOW);
-        }
-        if (e.getCode() == KeyCode.S) {
-          S_PRESSED.set(true);
-        }
-        if (e.getCode() == KeyCode.T) {
-          bunny.attack();
-          if (bunny.getHitBox().getBoundsInParent()
-                  .intersects(bunny2.getHurtBox().getBoundsInParent())) {
-            bunny2.getHurtBox().setStroke(Color.RED);
+      scene.setOnKeyPressed(e -> {
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LRightKey()).get(null)) {
+            D_PRESSED.set(true);
+            bunny2.getHurtBox().setStroke(Color.YELLOW);
           }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
         }
-        if (e.getCode() == KeyCode.W) {
-          bunny.jump();
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LeftKey()).get(null)) {
+            A_PRESSED.set(true);
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
         }
-        if (e.getCode() == KeyCode.A) {
-          A_PRESSED.set(true);
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
+            bunny.jump();
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
         }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1FallKey()).get(null)) {
+            S_PRESSED.set(true);
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        try {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1AttackKey()).get(null)) {
+            bunny.attack();
+            if (bunny.getHitBox().getBoundsInParent()
+                    .intersects(bunny2.getHurtBox().getBoundsInParent())) {
+              bunny2.getHurtBox().setStroke(Color.RED);
+            }
+          }
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+          new ExceptionHelper(ex);
+        }
+        //~~~~~~~~~~~~~~~ Player 2 ~~~~~~~~~~~~~~//
         if (e.getCode() == KeyCode.LEFT) {
           LEFT_PRESSED.set(true);
         }
