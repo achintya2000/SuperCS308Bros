@@ -14,9 +14,10 @@ public class MusicManager {
     }
 
     public void playBattlefieldMusic() {
-        Media music = new Media(new File("/Users/achintya20/CS308/final_team11/data/sound/Battlefield.mp3").toURI().toString());
+        Media music = new Media(getClass().getClassLoader().getResource("sound/Battlefield.mp3").toString());
         MediaPlayer mediaPlayer = new MediaPlayer(music);
-        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
     }
 
 }
