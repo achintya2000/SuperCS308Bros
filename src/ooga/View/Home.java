@@ -27,7 +27,7 @@ public class Home extends Application {
     primaryStage.show();
 
     MusicManager musicManager = new MusicManager();
-    musicManager.playBattlefieldMusic();
+    musicManager.playMainMenuMusic();
   }
 
   private VBox makeGridPane() {
