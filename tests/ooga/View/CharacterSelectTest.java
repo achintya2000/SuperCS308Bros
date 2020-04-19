@@ -3,9 +3,14 @@ package ooga.View;
 import static org.junit.jupiter.api.Assertions.*;
 
 import ooga.Model.Characters.AbstractCharacter;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class CharacterSelectTest extends AbstractCharacter {
+class CharacterSelectTest {
+
+  @BeforeEach
+  void setUp() {
+  }
 
   @Test
   void resetGame() {
