@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class KeyBindManager {
@@ -21,6 +22,38 @@ public class KeyBindManager {
             player1KeyBinds = (JSONObject) jsonParser.parse(new FileReader("data/keybindings/player1.json"));
             player2KeyBinds = (JSONObject) jsonParser.parse(new FileReader("data/keybindings/player2.json"));
         } catch (ParseException | IOException e) {
+            new ExceptionHelper(e);
+        }
+    }
+
+    public void setPlayer1KeyBinds(String left, String right, String jump, String fall, String attack) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("left", left.toUpperCase());
+        jsonObject.put("right", right.toUpperCase());
+        jsonObject.put("jump", jump.toUpperCase());
+        jsonObject.put("fall", fall.toUpperCase());
+        jsonObject.put("attack", attack.toUpperCase());
+
+        try (FileWriter fileWriter = new FileWriter("data/keybindings/player1.json")) {
+            fileWriter.write(jsonObject.toString());
+            //resetPlayer1KeyBinds();
+        } catch (IOException e) {
+            new ExceptionHelper(e);
+        }
+    }
+
+    public void setPlayer2KeyBinds(String left, String right, String jump, String fall, String attack) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("left", left);
+        jsonObject.put("right", right);
+        jsonObject.put("jump", jump);
+        jsonObject.put("fall", fall);
+        jsonObject.put("attack", attack);
+
+        try (FileWriter fileWriter = new FileWriter("data/keybindings/player2.json")) {
+            fileWriter.write(jsonObject.toString());
+            //resetPlayer2KeyBinds();
+        } catch (IOException e) {
             new ExceptionHelper(e);
         }
     }
@@ -64,4 +97,20 @@ public class KeyBindManager {
     public String getPlayer2AttackKey() {
         return player2KeyBinds.get("attack").toString();
     }
+
+//    private void resetPlayer1KeyBinds() {
+//        try {
+//            player1KeyBinds = (JSONObject) jsonParser.parse(new FileReader("data/keybindings/player1.json"));
+//        } catch (ParseException | IOException e) {
+//            new ExceptionHelper(e);
+//        }
+//    }
+//
+//    private void resetPlayer2KeyBinds() {
+//        try {
+//            player2KeyBinds = (JSONObject) jsonParser.parse(new FileReader("data/keybindings/player2.json"));
+//        } catch (ParseException | IOException e) {
+//            new ExceptionHelper(e);
+//        }
+//    }
 }
