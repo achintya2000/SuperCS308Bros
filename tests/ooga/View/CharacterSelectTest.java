@@ -2,26 +2,20 @@ package ooga.View;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
 import ooga.Model.Characters.AbstractCharacter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class CharacterSelectTest {
+class CharacterSelectTest extends Application {
 
-  @BeforeEach
-  void setUp() {
-  }
+  CharacterSelect myCharacterSelect;
 
-  @Test
-  void resetGame() {
-  }
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+      myCharacterSelect = new CharacterSelect(primaryStage);
 
-  @Test
-  void setCharacter() {
-  }
-
-  @Test
-  void setStage() {
   }
 
   @Test
@@ -34,6 +28,7 @@ class CharacterSelectTest {
 
   @Test
   void p2Ready() {
+
   }
 
   @Test
@@ -47,4 +42,6 @@ class CharacterSelectTest {
   @Test
   void start() {
   }
+
+
 }
