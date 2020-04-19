@@ -5,7 +5,13 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import ooga.Controller.MusicManager;
+
+import java.io.File;
 
 public class Home extends Application {
 
@@ -19,6 +25,10 @@ public class Home extends Application {
     primaryStage.setWidth(1200);
     currentStage = primaryStage;
     primaryStage.show();
+
+    Media music = new Media(new File("/Users/achintya20/CS308/final_team11/data/sound/MainMenu.mp3").toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(music);
+    mediaPlayer.setAutoPlay(true);
   }
 
   private VBox makeGridPane() {
