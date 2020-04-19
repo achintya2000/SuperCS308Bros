@@ -3,6 +3,7 @@ package ooga.Controller;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import ooga.Exceptions.ExceptionHelper;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -13,34 +14,36 @@ import java.io.IOException;
 
 public class MusicManager {
 
+    private Clip clip = null;
+
     public void playMainMenuMusic() {
-        Clip clip = null;
         try {
             clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/Menu.wav")));
+            clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/MainMenu.wav")));
             clip.start();
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace();
+            new ExceptionHelper(e);
         }
-
-        //Media music = new Media(getClass().getClassLoader().getResource("sound/MainMenu.mp3").toString());
-        //MediaPlayer mediaPlayer = new MediaPlayer(music);
-        //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        //mediaPlayer.play();
     }
 
     public void playBattlefieldMusic() {
-        Media music = new Media(getClass().getClassLoader().getResource("sound/Battlefield.mp3").toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(music);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play();
+        try {
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/Battlefield.wav")));
+            clip.start();
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+            new ExceptionHelper(e);
+        }
     }
 
     public void playFinalDestinationMusic() {
-        Media music = new Media(getClass().getClassLoader().getResource("sound/FinalDestination.mp3").toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(music);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play();
+        try {
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/FinalDestination.wav")));
+            clip.start();
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+            new ExceptionHelper(e);
+        }
     }
 
 }
