@@ -147,6 +147,7 @@ public class StageSelect extends Application implements ViewInternal {
       goToSelectScreen();
     });
     go.setDisable(true);
+    go.setId("#GoButton");
     VBox bottomElements = new VBox();
     bottomElements.getChildren().add(go);
     bottomElements.setAlignment(TOP_CENTER);
@@ -168,5 +169,9 @@ public class StageSelect extends Application implements ViewInternal {
     } catch (IOException e) {
       System.out.println(e.getLocalizedMessage());
     }
+  }
+
+  public Button getGo() {
+    return go;
   }
 }

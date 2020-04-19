@@ -56,6 +56,9 @@ public class CharacterSelect extends Application implements ViewInternal {
   private Group root = new Group();
   private ooga.Model.Stages.Stage chosenStage;
 
+  public CharacterSelect(Stage primaryStage) {
+  }
+
 
   @Override
   public void resetGame() {
