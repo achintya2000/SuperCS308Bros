@@ -44,4 +44,24 @@ public class KeyBindManager {
     public String getPlayer1AttackKey() {
         return player1KeyBinds.get("attack").toString();
     }
+
+    public String getPlayer2LeftKey() {
+        return player2KeyBinds.get("left").toString();
+    }
+
+    public String getPlayer2RightKey() {
+        return player2KeyBinds.get("right").toString();
+    }
+
+    public String getPlayer2JumpKey() {
+        return player2KeyBinds.get("jump").toString();
+    }
+
+    public String getPlayer2FallKey() {
+        return player2KeyBinds.get("fall").toString();
+    }
+
+    public String getPlayer2AttackKey() {
+        return player2KeyBinds.get("attack").toString();
+    }
 }
