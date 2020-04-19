@@ -1,0 +1,8 @@
+{
+  "left": "RIGHT",
+  "right": "LEFT",
+  "jump": "UP",
+  "fall": "DOWN",
+  "attack": "O",
+  "special": "P"
+}
