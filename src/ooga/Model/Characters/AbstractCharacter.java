@@ -1,7 +1,9 @@
 package ooga.Model.Characters;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -47,12 +49,13 @@ public abstract class AbstractCharacter {
   protected BooleanProperty RIGHT_COLLIDE = new SimpleBooleanProperty();
   protected BooleanProperty LEFT_COLLIDE = new SimpleBooleanProperty();
   protected BooleanProperty INTERSECTS = new SimpleBooleanProperty();
-  protected SimpleIntegerProperty HEALTH = new SimpleIntegerProperty();
+  protected SimpleDoubleProperty HEALTH = new SimpleDoubleProperty();
 
   public AbstractCharacter(String name) {
     this.name = name;
     System.out.println(name);
     System.out.println(this.name);
+    HEALTH.set(100);
     RIGHT_COLLIDE.set(false);
     LEFT_COLLIDE.set(false);
     INTERSECTS.set(false);
@@ -61,11 +64,14 @@ public abstract class AbstractCharacter {
     return INTERSECTS.get();
   }
 
-  public void setHEALTH(int new_health){
+  public SimpleDoubleProperty healthProperty(){
+    return HEALTH;
+  }
+  public void setHEALTH(double new_health){
     HEALTH.set(new_health);
   }
 
-  public int getHEALTH(){
+  public double getHEALTH(){
     return HEALTH.get();
   }
 

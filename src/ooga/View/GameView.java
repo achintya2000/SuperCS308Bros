@@ -2,6 +2,8 @@ package ooga.View;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Scene;
@@ -72,6 +74,14 @@ public class GameView extends Application implements ViewInternal {
         BackgroundSize.DEFAULT);
     root.setBackground(new Background(stageBackground));
     root.getChildren().addAll(platforms);
+    Rectangle healthBar1 = new Rectangle(100, 100, 1000, 50);
+    Rectangle healthBar2 = new Rectangle(900, 100, 1000, 50);
+    healthBar1.setFill(Color.GREEN);
+    healthBar2.setFill(Color.GREEN);
+    healthBar1.widthProperty().bind(bunny.healthProperty());
+    healthBar2.widthProperty().bind(bunny2.healthProperty());
+    root.getChildren().add(healthBar1);
+    root.getChildren().add(healthBar2);
 
   }
 
