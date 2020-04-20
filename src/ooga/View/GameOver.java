@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import ooga.Exceptions.ExceptionHelper;
 
 public class GameOver extends Application {
   private String winner;
@@ -52,5 +53,10 @@ public class GameOver extends Application {
   private void restart(){
     StageSelect stageSelect = new StageSelect();
     stageSelect.start(new Stage());
+    try{
+      this.stop();
+    } catch (Exception e){
+      new ExceptionHelper(e);
+    }
   }
 }
