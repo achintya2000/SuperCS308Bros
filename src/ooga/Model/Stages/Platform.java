@@ -1,9 +1,10 @@
 package ooga.Model.Stages;
 
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Platform {
+public class Platform extends Rectangle {
   private Rectangle rectangle;
   private boolean hollow;
 
@@ -16,7 +17,9 @@ public class Platform {
    * @param isHollow whether player can fall through the platform
    */
   public Platform(int x, int y, int width, int height, boolean isHollow){
-    rectangle = new Rectangle(x, y, width, height);
+    super(x, y, width, height);
+    hollow = isHollow;
+
   }
 
   /**
@@ -25,5 +28,13 @@ public class Platform {
    */
   public boolean getHollow(){
     return hollow;
+  }
+
+  /**
+   * Method for setting whether players can fall through a platform
+   * @param isHollow whether players can fall through the platform
+   */
+  public void setHollow(boolean isHollow){
+    hollow = isHollow;
   }
 }

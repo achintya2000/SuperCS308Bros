@@ -18,6 +18,7 @@ import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
 
 import java.util.ArrayList;
+import ooga.Model.Stages.Platform;
 
 public class GameView extends Application implements ViewInternal {
 
@@ -46,7 +47,7 @@ public class GameView extends Application implements ViewInternal {
   int y;
   int y2;
 
-  ArrayList<Rectangle> platforms;
+  ArrayList<Platform> platforms;
 
   @Override
   public void resetGame() {

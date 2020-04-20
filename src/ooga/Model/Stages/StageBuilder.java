@@ -27,30 +27,31 @@ public class StageBuilder extends Stage {
     for (String s : props.stringPropertyNames()) {
       propsMap.put(s, props.getProperty(s).split(","));
     }
+    boolean hollow = false;
     for (String key : propsMap.keySet()) {
       if (key.equals("image")) {
         background = new Image(new FileInputStream(propsMap.get(key)[0]));
+      }
+      else if (key.equals("hollow")){
+        hollow = true;
       } else {
         int x = Integer.valueOf(propsMap.get(key)[0]);
         int y = Integer.valueOf(propsMap.get(key)[1]);
         int width = Integer.valueOf(propsMap.get(key)[2]);
         int height = Integer.valueOf(propsMap.get(key)[3]);
-        Rectangle component = new Rectangle(x, y, width, height);
-        component.setFill(Color.rgb(0, 0, 0, 0.5));
-        //component.setVisible(false);
-        platforms.add(component);
+        platforms.add(new Platform(x, y, width, height, hollow));
       }
     }
   }
 
   @Override
-  protected ArrayList<Rectangle> makePlatforms() {
+  protected ArrayList<Platform> makePlatforms() {
     return null;
   }
 
 
   @Override
-  public ArrayList<Rectangle> getPlatforms() {
-    return (ArrayList<Rectangle>) platforms;
+  public ArrayList<Platform> getPlatforms() {
+    return (ArrayList<Platform>)platforms;
   }
 }
