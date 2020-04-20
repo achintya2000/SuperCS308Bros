@@ -10,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 public abstract class Stage {
 
   protected Image background;
-  protected List<Rectangle> platforms;
+  protected List<Platform> platforms;
 
   /**
    * Getter for background ImageView
@@ -26,12 +26,12 @@ public abstract class Stage {
    *
    * @return the rectangles to be stored in the class
    */
-  protected abstract ArrayList<javafx.scene.shape.Rectangle> makePlatforms();
+  protected abstract ArrayList<Platform> makePlatforms();
 
   /**
    * Method for the GameView to access the Rectangle collections for rendering
    *
    * @return platforms from the Stage class
    */
-  public abstract ArrayList<javafx.scene.shape.Rectangle> getPlatforms();
+  public abstract ArrayList<Platform> getPlatforms();
 }
