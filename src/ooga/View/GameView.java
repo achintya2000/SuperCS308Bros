@@ -87,44 +87,39 @@ public class GameView extends Application implements ViewInternal {
     AnimationTimer animationTimer = new AnimationTimer() {
       @Override
       public void handle(long now) {
+//        System.out.println(bunny.getLEFT_COLLIDE() + " " + bunny.getRIGHT_COLLIDE() + " " +
+//                bunny.getINTERSECTS());
         // Update and render
-        for(Player player : playerList){
+        for(Player player : playerList) {
           AbstractCharacter character = player.getMyCharacter();
           if (!character.getINTERSECTS() || character.getRIGHT_COLLIDE() || character.getLEFT_COLLIDE()) {
-            //y += GRAVITY;
             character.setCenterY(character.getHurtBox().getY() + GRAVITY);
           }
 
           character.setINTERSECTS(false);
+          character.setRIGHT_COLLIDE(false);
+          character.setLEFT_COLLIDE(false);
 
           for (Rectangle platform : platforms) {
 
-            if(character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())){
+            if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
               character.setINTERSECTS(true);
             }
 
-            if(character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent()))
-            {
-              if(character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMinY() + 5 )
-              {
-                if(character.getHurtBox().getBoundsInParent().getMaxX() > platform.getBoundsInParent().getMaxX())
-                {
+            if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
+              if (character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMinY() + 5) {
+                if (character.getHurtBox().getBoundsInParent().getMaxX() > platform.getBoundsInParent().getMaxX()) {
                   if (character.getHurtBox().getBoundsInParent().getMinX() < platform.getBoundsInParent().getMaxX()) {
-                    //character.setCenterX(stage.getBoundsInParent().getMaxX() + 5);
                     character.setRIGHT_COLLIDE(true);
                   }
                 }
 
-                if(character.getHurtBox().getBoundsInParent().getMinX() < platform.getBoundsInParent().getMinX()) {
+                if (character.getHurtBox().getBoundsInParent().getMinX() < platform.getBoundsInParent().getMinX()) {
                   if (character.getHurtBox().getBoundsInParent().getMaxX() > platform.getBoundsInParent().getMinX()) {
-                    //character.setCenterX(stage.getBoundsInParent().getMinX() - 100);
                     character.setLEFT_COLLIDE(true);
                   }
                 }
               }
-            } else {
-              character.setRIGHT_COLLIDE(false);
-              character.setLEFT_COLLIDE(false);
             }
           }
         }
