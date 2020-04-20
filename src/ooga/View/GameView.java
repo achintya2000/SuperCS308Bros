@@ -209,6 +209,7 @@ public class GameView extends Application implements ViewInternal {
             if (bunny.getHitBox().getBoundsInParent()
                     .intersects(bunny2.getHurtBox().getBoundsInParent())) {
               bunny2.getHurtBox().setStroke(Color.RED);
+              bunny2.setHEALTH(bunny2.getHEALTH() - 10);
             }
           }
         } catch (IllegalAccessException | NoSuchFieldException ex) {
@@ -249,6 +250,7 @@ public class GameView extends Application implements ViewInternal {
             if (bunny2.getHitBox().getBoundsInParent()
                     .intersects(bunny.getHurtBox().getBoundsInParent())) {
               bunny.getHurtBox().setStroke(Color.RED);
+              bunny.setHEALTH(bunny.getHEALTH() - 10);
             }
           }
         } catch (IllegalAccessException | NoSuchFieldException ex) {
