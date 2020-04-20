@@ -72,6 +72,7 @@ public class GameView extends Application implements ViewInternal {
         BackgroundSize.DEFAULT);
     root.setBackground(new Background(stageBackground));
     root.getChildren().addAll(platforms);
+
   }
 
   @Override
