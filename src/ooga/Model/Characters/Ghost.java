@@ -244,7 +244,7 @@ public class Ghost extends AbstractCharacter {
         return (int) (spriteImageView.getBoundsInParent().getMaxY() + spriteImageView.getBoundsInParent().getMinY())/2;
     }
 
-    public void setCenterY(int centerY) {
+    public void setCenterY(double centerY) {
         spriteImageView.setY(centerY);
         hurtBox.setY(spriteImageView.getBoundsInParent().getMinY());
 

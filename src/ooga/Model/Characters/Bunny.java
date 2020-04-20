@@ -112,13 +112,8 @@ public class Bunny extends AbstractCharacter {
 
     @Override
     public void jump() {
-        TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
-        jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
-        jump.setByY(-150);
-        jump.setAutoReverse(true);
-        jump.setCycleCount(2);
-        jump.play();
-
+        jumpTransition(spriteImageView);
+        jumpTransition(hurtBox);
         playJumpAnimation();
     }
 
@@ -126,8 +121,8 @@ public class Bunny extends AbstractCharacter {
         TranslateTransition jump = new TranslateTransition(Duration.millis(500), jumpNode);
         jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
         jump.setByY(-150);
-        jump.setAutoReverse(true);
-        jump.setCycleCount(2);
+        jump.setAutoReverse(false);
+        jump.setCycleCount(1);
         jump.play();
     }
 
@@ -242,9 +237,9 @@ public class Bunny extends AbstractCharacter {
         return (int) (spriteImageView.getBoundsInParent().getMaxY() + spriteImageView.getBoundsInParent().getMinY())/2;
     }
 
-    public void setCenterY(int centerY) {
+    public void setCenterY(double centerY) {
         spriteImageView.setY(centerY);
-        hurtBox.setY(spriteImageView.getBoundsInParent().getMinY());
+        hurtBox.setY(centerY);
 
     }
 

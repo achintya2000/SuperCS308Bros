@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import ooga.Controller.KeyBindManager;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Characters.Bunny;
@@ -54,6 +55,9 @@ public class CharacterSelect extends Application implements ViewInternal {
   private int currentPlayer = 1;
   private Group root = new Group();
   private ooga.Model.Stages.Stage chosenStage;
+
+  public CharacterSelect(Stage primaryStage) {
+  }
 
 
   @Override
@@ -280,6 +284,10 @@ public class CharacterSelect extends Application implements ViewInternal {
   @Override
   public void start(Stage primaryStage) {
     try {
+
+      KeyBindManager keyBindManager = new KeyBindManager();
+      //keyBindManager.setPlayer1KeyBinds("Z", "C", "S", "X", "F");
+
       Scene selectScene = new Scene(makeBorderPane());
       currentScene = selectScene;
       currentStage = primaryStage;
