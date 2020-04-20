@@ -114,9 +114,6 @@ public abstract class AbstractCharacter {
   }
 
 
-  public int getHealth(){
-    return health;
-  }
   /**
    * Getter for myStocks
    *
