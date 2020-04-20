@@ -1,7 +1,10 @@
 package ooga.View;
 
+import static javafx.application.Platform.exit;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -31,6 +34,23 @@ public class GameOver extends Application {
     Label healthLeft = new Label("with " + remainingHealth + " health remaining!");
     healthLeft.setStyle("-fx-font-size: 15");
     mainBox.getChildren().addAll(gameOver, whoWon, healthLeft);
+
+    Button restart = new Button("Restart");
+    restart.setOnAction(e -> restart());
+
+    Button quit = new Button("Quit");
+    quit.setOnAction(e -> quit());
+
+    mainBox.getChildren().addAll(restart, quit);
     return mainBox;
+  }
+
+  private void quit() {
+    exit();
+  }
+
+  private void restart(){
+    StageSelect stageSelect = new StageSelect();
+    stageSelect.start(new Stage());
   }
 }
