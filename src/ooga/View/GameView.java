@@ -19,8 +19,7 @@ import java.util.ArrayList;
 
 public class GameView extends Application implements ViewInternal {
 
-  private final int GRAVITY = 1;
-  private final int RECTANGLE_OFFSET = 2;
+  private final double GRAVITY = 1.5;
 
   private ArrayList<Player> playerList;
   private Scene scene;
@@ -67,8 +66,6 @@ public class GameView extends Application implements ViewInternal {
     this.root = root;
     bunny = playerList.get(0).getMyCharacter();
     bunny2 = playerList.get(1).getMyCharacter();
-    y = bunny.getCenterY();
-    y2 = bunny2.getCenterY();
     platforms = chosenStage.getPlatforms();
     BackgroundImage stageBackground = new BackgroundImage(chosenStage.getBackground(),
         BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -90,23 +87,40 @@ public class GameView extends Application implements ViewInternal {
     AnimationTimer animationTimer = new AnimationTimer() {
       @Override
       public void handle(long now) {
+//        System.out.println(bunny.getLEFT_COLLIDE() + " " + bunny.getRIGHT_COLLIDE() + " " +
+//                bunny.getINTERSECTS());
         // Update and render
-        for (Rectangle platform : platforms) {
-          if (bunny.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
-            y -= RECTANGLE_OFFSET;
-            bunny.setCenterY(y);
+        for(Player player : playerList) {
+          AbstractCharacter character = player.getMyCharacter();
+          if (!character.getINTERSECTS() || character.getRIGHT_COLLIDE() || character.getLEFT_COLLIDE()) {
+            character.setCenterY(character.getHurtBox().getY() + GRAVITY);
           }
-          if (!bunny.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
-            y += GRAVITY;
-            bunny.setCenterY(y);
-          }
-          if (bunny2.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
-            y2 -= RECTANGLE_OFFSET;
-            bunny2.setCenterY(y2);
-          }
-          if (!bunny2.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
-            y2 += GRAVITY;
-            bunny2.setCenterY(y2);
+
+          character.setINTERSECTS(false);
+          character.setRIGHT_COLLIDE(false);
+          character.setLEFT_COLLIDE(false);
+
+          for (Rectangle platform : platforms) {
+
+            if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
+              character.setINTERSECTS(true);
+            }
+
+            if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
+              if (character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMinY() + 5) {
+                if (character.getHurtBox().getBoundsInParent().getMaxX() > platform.getBoundsInParent().getMaxX()) {
+                  if (character.getHurtBox().getBoundsInParent().getMinX() < platform.getBoundsInParent().getMaxX()) {
+                    character.setRIGHT_COLLIDE(true);
+                  }
+                }
+
+                if (character.getHurtBox().getBoundsInParent().getMinX() < platform.getBoundsInParent().getMinX()) {
+                  if (character.getHurtBox().getBoundsInParent().getMaxX() > platform.getBoundsInParent().getMinX()) {
+                    character.setLEFT_COLLIDE(true);
+                  }
+                }
+              }
+            }
           }
         }
 
@@ -118,16 +132,16 @@ public class GameView extends Application implements ViewInternal {
   }
 
   private void checkKeys() {
-    if (D_PRESSED.get()) {
+    if (D_PRESSED.get() && !bunny.getLEFT_COLLIDE()){
       bunny.moveRight();
     }
-    if (A_PRESSED.get()) {
+    if (A_PRESSED.get() && !bunny.getRIGHT_COLLIDE()) {
       bunny.moveLeft();
     }
-    if (LEFT_PRESSED.get()) {
+    if (LEFT_PRESSED.get() && !bunny2.getRIGHT_COLLIDE()) {
       bunny2.moveLeft();
     }
-    if (RIGHT_PRESSED.get()) {
+    if (RIGHT_PRESSED.get() && !bunny2.getLEFT_COLLIDE()) {
       bunny2.moveRight();
     }
 //    if (T_PRESSED.get()) {
@@ -137,12 +151,10 @@ public class GameView extends Application implements ViewInternal {
 //      bunny2.attack();
 //    }
     if (S_PRESSED.get()) {
-      y += 3;
-      bunny.setCenterY(y);
+      bunny.setCenterY(bunny.getHurtBox().getY() + 3);
     }
     if (DOWN_PRESSED.get()) {
-      y2 += 3;
-      bunny2.setCenterY(y2);
+      bunny2.setCenterY(bunny2.getHurtBox().getY() + 3);
     }
   }
 

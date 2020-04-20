@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Properties;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import ooga.Exceptions.ExceptionHelper;
 
@@ -35,6 +36,7 @@ public class StageBuilder extends Stage {
         int width = Integer.valueOf(propsMap.get(key)[2]);
         int height = Integer.valueOf(propsMap.get(key)[3]);
         Rectangle component = new Rectangle(x, y, width, height);
+        component.setFill(Color.rgb(0, 0, 0, 0.5));
         //component.setVisible(false);
         platforms.add(component);
       }
