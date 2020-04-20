@@ -67,10 +67,10 @@ public abstract class AbstractCharacter {
   public SimpleDoubleProperty healthProperty(){
     return HEALTH;
   }
+
   public void setHEALTH(double new_health){
     HEALTH.set(new_health);
   }
-
   public double getHEALTH(){
     return HEALTH.get();
   }
