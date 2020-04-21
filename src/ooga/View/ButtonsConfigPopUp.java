@@ -25,33 +25,39 @@ public class ButtonsConfigPopUp {
     buttonConfigsStage.initModality(Modality.APPLICATION_MODAL);
     buttonConfigsStage.setTitle("Button Configurations");
 
+    KeyBindManager buttonConfigurer = new KeyBindManager();
+
     BorderPane borderPane = new BorderPane();
     Label settingsText= new Label("Button Configurations");
 
-    Button configure= new Button("Configure Both Players");
-    configure.setOnAction(e ->
-            buttonConfigsStage.close());
 
-    KeyBindManager buttonConfigurer = new KeyBindManager();
     VBox p1Config= new VBox(10);
     TextField leftButton1 = new TextField(buttonConfigurer.getPlayer1LeftKey());
     TextField rightButton1 = new TextField(buttonConfigurer.getPlayer1RightKey());
     TextField jumpButton1 = new TextField(buttonConfigurer.getPlayer1JumpKey());
     TextField fallButton1 = new TextField(buttonConfigurer.getPlayer1LeftKey());
     TextField attackButton1 = new TextField(buttonConfigurer.getPlayer1LeftKey());
-    TextField specialButton1 = new TextField(buttonConfigurer.getPlayer1Key());
+    TextField specialButton1 = new TextField(buttonConfigurer.getPlayer1SpecialKey());
 
     VBox p2Config= new VBox(10);
-    TextField leftButton2 = new TextField("left button");
-    TextField rightButton2 = new TextField("Right Button");
-    TextField jumpButton2 = new TextField("Jump Button");
-    TextField fallButton2 = new TextField("Fall Button");
-    TextField attackButton2 = new TextField("Attack Button");
-    TextField specialButton2 = new TextField("Special Button");
+    TextField leftButton2 = new TextField(buttonConfigurer.getPlayer2LeftKey());
+    TextField rightButton2 = new TextField(buttonConfigurer.getPlayer2RightKey());
+    TextField jumpButton2 = new TextField(buttonConfigurer.getPlayer2JumpKey());
+    TextField fallButton2 = new TextField(buttonConfigurer.getPlayer2LeftKey());
+    TextField attackButton2 = new TextField(buttonConfigurer.getPlayer2LeftKey());
+    TextField specialButton2 = new TextField(buttonConfigurer.getPlayer2SpecialKey());
 
     p1Config.getChildren().addAll(leftButton1, rightButton1, jumpButton1, fallButton1,attackButton1,specialButton1);
     p2Config.getChildren().addAll(leftButton2, rightButton2, jumpButton2, fallButton2,attackButton2,specialButton2);
     //layout.setAlignment(Pos.CENTER);
+
+    Button configure= new Button("Configure Both Players");
+    configure.setOnAction(e -> {
+      buttonConfigurer.setPlayer1KeyBinds(leftButton1.getText(),rightButton1.getText(), jumpButton1.getText(), fallButton1.getText(),attackButton1.getText(),specialButton1.getText());
+      buttonConfigurer.setPlayer2KeyBinds(leftButton2.getText(),rightButton2.getText(), jumpButton2.getText(), fallButton2.getText(),attackButton2.getText(),specialButton2.getText());
+      buttonConfigsStage.close();
+    });
+
 
     borderPane.setTop(settingsText);
     borderPane.setBottom(configure);

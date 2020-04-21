@@ -1,8 +1,1 @@
-{
-  "left": "A",
-  "right": "D",
-  "jump": "W",
-  "fall": "S",
-  "attack": "T",
-  "special": "K"
-}
+{"special":"K","fall":"A","left":"A","attack":"A","right":"D","jump":"W"}

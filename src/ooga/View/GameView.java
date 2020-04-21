@@ -194,7 +194,7 @@ public class GameView extends Application implements ViewInternal {
 
       scene.setOnKeyPressed(e -> {
         try {
-          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LRightKey()).get(null)) {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1RightKey()).get(null)) {
             D_PRESSED.set(true);
             bunny2.getHurtBox().setStroke(Color.YELLOW);
           }
@@ -287,7 +287,7 @@ public class GameView extends Application implements ViewInternal {
           new ExceptionHelper(ex);
         }
         try {
-          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LRightKey()).get(null)) {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1RightKey()).get(null)) {
             D_PRESSED.set(false);
             bunny.idle();
           }
