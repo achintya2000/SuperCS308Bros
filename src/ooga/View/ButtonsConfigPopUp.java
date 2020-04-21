@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 
 public class ButtonsConfigPopUp {
 
+  public static final ResourceBundle buttonStyles = ResourceBundle.getBundle("ooga.Resources.stylesheets.buttonStyle");
 
   public ButtonsConfigPopUp()
   {
@@ -30,12 +31,15 @@ public class ButtonsConfigPopUp {
 
     BorderPane borderPane = new BorderPane();
     Label settingsText= new Label("Button Configurations");
+    settingsText.setStyle(buttonStyles.getString("characterText"));
     HBox topElements = new HBox();
-    topElements.setAlignment(Pos.CENTER);
+    topElements.setAlignment(Pos.TOP_CENTER);
     topElements.getChildren().add(settingsText);
 
 
     VBox p1Config= new VBox(10);
+    Label p1Text = new Label("Player 1");
+    p1Text.setStyle(buttonStyles.getString("characterText"));
     TextField leftButton1 = new TextField(buttonConfigurer.getPlayer1LeftKey());
     TextField rightButton1 = new TextField(buttonConfigurer.getPlayer1RightKey());
     TextField jumpButton1 = new TextField(buttonConfigurer.getPlayer1JumpKey());
@@ -44,6 +48,8 @@ public class ButtonsConfigPopUp {
     TextField specialButton1 = new TextField(buttonConfigurer.getPlayer1SpecialKey());
 
     VBox p2Config= new VBox(10);
+    Label p2Text = new Label("Player 2");
+    p2Text.setStyle(buttonStyles.getString("characterText"));
     TextField leftButton2 = new TextField(buttonConfigurer.getPlayer2LeftKey());
     TextField rightButton2 = new TextField(buttonConfigurer.getPlayer2RightKey());
     TextField jumpButton2 = new TextField(buttonConfigurer.getPlayer2JumpKey());
@@ -51,9 +57,20 @@ public class ButtonsConfigPopUp {
     TextField attackButton2 = new TextField(buttonConfigurer.getPlayer2AttackKey());
     TextField specialButton2 = new TextField(buttonConfigurer.getPlayer2SpecialKey());
 
-    p1Config.getChildren().addAll(leftButton1, rightButton1, jumpButton1, fallButton1,attackButton1,specialButton1);
-    p2Config.getChildren().addAll(leftButton2, rightButton2, jumpButton2, fallButton2,attackButton2,specialButton2);
-    //layout.setAlignment(Pos.CENTER);
+    VBox buttonLabels = new VBox();
+    Label buttonsText = new Label("Buttons");
+    buttonsText.setStyle(buttonStyles.getString("characterText"));
+    Label leftText = new Label("Left");
+    Label rightText = new Label("Right");
+    Label jumpText = new Label("Jump");
+    Label fallText = new Label("Fall");
+    Label attackText = new Label("Attack");
+    Label specialText = new Label("Special");
+
+
+    p1Config.getChildren().addAll(p1Text,leftButton1, rightButton1, jumpButton1, fallButton1,attackButton1,specialButton1);
+    p2Config.getChildren().addAll(p2Text,leftButton2, rightButton2, jumpButton2, fallButton2,attackButton2,specialButton2);
+    buttonLabels.getChildren().addAll(buttonsText,leftText,rightText,jumpText,fallText,attackText,specialText);
 
     Button configure= new Button("Configure Both Players");
     configure.setOnAction(e -> {
@@ -61,6 +78,7 @@ public class ButtonsConfigPopUp {
       buttonConfigurer.setPlayer2KeyBinds(leftButton2.getText(),rightButton2.getText(), jumpButton2.getText(), fallButton2.getText(),attackButton2.getText(),specialButton2.getText());
       buttonConfigsStage.close();
     });
+    configure.setStyle(buttonStyles.getString("playerText"));
     HBox bottomElements = new HBox();
     bottomElements.setAlignment(Pos.CENTER);
     bottomElements.getChildren().add(configure);
@@ -69,7 +87,8 @@ public class ButtonsConfigPopUp {
     borderPane.setBottom(bottomElements);
     borderPane.setLeft(p1Config);
     borderPane.setRight(p2Config);
-    Scene settingsScene= new Scene(borderPane, 500, 400);
+    borderPane.setCenter(buttonLabels);
+    Scene settingsScene= new Scene(borderPane, 500, 350);
 
     buttonConfigsStage.setScene(settingsScene);
 
