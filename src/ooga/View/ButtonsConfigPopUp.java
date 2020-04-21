@@ -57,7 +57,7 @@ public class ButtonsConfigPopUp {
     TextField attackButton2 = new TextField(buttonConfigurer.getPlayer2AttackKey());
     TextField specialButton2 = new TextField(buttonConfigurer.getPlayer2SpecialKey());
 
-    VBox buttonLabels = new VBox();
+    VBox buttonLabels = new VBox(10);
     Label buttonsText = new Label("Buttons");
     buttonsText.setStyle(buttonStyles.getString("characterText"));
     Label leftText = new Label("Left");
@@ -67,10 +67,19 @@ public class ButtonsConfigPopUp {
     Label attackText = new Label("Attack");
     Label specialText = new Label("Special");
 
+    leftText.setStyle(buttonStyles.getString("labelText"));
+    rightText.setStyle(buttonStyles.getString("labelText"));
+    jumpText.setStyle(buttonStyles.getString("labelText"));
+    fallText.setStyle(buttonStyles.getString("labelText"));
+    attackText.setStyle(buttonStyles.getString("labelText"));
+    specialText.setStyle(buttonStyles.getString("labelText"));
 
     p1Config.getChildren().addAll(p1Text,leftButton1, rightButton1, jumpButton1, fallButton1,attackButton1,specialButton1);
     p2Config.getChildren().addAll(p2Text,leftButton2, rightButton2, jumpButton2, fallButton2,attackButton2,specialButton2);
     buttonLabels.getChildren().addAll(buttonsText,leftText,rightText,jumpText,fallText,attackText,specialText);
+    buttonLabels.setAlignment(Pos.CENTER);
+    p1Config.setAlignment(Pos.CENTER);
+    p2Config.setAlignment(Pos.CENTER);
 
     Button configure= new Button("Configure Both Players");
     configure.setOnAction(e -> {
@@ -88,7 +97,7 @@ public class ButtonsConfigPopUp {
     borderPane.setLeft(p1Config);
     borderPane.setRight(p2Config);
     borderPane.setCenter(buttonLabels);
-    Scene settingsScene= new Scene(borderPane, 500, 350);
+    Scene settingsScene= new Scene(borderPane, 500, 400);
 
     buttonConfigsStage.setScene(settingsScene);
 

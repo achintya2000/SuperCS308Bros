@@ -103,7 +103,7 @@ public class KeyBindManager {
     public String getPlayer2AttackKey() { return player2KeyBinds.get("attack").toString(); }
 
     public String getPlayer2SpecialKey() {
-        return player1KeyBinds.get("special").toString();
+        return player2KeyBinds.get("special").toString();
     }
 
 //    private void resetPlayer1KeyBinds() {
