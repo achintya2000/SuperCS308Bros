@@ -62,7 +62,7 @@ public class KeyBindManager {
         return player1KeyBinds.get("left").toString();
     }
 
-    public String getPlayer1LRightKey() {
+    public String getPlayer1RightKey() {
         return player1KeyBinds.get("right").toString();
     }
 

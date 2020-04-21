@@ -2,12 +2,14 @@ package ooga.View;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ooga.Controller.KeyBindManager;
 import ooga.Exceptions.ExceptionHelper;
@@ -72,6 +74,11 @@ public class CharacterSelect extends Application implements ViewInternal {
 
   @Override
   public void setStage() {
+  }
+
+  public void settings()
+  {
+    new SettingsPopUp();
   }
 
   public CharacterSelect(ooga.Model.Stages.Stage chosenStage) {
