@@ -26,13 +26,14 @@ public class KeyBindManager {
         }
     }
 
-    public void setPlayer1KeyBinds(String left, String right, String jump, String fall, String attack) {
+    public void setPlayer1KeyBinds(String left, String right, String jump, String fall, String attack, String special) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("left", left.toUpperCase());
         jsonObject.put("right", right.toUpperCase());
         jsonObject.put("jump", jump.toUpperCase());
         jsonObject.put("fall", fall.toUpperCase());
         jsonObject.put("attack", attack.toUpperCase());
+        jsonObject.put("special", special.toUpperCase());
 
         try (FileWriter fileWriter = new FileWriter("data/keybindings/player1.json")) {
             fileWriter.write(jsonObject.toString());
@@ -42,13 +43,14 @@ public class KeyBindManager {
         }
     }
 
-    public void setPlayer2KeyBinds(String left, String right, String jump, String fall, String attack) {
+    public void setPlayer2KeyBinds(String left, String right, String jump, String fall, String attack, String special) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("left", left);
         jsonObject.put("right", right);
         jsonObject.put("jump", jump);
         jsonObject.put("fall", fall);
         jsonObject.put("attack", attack);
+        jsonObject.put("special", special.toUpperCase());
 
         try (FileWriter fileWriter = new FileWriter("data/keybindings/player2.json")) {
             fileWriter.write(jsonObject.toString());
@@ -62,7 +64,7 @@ public class KeyBindManager {
         return player1KeyBinds.get("left").toString();
     }
 
-    public String getPlayer1LRightKey() {
+    public String getPlayer1RightKey() {
         return player1KeyBinds.get("right").toString();
     }
 
@@ -76,6 +78,10 @@ public class KeyBindManager {
 
     public String getPlayer1AttackKey() {
         return player1KeyBinds.get("attack").toString();
+    }
+
+    public String getPlayer1SpecialKey() {
+        return player1KeyBinds.get("special").toString();
     }
 
     public String getPlayer2LeftKey() {
@@ -94,8 +100,10 @@ public class KeyBindManager {
         return player2KeyBinds.get("fall").toString();
     }
 
-    public String getPlayer2AttackKey() {
-        return player2KeyBinds.get("attack").toString();
+    public String getPlayer2AttackKey() { return player2KeyBinds.get("attack").toString(); }
+
+    public String getPlayer2SpecialKey() {
+        return player2KeyBinds.get("special").toString();
     }
 
 //    private void resetPlayer1KeyBinds() {
