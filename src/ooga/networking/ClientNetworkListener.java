@@ -20,7 +20,15 @@ public class ClientNetworkListener extends Listener {
         Packet.packet01Message message = new Packet.packet01Message();
         message.message = "Hello server. YEETICUS";
 
+        // Create another thing to send
+        Packet.packetUserData data = new Packet.packetUserData();
+        data.xPos = 100;
+        data.yPos = 200;
+        data.health = 500;
+        data.attacked = false;
+
         client.sendTCP(message);
+        client.sendTCP(data);
     }
 
     @Override
