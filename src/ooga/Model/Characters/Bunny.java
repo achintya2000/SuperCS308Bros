@@ -1,5 +1,6 @@
 package ooga.Model.Characters;
 
+import java.awt.MouseInfo;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
