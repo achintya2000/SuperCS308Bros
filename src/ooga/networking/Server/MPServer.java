@@ -1,10 +1,9 @@
-package ooga.networking;
+package ooga.networking.Server;
 
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import ooga.Exceptions.ExceptionHelper;
+import ooga.networking.Packet;
 
 import java.io.IOException;
 

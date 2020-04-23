@@ -1,7 +1,8 @@
-package ooga.networking;
+package ooga.networking.Server;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import ooga.networking.Packet;
 
 public class ServerNetworkListener extends Listener {
 

@@ -1,9 +1,9 @@
-package ooga.networking;
+package ooga.networking.Client;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Connection;
 import ooga.Exceptions.ExceptionHelper;
+import ooga.networking.Packet;
 
 public class MPClient {
 

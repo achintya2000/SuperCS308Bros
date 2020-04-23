@@ -2,13 +2,13 @@ package ooga.networking;
 
 public class Packet {
 
-    public static class packet01Message { String message; }
+    public static class packet01Message { public String message; }
 
     public static class packetUserData {
-        int xPos;
-        int yPos;
-        int health;
-        boolean attacked;
+        public int xPos;
+        public int yPos;
+        public int health;
+        public boolean attacked;
     }
 
 }
