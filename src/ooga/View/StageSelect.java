@@ -54,6 +54,11 @@ public class StageSelect extends Application implements ViewInternal {
   public void setStage() {
   }
 
+  public void settings()
+  {
+    new SettingsPopUp();
+  }
+
   public void initStages() throws FileNotFoundException {
     StageBuilder battlefield = new StageBuilder("battlefield.properties");
     StageBuilder fd = new StageBuilder("finalDestination.properties");

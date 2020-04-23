@@ -18,11 +18,13 @@ import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
 
 import java.util.ArrayList;
+import ooga.Model.Stages.Platform;
 
 public class GameView extends Application implements ViewInternal {
 
   private final double GRAVITY = 1.5;
 
+  private Stage mainStage;
   private ArrayList<Player> playerList;
   private Scene scene;
   private Pane root;
@@ -46,7 +48,7 @@ public class GameView extends Application implements ViewInternal {
   int y;
   int y2;
 
-  ArrayList<Rectangle> platforms;
+  ArrayList<Platform> platforms;
 
   @Override
   public void resetGame() {
@@ -87,6 +89,7 @@ public class GameView extends Application implements ViewInternal {
 
   @Override
   public void start(Stage primaryStage) {
+    mainStage = primaryStage;
     scene = new Scene(root, 1200, 800);
 
     setKeyBinds();
@@ -102,6 +105,23 @@ public class GameView extends Application implements ViewInternal {
 //                bunny.getINTERSECTS());
         // Update and render
         for(Player player : playerList) {
+          GameOver go = null;
+          try {
+            if (bunny.healthProperty().get() == 0) {
+              go = new GameOver(bunny2.getName(), (int) bunny2.healthProperty().get());
+              mainStage.close();
+              this.stop();
+              go.start(new Stage());
+            }
+            else if (bunny2.healthProperty().get() == 0) {
+              go = new GameOver(bunny.getName(), (int) bunny.healthProperty().get());
+              mainStage.close();
+              this.stop();
+              go.start(new Stage());
+            }
+          } catch (Exception e){
+            new ExceptionHelper(e);
+          }
           AbstractCharacter character = player.getMyCharacter();
           if (!character.getINTERSECTS() || character.getRIGHT_COLLIDE() || character.getLEFT_COLLIDE()) {
             character.setCenterY(character.getHurtBox().getY() + GRAVITY);
@@ -174,7 +194,7 @@ public class GameView extends Application implements ViewInternal {
 
       scene.setOnKeyPressed(e -> {
         try {
-          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LRightKey()).get(null)) {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1RightKey()).get(null)) {
             D_PRESSED.set(true);
             bunny2.getHurtBox().setStroke(Color.YELLOW);
           }
@@ -267,7 +287,7 @@ public class GameView extends Application implements ViewInternal {
           new ExceptionHelper(ex);
         }
         try {
-          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LRightKey()).get(null)) {
+          if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1RightKey()).get(null)) {
             D_PRESSED.set(false);
             bunny.idle();
           }
