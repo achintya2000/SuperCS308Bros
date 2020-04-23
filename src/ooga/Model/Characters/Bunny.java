@@ -207,7 +207,6 @@ public class Bunny extends AbstractCharacter {
   }
 
   private void playJumpAnimation() {
-    System.out.println(MouseInfo.getPointerInfo().getLocation().x + ", " + MouseInfo.getPointerInfo().getLocation().y);
     spriteAnimation.stop();
     if (facingRight) {
       spriteImageView.setImage(JUMP_IMAGE_RIGHT);
