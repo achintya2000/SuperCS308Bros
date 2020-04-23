@@ -14,36 +14,36 @@ import java.io.IOException;
 
 public class MusicManager {
 
-    private Clip clip = null;
+  private Clip clip = null;
 
-    public void playMainMenuMusic() {
-        try {
-            clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/MainMenu.wav")));
-            clip.start();
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-            new ExceptionHelper(e);
-        }
+  public void playMainMenuMusic() {
+    try {
+      clip = AudioSystem.getClip();
+      clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/MainMenu.wav")));
+      clip.start();
+    } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+      new ExceptionHelper(e);
     }
+  }
 
-    public void playBattlefieldMusic() {
-        try {
-            clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/Battlefield.wav")));
-            clip.start();
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-            new ExceptionHelper(e);
-        }
+  public void playBattlefieldMusic() {
+    try {
+      clip = AudioSystem.getClip();
+      clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/Battlefield.wav")));
+      clip.start();
+    } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+      new ExceptionHelper(e);
     }
+  }
 
-    public void playFinalDestinationMusic() {
-        try {
-            clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/FinalDestination.wav")));
-            clip.start();
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-            new ExceptionHelper(e);
-        }
+  public void playFinalDestinationMusic() {
+    try {
+      clip = AudioSystem.getClip();
+      clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/FinalDestination.wav")));
+      clip.start();
+    } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+      new ExceptionHelper(e);
     }
+  }
 
 }
