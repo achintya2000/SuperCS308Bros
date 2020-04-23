@@ -27,7 +27,12 @@ public class ServerNetworkListener extends Listener {
 
             System.out.println("[CLIENT} >> " + packet01Message.message);
 
-            c.close();
+        }
+
+        if (o instanceof Packet.packetUserData) {
+            Packet.packetUserData packetUserData = (Packet.packetUserData) o;
+
+            System.out.println("[CLIENT} >> xPos: " + packetUserData.xPos + " yPos: " + packetUserData.yPos + " health: " + packetUserData.health);
         }
     }
 

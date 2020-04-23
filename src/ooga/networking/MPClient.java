@@ -7,7 +7,8 @@ import ooga.Exceptions.ExceptionHelper;
 
 public class MPClient {
 
-  private int portSocket = 2300;
+  private int tcpPort = 2300;
+  private int udpPort = 2301;
   private String ipAddress = "45.18.32.105";
 
   private Client client;
@@ -26,9 +27,8 @@ public class MPClient {
     new Thread(client).start();
 
     try {
-      client.connect(5000, ipAddress, portSocket, 2301);
+      client.connect(5000, ipAddress, tcpPort);
     } catch (Exception e) {
-      System.out.println("HELLO");
       new ExceptionHelper(e);
     }
 
@@ -37,6 +37,7 @@ public class MPClient {
   private void registerPackets() {
     Kryo kryo = client.getKryo();
     kryo.register(Packet.packet01Message.class);
+    kryo.register(Packet.packetUserData.class);
   }
 
   public static void main(String[] args) {

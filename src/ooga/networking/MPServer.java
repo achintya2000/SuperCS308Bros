@@ -15,7 +15,8 @@ public class MPServer {
 
   // Connection details
   private String IPConnection = "localhost";
-  private int ServerPort = 2300;
+  private int tcpPort = 2300;
+  private int udpPort = 2301;
 
   // Listener
   private ServerNetworkListener serverNetworkListener;
@@ -27,7 +28,7 @@ public class MPServer {
     server.addListener(serverNetworkListener);
 
     try {
-      server.bind(ServerPort, 2301);
+      server.bind(tcpPort);
     } catch (IOException e) {
       new ExceptionHelper(e);
     }
@@ -40,6 +41,7 @@ public class MPServer {
   private void registerPackets() {
     Kryo kryo = server.getKryo();
     kryo.register(Packet.packet01Message.class);
+    kryo.register(Packet.packetUserData.class);
   }
 
 
