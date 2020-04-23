@@ -3,7 +3,7 @@ package ooga.networking.Client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import ooga.networking.Packet;
+import ooga.networking.Packets;
 
 public class ClientNetworkListener extends Listener {
 
@@ -17,19 +17,7 @@ public class ClientNetworkListener extends Listener {
     public void connected(Connection c) {
         System.out.println("[CLIENT] >> You have connect");
 
-        // Create something to sent
-        Packet.packet01Message message = new Packet.packet01Message();
-        message.message = "Hello server. YEETICUS";
-
-        // Create another thing to send
-        Packet.packetUserData data = new Packet.packetUserData();
-        data.xPos = 100;
-        data.yPos = 200;
-        data.health = 500;
-        data.attacked = false;
-
-        client.sendTCP(message);
-        client.sendTCP(data);
+        sendClientData();
     }
 
     @Override
@@ -39,10 +27,26 @@ public class ClientNetworkListener extends Listener {
 
     @Override
     public void received(Connection c, Object o) {
-        if (o instanceof Packet.packet01Message) {
-            Packet.packet01Message packet01Message = (Packet.packet01Message) o;
+        if (o instanceof Packets.packet01Message) {
+            Packets.packet01Message packet01Message = (Packets.packet01Message) o;
 
             System.out.println("[SERVER} >> " + packet01Message.message);
+        }
+    }
+
+    private void sendClientData() {
+
+        // Create something to sent
+        Packets.packet01Message message = new Packets.packet01Message();
+        message.message = "Hello server. YEETICUS";
+        client.sendTCP(message);
+
+        while (true) {
+            // Create another thing to send
+            Packets.packetUserData data = new Packets.packetUserData();
+            data.leftPressed = true;
+
+            client.sendTCP(data);
         }
     }
 

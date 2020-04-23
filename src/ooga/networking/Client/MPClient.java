@@ -3,7 +3,7 @@ package ooga.networking.Client;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import ooga.Exceptions.ExceptionHelper;
-import ooga.networking.Packet;
+import ooga.networking.Packets;
 
 public class MPClient {
 
@@ -36,8 +36,8 @@ public class MPClient {
 
     private void registerPackets() {
         Kryo kryo = client.getKryo();
-        kryo.register(Packet.packet01Message.class);
-        kryo.register(Packet.packetUserData.class);
+        kryo.register(Packets.packet01Message.class);
+        kryo.register(Packets.packetUserData.class);
     }
 
     public static void main(String[] args) {

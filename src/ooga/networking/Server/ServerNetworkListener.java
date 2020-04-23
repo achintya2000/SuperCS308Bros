@@ -2,7 +2,8 @@ package ooga.networking.Server;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import ooga.networking.Packet;
+import ooga.View.GameView;
+import ooga.networking.Packets;
 
 public class ServerNetworkListener extends Listener {
 
@@ -23,17 +24,18 @@ public class ServerNetworkListener extends Listener {
     @Override
     public void received(Connection c, Object o) {
 
-        if (o instanceof Packet.packet01Message) {
-            Packet.packet01Message packet01Message = (Packet.packet01Message) o;
+        if (o instanceof Packets.packet01Message) {
+            Packets.packet01Message packet01Message = (Packets.packet01Message) o;
 
             System.out.println("[CLIENT} >> " + packet01Message.message);
 
         }
 
-        if (o instanceof Packet.packetUserData) {
-            Packet.packetUserData packetUserData = (Packet.packetUserData) o;
+        if (o instanceof Packets.packetUserData) {
+            Packets.packetUserData packetUserData = (Packets.packetUserData) o;
 
-            System.out.println("[CLIENT} >> xPos: " + packetUserData.xPos + " yPos: " + packetUserData.yPos + " health: " + packetUserData.health);
+            System.out.println("[CLIENT} >> left pressed?: " + packetUserData.leftPressed);
+
         }
     }
 
