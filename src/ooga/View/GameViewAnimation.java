@@ -83,12 +83,6 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
     if (gv.RIGHT_PRESSEDProperty().get() && !player2.getLEFT_COLLIDE()) {
       player2.moveRight();
     }
-//    if (T_PRESSED.get()) {
-//      bunny.attack();
-//    }
-//    if (L_PRESSED.get()) {
-//      bunny2.attack();
-//    }
     if (gv.s_PRESSEDProperty().get()) {
       player1.setCenterY(player1.getHurtBox().getY() + 3);
     }

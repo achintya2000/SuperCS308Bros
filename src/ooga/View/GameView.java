@@ -12,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Controller.KeyBindManager;
 import ooga.Controller.KeyBindingController;
+import ooga.Controller.MusicManager;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
@@ -135,10 +136,11 @@ public class GameView extends Application implements ViewInternal {
   public void start(Stage primaryStage) {
     mainStage = primaryStage;
     scene = new Scene(root, 1200, 800);
-
+    MusicManager.clearMusic();
+    MusicManager.playBattlefieldMusic();
     new KeyBindingController(this, scene, player1, player2);
 
-    boolean server = false;
+    boolean server = true;
 
     if (server) {
       new MPServer(this);
