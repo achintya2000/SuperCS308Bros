@@ -52,7 +52,6 @@ public class KeyBindingController {
       try {
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
           gv.w_PRESSEDProperty().set(true);
-          //player1.jump();
         }
       } catch (IllegalAccessException | NoSuchFieldException ex) {
         new ExceptionHelper(ex);

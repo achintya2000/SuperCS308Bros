@@ -35,7 +35,7 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
     for(Player player : playerList) {
       isGameOver();
       AbstractCharacter character = player.getMyCharacter();
-      if (!character.getINTERSECTS() || character.getRIGHT_COLLIDE() || character.getLEFT_COLLIDE()) {
+      if (!character.getINTERSECTS() || character.getRIGHT_COLLIDE() || character.getLEFT_COLLIDE() || character.getBOTTOM_COLLIDE()) {
         character.setCenterY(character.getHurtBox().getY() + GRAVITY);
       }
 
@@ -51,14 +51,26 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
           character.setINTERSECTS(true);
           character.setHOLLOW_COLLIDE(platform.getHollow());
 
-          if(!platform.getHollow()){
-            if(character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMaxY()){
-              if(character.getHurtBox().getBoundsInParent().getMinY() <  platform.getBoundsInParent().getMaxY())
-              {
+
+
+          if(character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMaxY()){
+            if(character.getHurtBox().getBoundsInParent().getMinY() <  platform.getBoundsInParent().getMaxY())
+            {
+              if(!platform.getHollow()){
                 character.setBOTTOM_COLLIDE(true);
               }
             }
           }
+
+          if(character.getHurtBox().getBoundsInParent().getMaxY() < platform.getBoundsInParent().getMaxY()){
+            if(character.getHurtBox().getBoundsInParent().getMinY() >  platform.getBoundsInParent().getMinY())
+            {
+              if(!platform.getHollow()){
+                character.setBOTTOM_COLLIDE(true);
+              }
+            }
+          }
+
 
           if (character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMinY() + 5) {
             if (character.getHurtBox().getBoundsInParent().getMaxX() > platform.getBoundsInParent().getMaxX()) {
@@ -76,14 +88,14 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
         }
       }
     }
-
+    System.out.println(player1.getBOTTOM_COLLIDE());
     checkKeys();
   }
 
   private void checkKeys() {
-    System.out.println(player1.getBOTTOM_COLLIDE());
 
     if (gv.w_PRESSEDProperty().get() && !player1.getBOTTOM_COLLIDE()){
+      System.out.println("DEBUG");
       player1.jump();
     }
 
@@ -105,9 +117,6 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
     }
     if (gv.DOWN_PRESSEDProperty().get() && player2.getHOLLOW_COLLIDE()) {
       player2.setCenterY(player2.getHurtBox().getY() + 15);
-    }
-    if (gv.W_PRESSEDProperty().get()) {
-      player1.jump();
     }
     if (gv.T_PRESSEDProperty().get()) {
       player1.attack();
