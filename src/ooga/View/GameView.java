@@ -18,6 +18,8 @@ import ooga.Model.Player;
 
 import java.util.ArrayList;
 import ooga.Model.Stages.Platform;
+import ooga.networking.Client.MPClient;
+import ooga.networking.Server.MPServer;
 
 public class GameView extends Application implements ViewInternal {
 
@@ -117,6 +119,14 @@ public class GameView extends Application implements ViewInternal {
     scene = new Scene(root, 1200, 800);
 
     new KeyBindingController(this, scene, player1, player2);
+
+    boolean server = false;
+
+    if (server) {
+      new MPServer(this);
+    } else {
+      new MPClient(this);
+    }
 
     primaryStage.setTitle("FIGHT!");
     primaryStage.setScene(scene);

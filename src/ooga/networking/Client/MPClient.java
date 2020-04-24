@@ -3,6 +3,7 @@ package ooga.networking.Client;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import ooga.Exceptions.ExceptionHelper;
+import ooga.View.GameView;
 import ooga.networking.Packets;
 
 public class MPClient {
@@ -14,10 +15,12 @@ public class MPClient {
   private Client client;
   private ClientNetworkListener clientNetworkListener;
 
-  public MPClient() {
+  private GameView gameView;
+
+  public MPClient(GameView gv) {
+    this.gameView = gv;
     client = new Client();
-    clientNetworkListener = new ClientNetworkListener();
-    clientNetworkListener.init(client);
+    clientNetworkListener = new ClientNetworkListener(client, gameView);
 
     registerPackets();
 
@@ -39,8 +42,8 @@ public class MPClient {
     kryo.register(Packets.packetUserData.class);
   }
 
-  public static void main(String[] args) {
-    new MPClient();
-  }
+//  public static void main(String[] args) {
+//    new MPClient();
+//  }
 
 }

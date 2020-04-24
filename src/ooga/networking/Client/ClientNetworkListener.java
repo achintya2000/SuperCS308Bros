@@ -3,14 +3,24 @@ package ooga.networking.Client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import ooga.View.GameView;
 import ooga.networking.Packets;
 
 public class ClientNetworkListener extends Listener {
 
     private Client client;
+    private GameView gameView;
 
-    public void init(Client c) {
+    private BooleanProperty A_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty D_PRESSED = new SimpleBooleanProperty();
+
+    public ClientNetworkListener(Client c, GameView gv) {
         this.client = c;
+        this.gameView = gv;
+        A_PRESSED.bindBidirectional(gv.a_PRESSEDProperty());
+        D_PRESSED.bindBidirectional(gv.d_PRESSEDProperty());
     }
 
     @Override
@@ -36,15 +46,16 @@ public class ClientNetworkListener extends Listener {
 
     private void sendClientData() {
 
-        // Create something to sent
-        Packets.packet01Message message = new Packets.packet01Message();
-        message.message = "Hello server. YEETICUS";
-        client.sendTCP(message);
-
         while (true) {
+            // Create something to sent
+            //Packets.packet01Message message = new Packets.packet01Message();
+            //message.message = "Hello server. YEETICUS";
+            //client.sendTCP(message);
+
             // Create another thing to send
             Packets.packetUserData data = new Packets.packetUserData();
-            data.leftPressed = true;
+            data.leftPressed = A_PRESSED.get();
+            data.rightPressed = D_PRESSED.get();
 
             client.sendTCP(data);
         }

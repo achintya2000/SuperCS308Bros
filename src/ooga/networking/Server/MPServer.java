@@ -3,6 +3,7 @@ package ooga.networking.Server;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 import ooga.Exceptions.ExceptionHelper;
+import ooga.View.GameView;
 import ooga.networking.Packets;
 
 import java.io.IOException;
@@ -12,6 +13,8 @@ public class MPServer {
   // Server
   private Server server;
 
+  private GameView gameView;
+
   // Connection details
   private String IPConnection = "localhost";
   private int tcpPort = 2300;
@@ -20,9 +23,12 @@ public class MPServer {
   // Listener
   private ServerNetworkListener serverNetworkListener;
 
-  public MPServer() {
+  public MPServer(GameView gv) {
+
+    this.gameView = gv;
+
     server = new Server();
-    serverNetworkListener = new ServerNetworkListener();
+    serverNetworkListener = new ServerNetworkListener(gameView);
 
     server.addListener(serverNetworkListener);
 
@@ -43,7 +49,7 @@ public class MPServer {
     kryo.register(Packets.packetUserData.class);
   }
 
-  public static void main(String[] args) {
-    new MPServer();
-  }
+  //public static void main(String[] args) {
+  //  new MPServer();
+  //}
 }
