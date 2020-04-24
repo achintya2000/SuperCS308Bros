@@ -13,20 +13,20 @@ public class ClientNetworkListener extends Listener {
     private Client client;
     private GameView gameView;
 
-    private BooleanProperty A_PRESSED = new SimpleBooleanProperty();
-    private BooleanProperty D_PRESSED = new SimpleBooleanProperty();
-    private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
-    private BooleanProperty S_PRESSED = new SimpleBooleanProperty();
-    private BooleanProperty T_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty CLIENT_LEFT_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty CLIENT_RIGHT_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty CLIENT_FALL_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty CLIENT_JUMP_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty CLIENT_ATTACK_PRESSED = new SimpleBooleanProperty();
 
     public ClientNetworkListener(Client c, GameView gv) {
         this.client = c;
         this.gameView = gv;
-        A_PRESSED.bindBidirectional(gv.getPlayer1LeftProp());
-        D_PRESSED.bindBidirectional(gv.getPlayer1RightProp());
-        W_PRESSED.bindBidirectional(gv.getPlayer1FallProp());
-        S_PRESSED.bindBidirectional(gv.getPlayer1JumpProp());
-        T_PRESSED.bindBidirectional(gv.getPlayer1AttackProp());
+        CLIENT_LEFT_PRESSED.bindBidirectional(gv.getPlayer1LeftProp());
+        CLIENT_RIGHT_PRESSED.bindBidirectional(gv.getPlayer1RightProp());
+        CLIENT_FALL_PRESSED.bindBidirectional(gv.getPlayer1FallProp());
+        CLIENT_JUMP_PRESSED.bindBidirectional(gv.getPlayer1JumpProp());
+        CLIENT_ATTACK_PRESSED.bindBidirectional(gv.getPlayer1AttackProp());
     }
 
     @Override
@@ -80,33 +80,33 @@ public class ClientNetworkListener extends Listener {
 
             // Create another thing to send
 
-            A_PRESSED.addListener((observable, oldValue, newValue) -> {
+            CLIENT_LEFT_PRESSED.addListener((observable, oldValue, newValue) -> {
                 Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
-                leftData.leftPressed = A_PRESSED.get();
+                leftData.leftPressed = CLIENT_LEFT_PRESSED.get();
                 client.sendTCP(leftData);
             });
 
-            D_PRESSED.addListener((observable, oldValue, newValue) -> {
+            CLIENT_RIGHT_PRESSED.addListener((observable, oldValue, newValue) -> {
                 Packets.packetRightPressed rightData = new Packets.packetRightPressed();
-                rightData.rightPressed = D_PRESSED.get();
+                rightData.rightPressed = CLIENT_RIGHT_PRESSED.get();
                 client.sendTCP(rightData);
             });
 
-            W_PRESSED.addListener((observable, oldValue, newValue) -> {
+            CLIENT_FALL_PRESSED.addListener((observable, oldValue, newValue) -> {
                 Packets.packetJumpPressed jumpData = new Packets.packetJumpPressed();
-                jumpData.jumpPressed = W_PRESSED.get();
+                jumpData.jumpPressed = CLIENT_FALL_PRESSED.get();
                 client.sendTCP(jumpData);
             });
 
-            S_PRESSED.addListener((observable, oldValue, newValue) -> {
+            CLIENT_JUMP_PRESSED.addListener((observable, oldValue, newValue) -> {
                 Packets.packetFallPressed fallData = new Packets.packetFallPressed();
-                fallData.fallPressed = S_PRESSED.get();
+                fallData.fallPressed = CLIENT_JUMP_PRESSED.get();
                 client.sendTCP(fallData);
             });
 
-            T_PRESSED.addListener((observable, oldValue, newValue) -> {
+            CLIENT_ATTACK_PRESSED.addListener((observable, oldValue, newValue) -> {
                 Packets.packetAttackPressed attackData = new Packets.packetAttackPressed();
-                attackData.attackPressed = T_PRESSED.get();
+                attackData.attackPressed = CLIENT_ATTACK_PRESSED.get();
                 client.sendTCP(attackData);
             });
 
