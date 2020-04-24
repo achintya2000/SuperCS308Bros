@@ -177,4 +177,6 @@ public abstract class AbstractCharacter {
 
   public abstract void setCenterY(double centerY);
 
+  public abstract void setCenterX(double centerX);
+
 }

@@ -62,11 +62,19 @@ public class GameView extends Application implements ViewInternal {
   }
 
 
-  //private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
   //private BooleanProperty UP_PRESSED = new SimpleBooleanProperty();
 
-  //private BooleanProperty T_PRESSED = new SimpleBooleanProperty();
+  public BooleanProperty W_PRESSEDProperty() {
+    return W_PRESSED;
+  }
+
+  private BooleanProperty T_PRESSED = new SimpleBooleanProperty();
   //private BooleanProperty L_PRESSED = new SimpleBooleanProperty();
+
+  public BooleanProperty T_PRESSEDProperty() {
+    return T_PRESSED;
+  }
 
   AbstractCharacter player1;
   AbstractCharacter player2;
@@ -95,7 +103,11 @@ public class GameView extends Application implements ViewInternal {
     this.playerList = playerlist;
     this.root = root;
     player1 = playerList.get(0).getMyCharacter();
+    player1.setCenterX(chosenStage.getSpawnCoordinates().get(0).get(0));
+    player1.setCenterY(chosenStage.getSpawnCoordinates().get(0).get(1) - 75);
     player2 = playerList.get(1).getMyCharacter();
+    player2.setCenterX(chosenStage.getSpawnCoordinates().get(1).get(0));
+    player2.setCenterY(chosenStage.getSpawnCoordinates().get(1).get(1) - 75);
     platforms = chosenStage.getPlatforms();
     BackgroundImage stageBackground = new BackgroundImage(chosenStage.getBackground(),
         BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
