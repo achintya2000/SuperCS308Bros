@@ -56,16 +56,21 @@ public class ServerNetworkListener extends Listener {
             gameView.d_PRESSEDProperty().set(packetRightPressed.rightPressed);
         }
 
-//        if (o instanceof Packets.packetUserData) {
-//            Packets.packetUserData packetUserData = (Packets.packetUserData) o;
-//
-//            //System.out.println("[CLIENT} >> left pressed?: " + packetUserData.leftPressed);
-//            gameView.a_PRESSEDProperty().set(packetUserData.leftPressed);
-//            gameView.d_PRESSEDProperty().set(packetUserData.rightPressed);
-//            gameView.W_PRESSEDProperty().set(packetUserData.jumpPressed);
-//            gameView.s_PRESSEDProperty().set(packetUserData.fallPressed);
-//            gameView.T_PRESSEDProperty().set(packetUserData.attackPressed);
-//        }
+        if (o instanceof Packets.packetJumpPressed) {
+            Packets.packetJumpPressed packetJumpPressed = (Packets.packetJumpPressed) o;
+            gameView.W_PRESSEDProperty().set(packetJumpPressed.jumpPressed);
+        }
+
+        if (o instanceof Packets.packetFallPressed) {
+            Packets.packetFallPressed packetFallPressed = (Packets.packetFallPressed) o;
+            gameView.s_PRESSEDProperty().set(packetFallPressed.fallPressed);
+        }
+
+        if (o instanceof Packets.packetAttackPressed) {
+            Packets.packetAttackPressed packetAttackPressed = (Packets.packetAttackPressed) o;
+            gameView.T_PRESSEDProperty().set(packetAttackPressed.attackPressed);
+        }
+
     }
 
 

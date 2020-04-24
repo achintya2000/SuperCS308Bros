@@ -71,14 +71,18 @@ public class ClientNetworkListener extends Listener {
             rightData.rightPressed = D_PRESSED.get();
             client.sendTCP(rightData);
 
-//            Packets.packetUserData data = new Packets.packetUserData();
-//            data.leftPressed = A_PRESSED.get();
-//            data.rightPressed = D_PRESSED.get();
-//            data.jumpPressed = W_PRESSED.get();
-//            data.fallPressed = S_PRESSED.get();
-//            data.attackPressed = T_PRESSED.get();
-//
-//            client.sendTCP(data);
+            Packets.packetJumpPressed jumpData = new Packets.packetJumpPressed();
+            jumpData.jumpPressed = W_PRESSED.get();
+            client.sendTCP(jumpData);
+
+            Packets.packetFallPressed fallData = new Packets.packetFallPressed();
+            fallData.fallPressed = S_PRESSED.get();
+            client.sendTCP(fallData);
+
+            Packets.packetAttackPressed attackData = new Packets.packetAttackPressed();
+            attackData.attackPressed = T_PRESSED.get();
+            client.sendTCP(attackData);
+
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
