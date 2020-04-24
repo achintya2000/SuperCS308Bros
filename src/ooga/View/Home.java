@@ -29,7 +29,7 @@ public class Home extends Application {
     primaryStage.show();
 
     MusicManager musicManager = new MusicManager();
-    musicManager.playMainMenuMusic();
+    //musicManager.playMainMenuMusic();
   }
 
   private VBox makeGridPane() {

@@ -28,12 +28,17 @@ public class GameView extends Application implements ViewInternal {
   private Scene scene;
   private Pane root;
 
+  private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty A_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty D_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty LEFT_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty S_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty DOWN_PRESSED = new SimpleBooleanProperty();
+
+  public BooleanProperty w_PRESSEDProperty() {
+    return W_PRESSED;
+  }
 
   public BooleanProperty a_PRESSEDProperty() {
     return A_PRESSED;

@@ -51,6 +51,7 @@ public class KeyBindingController {
       }
       try {
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
+          gv.w_PRESSEDProperty().set(true);
           player1.jump();
         }
       } catch (IllegalAccessException | NoSuchFieldException ex) {
@@ -122,6 +123,14 @@ public class KeyBindingController {
       try {
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LeftKey()).get(null)) {
           gv.a_PRESSEDProperty().set(false);
+          player1.idle();
+        }
+      } catch (IllegalAccessException | NoSuchFieldException ex) {
+        new ExceptionHelper(ex);
+      }
+      try {
+        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
+          gv.w_PRESSEDProperty().set(false);
           player1.idle();
         }
       } catch (IllegalAccessException | NoSuchFieldException ex) {

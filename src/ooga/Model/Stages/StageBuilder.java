@@ -27,18 +27,17 @@ public class StageBuilder extends Stage {
     for (String s : props.stringPropertyNames()) {
       propsMap.put(s, props.getProperty(s).split(","));
     }
-    boolean hollow = false;
     for (String key : propsMap.keySet()) {
+      System.out.println(key);
       if (key.equals("image")) {
         background = new Image(new FileInputStream(propsMap.get(key)[0]));
-      }
-      else if (key.equals("hollow")){
-        hollow = true;
       } else {
         int x = Integer.valueOf(propsMap.get(key)[0]);
         int y = Integer.valueOf(propsMap.get(key)[1]);
         int width = Integer.valueOf(propsMap.get(key)[2]);
         int height = Integer.valueOf(propsMap.get(key)[3]);
+        int hollow = Integer.valueOf(propsMap.get(key)[4]);
+        //System.out.println(hollow);
         platforms.add(new Platform(x, y, width, height, hollow));
       }
     }

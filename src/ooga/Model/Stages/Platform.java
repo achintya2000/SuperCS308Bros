@@ -16,10 +16,10 @@ public class Platform extends Rectangle {
    * @param height of platform
    * @param isHollow whether player can fall through the platform
    */
-  public Platform(int x, int y, int width, int height, boolean isHollow){
+  public Platform(int x, int y, int width, int height, int isHollow){
     super(x, y, width, height);
-    hollow = isHollow;
-
+    setHollow(isHollow == 1);
+    this.setFill(Color.TRANSPARENT);
   }
 
   /**

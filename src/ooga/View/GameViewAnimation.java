@@ -12,7 +12,7 @@ import ooga.Model.Stages.Platform;
 
 public class GameViewAnimation extends AnimationTimer implements ControllerInternal {
 
-  private static final double GRAVITY = 1.5;
+  private static final double GRAVITY = 1.8;
   private GameView gv;
   private AbstractCharacter player1;
   private AbstractCharacter player2;
@@ -41,14 +41,13 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
       character.setINTERSECTS(false);
       character.setRIGHT_COLLIDE(false);
       character.setLEFT_COLLIDE(false);
+      character.setHOLLOW_COLLIDE(true);
 
-      for (Rectangle platform : platforms) {
+      for (Platform platform : platforms) {
 
         if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
           character.setINTERSECTS(true);
-        }
-
-        if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
+          character.setHOLLOW_COLLIDE(platform.getHollow());
           if (character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMinY() + 5) {
             if (character.getHurtBox().getBoundsInParent().getMaxX() > platform.getBoundsInParent().getMaxX()) {
               if (character.getHurtBox().getBoundsInParent().getMinX() < platform.getBoundsInParent().getMaxX()) {
@@ -70,6 +69,7 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   }
 
   private void checkKeys() {
+
     if (gv.d_PRESSEDProperty().get() && !player1.getLEFT_COLLIDE()){
       player1.moveRight();
     }
@@ -82,17 +82,12 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
     if (gv.RIGHT_PRESSEDProperty().get() && !player2.getLEFT_COLLIDE()) {
       player2.moveRight();
     }
-//    if (T_PRESSED.get()) {
-//      bunny.attack();
-//    }
-//    if (L_PRESSED.get()) {
-//      bunny2.attack();
-//    }
-    if (gv.s_PRESSEDProperty().get()) {
-      player1.setCenterY(player1.getHurtBox().getY() + 3);
+
+    if (gv.s_PRESSEDProperty().get() && player1.getHOLLOW_COLLIDE()) {
+      player1.setCenterY(player1.getHurtBox().getY() + 13);
     }
-    if (gv.DOWN_PRESSEDProperty().get()) {
-      player2.setCenterY(player2.getHurtBox().getY() + 3);
+    if (gv.DOWN_PRESSEDProperty().get() && player2.getHOLLOW_COLLIDE()) {
+      player2.setCenterY(player2.getHurtBox().getY() + 13);
     }
   }
 
