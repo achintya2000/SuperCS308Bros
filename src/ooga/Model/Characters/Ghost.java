@@ -29,12 +29,12 @@ public class Ghost extends AbstractCharacter {
 
   private boolean attackFinish;
 
-  public Ghost(String name, int x, int y) throws FileNotFoundException {
+  public Ghost(String name) throws FileNotFoundException {
     super(name);
     setImageFiles();
     spriteImageView = new ImageView(IDLE_IMAGE_LEFT);
-    this.centerX = x + 50;
-    this.centerY = y + 50;
+    this.centerX = 0;
+    this.centerY = 0;
     spriteImageView.setX(centerX);
     spriteImageView.setY(centerY);
 
@@ -74,9 +74,9 @@ public class Ghost extends AbstractCharacter {
     return hitbox;
   }
 
-  private Rectangle makeHurtBox(int x, int y) {
+  private Rectangle makeHurtBox(double x, double y) {
     int width = 50;
-    int newX = x + (100 - width) / 2;
+    double newX = x + (100 - width) / 2;
     Rectangle hurtbox = new Rectangle(newX, y, width, 100);
     hurtbox.setStroke(Color.YELLOW);
     hurtbox.setFill(Color.rgb(200, 200, 200, 0.5));
@@ -115,13 +115,8 @@ public class Ghost extends AbstractCharacter {
 
   @Override
   public void jump() {
-    TranslateTransition jump = new TranslateTransition(Duration.millis(500), spriteImageView);
-    jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
-    jump.setByY(-150);
-    jump.setAutoReverse(true);
-    jump.setCycleCount(2);
-    jump.play();
-
+    jumpTransition(spriteImageView);
+    jumpTransition(hurtBox);
     playJumpAnimation();
   }
 
@@ -129,8 +124,8 @@ public class Ghost extends AbstractCharacter {
     TranslateTransition jump = new TranslateTransition(Duration.millis(500), jumpNode);
     jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
     jump.setByY(-150);
-    jump.setAutoReverse(true);
-    jump.setCycleCount(2);
+    jump.setAutoReverse(false);
+    jump.setCycleCount(1);
     jump.play();
   }
 
@@ -249,16 +244,6 @@ public class Ghost extends AbstractCharacter {
             .getMinY()) / 2;
   }
 
-  public void setCenterY(double centerY) {
-    spriteImageView.setY(centerY);
-    hurtBox.setY(spriteImageView.getBoundsInParent().getMinY());
-
-  }
-
-  public void setCenterX(double centerX) {
-    spriteImageView.setX(centerX);
-    hurtBox.setX(centerX);
-  }
 
   public Circle getHitBox() {
     return hitBox;

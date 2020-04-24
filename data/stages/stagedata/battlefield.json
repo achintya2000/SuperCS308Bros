@@ -5,7 +5,7 @@
       "xPos": 225,
       "yPos": 325,
       "width": 750,
-      "height": 50,
+      "height": 200,
       "hollow": false
     },
     {
@@ -13,28 +13,21 @@
       "yPos": 209,
       "width": 175,
       "height": 25,
-      "hollow": false
+      "hollow": true
     },
     {
       "xPos": 514,
       "yPos": 94,
       "width": 175,
       "height": 25,
-      "hollow": false
+      "hollow": true
     },
     {
       "xPos": 709,
       "yPos": 209,
       "width": 175,
       "height": 25,
-      "hollow": false
-    },
-    {
-      "xPos": 200,
-      "yPos": 600,
-      "width": 1000,
-      "height": 100,
-      "hollow": false
+      "hollow": true
     }
   ],
   "spawns": [

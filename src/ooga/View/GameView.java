@@ -67,11 +67,11 @@ public class GameView extends Application implements ViewInternal {
     this.playerList = playerlist;
     this.root = root;
     player1 = playerList.get(0).getMyCharacter();
-    //player1.setCenterX(chosenStage.getSpawnCoordinates().get(0).get(0));
-    //player1.setCenterY(chosenStage.getSpawnCoordinates().get(0).get(1) - 75);
+    player1.setCenterX(chosenStage.getSpawnCoordinates().get(0).get(0));
+    player1.setCenterY(chosenStage.getSpawnCoordinates().get(0).get(1) - 100);
     player2 = playerList.get(1).getMyCharacter();
-    //player2.setCenterX(chosenStage.getSpawnCoordinates().get(1).get(0));
-    //player2.setCenterY(chosenStage.getSpawnCoordinates().get(1).get(1) - 75);
+    player2.setCenterX(chosenStage.getSpawnCoordinates().get(1).get(0));
+    player2.setCenterY(chosenStage.getSpawnCoordinates().get(1).get(1) - 100);
     platforms = chosenStage.getPlatforms();
     BackgroundImage stageBackground = new BackgroundImage(chosenStage.getBackground(),
         BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -86,7 +86,6 @@ public class GameView extends Application implements ViewInternal {
     healthBar2.widthProperty().bind(player2.healthProperty());
     root.getChildren().add(healthBar1);
     root.getChildren().add(healthBar2);
-
   }
 
   @Override
@@ -97,7 +96,7 @@ public class GameView extends Application implements ViewInternal {
     MusicManager.playBattlefieldMusic();
     new KeyBindingController(this, scene, player1, player2);
 
-    boolean server = true;
+    boolean server = false;
 
 //    if (server) {
 //      new MPServer(this);

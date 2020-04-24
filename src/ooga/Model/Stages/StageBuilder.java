@@ -26,7 +26,6 @@ public class StageBuilder extends Stage {
 
     try {
       stageProperties = (JSONObject) parser.parse(new FileReader(propertiesPath));
-
       background = new Image(new FileInputStream(stageProperties.get("gameImage").toString()));
 
       rectangles = (JSONArray) stageProperties.get("rectangles");
