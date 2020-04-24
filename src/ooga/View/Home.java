@@ -80,16 +80,13 @@ public class Home extends Application {
 
   private void localPlay() throws IOException {
     currentStage.hide();
-    new StageSelect().start(new Stage());
+    StageSelect stageSelect = new StageSelect();
+    System.out.println(stageSelect.prop.keySet());
+    stageSelect.start(new Stage());
   }
 
   private void onlinePlay() {
     currentStage.hide();
     new OnlinePopUp();
-  }
-
-  public void settings()
-  {
-    new SettingsPopUp();
   }
 }

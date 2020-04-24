@@ -8,15 +8,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class SettingsPopUp{
 
-  public static final ResourceBundle buttonStyles = ResourceBundle.getBundle("ooga.Resources.stylesheets.buttonStyle");
+  private Properties prop;
 
-  public SettingsPopUp()
+  public SettingsPopUp(Properties prop)
   {
-    //System.out.println("Yeet");
+    this.prop = prop;
     Stage settings=new Stage();
     settings.initModality(Modality.APPLICATION_MODAL);
     settings.setTitle("Settings");
@@ -27,7 +28,7 @@ public class SettingsPopUp{
     Button close = new Button("Close this pop up window");
 
     close.setOnAction(e -> settings.close());
-    buttonConfig.setOnAction(e -> new ButtonsConfigPopUp());
+    buttonConfig.setOnAction(e -> new ButtonsConfigPopUp(prop));
 
     VBox layout= new VBox(10);
     layout.getChildren().addAll(settingsText, buttonConfig, uiTheme, close);

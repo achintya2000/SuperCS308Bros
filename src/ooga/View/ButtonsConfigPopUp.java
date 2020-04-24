@@ -14,15 +14,16 @@ import javafx.stage.Stage;
 import ooga.Controller.KeyBindManager;
 
 import java.util.Collection;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class ButtonsConfigPopUp {
 
-  public static final ResourceBundle buttonStyles = ResourceBundle.getBundle("ooga.Resources.stylesheets.buttonStyle");
+  private Properties prop;
 
-  public ButtonsConfigPopUp()
+  public ButtonsConfigPopUp(Properties prop)
   {
-    //System.out.println("Yeet");
+    this.prop = prop;
     Stage buttonConfigsStage=new Stage();
     buttonConfigsStage.initModality(Modality.APPLICATION_MODAL);
     buttonConfigsStage.setTitle("Button Configurations");
@@ -31,7 +32,7 @@ public class ButtonsConfigPopUp {
 
     BorderPane borderPane = new BorderPane();
     Label settingsText= new Label("Button Configurations");
-    settingsText.setStyle(buttonStyles.getString("characterText"));
+    settingsText.setStyle(prop.getProperty("characterText"));
     HBox topElements = new HBox();
     topElements.setAlignment(Pos.TOP_CENTER);
     topElements.getChildren().add(settingsText);
@@ -39,7 +40,7 @@ public class ButtonsConfigPopUp {
 
     VBox p1Config= new VBox(10);
     Label p1Text = new Label("Player 1");
-    p1Text.setStyle(buttonStyles.getString("characterText"));
+    p1Text.setStyle(prop.getProperty("characterText"));
     TextField leftButton1 = new TextField(buttonConfigurer.getPlayer1LeftKey());
     TextField rightButton1 = new TextField(buttonConfigurer.getPlayer1RightKey());
     TextField jumpButton1 = new TextField(buttonConfigurer.getPlayer1JumpKey());
@@ -49,7 +50,7 @@ public class ButtonsConfigPopUp {
 
     VBox p2Config= new VBox(10);
     Label p2Text = new Label("Player 2");
-    p2Text.setStyle(buttonStyles.getString("characterText"));
+    p2Text.setStyle(prop.getProperty("characterText"));
     TextField leftButton2 = new TextField(buttonConfigurer.getPlayer2LeftKey());
     TextField rightButton2 = new TextField(buttonConfigurer.getPlayer2RightKey());
     TextField jumpButton2 = new TextField(buttonConfigurer.getPlayer2JumpKey());
@@ -59,7 +60,7 @@ public class ButtonsConfigPopUp {
 
     VBox buttonLabels = new VBox(10);
     Label buttonsText = new Label("Buttons");
-    buttonsText.setStyle(buttonStyles.getString("characterText"));
+    buttonsText.setStyle(prop.getProperty("characterText"));
     Label leftText = new Label("Left");
     Label rightText = new Label("Right");
     Label jumpText = new Label("Jump");
@@ -67,12 +68,12 @@ public class ButtonsConfigPopUp {
     Label attackText = new Label("Attack");
     Label specialText = new Label("Special");
 
-    leftText.setStyle(buttonStyles.getString("labelText"));
-    rightText.setStyle(buttonStyles.getString("labelText"));
-    jumpText.setStyle(buttonStyles.getString("labelText"));
-    fallText.setStyle(buttonStyles.getString("labelText"));
-    attackText.setStyle(buttonStyles.getString("labelText"));
-    specialText.setStyle(buttonStyles.getString("labelText"));
+    leftText.setStyle(prop.getProperty("labelText"));
+    rightText.setStyle(prop.getProperty("labelText"));
+    jumpText.setStyle(prop.getProperty("labelText"));
+    fallText.setStyle(prop.getProperty("labelText"));
+    attackText.setStyle(prop.getProperty("labelText"));
+    specialText.setStyle(prop.getProperty("labelText"));
 
     p1Config.getChildren().addAll(p1Text,leftButton1, rightButton1, jumpButton1, fallButton1,attackButton1,specialButton1);
     p2Config.getChildren().addAll(p2Text,leftButton2, rightButton2, jumpButton2, fallButton2,attackButton2,specialButton2);
@@ -87,7 +88,7 @@ public class ButtonsConfigPopUp {
       buttonConfigurer.setPlayer2KeyBinds(leftButton2.getText(),rightButton2.getText(), jumpButton2.getText(), fallButton2.getText(),attackButton2.getText(),specialButton2.getText());
       buttonConfigsStage.close();
     });
-    configure.setStyle(buttonStyles.getString("playerText"));
+    configure.setStyle(prop.getProperty("playerText"));
     HBox bottomElements = new HBox();
     bottomElements.setAlignment(Pos.CENTER);
     bottomElements.getChildren().add(configure);

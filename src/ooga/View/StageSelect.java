@@ -7,22 +7,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import ooga.Model.StageClasses.StageBuilder;
-
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Properties;
-import java.util.ResourceBundle;
+
 
 import static javafx.geometry.Pos.*;
 
-public class StageSelect{
-
-  public Properties prop;
-  private Scene currentScene;
+public class StageSelect extends AbstractSelectScreen{
   private BorderPane borderPane = new BorderPane();
   private Button go;
   private Stage currentStage;
@@ -33,9 +24,9 @@ public class StageSelect{
   private Group root = new Group();
   private int colThresh = 8;
 
-  public void settings()
-  {
-    new SettingsPopUp();
+  public StageSelect() throws IOException {
+    super();
+    System.out.println("SADSA" + prop.keySet());
   }
 
   public void initStages() throws FileNotFoundException {
@@ -88,7 +79,7 @@ public class StageSelect{
   }
 
 
-  public void goToSelectScreen() {
+  public void goToSelectScreen() throws IOException {
     System.out.println("Going to Select Screen ... ");
     currentStage.hide();
     CharacterSelect characterSelect = new CharacterSelect(chosenStage);
@@ -96,39 +87,8 @@ public class StageSelect{
   }
 
 
-  private BorderPane makeBorderPane() throws IOException {
-    VBox header = new VBox();
-    header.setAlignment(CENTER);
-    HBox toolbar = new HBox();
-    toolbar.setSpacing(10);
-    toolbar.setAlignment(TOP_CENTER);
-    header.getChildren().add(toolbar);
-
-    HashMap<String, String> buttonMap = new HashMap<>();
-    Properties props = new Properties();
-    props.load(new FileReader("data/buttons/toolbar.properties"));
-    for (String s : props.stringPropertyNames()) {
-      buttonMap.put(s, props.getProperty(s));
-    }
-    Class<?> thisSelectScreen = StageSelect.class;
-    for (String key : buttonMap.keySet()) {
-      Button b = new Button(key);
-      for (Method m : thisSelectScreen.getDeclaredMethods()) {
-        if (buttonMap.get(key).equals(m.getName())) {
-          b.setOnAction(e -> {
-            try {
-              m.setAccessible(true);
-              m.invoke(this);
-            } catch (IllegalAccessException ex) {
-              ex.printStackTrace();
-            } catch (InvocationTargetException ex) {
-              ex.printStackTrace();
-            }
-          });
-        }
-      }
-      toolbar.getChildren().add(b);
-    }
+  private BorderPane integrateBorderPane() throws IOException {
+    VBox header = createToolbar();
     setupGoButton();
     return setupBorderPane(header);
   }
@@ -148,19 +108,19 @@ public class StageSelect{
     go.setMinWidth(300);
     go.setMinHeight(100);
     go.setOnMouseClicked((e) -> {
-      goToSelectScreen();
+      try {
+        goToSelectScreen();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
     });
     go.setDisable(true);
     go.setId("#GoButton");
   }
 
   public void start(Stage primaryStage) throws IOException {
-    prop = new Properties();
-    prop.load(new FileReader("data/stylesheets/buttonStyle.properties"));
-
     try {
-      Scene selectScene = new Scene(makeBorderPane());
-      currentScene = selectScene;
+      Scene selectScene = new Scene(integrateBorderPane());
       currentStage = primaryStage;
       primaryStage.setScene(selectScene);
       primaryStage.setHeight(800);

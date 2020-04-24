@@ -27,10 +27,7 @@ import java.util.ResourceBundle;
 
 import static javafx.geometry.Pos.*;
 
-public class CharacterSelect{
-
-  public static final ResourceBundle buttonStyles = ResourceBundle
-      .getBundle("ooga.Resources.stylesheets.buttonStyle");
+public class CharacterSelect extends AbstractSelectScreen{
 
   private Scene currentScene;
   private BorderPane borderPane = new BorderPane();
@@ -55,16 +52,13 @@ public class CharacterSelect{
   private Group root = new Group();
   private ooga.Model.StageClasses.Stage chosenStage;
 
-  public CharacterSelect(Stage primaryStage) {
+  public CharacterSelect(Stage primaryStage) throws IOException {
+    super();
   }
 
 
-  public void settings()
-  {
-    new SettingsPopUp();
-  }
-
-  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage) {
+  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage) throws IOException {
+    super();
     this.chosenStage = chosenStage;
   }
 
@@ -108,7 +102,7 @@ public class CharacterSelect{
           playerViewList.get(currentPlayer - 1).setGraphic(imageCharacter.getCharacterImage());
           charNameLabelList.get(currentPlayer - 1).setText(character.getName());
           charNameLabelList.get(currentPlayer - 1)
-              .setStyle(buttonStyles.getString("characterText"));
+              .setStyle(prop.getProperty("characterText"));
           System.out.println(
               "Player " + currentPlayer + "  character: " + playerList.get(currentPlayer - 1)
                   .getMyCharacter().getName());
@@ -186,38 +180,7 @@ public class CharacterSelect{
   }
 
   private BorderPane makeBorderPane() throws IOException {
-    VBox header = new VBox();
-    header.setAlignment(CENTER);
-    HBox toolbar = new HBox();
-    toolbar.setSpacing(10);
-    toolbar.setAlignment(TOP_CENTER);
-    header.getChildren().add(toolbar);
-
-    HashMap<String, String> buttonMap = new HashMap<>();
-    Properties props = new Properties();
-    props.load(new FileReader("data/buttons/toolbar.properties"));
-    for (String s : props.stringPropertyNames()) {
-      buttonMap.put(s, props.getProperty(s));
-    }
-    Class<?> thisSelectScreen = CharacterSelect.class;
-    for (String key : buttonMap.keySet()) {
-      Button b = new Button(key);
-      for (Method m : thisSelectScreen.getDeclaredMethods()) {
-        if (buttonMap.get(key).equals(m.getName())) {
-          b.setOnAction(e -> {
-            try {
-              m.setAccessible(true);
-              m.invoke(this);
-            } catch (IllegalAccessException ex) {
-              ex.printStackTrace();
-            } catch (InvocationTargetException ex) {
-              ex.printStackTrace();
-            }
-          });
-        }
-      }
-      toolbar.getChildren().add(b);
-    }
+    VBox header = createToolbar();
 
     char1NameText = new Label();
     char2NameText = new Label();
@@ -238,7 +201,7 @@ public class CharacterSelect{
     playerViewBox1.setMinHeight(300);
     playerViewBox2.setMinHeight(300);
     Button player1Text = new Button("PLAYER 1");
-    player1Text.setStyle(buttonStyles.getString("playerText"));
+    player1Text.setStyle(prop.getProperty("playerText"));
     player1Text.setMinWidth(300);
     player1Text.setMinHeight(100);
     player1Text.setOnMouseClicked((e) -> {
@@ -251,7 +214,7 @@ public class CharacterSelect{
     });
     player2Text.setMinWidth(300);
     player2Text.setMinHeight(100);
-    player2Text.setStyle(buttonStyles.getString("playerText"));
+    player2Text.setStyle(prop.getProperty("playerText"));
 
     playerViewBox1.setStyle("-fx-background-color: rgba(230, 0, 0, 0.7)");
     playerViewBox2.setStyle("-fx-background-color: rgba(0, 0, 230, 0.7)");
