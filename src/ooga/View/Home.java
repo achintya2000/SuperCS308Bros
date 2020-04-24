@@ -1,6 +1,7 @@
 package ooga.View;
 
 
+import java.awt.MouseInfo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -9,6 +10,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javax.sound.midi.SysexMessage;
 import ooga.Controller.MusicManager;
 
 import java.io.File;
@@ -27,7 +29,7 @@ public class Home extends Application {
     primaryStage.show();
 
     MusicManager musicManager = new MusicManager();
-    musicManager.playMainMenuMusic();
+    //musicManager.playMainMenuMusic();
   }
 
   private VBox makeGridPane() {
@@ -45,6 +47,7 @@ public class Home extends Application {
   private void play() {
     currentStage.hide();
     new StageSelect().start(new Stage());
+
   }
 
   private void help() {

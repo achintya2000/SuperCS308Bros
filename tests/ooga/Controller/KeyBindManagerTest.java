@@ -1,3 +1,4 @@
+/*
 package ooga.Controller;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -32,3 +33,4 @@ public class KeyBindManagerTest {
     public void getPlayer1LRightKey() {
     }
 }
+*/
