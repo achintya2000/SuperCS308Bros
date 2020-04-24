@@ -151,13 +151,15 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
     switch (gameMode){
       case LIVES:
         try {
-          if (player1.getStocks() == 0) {
+          if(player1.healthProperty().get() == 0) player1.STONKSProperty().set(player1.STONKSProperty().get() - 1);
+          if(player2.healthProperty().get() == 0) player2.STONKSProperty().set(player2.STONKSProperty().get() - 1);
+          if (player1.STONKSProperty().get() == 0) {
             go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
             mainStage.close();
             this.stop();
             go.start(new Stage());
           }
-          else if (player2.getStocks() == 0) {
+          else if (player2.STONKSProperty().get() == 0) {
             go = new GameOver(player1.getName(), (int) player1.healthProperty().get());
             mainStage.close();
             this.stop();

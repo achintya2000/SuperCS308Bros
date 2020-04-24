@@ -4,10 +4,12 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ooga.Controller.Controller;
 import ooga.Controller.GameMode;
@@ -91,7 +93,18 @@ public class GameView extends Application implements ViewInternal {
     healthBar2.widthProperty().bind(player2.healthProperty());
     root.getChildren().add(healthBar1);
     root.getChildren().add(healthBar2);
+
+    Rectangle stonkBar1 = new Rectangle(100, 100, 1000, 50);
+    Rectangle stonkBar2 = new Rectangle(900, 100, 1000, 50);
+    Text txt = new Text(100, 100, "3");
+    healthBar1.setFill(Color.GREEN);
+    healthBar2.setFill(Color.GREEN);
+    txt.textProperty().bind(new SimpleStringProperty(String.valueOf(player1.STONKSProperty().get())));
+    healthBar2.widthProperty().bind(player2.STONKSProperty());
+    root.getChildren().add(txt);
+    root.getChildren().add(stonkBar2);
   }
+
 
   @Override
   public void start(Stage primaryStage) {
