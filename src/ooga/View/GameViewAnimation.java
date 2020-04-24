@@ -106,6 +106,17 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
         player2.setHEALTH(player2.getHEALTH() - 10);
       }
     }
+    if (gv.UP_PRESSEDProperty().get()) {
+      player2.jump();
+    }
+    if (gv.L_PRESSEDProperty().get()) {
+      player2.attack();
+      if (player2.getHitBox().getBoundsInParent()
+              .intersects(player1.getHurtBox().getBoundsInParent())) {
+        player1.getHurtBox().setStroke(Color.RED);
+        player1.setHEALTH(player1.getHEALTH() - 10);
+      }
+    }
   }
 
   @Override

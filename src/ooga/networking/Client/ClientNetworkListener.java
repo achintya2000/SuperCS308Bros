@@ -61,6 +61,21 @@ public class ClientNetworkListener extends Listener {
             gameView.RIGHT_PRESSEDProperty().set(packetRightPressed.rightPressed);
         }
 
+        if (o instanceof Packets.packetJumpPressed) {
+            Packets.packetJumpPressed packetJumpPressed = (Packets.packetJumpPressed) o;
+            gameView.UP_PRESSEDProperty().set(packetJumpPressed.jumpPressed);
+        }
+
+        if (o instanceof Packets.packetFallPressed) {
+            Packets.packetFallPressed packetFallPressed = (Packets.packetFallPressed) o;
+            gameView.DOWN_PRESSEDProperty().set(packetFallPressed.fallPressed);
+        }
+
+        if (o instanceof Packets.packetAttackPressed) {
+            Packets.packetAttackPressed packetAttackPressed = (Packets.packetAttackPressed) o;
+            gameView.L_PRESSEDProperty().set(packetAttackPressed.attackPressed);
+        }
+
     }
 
     private void sendDataToServer() {

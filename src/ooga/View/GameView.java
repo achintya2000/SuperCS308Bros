@@ -63,17 +63,23 @@ public class GameView extends Application implements ViewInternal {
 
 
   private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
-  //private BooleanProperty UP_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty UP_PRESSED = new SimpleBooleanProperty();
 
   public BooleanProperty W_PRESSEDProperty() {
     return W_PRESSED;
   }
 
+  public BooleanProperty UP_PRESSEDProperty() { return UP_PRESSED; }
+
   private BooleanProperty T_PRESSED = new SimpleBooleanProperty();
-  //private BooleanProperty L_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty L_PRESSED = new SimpleBooleanProperty();
 
   public BooleanProperty T_PRESSEDProperty() {
     return T_PRESSED;
+  }
+
+  public BooleanProperty L_PRESSEDProperty() {
+    return L_PRESSED;
   }
 
   AbstractCharacter player1;
@@ -132,7 +138,7 @@ public class GameView extends Application implements ViewInternal {
 
     new KeyBindingController(this, scene, player1, player2);
 
-    boolean server = true;
+    boolean server = false;
 
     if (server) {
       new MPServer(this);

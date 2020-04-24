@@ -101,23 +101,26 @@ public class KeyBindingController {
       }
       try {
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2JumpKey()).get(null)) {
-          player2.jump();
+          gv.UP_PRESSEDProperty().set(true);
+          //player2.jump();
         }
       } catch (IllegalAccessException | NoSuchFieldException ex) {
         new ExceptionHelper(ex);
       }
       try {
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2AttackKey()).get(null)) {
-          player2.attack();
-          if (player2.getHitBox().getBoundsInParent()
-              .intersects(player1.getHurtBox().getBoundsInParent())) {
-            player1.getHurtBox().setStroke(Color.RED);
-            player1.setHEALTH(player1.getHEALTH() - 10);
-          }
+          gv.L_PRESSEDProperty().set(true);
+//          player2.attack();
+//          if (player2.getHitBox().getBoundsInParent()
+//              .intersects(player1.getHurtBox().getBoundsInParent())) {
+//            player1.getHurtBox().setStroke(Color.RED);
+//            player1.setHEALTH(player1.getHEALTH() - 10);
+//          }
         }
       } catch (IllegalAccessException | NoSuchFieldException ex) {
         new ExceptionHelper(ex);
       }
+
     });
 
     scene.setOnKeyReleased(e -> {
@@ -179,6 +182,20 @@ public class KeyBindingController {
       try {
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1AttackKey()).get(null)) {
           gv.T_PRESSEDProperty().set(false);
+        }
+      } catch (IllegalAccessException | NoSuchFieldException ex) {
+        new ExceptionHelper(ex);
+      }
+      try {
+        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2JumpKey()).get(null)) {
+          gv.UP_PRESSEDProperty().set(false);
+        }
+      } catch (IllegalAccessException | NoSuchFieldException ex) {
+        new ExceptionHelper(ex);
+      }
+      try {
+        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2AttackKey()).get(null)) {
+          gv.L_PRESSEDProperty().set(false);
         }
       } catch (IllegalAccessException | NoSuchFieldException ex) {
         new ExceptionHelper(ex);

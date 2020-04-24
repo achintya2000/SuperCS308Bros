@@ -27,6 +27,9 @@ public class ServerNetworkListener extends Listener {
         this.gameView = gv;
         LEFT_PRESSED.bindBidirectional(gv.LEFT_PRESSEDProperty());
         RIGHT_PRESSED.bindBidirectional(gv.RIGHT_PRESSEDProperty());
+        UP_PRESSED.bindBidirectional(gv.UP_PRESSEDProperty());
+        DOWN_PRESSED.bindBidirectional(gv.DOWN_PRESSEDProperty());
+        L_PRESSED.bindBidirectional(gv.L_PRESSEDProperty());
     }
 
     @Override
