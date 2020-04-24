@@ -1,5 +1,5 @@
 {
-  "gameImage": "data/stages/norfair.png",
+  "gameImage": "data/stages/stageimages/norfair.png",
   "rectangles" : [
     {
       "xPos": 72,

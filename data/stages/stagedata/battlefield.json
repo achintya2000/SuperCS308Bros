@@ -1,5 +1,5 @@
 {
-  "gameImage": "data/stages/Battlefield.png",
+  "gameImage": "data/stages/stageimages/Battlefield.png",
   "rectangles" : [
     {
       "xPos": 225,
