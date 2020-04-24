@@ -16,8 +16,10 @@ import java.io.IOException;
 public class GameOver extends Application {
   private String winner;
   private int remainingHealth;
+  private boolean isLocal;
 
-  public GameOver(String whoWinner, int winnerHealth){
+  public GameOver(String whoWinner, int winnerHealth, boolean isLocal){
+    this.isLocal = isLocal;
     winner = whoWinner;
     remainingHealth = winnerHealth;
   }
@@ -59,7 +61,7 @@ public class GameOver extends Application {
   }
 
   private void restart() throws IOException {
-    StageSelect stageSelect = new StageSelect();
+    StageSelect stageSelect = new StageSelect(isLocal);
     stageSelect.start(new Stage());
     try{
       this.stop();

@@ -28,12 +28,12 @@ public class Bunny extends AbstractCharacter {
   private static final int WIDTH = 100;
   private static final int HEIGHT = 100;
 
-  public Bunny(String name, int x, int y) throws FileNotFoundException {
+  public Bunny(String name) throws FileNotFoundException {
     super(name);
     setImageFiles();
     spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
-    this.centerX = x + 50;
-    this.centerY = y + 50;
+    this.centerX = 0;
+    this.centerY = 0;
     spriteImageView.setX(centerX);
     spriteImageView.setY(centerY);
 
@@ -73,9 +73,9 @@ public class Bunny extends AbstractCharacter {
     return hitbox;
   }
 
-  private Rectangle makeHurtBox(int x, int y) {
+  private Rectangle makeHurtBox(double x, double y) {
     int width = 50;
-    int newX = x + (100 - width) / 2;
+    double newX = x + (100 - width) / 2;
     Rectangle hurtbox = new Rectangle(newX, y, width, 100);
     hurtbox.setStroke(Color.YELLOW);
     hurtbox.setFill(Color.rgb(200, 200, 200, 0.5));
@@ -122,7 +122,7 @@ public class Bunny extends AbstractCharacter {
   private void jumpTransition(Node jumpNode) {
     TranslateTransition jump = new TranslateTransition(Duration.millis(500), jumpNode);
     jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
-    jump.setByY(-150);
+    jump.setByY(-230);
     jump.setAutoReverse(false);
     jump.setCycleCount(1);
     jump.play();
@@ -243,16 +243,6 @@ public class Bunny extends AbstractCharacter {
             .getMinY()) / 2;
   }
 
-  public void setCenterY(double centerY) {
-    spriteImageView.setY(centerY);
-    hurtBox.setY(centerY);
-
-  }
-
-  public void setCenterX(double centerX) {
-    spriteImageView.setX(centerX);
-    hurtBox.setX(centerX);
-  }
 
   public Circle getHitBox() {
     return hitBox;

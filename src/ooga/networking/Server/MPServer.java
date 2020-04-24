@@ -40,13 +40,18 @@ public class MPServer {
 
     registerPackets();
 
-    server.start();
+    new Thread(server).start();
   }
 
   private void registerPackets() {
     Kryo kryo = server.getKryo();
     kryo.register(Packets.packet01Message.class);
-    kryo.register(Packets.packetUserData.class);
+    //kryo.register(Packets.packetUserData.class);
+    kryo.register(Packets.packetLeftPressed.class);
+    kryo.register(Packets.packetRightPressed.class);
+    kryo.register(Packets.packetJumpPressed.class);
+    kryo.register(Packets.packetFallPressed.class);
+    kryo.register(Packets.packetAttackPressed.class);
   }
 
   //public static void main(String[] args) {

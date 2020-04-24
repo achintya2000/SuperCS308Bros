@@ -1,8 +1,5 @@
 package ooga.Controller;
 
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import ooga.Exceptions.ExceptionHelper;
 
 import javax.sound.sampled.AudioSystem;
@@ -14,36 +11,43 @@ import java.io.IOException;
 
 public class MusicManager {
 
-  private Clip clip = null;
+  public static final String MAIN_MENU_MUSIC = "./data/sound/MainMenu.wav";
+  public static final String BATTLEFIELD_MUSIC = "./data/sound/Battlefield.wav";
+  public static final String FINAL_DESTINATION_MUSIC = "./data/sound/FinalDestination.wav";
+  private static Clip clip = null;
 
-  public void playMainMenuMusic() {
+  public static void playMainMenuMusic() {
     try {
       clip = AudioSystem.getClip();
-      clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/MainMenu.wav")));
+      clip.open(AudioSystem.getAudioInputStream(new File(MAIN_MENU_MUSIC)));
       clip.start();
     } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
       new ExceptionHelper(e);
     }
   }
 
-  public void playBattlefieldMusic() {
+  public static void playBattlefieldMusic() {
     try {
       clip = AudioSystem.getClip();
-      clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/Battlefield.wav")));
+      clip.open(AudioSystem.getAudioInputStream(new File(BATTLEFIELD_MUSIC)));
       clip.start();
     } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
       new ExceptionHelper(e);
     }
   }
 
-  public void playFinalDestinationMusic() {
+  public static void playFinalDestinationMusic() {
     try {
       clip = AudioSystem.getClip();
-      clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/FinalDestination.wav")));
+      clip.open(AudioSystem.getAudioInputStream(new File(FINAL_DESTINATION_MUSIC)));
       clip.start();
     } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
       new ExceptionHelper(e);
     }
+  }
+
+  public static void clearMusic() {
+    clip.close();
   }
 
 }

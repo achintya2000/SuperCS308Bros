@@ -23,21 +23,23 @@ public class StageSelect extends AbstractSelectScreen{
   private ArrayList<Button> buttonList = new ArrayList<>();
   private Group root = new Group();
   private int colThresh = 8;
+  private boolean isLocal;
 
-  public StageSelect() throws IOException {
+  public StageSelect(boolean isLocal) throws IOException {
     super();
-    System.out.println("SADSA" + prop.keySet());
+    this.isLocal = isLocal;
   }
 
   public void initStages() throws FileNotFoundException {
 
-    File dir = new File("src/ooga/Model/StageClasses/Stages");
+    File dir = new File("data/stages/stagedata");
     System.out.println(dir.getAbsolutePath());
     File[] directoryListing = dir.listFiles();
     if (directoryListing != null) {
       for (File child : directoryListing) {
         System.out.println(child.getName());
-        StageBuilder stage = new StageBuilder("Stages/"+child.getName());
+        StageBuilder stage = new StageBuilder("data/stages/stagedata/"+child.getName());
+        System.out.println(child.getName());
         stageList.add(stage);
       }
     }
@@ -82,7 +84,7 @@ public class StageSelect extends AbstractSelectScreen{
   public void goToSelectScreen() throws IOException {
     System.out.println("Going to Select Screen ... ");
     currentStage.hide();
-    CharacterSelect characterSelect = new CharacterSelect(chosenStage);
+    CharacterSelect characterSelect = new CharacterSelect(chosenStage, isLocal);
     characterSelect.start(new Stage());
   }
 

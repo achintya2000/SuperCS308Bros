@@ -17,9 +17,11 @@ public class OnlinePopUp {
   private Button createServer;
   private Button joinGame;
   private Stage onlineStage;
+  private boolean isLocal;
 
-  public OnlinePopUp(Properties prop)
+  public OnlinePopUp(Properties prop, boolean isLocal)
   {
+    this.isLocal = isLocal;
     this.prop  = prop;
     onlineStage= new Stage();
     onlineStage.initModality(Modality.APPLICATION_MODAL);
@@ -46,7 +48,7 @@ public class OnlinePopUp {
       onlineStage.hide();
       StageSelect stageSelect = null;
       try {
-        stageSelect = new StageSelect();
+        stageSelect = new StageSelect(isLocal);
       } catch (IOException ex) {
         ex.printStackTrace();
       }

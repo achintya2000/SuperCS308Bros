@@ -13,13 +13,14 @@ import ooga.Model.StageClasses.Platform;
 
 public class GameViewAnimation extends AnimationTimer implements ControllerInternal {
 
-  private static final double GRAVITY = 1.5;
+  private static final double GRAVITY = 1.8;
   private GameView gv;
   private AbstractCharacter player1;
   private AbstractCharacter player2;
   private ArrayList<Player> playerList;
   private Stage mainStage;
   private ArrayList<Platform> platforms;
+
   public GameViewAnimation(GameView gv, ArrayList<Player> playerList, ArrayList<Platform> platformList,
       Stage gameViewStage){
     super();
@@ -33,23 +34,45 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   @Override
   public void handle(long now) {
     for(Player player : playerList) {
-      isGameOver();
+      isGameOver(gv.getIsLocal());
       AbstractCharacter character = player.getMyCharacter();
-      if (!character.getINTERSECTS() || character.getRIGHT_COLLIDE() || character.getLEFT_COLLIDE()) {
+      if (!character.getINTERSECTS() || character.getRIGHT_COLLIDE() || character.getLEFT_COLLIDE() || character.getBOTTOM_COLLIDE()) {
         character.setCenterY(character.getHurtBox().getY() + GRAVITY);
       }
 
       character.setINTERSECTS(false);
       character.setRIGHT_COLLIDE(false);
       character.setLEFT_COLLIDE(false);
+      character.setHOLLOW_COLLIDE(true);
+      character.setBOTTOM_COLLIDE(false);
 
-      for (Rectangle platform : platforms) {
+      for (Platform platform : platforms) {
 
         if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
           character.setINTERSECTS(true);
-        }
+          character.setHOLLOW_COLLIDE(platform.getHollow());
 
-        if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
+
+
+          if(character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMaxY()){
+            if(character.getHurtBox().getBoundsInParent().getMinY() <  platform.getBoundsInParent().getMaxY())
+            {
+              if(!platform.getHollow()){
+                character.setBOTTOM_COLLIDE(true);
+              }
+            }
+          }
+
+          if(character.getHurtBox().getBoundsInParent().getMaxY() < platform.getBoundsInParent().getMaxY()){
+            if(character.getHurtBox().getBoundsInParent().getMinY() >  platform.getBoundsInParent().getMinY())
+            {
+              if(!platform.getHollow()){
+                character.setBOTTOM_COLLIDE(true);
+              }
+            }
+          }
+
+
           if (character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMinY() + 5) {
             if (character.getHurtBox().getBoundsInParent().getMaxX() > platform.getBoundsInParent().getMaxX()) {
               if (character.getHurtBox().getBoundsInParent().getMinX() < platform.getBoundsInParent().getMaxX()) {
@@ -66,44 +89,48 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
         }
       }
     }
-
     checkKeys();
   }
 
   private void checkKeys() {
-    if (gv.d_PRESSEDProperty().get() && !player1.getLEFT_COLLIDE()){
-      player1.moveRight();
-    }
-    if (gv.a_PRESSEDProperty().get() && !player1.getRIGHT_COLLIDE()) {
-      player1.moveLeft();
-    }
-    if (gv.LEFT_PRESSEDProperty().get() && !player2.getRIGHT_COLLIDE()) {
-      player2.moveLeft();
-    }
-    if (gv.RIGHT_PRESSEDProperty().get() && !player2.getLEFT_COLLIDE()) {
-      player2.moveRight();
-    }
-//    if (T_PRESSED.get()) {
-//      bunny.attack();
-//    }
-//    if (L_PRESSED.get()) {
-//      bunny2.attack();
-//    }
-    if (gv.s_PRESSEDProperty().get()) {
-      player1.setCenterY(player1.getHurtBox().getY() + 3);
-    }
-    if (gv.DOWN_PRESSEDProperty().get()) {
-      player2.setCenterY(player2.getHurtBox().getY() + 3);
-    }
-    if (gv.W_PRESSEDProperty().get()) {
+    if (gv.getPlayer1JumpProp().get() && !player1.getBOTTOM_COLLIDE()){
       player1.jump();
     }
-    if (gv.T_PRESSEDProperty().get()) {
+    if (gv.getPlayer1RightProp().get() && !player1.getLEFT_COLLIDE()){
+      player1.moveRight();
+    }
+    if (gv.getPlayer1LeftProp().get() && !player1.getRIGHT_COLLIDE()) {
+      player1.moveLeft();
+    }
+    if (gv.getPlayer2LeftProp().get() && !player2.getRIGHT_COLLIDE()) {
+      player2.moveLeft();
+    }
+    if (gv.getPlayer2RightProp().get() && !player2.getLEFT_COLLIDE()) {
+      player2.moveRight();
+    }
+    if (gv.getPlayer1FallProp().get() && player1.getHOLLOW_COLLIDE()) {
+      player1.setCenterY(player1.getHurtBox().getY() + 15);
+    }
+    if (gv.getPlayer2FallProp().get() && player2.getHOLLOW_COLLIDE()) {
+      player2.setCenterY(player2.getHurtBox().getY() + 15);
+    }
+    if (gv.getPlayer1AttackProp().get()) {
       player1.attack();
       if (player1.getHitBox().getBoundsInParent()
               .intersects(player2.getHurtBox().getBoundsInParent())) {
         player2.getHurtBox().setStroke(Color.RED);
         player2.setHEALTH(player2.getHEALTH() - 10);
+      }
+    }
+    if (gv.getPlayer2JumpProp().get()) {
+      player2.jump();
+    }
+    if (gv.getPlayer2AttackProp().get()) {
+      player2.attack();
+      if (player2.getHitBox().getBoundsInParent()
+              .intersects(player1.getHurtBox().getBoundsInParent())) {
+        player1.getHurtBox().setStroke(Color.RED);
+        player1.setHEALTH(player1.getHEALTH() - 10);
       }
     }
   }
@@ -114,17 +141,17 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   }
 
   @Override
-  public void isGameOver() {
+  public void isGameOver(boolean isLocal) {
     GameOver go = null;
     try {
       if (player1.healthProperty().get() == 0) {
-        go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
+        go = new GameOver(player2.getName(), (int) player2.healthProperty().get(), isLocal);
         mainStage.close();
         this.stop();
         go.start(new Stage());
       }
       else if (player2.healthProperty().get() == 0) {
-        go = new GameOver(player1.getName(), (int) player1.healthProperty().get());
+        go = new GameOver(player1.getName(), (int) player1.healthProperty().get(), isLocal);
         mainStage.close();
         this.stop();
         go.start(new Stage());

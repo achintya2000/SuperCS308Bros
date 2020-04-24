@@ -22,6 +22,7 @@ public class Home extends Application {
   private HBox buttonHolder;
   private Button playLocal;
   private Button playOnline;
+  private boolean isLocal;
 
   @Override
   public void start(Stage primaryStage) {
@@ -33,8 +34,8 @@ public class Home extends Application {
     currentStage = primaryStage;
     primaryStage.show();
 
-    MusicManager musicManager = new MusicManager();
-    //musicManager.playMainMenuMusic();
+    //MusicManager.playMainMenuMusic();
+
   }
 
   private BorderPane setupBorderPane() {
@@ -86,15 +87,17 @@ public class Home extends Application {
 
   private void localPlay() throws IOException {
     currentStage.hide();
-    StageSelect stageSelect = new StageSelect();
+    isLocal = true;
+    StageSelect stageSelect = new StageSelect(isLocal);
     System.out.println(stageSelect.prop.keySet());
     stageSelect.start(new Stage());
   }
 
   private void onlinePlay() throws IOException {
     currentStage.hide();
+    isLocal = false;
     Properties prop = new Properties();
     prop.load(new FileReader("data/stylesheets/buttonStyle.properties"));
-    new OnlinePopUp(prop);
+    new OnlinePopUp(prop, isLocal);
   }
 }

@@ -58,16 +58,26 @@ public class CharacterSelect extends AbstractSelectScreen{
   private int currentPlayer = 1;
   private Group root = new Group();
   private ooga.Model.StageClasses.Stage chosenStage;
+  private String ipAddress = "";
+  private boolean isLocal;
 
   private boolean joiningMatch = false;
 
   public CharacterSelect() throws IOException {
     super();
     joiningMatch = true;
+    isLocal = false;
   }
 
-  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage) throws IOException {
+  public CharacterSelect(String ipAddress) throws IOException {
     super();
+    this.ipAddress = ipAddress;
+    isLocal = false;
+  }
+
+  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage, boolean isLocal) throws IOException {
+    super();
+    this.isLocal = isLocal;
     this.chosenStage = chosenStage;
   }
 
@@ -80,8 +90,8 @@ public class CharacterSelect extends AbstractSelectScreen{
     charNameLabelList.add(char1NameText);
     charNameLabelList.add(char2NameText);
 
-    Bunny bunny = new Bunny("bunny", 200, 100);
-    Ghost ghost = new Ghost("ghost", 400, 200);
+    Bunny bunny = new Bunny("bunny");
+    Ghost ghost = new Ghost("ghost");
 
     GridPane charGrid = new GridPane();
     charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
@@ -102,9 +112,9 @@ public class CharacterSelect extends AbstractSelectScreen{
         try {
           Class<?> cls = Class.forName(character.getClass().getName());
           AbstractCharacter imageCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0]
-              .newInstance(character.getName(), 200, 400);
+              .newInstance(character.getName());
           AbstractCharacter newCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0]
-              .newInstance(character.getName(), 200, 400);
+              .newInstance(character.getName());
 
           playerList.get(currentPlayer - 1).setMyCharacter(newCharacter);
           playerList.get(currentPlayer - 1).setHasChosenChar(true);
@@ -158,7 +168,7 @@ public class CharacterSelect extends AbstractSelectScreen{
       root.getChildren().add(player.getMyCharacter().getGroup());
     }
     Pane newRoot = new Pane(root);
-    GameView game = new GameView(playerList, newRoot, chosenStage, joiningMatch);
+    GameView game = new GameView(playerList, newRoot, chosenStage, joiningMatch, ipAddress, isLocal);
     game.start(new Stage());
   }
 

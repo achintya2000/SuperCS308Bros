@@ -1,0 +1,57 @@
+{
+  "gameImage": "data/stages/stageimages/norfair.png",
+  "rectangles" : [
+    {
+      "xPos": 72,
+      "yPos": 290,
+      "width": 250,
+      "height": 25,
+      "hollow": false
+    },
+    {
+      "xPos": 247,
+      "yPos": 409,
+      "width": 250,
+      "height": 25,
+      "hollow": false
+    },
+    {
+      "xPos": 430,
+      "yPos": 534,
+      "width": 336,
+      "height": 50,
+      "hollow": false
+    },
+    {
+      "xPos": 711,
+      "yPos": 409,
+      "width": 250,
+      "height": 25,
+      "hollow": false
+    },
+    {
+      "xPos": 878,
+      "yPos": 409,
+      "width": 250,
+      "height": 25,
+      "hollow": false
+    },
+    {
+      "xPos": 200,
+      "yPos": 600,
+      "width": 1000,
+      "height": 100,
+      "hollow": false
+    }
+  ],
+  "spawns": [
+    {
+      "xPos": 150,
+      "yPos": 290
+    },
+    {
+      "xPos": 1000,
+      "yPos": 290
+    }
+  ]
+}
