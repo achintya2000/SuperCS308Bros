@@ -39,7 +39,7 @@ public class ServerNetworkListener extends Listener {
             System.out.println("[CLIENT} >> left pressed?: " + packetUserData.leftPressed);
             gameView.a_PRESSEDProperty().set(packetUserData.leftPressed);
             gameView.d_PRESSEDProperty().set(packetUserData.rightPressed);
-
+            gameView.W_PRESSEDProperty().set(packetUserData.jumpPressed);
         }
     }
 
