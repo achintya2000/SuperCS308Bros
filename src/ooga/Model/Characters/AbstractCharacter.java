@@ -50,6 +50,8 @@ public abstract class AbstractCharacter {
   protected BooleanProperty LEFT_COLLIDE = new SimpleBooleanProperty();
   protected BooleanProperty INTERSECTS = new SimpleBooleanProperty();
   protected SimpleDoubleProperty HEALTH = new SimpleDoubleProperty();
+  private BooleanProperty HOLLOW_COLLIDE = new SimpleBooleanProperty();
+
 
   public AbstractCharacter(String name) {
     this.name = name;
@@ -59,7 +61,17 @@ public abstract class AbstractCharacter {
     RIGHT_COLLIDE.set(false);
     LEFT_COLLIDE.set(false);
     INTERSECTS.set(false);
+    HOLLOW_COLLIDE.set(false);
   }
+
+  public boolean getHOLLOW_COLLIDE(){
+    return HOLLOW_COLLIDE.get();
+  }
+
+  public void setHOLLOW_COLLIDE(boolean flag){
+    HOLLOW_COLLIDE.set(flag);
+  }
+
   public boolean getINTERSECTS(){
     return INTERSECTS.get();
   }

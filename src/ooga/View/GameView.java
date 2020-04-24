@@ -35,8 +35,6 @@ public class GameView extends Application implements ViewInternal {
   private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty S_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty DOWN_PRESSED = new SimpleBooleanProperty();
-  private BooleanProperty HOLLOW_COLLIDE = new SimpleBooleanProperty();
-
 
   //private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
   //private BooleanProperty UP_PRESSED = new SimpleBooleanProperty();
@@ -86,8 +84,6 @@ public class GameView extends Application implements ViewInternal {
     healthBar2.widthProperty().bind(bunny2.healthProperty());
     root.getChildren().add(healthBar1);
     root.getChildren().add(healthBar2);
-    HOLLOW_COLLIDE.set(false);
-
   }
 
   @Override
@@ -135,17 +131,9 @@ public class GameView extends Application implements ViewInternal {
           character.setLEFT_COLLIDE(false);
 
           for (Platform platform : platforms) {
+
             if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
               character.setINTERSECTS(true);
-            }
-
-
-            if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
-
-              if(platform.getHollow()){
-                HOLLOW_COLLIDE.set(true);
-              }
-
 
               if (character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMinY() + 5) {
                 if (character.getHurtBox().getBoundsInParent().getMaxX() > platform.getBoundsInParent().getMaxX()) {
