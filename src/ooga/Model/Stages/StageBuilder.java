@@ -36,7 +36,7 @@ public class StageBuilder extends Stage {
       }
       else if (key.equals("hollow")){
         hollow = true;
-      } else if (key.contains("rect")) {
+      } else if (key.contains("rec")) {
         int x = Integer.valueOf(propsMap.get(key)[0]);
         int y = Integer.valueOf(propsMap.get(key)[1]);
         int width = Integer.valueOf(propsMap.get(key)[2]);
