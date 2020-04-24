@@ -40,6 +40,7 @@ public class ServerNetworkListener extends Listener {
             gameView.a_PRESSEDProperty().set(packetUserData.leftPressed);
             gameView.d_PRESSEDProperty().set(packetUserData.rightPressed);
             gameView.W_PRESSEDProperty().set(packetUserData.jumpPressed);
+            gameView.s_PRESSEDProperty().set(packetUserData.fallPressed);
         }
     }
 
