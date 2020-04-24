@@ -71,28 +71,28 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   }
 
   private void checkKeys() {
-    if (gv.d_PRESSEDProperty().get() && !player1.getLEFT_COLLIDE()){
+    if (gv.getPlayer1RightProp().get() && !player1.getLEFT_COLLIDE()){
       player1.moveRight();
     }
-    if (gv.a_PRESSEDProperty().get() && !player1.getRIGHT_COLLIDE()) {
+    if (gv.getPlayer1LeftProp().get() && !player1.getRIGHT_COLLIDE()) {
       player1.moveLeft();
     }
-    if (gv.LEFT_PRESSEDProperty().get() && !player2.getRIGHT_COLLIDE()) {
+    if (gv.getPlayer2LeftProp().get() && !player2.getRIGHT_COLLIDE()) {
       player2.moveLeft();
     }
-    if (gv.RIGHT_PRESSEDProperty().get() && !player2.getLEFT_COLLIDE()) {
+    if (gv.getPlayer2RightProp().get() && !player2.getLEFT_COLLIDE()) {
       player2.moveRight();
     }
-    if (gv.s_PRESSEDProperty().get()) {
+    if (gv.getPlayer1JumpProp().get()) {
       player1.setCenterY(player1.getHurtBox().getY() + 3);
     }
-    if (gv.DOWN_PRESSEDProperty().get()) {
+    if (gv.getPlayer2FallProp().get()) {
       player2.setCenterY(player2.getHurtBox().getY() + 3);
     }
-    if (gv.W_PRESSEDProperty().get()) {
+    if (gv.getPlayer1FallProp().get()) {
       player1.jump();
     }
-    if (gv.T_PRESSEDProperty().get()) {
+    if (gv.getPlayer1AttackProp().get()) {
       player1.attack();
       if (player1.getHitBox().getBoundsInParent()
               .intersects(player2.getHurtBox().getBoundsInParent())) {
@@ -100,10 +100,10 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
         player2.setHEALTH(player2.getHEALTH() - 10);
       }
     }
-    if (gv.UP_PRESSEDProperty().get()) {
+    if (gv.getPlayer2JumpProp().get()) {
       player2.jump();
     }
-    if (gv.L_PRESSEDProperty().get()) {
+    if (gv.getPlayer2AttackProp().get()) {
       player2.attack();
       if (player2.getHitBox().getBoundsInParent()
               .intersects(player1.getHurtBox().getBoundsInParent())) {

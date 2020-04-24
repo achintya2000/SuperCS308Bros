@@ -5,8 +5,6 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import ooga.View.GameView;
 import ooga.networking.Packets;
 
@@ -24,11 +22,11 @@ public class ClientNetworkListener extends Listener {
     public ClientNetworkListener(Client c, GameView gv) {
         this.client = c;
         this.gameView = gv;
-        A_PRESSED.bindBidirectional(gv.a_PRESSEDProperty());
-        D_PRESSED.bindBidirectional(gv.d_PRESSEDProperty());
-        W_PRESSED.bindBidirectional(gv.W_PRESSEDProperty());
-        S_PRESSED.bindBidirectional(gv.s_PRESSEDProperty());
-        T_PRESSED.bindBidirectional(gv.T_PRESSEDProperty());
+        A_PRESSED.bindBidirectional(gv.getPlayer1LeftProp());
+        D_PRESSED.bindBidirectional(gv.getPlayer1RightProp());
+        W_PRESSED.bindBidirectional(gv.getPlayer1FallProp());
+        S_PRESSED.bindBidirectional(gv.getPlayer1JumpProp());
+        T_PRESSED.bindBidirectional(gv.getPlayer1AttackProp());
     }
 
     @Override
@@ -53,27 +51,27 @@ public class ClientNetworkListener extends Listener {
 
         if (o instanceof Packets.packetLeftPressed) {
             Packets.packetLeftPressed packetLeftPressed = (Packets.packetLeftPressed) o;
-            gameView.LEFT_PRESSEDProperty().set(packetLeftPressed.leftPressed);
+            gameView.getPlayer2LeftProp().set(packetLeftPressed.leftPressed);
         }
 
         if (o instanceof Packets.packetRightPressed) {
             Packets.packetRightPressed packetRightPressed = (Packets.packetRightPressed) o;
-            gameView.RIGHT_PRESSEDProperty().set(packetRightPressed.rightPressed);
+            gameView.getPlayer2RightProp().set(packetRightPressed.rightPressed);
         }
 
         if (o instanceof Packets.packetJumpPressed) {
             Packets.packetJumpPressed packetJumpPressed = (Packets.packetJumpPressed) o;
-            gameView.UP_PRESSEDProperty().set(packetJumpPressed.jumpPressed);
+            gameView.getPlayer2JumpProp().set(packetJumpPressed.jumpPressed);
         }
 
         if (o instanceof Packets.packetFallPressed) {
             Packets.packetFallPressed packetFallPressed = (Packets.packetFallPressed) o;
-            gameView.DOWN_PRESSEDProperty().set(packetFallPressed.fallPressed);
+            gameView.getPlayer2FallProp().set(packetFallPressed.fallPressed);
         }
 
         if (o instanceof Packets.packetAttackPressed) {
             Packets.packetAttackPressed packetAttackPressed = (Packets.packetAttackPressed) o;
-            gameView.L_PRESSEDProperty().set(packetAttackPressed.attackPressed);
+            gameView.getPlayer2AttackProp().set(packetAttackPressed.attackPressed);
         }
 
     }
