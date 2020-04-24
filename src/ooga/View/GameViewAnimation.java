@@ -147,11 +147,27 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
 
   @Override
   public void isGameOver() {
+    GameOver go = null;
     switch (gameMode){
       case LIVES:
+        try {
+          if (player1.getStocks() == 0) {
+            go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
+            mainStage.close();
+            this.stop();
+            go.start(new Stage());
+          }
+          else if (player2.getStocks() == 0) {
+            go = new GameOver(player1.getName(), (int) player1.healthProperty().get());
+            mainStage.close();
+            this.stop();
+            go.start(new Stage());
+          }
+        } catch (Exception e){
+          new ExceptionHelper(e);
+        }
         break;
       case HEALTH:
-        GameOver go = null;
         try {
           if (player1.healthProperty().get() == 0) {
             go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
