@@ -61,7 +61,6 @@ public class ClientNetworkListener extends Listener {
             data.leftPressed = A_PRESSED.get();
             data.rightPressed = D_PRESSED.get();
             data.jumpPressed = W_PRESSED.get();
-            data.fallPressed = S_PRESSED.get();
 
             client.sendTCP(data);
         }
