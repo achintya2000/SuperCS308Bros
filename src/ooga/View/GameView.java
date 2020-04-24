@@ -9,6 +9,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import ooga.Controller.Controller;
+import ooga.Controller.GameMode;
 import ooga.Controller.KeyBindingController;
 import ooga.Controller.MusicManager;
 import ooga.Model.Characters.AbstractCharacter;
@@ -27,6 +29,8 @@ public class GameView extends Application implements ViewInternal {
   private ArrayList<Player> playerList;
   private Scene scene;
   private Pane root;
+
+  private GameMode gameMode;
 
   private BooleanProperty PLAYER_1_LEFT_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty PLAYER_1_RIGHT_PRESSED = new SimpleBooleanProperty();

@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Controller.ControllerInternal;
+import ooga.Controller.GameMode;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
@@ -20,12 +21,14 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   private ArrayList<Player> playerList;
   private Stage mainStage;
   private ArrayList<Platform> platforms;
+  private GameMode gameMode;
 
   public GameViewAnimation(GameView gv, ArrayList<Player> playerList, ArrayList<Platform> platformList,
-      Stage gameViewStage){
+      Stage gameViewStage, GameMode gameMode){
     super();
     this.gv = gv;
     this.playerList = playerList;
+    this.gameMode = gameMode;
     platforms = platformList;
     player1 = playerList.get(0).getMyCharacter();
     player2 = playerList.get(1).getMyCharacter();
@@ -144,22 +147,28 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
 
   @Override
   public void isGameOver() {
-    GameOver go = null;
-    try {
-      if (player1.healthProperty().get() == 0) {
-        go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
-        mainStage.close();
-        this.stop();
-        go.start(new Stage());
-      }
-      else if (player2.healthProperty().get() == 0) {
-        go = new GameOver(player1.getName(), (int) player1.healthProperty().get());
-        mainStage.close();
-        this.stop();
-        go.start(new Stage());
-      }
-    } catch (Exception e){
-      new ExceptionHelper(e);
+    switch (gameMode){
+      case LIVES:
+        break;
+      case HEALTH:
+        GameOver go = null;
+        try {
+          if (player1.healthProperty().get() == 0) {
+            go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
+            mainStage.close();
+            this.stop();
+            go.start(new Stage());
+          }
+          else if (player2.healthProperty().get() == 0) {
+            go = new GameOver(player1.getName(), (int) player1.healthProperty().get());
+            mainStage.close();
+            this.stop();
+            go.start(new Stage());
+          }
+        } catch (Exception e){
+          new ExceptionHelper(e);
+        }
+        break;
     }
   }
 }
