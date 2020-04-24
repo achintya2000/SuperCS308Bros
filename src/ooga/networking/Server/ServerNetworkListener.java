@@ -11,7 +11,6 @@ import ooga.networking.Packets;
 public class ServerNetworkListener extends Listener {
 
     private GameView gameView;
-    private Server server;
 
     private BooleanProperty SERVER_LEFT_PRESSED = new SimpleBooleanProperty();
     private BooleanProperty SERVER_RIGHT_PRESSED = new SimpleBooleanProperty();
@@ -19,8 +18,7 @@ public class ServerNetworkListener extends Listener {
     private BooleanProperty SERVER_JUMP_PRESSED = new SimpleBooleanProperty();
     private BooleanProperty SERVER_ATTACK_PRESSED = new SimpleBooleanProperty();
 
-    public ServerNetworkListener(Server s, GameView gv) {
-        this.server = s;
+    public ServerNetworkListener(GameView gv) {
         this.gameView = gv;
         SERVER_LEFT_PRESSED.bindBidirectional(gv.getPlayer2LeftProp());
         SERVER_RIGHT_PRESSED.bindBidirectional(gv.getPlayer2RightProp());
