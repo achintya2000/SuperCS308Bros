@@ -28,7 +28,7 @@ public class MPServer {
     this.gameView = gv;
 
     server = new Server(1024*1024, 1024*1024);
-    serverNetworkListener = new ServerNetworkListener(gameView);
+    serverNetworkListener = new ServerNetworkListener(server, gameView);
 
     server.addListener(serverNetworkListener);
 
@@ -40,7 +40,7 @@ public class MPServer {
 
     registerPackets();
 
-    server.start();
+    new Thread(server).start();
   }
 
   private void registerPackets() {

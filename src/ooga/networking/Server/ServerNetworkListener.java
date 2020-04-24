@@ -12,6 +12,7 @@ import ooga.networking.Packets;
 public class ServerNetworkListener extends Listener {
 
     private GameView gameView;
+    private Server server;
 
     private BooleanProperty LEFT_PRESSED = new SimpleBooleanProperty();
     private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
@@ -19,7 +20,8 @@ public class ServerNetworkListener extends Listener {
     private BooleanProperty DOWN_PRESSED = new SimpleBooleanProperty();
     private BooleanProperty L_PRESSED = new SimpleBooleanProperty();
 
-    public ServerNetworkListener(GameView gv) {
+    public ServerNetworkListener(Server s, GameView gv) {
+        this.server = s;
         this.gameView = gv;
         LEFT_PRESSED.bindBidirectional(gv.LEFT_PRESSEDProperty());
         RIGHT_PRESSED.bindBidirectional(gv.RIGHT_PRESSEDProperty());
@@ -29,6 +31,10 @@ public class ServerNetworkListener extends Listener {
     public void connected(Connection c) {
         System.out.println("Someone has connected");
 
+        Packets.packet01Message packet01Message = new Packets.packet01Message();
+        packet01Message.message = "YOTE";
+
+        c.sendTCP(packet01Message);
     }
 
     @Override

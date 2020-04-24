@@ -44,6 +44,9 @@ public class ClientNetworkListener extends Listener {
 
     @Override
     public void received(Connection c, Object o) {
+
+        System.out.println("YEETICUS");
+
         if (o instanceof Packets.packet01Message) {
             Packets.packet01Message packet01Message = (Packets.packet01Message) o;
 
@@ -54,7 +57,7 @@ public class ClientNetworkListener extends Listener {
 
     private void sendDataToServer() {
 
-        while (true) {
+        //while (true) {
             // Create something to sent
             //Packets.packet01Message message = new Packets.packet01Message();
             //message.message = "Hello server. YEETICUS";
@@ -62,10 +65,16 @@ public class ClientNetworkListener extends Listener {
 
             // Create another thing to send
 
+            A_PRESSED.addListener((observable, oldValue, newValue) -> {
+                
+                Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
+                leftData.leftPressed = A_PRESSED.get();
+                client.sendTCP(leftData);
+            });
+
             Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
             leftData.leftPressed = A_PRESSED.get();
             client.sendTCP(leftData);
-
 
             Packets.packetRightPressed rightData = new Packets.packetRightPressed();
             rightData.rightPressed = D_PRESSED.get();
@@ -88,7 +97,7 @@ public class ClientNetworkListener extends Listener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        //}
     }
 
 }
