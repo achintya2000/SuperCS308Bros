@@ -27,13 +27,13 @@ public class MPServer {
 
     this.gameView = gv;
 
-    server = new Server(1024*1024, 1024*1024);
+    server = new Server();
     serverNetworkListener = new ServerNetworkListener(gameView);
 
     server.addListener(serverNetworkListener);
 
     try {
-      server.bind(tcpPort, udpPort);
+      server.bind(tcpPort);
     } catch (IOException e) {
       new ExceptionHelper(e);
     }

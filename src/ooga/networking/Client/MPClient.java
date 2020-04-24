@@ -30,7 +30,7 @@ public class MPClient {
     new Thread(client).start();
 
     try {
-      client.connect(5000, ipAddress, tcpPort, udpPort);
+      client.connect(5000, ipAddress, tcpPort);
     } catch (Exception e) {
       new ExceptionHelper(e);
     }

@@ -2,7 +2,6 @@ package ooga.View;
 
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Controller.ControllerInternal;
@@ -97,14 +96,6 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
     }
     if (gv.W_PRESSEDProperty().get()) {
       player1.jump();
-    }
-    if (gv.T_PRESSEDProperty().get()) {
-      player1.attack();
-      if (player1.getHitBox().getBoundsInParent()
-              .intersects(player2.getHurtBox().getBoundsInParent())) {
-        player2.getHurtBox().setStroke(Color.RED);
-        player2.setHEALTH(player2.getHEALTH() - 10);
-      }
     }
   }
 
