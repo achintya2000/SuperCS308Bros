@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Controller.KeyBindManager;
+import ooga.Controller.KeyBindingController;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
@@ -115,7 +116,7 @@ public class GameView extends Application implements ViewInternal {
     mainStage = primaryStage;
     scene = new Scene(root, 1200, 800);
 
-    setKeyBinds();
+    new KeyBindingController(this, scene, player1, player2);
 
     primaryStage.setTitle("FIGHT!");
     primaryStage.setScene(scene);
