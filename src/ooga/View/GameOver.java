@@ -11,6 +11,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ooga.Exceptions.ExceptionHelper;
 
+import java.io.IOException;
+
 public class GameOver extends Application {
   private String winner;
   private int remainingHealth;
@@ -37,7 +39,13 @@ public class GameOver extends Application {
     mainBox.getChildren().addAll(gameOver, whoWon, healthLeft);
 
     Button restart = new Button("Restart");
-    restart.setOnAction(e -> restart());
+    restart.setOnAction(e -> {
+      try {
+        restart();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    });
 
     Button quit = new Button("Quit");
     quit.setOnAction(e -> quit());
@@ -50,7 +58,7 @@ public class GameOver extends Application {
     exit();
   }
 
-  private void restart(){
+  private void restart() throws IOException {
     StageSelect stageSelect = new StageSelect();
     stageSelect.start(new Stage());
     try{

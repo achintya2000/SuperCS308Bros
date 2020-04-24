@@ -18,6 +18,7 @@ import javax.sound.midi.SysexMessage;
 import ooga.Controller.MusicManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 import static javafx.geometry.Pos.BOTTOM_CENTER;
@@ -26,11 +27,10 @@ import static javafx.geometry.Pos.CENTER;
 public class Home extends Application {
 
   private Stage currentStage;
-  public static final ResourceBundle buttonStyles = ResourceBundle
-          .getBundle("ooga.Resources.stylesheets.buttonStyle");
 
   @Override
   public void start(Stage primaryStage) {
+    System.out.println();
     Scene homeScreen = new Scene(makeGridPane());
     primaryStage.setScene(homeScreen);
     primaryStage.setHeight(800);
@@ -63,7 +63,13 @@ public class Home extends Application {
     buttonHolder.getChildren().addAll(playLocal,playOnline);
     buttonHolder.setAlignment(BOTTOM_CENTER);
 
-    playLocal.setOnAction(e -> localPlay());
+    playLocal.setOnAction(e -> {
+      try {
+        localPlay();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    });
     playOnline.setOnAction(e -> onlinePlay());
 
     myGP.setCenter(buttonHolder);
@@ -72,7 +78,7 @@ public class Home extends Application {
   }
 
 
-  private void localPlay() {
+  private void localPlay() throws IOException {
     currentStage.hide();
     new StageSelect().start(new Stage());
   }

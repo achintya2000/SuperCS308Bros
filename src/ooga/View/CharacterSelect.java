@@ -16,6 +16,7 @@ import ooga.Model.Characters.Ghost;
 import ooga.Model.Player;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -32,7 +33,7 @@ public class CharacterSelect{
       .getBundle("ooga.Resources.stylesheets.buttonStyle");
 
   private Scene currentScene;
-  private BorderPane borderPane;
+  private BorderPane borderPane = new BorderPane();
   private BorderPane playerViewBox1;
   private BorderPane playerViewBox2;
 
@@ -43,8 +44,6 @@ public class CharacterSelect{
   private Label player2ViewBoxPic;
   private BorderPane centerElements;
   private Insets inset = new Insets(10);
-  //  private boolean p1IsReady = false;
-//  private boolean p2IsReady = false;
   private Stage currentStage;
 
   private ArrayList<AbstractCharacter> characterList = new ArrayList<>();
@@ -187,18 +186,16 @@ public class CharacterSelect{
   }
 
   private BorderPane makeBorderPane() throws IOException {
-    BorderPane myborderPane = new BorderPane();
     VBox header = new VBox();
     header.setAlignment(CENTER);
     HBox toolbar = new HBox();
     toolbar.setSpacing(10);
     toolbar.setAlignment(TOP_CENTER);
     header.getChildren().add(toolbar);
-    borderPane = myborderPane;
 
     HashMap<String, String> buttonMap = new HashMap<>();
     Properties props = new Properties();
-    props.load(Home.class.getResourceAsStream("charSelect_buttons.properties"));
+    props.load(new FileReader("data/buttons/toolbar.properties"));
     for (String s : props.stringPropertyNames()) {
       buttonMap.put(s, props.getProperty(s));
     }
