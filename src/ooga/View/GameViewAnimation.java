@@ -94,6 +94,9 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
     if (gv.DOWN_PRESSEDProperty().get()) {
       player2.setCenterY(player2.getHurtBox().getY() + 3);
     }
+    if (gv.W_PRESSEDProperty().get()) {
+      player1.jump();
+    }
   }
 
   @Override

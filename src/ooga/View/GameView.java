@@ -62,8 +62,12 @@ public class GameView extends Application implements ViewInternal {
   }
 
 
-  //private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
   //private BooleanProperty UP_PRESSED = new SimpleBooleanProperty();
+
+  public BooleanProperty W_PRESSEDProperty() {
+    return W_PRESSED;
+  }
 
   //private BooleanProperty T_PRESSED = new SimpleBooleanProperty();
   //private BooleanProperty L_PRESSED = new SimpleBooleanProperty();
@@ -120,7 +124,7 @@ public class GameView extends Application implements ViewInternal {
 
     new KeyBindingController(this, scene, player1, player2);
 
-    boolean server = false;
+    boolean server = true;
 
     if (server) {
       new MPServer(this);
