@@ -100,6 +100,7 @@ public class GameView extends Application implements ViewInternal {
     root.getChildren().add(healthBar1);
     root.getChildren().add(healthBar2);
 
+
     if(gameMode.equals("LIVES")){
       Text stonkBar1 = new Text(100, 200, String.valueOf(player1.STONKSProperty().get()));
       Text stonkBar2 = new Text(900, 200, String.valueOf(player2.STONKSProperty().get()));
