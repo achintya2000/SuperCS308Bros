@@ -24,6 +24,14 @@ public class Packets {
         public boolean attackPressed;
     }
 
+    public static class packetClientCharacterSelected {
+        public String characterName;
+    }
+
+    public static class packetServerStageSelected {
+        public String stageName;
+    }
+
     public static class packetEndGame { public boolean endGame; }
 
 }
