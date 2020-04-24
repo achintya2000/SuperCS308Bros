@@ -40,7 +40,6 @@ public class KeyBindManager {
 
     try (FileWriter fileWriter = new FileWriter("data/keybindings/player1.json")) {
       fileWriter.write(jsonObject.toString());
-      //resetPlayer1KeyBinds();
     } catch (IOException e) {
       new ExceptionHelper(e);
     }
@@ -58,7 +57,6 @@ public class KeyBindManager {
 
     try (FileWriter fileWriter = new FileWriter("data/keybindings/player2.json")) {
       fileWriter.write(jsonObject.toString());
-      //resetPlayer2KeyBinds();
     } catch (IOException e) {
       new ExceptionHelper(e);
     }
@@ -112,19 +110,4 @@ public class KeyBindManager {
     return player2KeyBinds.get("special").toString();
   }
 
-//    private void resetPlayer1KeyBinds() {
-//        try {
-//            player1KeyBinds = (JSONObject) jsonParser.parse(new FileReader("data/keybindings/player1.json"));
-//        } catch (ParseException | IOException e) {
-//            new ExceptionHelper(e);
-//        }
-//    }
-//
-//    private void resetPlayer2KeyBinds() {
-//        try {
-//            player2KeyBinds = (JSONObject) jsonParser.parse(new FileReader("data/keybindings/player2.json"));
-//        } catch (ParseException | IOException e) {
-//            new ExceptionHelper(e);
-//        }
-//    }
 }

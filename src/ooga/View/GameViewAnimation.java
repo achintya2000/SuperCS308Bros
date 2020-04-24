@@ -97,7 +97,6 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
     if (gv.getPlayer1JumpProp().get() && !player1.getBOTTOM_COLLIDE()){
       player1.jump();
     }
-
     if (gv.getPlayer1RightProp().get() && !player1.getLEFT_COLLIDE()){
       player1.moveRight();
     }
