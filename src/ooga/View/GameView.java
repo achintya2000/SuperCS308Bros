@@ -2,8 +2,12 @@ package ooga.View;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -11,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import ooga.Controller.Controller;
 import ooga.Controller.GameMode;
 import ooga.Controller.KeyBindingController;
@@ -98,13 +103,12 @@ public class GameView extends Application implements ViewInternal {
     if(gameMode.equals("LIVES")){
       Text stonkBar1 = new Text(100, 200, String.valueOf(player1.STONKSProperty().get()));
       Text stonkBar2 = new Text(900, 200, String.valueOf(player2.STONKSProperty().get()));
-      healthBar1.setFill(Color.GREEN);
-      healthBar2.setFill(Color.GREEN);
-      stonkBar1.textProperty().bind(new SimpleStringProperty(String.valueOf(player1.STONKSProperty().get())));
-      stonkBar2.textProperty().bind(new SimpleStringProperty(String.valueOf(player2.STONKSProperty().get())));
+      stonkBar1.setStyle("-fx-font-size: 20");
+      stonkBar2.setStyle("-fx-font-size: 20");
+      Bindings.bindBidirectional(stonkBar1.textProperty(), player1.STONKSProperty(), new CustomStringConverter());
+      Bindings.bindBidirectional(stonkBar2.textProperty(), player2.STONKSProperty(), new CustomStringConverter());
       root.getChildren().add(stonkBar1);
       root.getChildren().add(stonkBar2);
-      root.getChildren().add(new Rectangle(100, 100, 2000,2000));
     }
   }
 
@@ -174,4 +178,16 @@ public class GameView extends Application implements ViewInternal {
     return PLAYER_2_ATTACK_PRESSED;
   }
 
+  class CustomStringConverter extends StringConverter<Number>{
+
+    @Override
+    public String toString(Number object) {
+      return String.valueOf(object);
+    }
+
+    @Override
+    public Number fromString(String string) {
+      return Integer.valueOf(string);
+    }
+  }
 }
