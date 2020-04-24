@@ -70,16 +70,16 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   }
 
   private void checkKeys() {
-    if (gv.isD_PRESSED() && !player1.getLEFT_COLLIDE()){
+    if (gv.d_PRESSEDProperty().get() && !player1.getLEFT_COLLIDE()){
       player1.moveRight();
     }
-    if (gv.isA_PRESSED() && !player1.getRIGHT_COLLIDE()) {
+    if (gv.a_PRESSEDProperty().get() && !player1.getRIGHT_COLLIDE()) {
       player1.moveLeft();
     }
-    if (gv.isLEFT_PRESSED() && !player2.getRIGHT_COLLIDE()) {
+    if (gv.LEFT_PRESSEDProperty().get() && !player2.getRIGHT_COLLIDE()) {
       player2.moveLeft();
     }
-    if (gv.isRIGHT_PRESSED() && !player2.getLEFT_COLLIDE()) {
+    if (gv.RIGHT_PRESSEDProperty().get() && !player2.getLEFT_COLLIDE()) {
       player2.moveRight();
     }
 //    if (T_PRESSED.get()) {
@@ -88,10 +88,10 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
 //    if (L_PRESSED.get()) {
 //      bunny2.attack();
 //    }
-    if (gv.isS_PRESSED()) {
+    if (gv.s_PRESSEDProperty().get()) {
       player1.setCenterY(player1.getHurtBox().getY() + 3);
     }
-    if (gv.isDOWN_PRESSED()) {
+    if (gv.DOWN_PRESSEDProperty().get()) {
       player2.setCenterY(player2.getHurtBox().getY() + 3);
     }
   }

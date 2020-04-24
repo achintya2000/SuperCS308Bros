@@ -30,34 +30,34 @@ public class GameView extends Application implements ViewInternal {
   private BooleanProperty A_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty D_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty LEFT_PRESSED = new SimpleBooleanProperty();
-
-  public boolean isA_PRESSED() {
-    return A_PRESSED.get();
-  }
-
-  public boolean isD_PRESSED() {
-    return D_PRESSED.get();
-  }
-
-  public boolean isLEFT_PRESSED() {
-    return LEFT_PRESSED.get();
-  }
-
-  public boolean isRIGHT_PRESSED() {
-    return RIGHT_PRESSED.get();
-  }
-
-  public boolean isS_PRESSED() {
-    return S_PRESSED.get();
-  }
-
-  public boolean isDOWN_PRESSED() {
-    return DOWN_PRESSED.get();
-  }
-
   private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty S_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty DOWN_PRESSED = new SimpleBooleanProperty();
+
+  public BooleanProperty a_PRESSEDProperty() {
+    return A_PRESSED;
+  }
+
+  public BooleanProperty d_PRESSEDProperty() {
+    return D_PRESSED;
+  }
+
+  public BooleanProperty LEFT_PRESSEDProperty() {
+    return LEFT_PRESSED;
+  }
+
+  public BooleanProperty RIGHT_PRESSEDProperty() {
+    return RIGHT_PRESSED;
+  }
+
+  public BooleanProperty s_PRESSEDProperty() {
+    return S_PRESSED;
+  }
+
+  public BooleanProperty DOWN_PRESSEDProperty() {
+    return DOWN_PRESSED;
+  }
+
 
   //private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
   //private BooleanProperty UP_PRESSED = new SimpleBooleanProperty();
