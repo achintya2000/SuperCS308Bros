@@ -5,19 +5,16 @@ import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import ooga.Controller.KeyBindManager;
 import ooga.Controller.KeyBindingController;
-import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
 
 import java.util.ArrayList;
-import ooga.Model.Stages.Platform;
+import ooga.Model.StageClasses.Platform;
 import ooga.networking.Client.MPClient;
 import ooga.networking.Server.MPServer;
 
@@ -99,7 +96,7 @@ public class GameView extends Application implements ViewInternal {
   }
 
 
-  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage) {
+  public GameView(ArrayList playerlist, Pane root, ooga.Model.StageClasses.Stage chosenStage) {
     this.playerList = playerlist;
     this.root = root;
     player1 = playerList.get(0).getMyCharacter();

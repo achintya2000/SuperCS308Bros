@@ -1,4 +1,4 @@
-package ooga.Model.Stages;
+package ooga.Model.StageClasses;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import ooga.Exceptions.ExceptionHelper;
 
 public class StageBuilder extends Stage {

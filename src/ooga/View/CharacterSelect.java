@@ -1,15 +1,12 @@
 package ooga.View;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ooga.Controller.KeyBindManager;
 import ooga.Exceptions.ExceptionHelper;
@@ -57,7 +54,7 @@ public class CharacterSelect{
   private ArrayList<Player> playerList = new ArrayList<>();
   private int currentPlayer = 1;
   private Group root = new Group();
-  private ooga.Model.Stages.Stage chosenStage;
+  private ooga.Model.StageClasses.Stage chosenStage;
 
   public CharacterSelect(Stage primaryStage) {
   }
@@ -68,7 +65,7 @@ public class CharacterSelect{
     new SettingsPopUp();
   }
 
-  public CharacterSelect(ooga.Model.Stages.Stage chosenStage) {
+  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage) {
     this.chosenStage = chosenStage;
   }
 

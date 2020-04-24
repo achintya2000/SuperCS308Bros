@@ -1,4 +1,4 @@
-package ooga.Model.Stages;
+package ooga.Model.StageClasses;
 
 import static org.junit.jupiter.api.Assertions.*;
 

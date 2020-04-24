@@ -9,7 +9,7 @@ import ooga.Controller.ControllerInternal;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
-import ooga.Model.Stages.Platform;
+import ooga.Model.StageClasses.Platform;
 
 public class GameViewAnimation extends AnimationTimer implements ControllerInternal {
 

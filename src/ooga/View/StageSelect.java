@@ -1,23 +1,19 @@
 package ooga.View;
 
-import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import ooga.Exceptions.ExceptionHelper;
-import ooga.Model.Player;
-import ooga.Model.Stages.StageBuilder;
+import ooga.Model.StageClasses.StageBuilder;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
@@ -25,7 +21,7 @@ import java.util.ResourceBundle;
 
 import static javafx.geometry.Pos.*;
 
-public class StageSelect extends Application implements ViewInternal {
+public class StageSelect{
 
   public static final ResourceBundle buttonStyles = ResourceBundle
       .getBundle("ooga.Resources.stylesheets.buttonStyle");
@@ -33,26 +29,11 @@ public class StageSelect extends Application implements ViewInternal {
   private BorderPane borderPane;
   private Button go;
   private Stage currentStage;
-  private ooga.Model.Stages.Stage chosenStage;
+  private ooga.Model.StageClasses.Stage chosenStage;
 
-  private ArrayList<ooga.Model.Stages.Stage> stageList = new ArrayList<>();
+  private ArrayList<ooga.Model.StageClasses.Stage> stageList = new ArrayList<>();
   private ArrayList<Button> buttonList = new ArrayList<>();
   private Group root = new Group();
-
-
-  @Override
-  public void resetGame() {
-
-  }
-
-  @Override
-  public void setCharacter() {
-
-  }
-
-  @Override
-  public void setStage() {
-  }
 
   public void settings()
   {
@@ -60,15 +41,18 @@ public class StageSelect extends Application implements ViewInternal {
   }
 
   public void initStages() throws FileNotFoundException {
-    StageBuilder battlefield = new StageBuilder("battlefield.properties");
-    StageBuilder fd = new StageBuilder("finalDestination.properties");
-    StageBuilder bridge = new StageBuilder("bridgeOfEldin.properties");
-    StageBuilder norfair = new StageBuilder("norfair.properties");
-
-    stageList.add(battlefield);
-    stageList.add(fd);
-    stageList.add(bridge);
-    stageList.add(norfair);
+    File dir = new File("src/ooga/Model/StageClasses/Stages");
+    System.out.println(dir.getAbsolutePath());
+    File[] directoryListing = dir.listFiles();
+    if (directoryListing != null) {
+      for (File child : directoryListing) {
+        // Do something with child
+        System.out.println(child.getName());
+        StageBuilder stage = new StageBuilder("Stages/"+child.getName());
+        stageList.add(stage);
+      }
+    }
+    
     GridPane charGrid = new GridPane();
     charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
     charGrid.setGridLinesVisible(true);
@@ -80,7 +64,7 @@ public class StageSelect extends Application implements ViewInternal {
     int colCount = 0;
     int rowCount = 0;
     int colThresh = 8;
-    for (ooga.Model.Stages.Stage stage : stageList) {
+    for (ooga.Model.StageClasses.Stage stage : stageList) {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
         chosenStage = stage;
@@ -162,7 +146,6 @@ public class StageSelect extends Application implements ViewInternal {
     return borderPane;
   }
 
-  @Override
   public void start(Stage primaryStage) {
     try {
       Scene selectScene = new Scene(makeBorderPane());
