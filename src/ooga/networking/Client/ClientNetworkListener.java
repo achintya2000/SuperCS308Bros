@@ -45,12 +45,20 @@ public class ClientNetworkListener extends Listener {
     @Override
     public void received(Connection c, Object o) {
 
-        System.out.println("YEETICUS");
-
         if (o instanceof Packets.packet01Message) {
             Packets.packet01Message packet01Message = (Packets.packet01Message) o;
 
             System.out.println("[SERVER} >> " + packet01Message.message);
+        }
+
+        if (o instanceof Packets.packetLeftPressed) {
+            Packets.packetLeftPressed packetLeftPressed = (Packets.packetLeftPressed) o;
+            gameView.LEFT_PRESSEDProperty().set(packetLeftPressed.leftPressed);
+        }
+
+        if (o instanceof Packets.packetRightPressed) {
+            Packets.packetRightPressed packetRightPressed = (Packets.packetRightPressed) o;
+            gameView.RIGHT_PRESSEDProperty().set(packetRightPressed.rightPressed);
         }
 
     }

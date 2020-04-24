@@ -5,6 +5,8 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.View.GameView;
 import ooga.networking.Packets;
@@ -31,10 +33,23 @@ public class ServerNetworkListener extends Listener {
     public void connected(Connection c) {
         System.out.println("Someone has connected");
 
-        Packets.packet01Message packet01Message = new Packets.packet01Message();
-        packet01Message.message = "YOTE";
+        LEFT_PRESSED.addListener((observable, oldValue, newValue) -> {
+            System.out.println("YEETICUS");
+            Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
+            leftData.leftPressed = LEFT_PRESSED.get();
+            c.sendTCP(leftData);
+        });
 
-        c.sendTCP(packet01Message);
+        RIGHT_PRESSED.addListener((observable, oldValue, newValue) -> {
+            Packets.packetRightPressed rightData = new Packets.packetRightPressed();
+            rightData.rightPressed = RIGHT_PRESSED.get();
+            c.sendTCP(rightData);
+        });
+
+//        Packets.packet01Message packet01Message = new Packets.packet01Message();
+//        packet01Message.message = "YOTE";
+//
+//        c.sendTCP(packet01Message);
     }
 
     @Override
