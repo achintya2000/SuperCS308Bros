@@ -29,10 +29,11 @@ import java.util.ResourceBundle;
 
 import static javafx.geometry.Pos.*;
 
-public class CharacterSelect extends Application implements ViewInternal {
+public class CharacterSelect{
 
   public static final ResourceBundle buttonStyles = ResourceBundle
       .getBundle("ooga.Resources.stylesheets.buttonStyle");
+
   private Scene currentScene;
   private BorderPane borderPane;
   private BorderPane playerViewBox1;
@@ -61,20 +62,6 @@ public class CharacterSelect extends Application implements ViewInternal {
   public CharacterSelect(Stage primaryStage) {
   }
 
-
-  @Override
-  public void resetGame() {
-
-  }
-
-  @Override
-  public void setCharacter() {
-
-  }
-
-  @Override
-  public void setStage() {
-  }
 
   public void settings()
   {
@@ -289,7 +276,6 @@ public class CharacterSelect extends Application implements ViewInternal {
     return borderPane;
   }
 
-  @Override
   public void start(Stage primaryStage) {
     try {
 
