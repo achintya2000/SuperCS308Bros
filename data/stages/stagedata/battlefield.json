@@ -1,0 +1,50 @@
+{
+  "gameImage": "data/stages/Battlefield.png",
+  "rectangles" : [
+    {
+      "xPos": 225,
+      "yPos": 325,
+      "width": 750,
+      "height": 50,
+      "hollow": false
+    },
+    {
+      "xPos": 318,
+      "yPos": 209,
+      "width": 175,
+      "height": 25,
+      "hollow": false
+    },
+    {
+      "xPos": 514,
+      "yPos": 94,
+      "width": 175,
+      "height": 25,
+      "hollow": false
+    },
+    {
+      "xPos": 709,
+      "yPos": 209,
+      "width": 175,
+      "height": 25,
+      "hollow": false
+    },
+    {
+      "xPos": 200,
+      "yPos": 600,
+      "width": 1000,
+      "height": 100,
+      "hollow": false
+    }
+  ],
+  "spawns": [
+    {
+      "xPos": 275,
+      "yPos": 325
+    },
+    {
+      "xPos": 900,
+      "yPos": 325
+    }
+  ]
+}
