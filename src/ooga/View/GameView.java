@@ -67,9 +67,10 @@ public class GameView extends Application implements ViewInternal {
   }
 
 
-  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage) {
+  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage, GameMode gameMode) {
     this.playerList = playerlist;
     this.root = root;
+    this.gameMode = gameMode;
     player1 = playerList.get(0).getMyCharacter();
     player1.setCenterX(chosenStage.getSpawnCoordinates().get(0).get(0));
     player1.setCenterY(chosenStage.getSpawnCoordinates().get(0).get(1) - 100);
@@ -112,7 +113,7 @@ public class GameView extends Application implements ViewInternal {
     primaryStage.setScene(scene);
     primaryStage.show();
 
-    AnimationTimer animationTimer = new GameViewAnimation(this, playerList, platforms, mainStage);
+    AnimationTimer animationTimer = new GameViewAnimation(this, playerList, platforms, mainStage, gameMode);
     animationTimer.start();
 
   }
