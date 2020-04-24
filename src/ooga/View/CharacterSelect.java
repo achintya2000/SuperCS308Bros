@@ -109,6 +109,7 @@ public class CharacterSelect extends Application implements ViewInternal {
     int colCount = 0;
     int rowCount = 0;
     int colThresh = 8;
+    boolean a = (1 == 2);
     for (AbstractCharacter character : characterList) {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
