@@ -118,7 +118,8 @@ public class StageSelect extends AbstractSelectScreen{
     go.setId("#GoButton");
   }
 
-  public void start(Stage primaryStage) throws IOException {
+  @Override
+  public void start(Stage primaryStage){
     try {
       Scene selectScene = new Scene(integrateBorderPane());
       currentStage = primaryStage;

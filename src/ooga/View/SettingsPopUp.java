@@ -21,12 +21,10 @@ public class SettingsPopUp{
     Stage settings=new Stage();
     settings.initModality(Modality.APPLICATION_MODAL);
     settings.setTitle("Settings");
-
     Label settingsText= new Label("Settings");
     Button buttonConfig= new Button("Button Configuration");
     Button uiTheme = new Button("UI THEME");
     Button close = new Button("Close this pop up window");
-
     close.setOnAction(e -> settings.close());
     buttonConfig.setOnAction(e -> new ButtonsConfigPopUp(prop));
 
@@ -35,9 +33,7 @@ public class SettingsPopUp{
     layout.setAlignment(Pos.CENTER);
 
     Scene settingsScene= new Scene(layout, 300, 250);
-
     settings.setScene(settingsScene);
-
     settings.showAndWait();
   }
 }

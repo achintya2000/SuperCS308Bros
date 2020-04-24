@@ -39,6 +39,13 @@ public class CharacterSelect extends AbstractSelectScreen{
 
   private Label player1ViewBoxPic;
   private Label player2ViewBoxPic;
+
+  private VBox picAndName1;
+  private VBox picAndName2;
+
+  private Button player1Text;
+  private Button player2Text;
+
   private BorderPane centerElements;
   private Insets inset = new Insets(10);
   private Stage currentStage;
@@ -55,7 +62,6 @@ public class CharacterSelect extends AbstractSelectScreen{
   public CharacterSelect(Stage primaryStage) throws IOException {
     super();
   }
-
 
   public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage) throws IOException {
     super();
@@ -162,6 +168,10 @@ public class CharacterSelect extends AbstractSelectScreen{
       }
     }
     System.out.println("CREATING READY TO FIGHT BUTTON");
+    createReadyToFightButton();
+  }
+
+  private void createReadyToFightButton() {
     Button readyToFight = new Button();
     BackgroundImage backgroundImage = new BackgroundImage(
         new Image(getClass().getResource("/ReadytoFightButton.png").toExternalForm()),
@@ -176,63 +186,72 @@ public class CharacterSelect extends AbstractSelectScreen{
     readyToFight.setOnMouseClicked((e) -> {
       createGame();
     });
-
   }
 
   private BorderPane makeBorderPane() throws IOException {
     VBox header = createToolbar();
-
-    char1NameText = new Label();
-    char2NameText = new Label();
-    VBox picAndName1 = new VBox(10);
-    VBox picAndName2 = new VBox(10);
-    player1ViewBoxPic = new Label();
-    player2ViewBoxPic = new Label();
-    picAndName1.getChildren().addAll(player1ViewBoxPic, char1NameText);
-    picAndName2.getChildren().addAll(player2ViewBoxPic, char2NameText);
-    picAndName1.setAlignment(CENTER);
-    picAndName2.setAlignment(CENTER);
-
     borderPane.setTop(header);
-    playerViewBox1 = new BorderPane();
+
+    createViewBox1();
+    createViewBox2();
+
+    setupBorderPane();
+    return borderPane;
+  }
+
+  private void createViewBox2() {
+    char2NameText = new Label();
+    picAndName2 = new VBox(10);
+    player2ViewBoxPic = new Label();
+    picAndName2.getChildren().addAll(player2ViewBoxPic, char2NameText);
+    picAndName2.setAlignment(CENTER);
     playerViewBox2 = new BorderPane();
-    playerViewBox1.setMinWidth(300);
     playerViewBox2.setMinWidth(300);
-    playerViewBox1.setMinHeight(300);
     playerViewBox2.setMinHeight(300);
-    Button player1Text = new Button("PLAYER 1");
+    player2Text = new Button("PLAYER 2");
+    player2Text.setMinWidth(300);
+    player2Text.setMinHeight(100);
+    player2Text.setStyle(prop.getProperty("playerText"));
+    player2Text.setOnMouseClicked((e) -> {
+      p2Ready();
+    });
+    playerViewBox2.setStyle("-fx-background-color: rgba(0, 0, 230, 0.7)");
+    playerViewBox2.setCenter(picAndName2);
+    playerViewBox2.setBottom(player2Text);
+  }
+
+  private void createViewBox1() {
+    char1NameText = new Label();
+    picAndName1 = new VBox(10);
+    player1ViewBoxPic = new Label();
+    picAndName1.getChildren().addAll(player1ViewBoxPic, char1NameText);
+    picAndName1.setAlignment(CENTER);
+    playerViewBox1 = new BorderPane();
+    playerViewBox1.setMinWidth(300);
+    playerViewBox1.setMinHeight(300);
+    player1Text = new Button("PLAYER 1");
     player1Text.setStyle(prop.getProperty("playerText"));
     player1Text.setMinWidth(300);
     player1Text.setMinHeight(100);
     player1Text.setOnMouseClicked((e) -> {
       p1Ready();
     });
-
-    Button player2Text = new Button("PLAYER 2");
-    player2Text.setOnMouseClicked((e) -> {
-      p2Ready();
-    });
-    player2Text.setMinWidth(300);
-    player2Text.setMinHeight(100);
-    player2Text.setStyle(prop.getProperty("playerText"));
-
     playerViewBox1.setStyle("-fx-background-color: rgba(230, 0, 0, 0.7)");
-    playerViewBox2.setStyle("-fx-background-color: rgba(0, 0, 230, 0.7)");
     playerViewBox1.setCenter(picAndName1);
-    playerViewBox2.setCenter(picAndName2);
     playerViewBox1.setBottom(player1Text);
-    playerViewBox2.setBottom(player2Text);
+  }
+
+  private void setupBorderPane() {
     centerElements = new BorderPane();
     HBox bottomOverlays = new HBox();
     bottomOverlays.setAlignment(CENTER);
     centerElements.setBottom(bottomOverlays);
     centerElements.setMargin(bottomOverlays, inset);
-    //bottomOverlays.setAlignment(BOTTOM_CENTER);
     bottomOverlays.getChildren().addAll(playerViewBox1, playerViewBox2);
     borderPane.setBottom(centerElements);
-    return borderPane;
   }
 
+  @Override
   public void start(Stage primaryStage) {
     try {
 

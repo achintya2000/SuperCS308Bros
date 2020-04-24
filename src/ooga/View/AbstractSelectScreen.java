@@ -3,6 +3,7 @@ package ooga.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -65,4 +66,6 @@ public abstract class AbstractSelectScreen {
     {
         new SettingsPopUp(prop);
     }
+
+    public abstract void start(Stage PrimaryStage);
 }
