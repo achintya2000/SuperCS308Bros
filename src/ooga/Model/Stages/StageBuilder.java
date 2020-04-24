@@ -29,7 +29,6 @@ public class StageBuilder extends Stage {
 
       background = new Image(new FileInputStream(stageProperties.get("gameImage").toString()));
 
-      System.out.println(stageProperties.get("rectangles"));
       rectangles = (JSONArray) stageProperties.get("rectangles");
       spawns = (JSONArray) stageProperties.get("spawns");
 
