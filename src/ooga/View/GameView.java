@@ -92,8 +92,8 @@ public class GameView extends Application implements ViewInternal {
   public void start(Stage primaryStage) {
     mainStage = primaryStage;
     scene = new Scene(root, 1200, 800);
-    MusicManager.clearMusic();
-    MusicManager.playBattlefieldMusic();
+    //MusicManager.clearMusic();
+    //MusicManager.playBattlefieldMusic();
     new KeyBindingController(this, scene, player1, player2);
 
     boolean server = false;
