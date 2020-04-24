@@ -249,6 +249,11 @@ public class Bunny extends AbstractCharacter {
 
   }
 
+  public void setCenterX(double centerX) {
+    spriteImageView.setX(centerX);
+    hurtBox.setX(centerX);
+  }
+
   public Circle getHitBox() {
     return hitBox;
   }
