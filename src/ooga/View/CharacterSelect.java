@@ -94,8 +94,8 @@ public class CharacterSelect extends Application implements ViewInternal {
     charNameLabelList.add(char1NameText);
     charNameLabelList.add(char2NameText);
 
-    Bunny bunny = new Bunny("bunny", 200, 100);
-    Ghost ghost = new Ghost("ghost", 400, 200);
+    Bunny bunny = new Bunny("bunny");
+    Ghost ghost = new Ghost("ghost");
 
     GridPane charGrid = new GridPane();
     charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
@@ -109,15 +109,16 @@ public class CharacterSelect extends Application implements ViewInternal {
     int colCount = 0;
     int rowCount = 0;
     int colThresh = 8;
+    boolean a = (1 == 2);
     for (AbstractCharacter character : characterList) {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
         try {
           Class<?> cls = Class.forName(character.getClass().getName());
           AbstractCharacter imageCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0]
-              .newInstance(character.getName(), 200, 400);
+              .newInstance(character.getName());
           AbstractCharacter newCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0]
-              .newInstance(character.getName(), 200, 400);
+              .newInstance(character.getName());
 
           playerList.get(currentPlayer - 1).setMyCharacter(newCharacter);
           playerList.get(currentPlayer - 1).setHasChosenChar(true);

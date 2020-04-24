@@ -2,6 +2,7 @@ package ooga.View;
 
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Controller.ControllerInternal;
@@ -42,12 +43,23 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
       character.setRIGHT_COLLIDE(false);
       character.setLEFT_COLLIDE(false);
       character.setHOLLOW_COLLIDE(true);
+      character.setBOTTOM_COLLIDE(false);
 
       for (Platform platform : platforms) {
 
         if (character.getHurtBox().getBoundsInParent().intersects(platform.getBoundsInParent())) {
           character.setINTERSECTS(true);
           character.setHOLLOW_COLLIDE(platform.getHollow());
+
+          if(!platform.getHollow()){
+            if(character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMaxY()){
+              if(character.getHurtBox().getBoundsInParent().getMinY() <  platform.getBoundsInParent().getMaxY())
+              {
+                character.setBOTTOM_COLLIDE(true);
+              }
+            }
+          }
+
           if (character.getHurtBox().getBoundsInParent().getMaxY() > platform.getBoundsInParent().getMinY() + 5) {
             if (character.getHurtBox().getBoundsInParent().getMaxX() > platform.getBoundsInParent().getMaxX()) {
               if (character.getHurtBox().getBoundsInParent().getMinX() < platform.getBoundsInParent().getMaxX()) {
@@ -69,6 +81,11 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   }
 
   private void checkKeys() {
+    System.out.println(player1.getBOTTOM_COLLIDE());
+
+    if (gv.w_PRESSEDProperty().get() && !player1.getBOTTOM_COLLIDE()){
+      player1.jump();
+    }
 
     if (gv.d_PRESSEDProperty().get() && !player1.getLEFT_COLLIDE()){
       player1.moveRight();
@@ -84,10 +101,21 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
     }
 
     if (gv.s_PRESSEDProperty().get() && player1.getHOLLOW_COLLIDE()) {
-      player1.setCenterY(player1.getHurtBox().getY() + 13);
+      player1.setCenterY(player1.getHurtBox().getY() + 15);
     }
     if (gv.DOWN_PRESSEDProperty().get() && player2.getHOLLOW_COLLIDE()) {
-      player2.setCenterY(player2.getHurtBox().getY() + 13);
+      player2.setCenterY(player2.getHurtBox().getY() + 15);
+    }
+    if (gv.W_PRESSEDProperty().get()) {
+      player1.jump();
+    }
+    if (gv.T_PRESSEDProperty().get()) {
+      player1.attack();
+      if (player1.getHitBox().getBoundsInParent()
+              .intersects(player2.getHurtBox().getBoundsInParent())) {
+        player2.getHurtBox().setStroke(Color.RED);
+        player2.setHEALTH(player2.getHEALTH() - 10);
+      }
     }
   }
 

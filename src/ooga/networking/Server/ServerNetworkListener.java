@@ -7,8 +7,10 @@ import ooga.networking.Packets;
 
 public class ServerNetworkListener extends Listener {
 
-    public ServerNetworkListener() {
+    private GameView gameView;
 
+    public ServerNetworkListener(GameView gv) {
+        this.gameView = gv;
     }
 
     @Override
@@ -35,7 +37,11 @@ public class ServerNetworkListener extends Listener {
             Packets.packetUserData packetUserData = (Packets.packetUserData) o;
 
             System.out.println("[CLIENT} >> left pressed?: " + packetUserData.leftPressed);
-
+            gameView.a_PRESSEDProperty().set(packetUserData.leftPressed);
+            gameView.d_PRESSEDProperty().set(packetUserData.rightPressed);
+            gameView.W_PRESSEDProperty().set(packetUserData.jumpPressed);
+            gameView.s_PRESSEDProperty().set(packetUserData.fallPressed);
+            gameView.T_PRESSEDProperty().set(packetUserData.attackPressed);
         }
     }
 

@@ -24,8 +24,8 @@ public abstract class AbstractCharacter {
   private String name;
   private Group charGroup = new Group();
 
-  protected int centerX;
-  protected int centerY;
+  protected double centerX;
+  protected double centerY;
   protected int xSpeed = 10;
 
   /* Image files for character */
@@ -51,6 +51,7 @@ public abstract class AbstractCharacter {
   protected BooleanProperty INTERSECTS = new SimpleBooleanProperty();
   protected SimpleDoubleProperty HEALTH = new SimpleDoubleProperty();
   private BooleanProperty HOLLOW_COLLIDE = new SimpleBooleanProperty();
+  private BooleanProperty BOTTOM_COLLIDE = new SimpleBooleanProperty();
 
 
   public AbstractCharacter(String name) {
@@ -62,6 +63,14 @@ public abstract class AbstractCharacter {
     LEFT_COLLIDE.set(false);
     INTERSECTS.set(false);
     HOLLOW_COLLIDE.set(false);
+  }
+
+  public boolean getBOTTOM_COLLIDE(){
+    return BOTTOM_COLLIDE.get();
+  }
+
+  public void setBOTTOM_COLLIDE(boolean flag){
+    BOTTOM_COLLIDE.set(flag);
   }
 
   public boolean getHOLLOW_COLLIDE(){
@@ -187,6 +196,18 @@ public abstract class AbstractCharacter {
 
   public abstract int getCenterY();
 
-  public abstract void setCenterY(double centerY);
+  public void setCenterY(double y) {
+    centerY = y;
+    spriteImageView.setY(centerY);
+    hurtBox.setY(centerY);
+  }
+
+  public void setCenterX(double x) {
+    centerX = x;
+    spriteImageView.setX(centerX);
+    int width = 50;
+    double newX = centerX + (100 - width) / 2;
+    hurtBox.setX(newX);
+  }
 
 }
