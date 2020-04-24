@@ -32,23 +32,7 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   @Override
   public void handle(long now) {
     for(Player player : playerList) {
-      GameOver go = null;
-      try {
-        if (player1.healthProperty().get() == 0) {
-          go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
-          mainStage.close();
-          this.stop();
-          go.start(new Stage());
-        }
-        else if (player2.healthProperty().get() == 0) {
-          go = new GameOver(player1.getName(), (int) player1.healthProperty().get());
-          mainStage.close();
-          this.stop();
-          go.start(new Stage());
-        }
-      } catch (Exception e){
-        new ExceptionHelper(e);
-      }
+      isGameOver();
       AbstractCharacter character = player.getMyCharacter();
       if (!character.getINTERSECTS() || character.getRIGHT_COLLIDE() || character.getLEFT_COLLIDE()) {
         character.setCenterY(character.getHurtBox().getY() + GRAVITY);
@@ -114,11 +98,27 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
 
   @Override
   public void checkWithinBoundries() {
-    
+
   }
 
   @Override
   public void isGameOver() {
-
+    GameOver go = null;
+    try {
+      if (player1.healthProperty().get() == 0) {
+        go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
+        mainStage.close();
+        this.stop();
+        go.start(new Stage());
+      }
+      else if (player2.healthProperty().get() == 0) {
+        go = new GameOver(player1.getName(), (int) player1.healthProperty().get());
+        mainStage.close();
+        this.stop();
+        go.start(new Stage());
+      }
+    } catch (Exception e){
+      new ExceptionHelper(e);
+    }
   }
 }
