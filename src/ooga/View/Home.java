@@ -49,9 +49,6 @@ public class Home extends Application {
         BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
         BackgroundSize.DEFAULT);
     myGP.setBackground(new Background(homeScreen));
-    myGP.setOnMouseClicked(e -> play());
-
-
 
     Button playLocal = new Button();
     playLocal.setAlignment(Pos.BOTTOM_LEFT);
@@ -66,20 +63,23 @@ public class Home extends Application {
     buttonHolder.getChildren().addAll(playLocal,playOnline);
     buttonHolder.setAlignment(BOTTOM_CENTER);
 
+    playLocal.setOnAction(e -> localPlay());
+    playOnline.setOnAction(e -> onlinePlay());
+
     myGP.setCenter(buttonHolder);
 
     return myGP;
   }
 
 
-  private void play() {
+  private void localPlay() {
     currentStage.hide();
     new StageSelect().start(new Stage());
-
   }
 
-  private void help() {
-
+  private void onlinePlay() {
+    currentStage.hide();
+    new OnlinePopUp();
   }
 
   public void settings()
