@@ -49,7 +49,7 @@ public class KeyBindingController {
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
-            gv.getPlayer1JumpProp().set(true);
+          gv.getPlayer1JumpProp().set(true);
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1AttackKey()).get(null)) {
