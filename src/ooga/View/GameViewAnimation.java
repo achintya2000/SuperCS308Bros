@@ -21,10 +21,10 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   private ArrayList<Player> playerList;
   private Stage mainStage;
   private ArrayList<Platform> platforms;
-  private GameMode gameMode;
+  private String gameMode;
 
   public GameViewAnimation(GameView gv, ArrayList<Player> playerList, ArrayList<Platform> platformList,
-      Stage gameViewStage, GameMode gameMode){
+      Stage gameViewStage, String gameMode){
     super();
     this.gv = gv;
     this.playerList = playerList;
@@ -149,10 +149,16 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   public void isGameOver() {
     GameOver go = null;
     switch (gameMode){
-      case LIVES:
+      case "LIVES":
         try {
-          if(player1.healthProperty().get() == 0) player1.STONKSProperty().set(player1.STONKSProperty().get() - 1);
-          if(player2.healthProperty().get() == 0) player2.STONKSProperty().set(player2.STONKSProperty().get() - 1);
+          if(player1.healthProperty().get() == 0) {
+            player1.STONKSProperty().set(player1.STONKSProperty().get() - 1);
+            player1.healthProperty().set(100);
+          }
+          if(player2.healthProperty().get() == 0) {
+            player2.STONKSProperty().set(player2.STONKSProperty().get() - 1);
+            player2.healthProperty().set(100);
+          }
           if (player1.STONKSProperty().get() == 0) {
             go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
             mainStage.close();
@@ -169,7 +175,7 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
           new ExceptionHelper(e);
         }
         break;
-      case HEALTH:
+      case "HEALTH":
         try {
           if (player1.healthProperty().get() == 0) {
             go = new GameOver(player2.getName(), (int) player2.healthProperty().get());

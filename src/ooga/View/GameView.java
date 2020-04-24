@@ -32,7 +32,7 @@ public class GameView extends Application implements ViewInternal {
   private Scene scene;
   private Pane root;
 
-  private GameMode gameMode;
+  private String gameMode;
 
   private BooleanProperty PLAYER_1_LEFT_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty PLAYER_1_RIGHT_PRESSED = new SimpleBooleanProperty();
@@ -69,7 +69,7 @@ public class GameView extends Application implements ViewInternal {
   }
 
 
-  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage, GameMode gameMode) {
+  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage, String gameMode) {
     this.playerList = playerlist;
     this.root = root;
     this.gameMode = gameMode;
@@ -85,6 +85,7 @@ public class GameView extends Application implements ViewInternal {
         BackgroundSize.DEFAULT);
     root.setBackground(new Background(stageBackground));
     root.getChildren().addAll(platforms);
+
     Rectangle healthBar1 = new Rectangle(100, 100, 1000, 50);
     Rectangle healthBar2 = new Rectangle(900, 100, 1000, 50);
     healthBar1.setFill(Color.GREEN);
@@ -94,15 +95,17 @@ public class GameView extends Application implements ViewInternal {
     root.getChildren().add(healthBar1);
     root.getChildren().add(healthBar2);
 
-    Rectangle stonkBar1 = new Rectangle(100, 100, 1000, 50);
-    Rectangle stonkBar2 = new Rectangle(900, 100, 1000, 50);
-    Text txt = new Text(100, 100, "3");
-    healthBar1.setFill(Color.GREEN);
-    healthBar2.setFill(Color.GREEN);
-    txt.textProperty().bind(new SimpleStringProperty(String.valueOf(player1.STONKSProperty().get())));
-    healthBar2.widthProperty().bind(player2.STONKSProperty());
-    root.getChildren().add(txt);
-    root.getChildren().add(stonkBar2);
+    if(gameMode.equals("LIVES")){
+      Text stonkBar1 = new Text(100, 200, String.valueOf(player1.STONKSProperty().get()));
+      Text stonkBar2 = new Text(900, 200, String.valueOf(player2.STONKSProperty().get()));
+      healthBar1.setFill(Color.GREEN);
+      healthBar2.setFill(Color.GREEN);
+      stonkBar1.textProperty().bind(new SimpleStringProperty(String.valueOf(player1.STONKSProperty().get())));
+      stonkBar2.textProperty().bind(new SimpleStringProperty(String.valueOf(player2.STONKSProperty().get())));
+      root.getChildren().add(stonkBar1);
+      root.getChildren().add(stonkBar2);
+      root.getChildren().add(new Rectangle(100, 100, 2000,2000));
+    }
   }
 
 
@@ -110,8 +113,8 @@ public class GameView extends Application implements ViewInternal {
   public void start(Stage primaryStage) {
     mainStage = primaryStage;
     scene = new Scene(root, 1200, 800);
-    MusicManager.clearMusic();
-    MusicManager.playBattlefieldMusic();
+    //MusicManager.clearMusic();
+    //MusicManager.playBattlefieldMusic();
     new KeyBindingController(this, scene, player1, player2);
 
     boolean server = false;

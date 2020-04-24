@@ -2,6 +2,9 @@ package ooga.View;
 
 import java.util.Arrays;
 import javafx.application.Application;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -16,7 +19,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ooga.Controller.GameMode;
 import ooga.Controller.KeyBindManager;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
@@ -63,7 +65,7 @@ public class CharacterSelect extends Application implements ViewInternal {
   private int currentPlayer = 1;
   private Group root = new Group();
   private ooga.Model.Stages.Stage chosenStage;
-  private GameMode gameMode;
+  private SimpleStringProperty gameModeProperty = new SimpleStringProperty();
 
   public CharacterSelect(Stage primaryStage) {
   }
@@ -180,7 +182,7 @@ public class CharacterSelect extends Application implements ViewInternal {
       root.getChildren().add(player.getMyCharacter().getGroup());
     }
     Pane newRoot = new Pane(root);
-    GameView game = new GameView(playerList, newRoot, chosenStage, gameMode);
+    GameView game = new GameView(playerList, newRoot, chosenStage, gameModeProperty.get());
     game.start(new Stage());
   }
 
@@ -323,9 +325,14 @@ public class CharacterSelect extends Application implements ViewInternal {
 
   private HBox makeModeSelect() {
     HBox myHBox = new HBox();
-    ComboBox cb = new ComboBox<>(FXCollections.observableArrayList(GameMode.HEALTH, GameMode.LIVES));
-    cb.setOnMouseClicked(e -> gameMode = (GameMode) cb.getValue());
+    ComboBox cb = new ComboBox<>(FXCollections.observableArrayList("HEALTH", "LIVES"));
+    cb.setValue("HEALTH");
+    gameModeProperty.bind(cb.valueProperty());
     myHBox.getChildren().add(cb);
     return myHBox;
+  }
+
+  public SimpleStringProperty getGameModeProperty(){
+    return gameModeProperty;
   }
 }
