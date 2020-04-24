@@ -38,8 +38,8 @@ public class Home extends Application {
     currentStage = primaryStage;
     primaryStage.show();
 
-    MusicManager musicManager = new MusicManager();
-    //musicManager.playMainMenuMusic();
+    MusicManager.playMainMenuMusic();
+
   }
 
   private BorderPane makeGridPane() {

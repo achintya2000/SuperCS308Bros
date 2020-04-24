@@ -5,14 +5,12 @@ import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import ooga.Controller.KeyBindManager;
 import ooga.Controller.KeyBindingController;
-import ooga.Exceptions.ExceptionHelper;
+import ooga.Controller.MusicManager;
 import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
 
@@ -30,53 +28,17 @@ public class GameView extends Application implements ViewInternal {
   private Scene scene;
   private Pane root;
 
-  private BooleanProperty W_PRESSED = new SimpleBooleanProperty();
-  private BooleanProperty A_PRESSED = new SimpleBooleanProperty();
-  private BooleanProperty D_PRESSED = new SimpleBooleanProperty();
-  private BooleanProperty LEFT_PRESSED = new SimpleBooleanProperty();
-  private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
-  private BooleanProperty S_PRESSED = new SimpleBooleanProperty();
-  private BooleanProperty DOWN_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty PLAYER_1_LEFT_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty PLAYER_1_RIGHT_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty PLAYER_1_FALL_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty PLAYER_1_JUMP_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty PLAYER_1_ATTACK_PRESSED = new SimpleBooleanProperty();
 
-  public BooleanProperty w_PRESSEDProperty() {
-    return W_PRESSED;
-  }
-
-  public BooleanProperty a_PRESSEDProperty() {
-    return A_PRESSED;
-  }
-
-  public BooleanProperty d_PRESSEDProperty() {
-    return D_PRESSED;
-  }
-
-  public BooleanProperty LEFT_PRESSEDProperty() {
-    return LEFT_PRESSED;
-  }
-
-  public BooleanProperty RIGHT_PRESSEDProperty() {
-    return RIGHT_PRESSED;
-  }
-
-  public BooleanProperty s_PRESSEDProperty() {
-    return S_PRESSED;
-  }
-
-  public BooleanProperty DOWN_PRESSEDProperty() {
-    return DOWN_PRESSED;
-  }
-
-
-  public BooleanProperty W_PRESSEDProperty() {
-    return W_PRESSED;
-  }
-
-  private BooleanProperty T_PRESSED = new SimpleBooleanProperty();
-  //private BooleanProperty L_PRESSED = new SimpleBooleanProperty();
-
-  public BooleanProperty T_PRESSEDProperty() {
-    return T_PRESSED;
-  }
+  private BooleanProperty PLAYER_2_LEFT_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty PLAYER_2_RIGHT_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty PLAYER_2_DOWN_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty PLAYER_2_JUMP_PRESSED = new SimpleBooleanProperty();
+  private BooleanProperty PLAYER_2_ATTACK_PRESSED = new SimpleBooleanProperty();
 
   AbstractCharacter player1;
   AbstractCharacter player2;
@@ -130,11 +92,12 @@ public class GameView extends Application implements ViewInternal {
   public void start(Stage primaryStage) {
     mainStage = primaryStage;
     scene = new Scene(root, 1200, 800);
-
+    MusicManager.clearMusic();
+    MusicManager.playBattlefieldMusic();
     new KeyBindingController(this, scene, player1, player2);
 
-//    boolean server = false;
-//
+    boolean server = false;
+
 //    if (server) {
 //      new MPServer(this);
 //    } else {
@@ -148,6 +111,46 @@ public class GameView extends Application implements ViewInternal {
     AnimationTimer animationTimer = new GameViewAnimation(this, playerList, platforms, mainStage);
     animationTimer.start();
 
+  }
+
+  public BooleanProperty getPlayer1LeftProp() {
+    return PLAYER_1_LEFT_PRESSED;
+  }
+
+  public BooleanProperty getPlayer1RightProp() {
+    return PLAYER_1_RIGHT_PRESSED;
+  }
+
+  public BooleanProperty getPlayer1JumpProp() {
+    return PLAYER_1_JUMP_PRESSED;
+  }
+
+  public BooleanProperty getPlayer1FallProp() {
+    return PLAYER_1_FALL_PRESSED;
+  }
+
+  public BooleanProperty getPlayer1AttackProp() {
+    return PLAYER_1_ATTACK_PRESSED;
+  }
+
+  public BooleanProperty getPlayer2LeftProp() {
+    return PLAYER_2_LEFT_PRESSED;
+  }
+
+  public BooleanProperty getPlayer2RightProp() {
+    return PLAYER_2_RIGHT_PRESSED;
+  }
+
+  public BooleanProperty getPlayer2FallProp() {
+    return PLAYER_2_DOWN_PRESSED;
+  }
+
+  public BooleanProperty getPlayer2JumpProp() {
+    return PLAYER_2_JUMP_PRESSED;
+  }
+
+  public BooleanProperty getPlayer2AttackProp() {
+    return PLAYER_2_ATTACK_PRESSED;
   }
 
 }

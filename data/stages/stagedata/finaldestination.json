@@ -1,0 +1,29 @@
+{
+  "gameImage": "data/stages/Final_Destination.jpg",
+  "rectangles" : [
+    {
+      "xPos": 150,
+      "yPos": 375,
+      "width": 875,
+      "height": 50,
+      "hollow": false
+    },
+    {
+      "xPos": 200,
+      "yPos": 600,
+      "width": 1000,
+      "height": 100,
+      "hollow": false
+    }
+  ],
+  "spawns": [
+    {
+      "xPos": 250,
+      "yPos": 375
+    },
+    {
+      "xPos": 875,
+      "yPos": 375
+    }
+  ]
+}

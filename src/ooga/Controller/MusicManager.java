@@ -14,9 +14,9 @@ import java.io.IOException;
 
 public class MusicManager {
 
-  private Clip clip = null;
+  private static Clip clip = null;
 
-  public void playMainMenuMusic() {
+  public static void playMainMenuMusic() {
     try {
       clip = AudioSystem.getClip();
       clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/MainMenu.wav")));
@@ -26,7 +26,7 @@ public class MusicManager {
     }
   }
 
-  public void playBattlefieldMusic() {
+  public static void playBattlefieldMusic() {
     try {
       clip = AudioSystem.getClip();
       clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/Battlefield.wav")));
@@ -36,7 +36,7 @@ public class MusicManager {
     }
   }
 
-  public void playFinalDestinationMusic() {
+  public static void playFinalDestinationMusic() {
     try {
       clip = AudioSystem.getClip();
       clip.open(AudioSystem.getAudioInputStream(new File("./data/sound/FinalDestination.wav")));
@@ -44,6 +44,10 @@ public class MusicManager {
     } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
       new ExceptionHelper(e);
     }
+  }
+
+  public static void clearMusic() {
+    clip.close();
   }
 
 }
