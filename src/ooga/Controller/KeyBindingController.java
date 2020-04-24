@@ -46,11 +46,10 @@ public class KeyBindingController {
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1FallKey()).get(null)) {
           gv.getPlayer1FallProp().set(true);
-
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
-            gv.getPlayer1JumpProp().set(true);
+          gv.getPlayer1JumpProp().set(true);
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1AttackKey()).get(null)) {
@@ -95,12 +94,12 @@ public class KeyBindingController {
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1FallKey()).get(null)) {
-          gv.getPlayer1JumpProp().set(false);
+          gv.getPlayer1FallProp().set(false);
           player1.idle();
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
-          gv.getPlayer1FallProp().set(false);
+          gv.getPlayer1JumpProp().set(false);
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1AttackKey()).get(null)) {

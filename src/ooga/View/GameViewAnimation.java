@@ -10,7 +10,7 @@ import ooga.Controller.GameMode;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
-import ooga.Model.Stages.Platform;
+import ooga.Model.StageClasses.Platform;
 
 public class GameViewAnimation extends AnimationTimer implements ControllerInternal {
 
@@ -37,7 +37,7 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   @Override
   public void handle(long now) {
     for(Player player : playerList) {
-      isGameOver();
+      isGameOver(gv.getIsLocal());
       AbstractCharacter character = player.getMyCharacter();
       if (!character.getINTERSECTS() || character.getRIGHT_COLLIDE() || character.getLEFT_COLLIDE() || character.getBOTTOM_COLLIDE()) {
         character.setCenterY(character.getHurtBox().getY() + GRAVITY);
@@ -92,7 +92,6 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
         }
       }
     }
-    System.out.println(player1.getBOTTOM_COLLIDE());
     checkKeys();
   }
 
@@ -100,7 +99,6 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
     if (gv.getPlayer1JumpProp().get() && !player1.getBOTTOM_COLLIDE()){
       player1.jump();
     }
-
     if (gv.getPlayer1RightProp().get() && !player1.getLEFT_COLLIDE()){
       player1.moveRight();
     }
@@ -146,7 +144,7 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   }
 
   @Override
-  public void isGameOver() {
+  public void isGameOver(boolean isLocal) {
     GameOver go = null;
     switch (gameMode){
       case "LIVES":
@@ -160,13 +158,13 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
             player2.healthProperty().set(100);
           }
           if (player1.STONKSProperty().get() == 0) {
-            go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
+            go = new GameOver(player2.getName(), (int) player2.healthProperty().get(), isLocal);
             mainStage.close();
             this.stop();
             go.start(new Stage());
           }
           else if (player2.STONKSProperty().get() == 0) {
-            go = new GameOver(player1.getName(), (int) player1.healthProperty().get());
+            go = new GameOver(player1.getName(), (int) player1.healthProperty().get(), isLocal);
             mainStage.close();
             this.stop();
             go.start(new Stage());
@@ -178,13 +176,13 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
       case "HEALTH":
         try {
           if (player1.healthProperty().get() == 0) {
-            go = new GameOver(player2.getName(), (int) player2.healthProperty().get());
+            go = new GameOver(player2.getName(), (int) player2.healthProperty().get(),isLocal);
             mainStage.close();
             this.stop();
             go.start(new Stage());
           }
           else if (player2.healthProperty().get() == 0) {
-            go = new GameOver(player1.getName(), (int) player1.healthProperty().get());
+            go = new GameOver(player1.getName(), (int) player1.healthProperty().get(), isLocal);
             mainStage.close();
             this.stop();
             go.start(new Stage());

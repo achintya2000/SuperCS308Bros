@@ -24,7 +24,7 @@ import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
 
 import java.util.ArrayList;
-import ooga.Model.Stages.Platform;
+import ooga.Model.StageClasses.Platform;
 import ooga.networking.Client.MPClient;
 import ooga.networking.Server.MPServer;
 
@@ -53,11 +53,11 @@ public class GameView extends Application implements ViewInternal {
 
   AbstractCharacter player1;
   AbstractCharacter player2;
-
-  int y;
-  int y2;
-
   ArrayList<Platform> platforms;
+
+  private boolean joiningMatch;
+  private String ipAddress;
+  private boolean isLocal;
 
   @Override
   public void resetGame() {
@@ -74,7 +74,11 @@ public class GameView extends Application implements ViewInternal {
   }
 
 
-  public GameView(ArrayList playerlist, Pane root, ooga.Model.Stages.Stage chosenStage, String gameMode) {
+
+  public GameView(ArrayList playerlist, Pane root, ooga.Model.StageClasses.Stage chosenStage, boolean joiningMatch, String ipAddress, boolean isLocal, String gameMode) {
+    this.isLocal = isLocal;
+    this.ipAddress = ipAddress;
+    this.joiningMatch = joiningMatch;
     this.playerList = playerlist;
     this.root = root;
     this.gameMode = gameMode;
@@ -122,13 +126,14 @@ public class GameView extends Application implements ViewInternal {
     //MusicManager.playBattlefieldMusic();
     new KeyBindingController(this, scene, player1, player2);
 
-    boolean server = false;
+    if(!isLocal) {
+      if (!joiningMatch) {
+        new MPServer(this);
+      } else {
+        new MPClient(this, ipAddress);
+      }
+    }
 
-//    if (server) {
-//      new MPServer(this);
-//    } else {
-//      new MPClient(this);
-//    }
 
     primaryStage.setTitle("FIGHT!");
     primaryStage.setScene(scene);
@@ -191,4 +196,10 @@ public class GameView extends Application implements ViewInternal {
       return Integer.valueOf(string);
     }
   }
+
+  public boolean getIsLocal()
+  {
+    return  isLocal;
+  }
+
 }

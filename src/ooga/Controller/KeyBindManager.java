@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class KeyBindManager {
 
@@ -38,9 +40,8 @@ public class KeyBindManager {
     jsonObject.put("attack", attack.toUpperCase());
     jsonObject.put("special", special.toUpperCase());
 
-    try (FileWriter fileWriter = new FileWriter("data/keybindings/player1.json")) {
+    try (FileWriter fileWriter = new FileWriter("data/keybindings/player1_" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) +".json")) {
       fileWriter.write(jsonObject.toString());
-      //resetPlayer1KeyBinds();
     } catch (IOException e) {
       new ExceptionHelper(e);
     }
@@ -56,9 +57,8 @@ public class KeyBindManager {
     jsonObject.put("attack", attack);
     jsonObject.put("special", special.toUpperCase());
 
-    try (FileWriter fileWriter = new FileWriter("data/keybindings/player2.json")) {
+    try (FileWriter fileWriter = new FileWriter("data/keybindings/player2_"+ new SimpleDateFormat("yyyy-MM-dd").format(new Date()) +".json")) {
       fileWriter.write(jsonObject.toString());
-      //resetPlayer2KeyBinds();
     } catch (IOException e) {
       new ExceptionHelper(e);
     }
@@ -112,19 +112,4 @@ public class KeyBindManager {
     return player2KeyBinds.get("special").toString();
   }
 
-//    private void resetPlayer1KeyBinds() {
-//        try {
-//            player1KeyBinds = (JSONObject) jsonParser.parse(new FileReader("data/keybindings/player1.json"));
-//        } catch (ParseException | IOException e) {
-//            new ExceptionHelper(e);
-//        }
-//    }
-//
-//    private void resetPlayer2KeyBinds() {
-//        try {
-//            player2KeyBinds = (JSONObject) jsonParser.parse(new FileReader("data/keybindings/player2.json"));
-//        } catch (ParseException | IOException e) {
-//            new ExceptionHelper(e);
-//        }
-//    }
 }

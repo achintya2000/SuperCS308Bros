@@ -1,5 +1,5 @@
 {
-  "gameImage": "data/stages/Bridge_of_Eldin.png",
+  "gameImage": "data/stages/stageimages/Bridge_of_Eldin.png",
   "rectangles" : [
     {
       "xPos": 0,

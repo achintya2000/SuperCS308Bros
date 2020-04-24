@@ -1,12 +1,9 @@
-package ooga.Model.Stages;
+package ooga.Model.StageClasses;
 
 import java.io.*;
 import java.util.*;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import ooga.Exceptions.ExceptionHelper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
