@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,8 +42,10 @@ public class StageBuilder extends Stage {
         int height = Integer.valueOf(propsMap.get(key)[3]);
         platforms.add(new Platform(x, y, width, height, hollow));
       } else if (key.contains("spawn")) {
-        int x = Integer.valueOf(propsMap.get(key)[0]);
-        int y = Integer.valueOf(propsMap.get(key)[1]);
+        List<Integer> currentSpawnPoint = new ArrayList<>();
+        currentSpawnPoint.add(Integer.valueOf(propsMap.get(key)[0]));
+        currentSpawnPoint.add(Integer.valueOf(propsMap.get(key)[1]));
+        spawnCoordinates.add(currentSpawnPoint);
       }
     }
   }
@@ -57,4 +60,7 @@ public class StageBuilder extends Stage {
   public ArrayList<Platform> getPlatforms() {
     return (ArrayList<Platform>)platforms;
   }
+
+  @Override
+  public List<List<Integer>> getSpawnCoordinates() { return spawnCoordinates; }
 }
