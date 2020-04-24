@@ -13,57 +13,26 @@ public class ServerNetworkListener extends Listener {
     private GameView gameView;
     private Server server;
 
-    private BooleanProperty LEFT_PRESSED = new SimpleBooleanProperty();
-    private BooleanProperty RIGHT_PRESSED = new SimpleBooleanProperty();
-    private BooleanProperty UP_PRESSED = new SimpleBooleanProperty();
-    private BooleanProperty DOWN_PRESSED = new SimpleBooleanProperty();
-    private BooleanProperty L_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty SERVER_LEFT_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty SERVER_RIGHT_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty SERVER_FALL_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty SERVER_JUMP_PRESSED = new SimpleBooleanProperty();
+    private BooleanProperty SERVER_ATTACK_PRESSED = new SimpleBooleanProperty();
 
     public ServerNetworkListener(Server s, GameView gv) {
         this.server = s;
         this.gameView = gv;
-        LEFT_PRESSED.bindBidirectional(gv.getPlayer2LeftProp());
-        RIGHT_PRESSED.bindBidirectional(gv.getPlayer2RightProp());
-        UP_PRESSED.bindBidirectional(gv.getPlayer2JumpProp());
-        DOWN_PRESSED.bindBidirectional(gv.getPlayer2FallProp());
-        L_PRESSED.bindBidirectional(gv.getPlayer2AttackProp());
+        SERVER_LEFT_PRESSED.bindBidirectional(gv.getPlayer2LeftProp());
+        SERVER_RIGHT_PRESSED.bindBidirectional(gv.getPlayer2RightProp());
+        SERVER_FALL_PRESSED.bindBidirectional(gv.getPlayer2FallProp());
+        SERVER_JUMP_PRESSED.bindBidirectional(gv.getPlayer2JumpProp());
+        SERVER_ATTACK_PRESSED.bindBidirectional(gv.getPlayer2AttackProp());
     }
 
     @Override
     public void connected(Connection c) {
         System.out.println("Someone has connected");
-
-        LEFT_PRESSED.addListener((observable, oldValue, newValue) -> {
-            System.out.println("YEETICUS");
-            Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
-            leftData.leftPressed = LEFT_PRESSED.get();
-            c.sendTCP(leftData);
-        });
-
-        RIGHT_PRESSED.addListener((observable, oldValue, newValue) -> {
-            Packets.packetRightPressed rightData = new Packets.packetRightPressed();
-            rightData.rightPressed = RIGHT_PRESSED.get();
-            c.sendTCP(rightData);
-        });
-
-        UP_PRESSED.addListener((observable, oldValue, newValue) -> {
-            Packets.packetJumpPressed jumpData = new Packets.packetJumpPressed();
-            jumpData.jumpPressed = UP_PRESSED.get();
-            c.sendTCP(jumpData);
-        });
-
-        DOWN_PRESSED.addListener((observable, oldValue, newValue) -> {
-            Packets.packetFallPressed fallData = new Packets.packetFallPressed();
-            fallData.fallPressed = DOWN_PRESSED.get();
-            c.sendTCP(fallData);
-        });
-
-        L_PRESSED.addListener((observable, oldValue, newValue) -> {
-            Packets.packetAttackPressed attackData = new Packets.packetAttackPressed();
-            attackData.attackPressed = L_PRESSED.get();
-            c.sendTCP(attackData);
-        });
-
+        sendDataToClient(c);
     }
 
     @Override
@@ -73,12 +42,9 @@ public class ServerNetworkListener extends Listener {
 
     @Override
     public void received(Connection c, Object o) {
-
         if (o instanceof Packets.packet01Message) {
             Packets.packet01Message packet01Message = (Packets.packet01Message) o;
-
             System.out.println("[CLIENT} >> " + packet01Message.message);
-
         }
 
         if (o instanceof Packets.packetLeftPressed) {
@@ -106,6 +72,39 @@ public class ServerNetworkListener extends Listener {
             gameView.getPlayer1AttackProp().set(packetAttackPressed.attackPressed);
         }
 
+    }
+
+    private void sendDataToClient(Connection c) {
+        SERVER_LEFT_PRESSED.addListener((observable, oldValue, newValue) -> {
+            System.out.println("YEETICUS");
+            Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
+            leftData.leftPressed = SERVER_LEFT_PRESSED.get();
+            c.sendTCP(leftData);
+        });
+
+        SERVER_RIGHT_PRESSED.addListener((observable, oldValue, newValue) -> {
+            Packets.packetRightPressed rightData = new Packets.packetRightPressed();
+            rightData.rightPressed = SERVER_RIGHT_PRESSED.get();
+            c.sendTCP(rightData);
+        });
+
+        SERVER_FALL_PRESSED.addListener((observable, oldValue, newValue) -> {
+            Packets.packetFallPressed fallData = new Packets.packetFallPressed();
+            fallData.fallPressed = SERVER_FALL_PRESSED.get();
+            c.sendTCP(fallData);
+        });
+
+        SERVER_JUMP_PRESSED.addListener((observable, oldValue, newValue) -> {
+            Packets.packetJumpPressed jumpData = new Packets.packetJumpPressed();
+            jumpData.jumpPressed = SERVER_JUMP_PRESSED.get();
+            c.sendTCP(jumpData);
+        });
+
+        SERVER_ATTACK_PRESSED.addListener((observable, oldValue, newValue) -> {
+            Packets.packetAttackPressed attackData = new Packets.packetAttackPressed();
+            attackData.attackPressed = SERVER_ATTACK_PRESSED.get();
+            c.sendTCP(attackData);
+        });
     }
 
 
