@@ -1,16 +1,22 @@
 package ooga.View;
 
+import java.util.Arrays;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ooga.Controller.GameMode;
 import ooga.Controller.KeyBindManager;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
@@ -57,6 +63,7 @@ public class CharacterSelect extends Application implements ViewInternal {
   private int currentPlayer = 1;
   private Group root = new Group();
   private ooga.Model.Stages.Stage chosenStage;
+  private GameMode gameMode;
 
   public CharacterSelect(Stage primaryStage) {
   }
@@ -104,6 +111,7 @@ public class CharacterSelect extends Application implements ViewInternal {
     charGrid.setMaxWidth(800);
     borderPane.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
     borderPane.setCenter(charGrid);
+    borderPane.setRight(makeModeSelect());
     characterList.add(bunny);
     characterList.add(ghost);
     int colCount = 0;
@@ -172,7 +180,7 @@ public class CharacterSelect extends Application implements ViewInternal {
       root.getChildren().add(player.getMyCharacter().getGroup());
     }
     Pane newRoot = new Pane(root);
-    GameView game = new GameView(playerList, newRoot, chosenStage);
+    GameView game = new GameView(playerList, newRoot, chosenStage, gameMode);
     game.start(new Stage());
   }
 
@@ -311,5 +319,13 @@ public class CharacterSelect extends Application implements ViewInternal {
     } catch (IOException e) {
       System.out.println(e.getLocalizedMessage());
     }
+  }
+
+  private HBox makeModeSelect() {
+    HBox myHBox = new HBox();
+    ComboBox cb = new ComboBox<>(FXCollections.observableArrayList(GameMode.HEALTH, GameMode.LIVES));
+    cb.setOnMouseClicked(e -> gameMode = (GameMode) cb.getValue());
+    myHBox.getChildren().add(cb);
+    return myHBox;
   }
 }
