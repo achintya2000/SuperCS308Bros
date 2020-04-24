@@ -26,7 +26,8 @@ public class MPClient {
 
     client.addListener(clientNetworkListener);
 
-    client.start();
+    //client.start();
+    new Thread(client).start();
 
     try {
       client.connect(5000, ipAddress, tcpPort, udpPort);
