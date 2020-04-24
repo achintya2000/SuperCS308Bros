@@ -132,7 +132,7 @@ public class GameView extends Application implements ViewInternal {
 
     new KeyBindingController(this, scene, player1, player2);
 
-    boolean server = true;
+    boolean server = false;
 
     if (server) {
       new MPServer(this);

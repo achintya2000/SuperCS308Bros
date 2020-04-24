@@ -5,6 +5,8 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import ooga.View.GameView;
 import ooga.networking.Packets;
 
@@ -32,8 +34,7 @@ public class ClientNetworkListener extends Listener {
     @Override
     public void connected(Connection c) {
         System.out.println("[CLIENT] >> You have connect");
-
-        sendClientData();
+        sendDataToServer();
     }
 
     @Override
@@ -48,9 +49,10 @@ public class ClientNetworkListener extends Listener {
 
             System.out.println("[SERVER} >> " + packet01Message.message);
         }
+
     }
 
-    private void sendClientData() {
+    private void sendDataToServer() {
 
         while (true) {
             // Create something to sent
@@ -59,14 +61,29 @@ public class ClientNetworkListener extends Listener {
             //client.sendTCP(message);
 
             // Create another thing to send
-            Packets.packetUserData data = new Packets.packetUserData();
-            data.leftPressed = A_PRESSED.get();
-            data.rightPressed = D_PRESSED.get();
-            data.jumpPressed = W_PRESSED.get();
-            data.fallPressed = S_PRESSED.get();
-            data.attackPressed = T_PRESSED.get();
 
-            client.sendTCP(data);
+            Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
+            leftData.leftPressed = A_PRESSED.get();
+            client.sendTCP(leftData);
+
+
+            Packets.packetRightPressed rightData = new Packets.packetRightPressed();
+            rightData.rightPressed = D_PRESSED.get();
+            client.sendTCP(rightData);
+
+//            Packets.packetUserData data = new Packets.packetUserData();
+//            data.leftPressed = A_PRESSED.get();
+//            data.rightPressed = D_PRESSED.get();
+//            data.jumpPressed = W_PRESSED.get();
+//            data.fallPressed = S_PRESSED.get();
+//            data.attackPressed = T_PRESSED.get();
+//
+//            client.sendTCP(data);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
