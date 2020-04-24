@@ -11,6 +11,7 @@ public abstract class Stage {
 
   protected Image background;
   protected List<Platform> platforms;
+  protected List<List<Integer>> spawnCoordinates;
 
   /**
    * Getter for background ImageView
@@ -34,4 +35,6 @@ public abstract class Stage {
    * @return platforms from the Stage class
    */
   public abstract ArrayList<Platform> getPlatforms();
+
+  public abstract List<List<Integer>> getSpawnCoordinates();
 }
