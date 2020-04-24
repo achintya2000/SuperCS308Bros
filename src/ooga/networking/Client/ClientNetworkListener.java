@@ -66,31 +66,54 @@ public class ClientNetworkListener extends Listener {
             // Create another thing to send
 
             A_PRESSED.addListener((observable, oldValue, newValue) -> {
-                
                 Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
                 leftData.leftPressed = A_PRESSED.get();
                 client.sendTCP(leftData);
             });
 
-            Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
-            leftData.leftPressed = A_PRESSED.get();
-            client.sendTCP(leftData);
+            D_PRESSED.addListener((observable, oldValue, newValue) -> {
+                Packets.packetRightPressed rightData = new Packets.packetRightPressed();
+                rightData.rightPressed = D_PRESSED.get();
+                client.sendTCP(rightData);
+            });
 
-            Packets.packetRightPressed rightData = new Packets.packetRightPressed();
-            rightData.rightPressed = D_PRESSED.get();
-            client.sendTCP(rightData);
+            W_PRESSED.addListener((observable, oldValue, newValue) -> {
+                Packets.packetJumpPressed jumpData = new Packets.packetJumpPressed();
+                jumpData.jumpPressed = W_PRESSED.get();
+                client.sendTCP(jumpData);
+            });
 
-            Packets.packetJumpPressed jumpData = new Packets.packetJumpPressed();
-            jumpData.jumpPressed = W_PRESSED.get();
-            client.sendTCP(jumpData);
+            S_PRESSED.addListener((observable, oldValue, newValue) -> {
+                Packets.packetFallPressed fallData = new Packets.packetFallPressed();
+                fallData.fallPressed = S_PRESSED.get();
+                client.sendTCP(fallData);
+            });
 
-            Packets.packetFallPressed fallData = new Packets.packetFallPressed();
-            fallData.fallPressed = S_PRESSED.get();
-            client.sendTCP(fallData);
+            T_PRESSED.addListener((observable, oldValue, newValue) -> {
+                Packets.packetAttackPressed attackData = new Packets.packetAttackPressed();
+                attackData.attackPressed = T_PRESSED.get();
+                client.sendTCP(attackData);
+            });
 
-            Packets.packetAttackPressed attackData = new Packets.packetAttackPressed();
-            attackData.attackPressed = T_PRESSED.get();
-            client.sendTCP(attackData);
+//            Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
+//            leftData.leftPressed = A_PRESSED.get();
+//            client.sendTCP(leftData);
+
+//            Packets.packetRightPressed rightData = new Packets.packetRightPressed();
+//            rightData.rightPressed = D_PRESSED.get();
+//            client.sendTCP(rightData);
+
+//            Packets.packetJumpPressed jumpData = new Packets.packetJumpPressed();
+//            jumpData.jumpPressed = W_PRESSED.get();
+//            client.sendTCP(jumpData);
+
+//            Packets.packetFallPressed fallData = new Packets.packetFallPressed();
+//            fallData.fallPressed = S_PRESSED.get();
+//            client.sendTCP(fallData);
+
+//            Packets.packetAttackPressed attackData = new Packets.packetAttackPressed();
+//            attackData.attackPressed = T_PRESSED.get();
+//            client.sendTCP(attackData);
 
             try {
                 Thread.sleep(1);
