@@ -49,18 +49,11 @@ public class KeyBindingController {
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
-          //player1.jump();
           gv.getPlayer1FallProp().set(true);
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1AttackKey()).get(null)) {
           gv.getPlayer1AttackProp().set(true);
-//          player1.attack();
-//          if (player1.getHitBox().getBoundsInParent()
-//              .intersects(player2.getHurtBox().getBoundsInParent())) {
-//            player2.getHurtBox().setStroke(Color.RED);
-//            player2.setHEALTH(player2.getHEALTH() - 10);
-//          }
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2LeftKey()).get(null)) {
@@ -77,101 +70,15 @@ public class KeyBindingController {
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2JumpKey()).get(null)) {
           gv.getPlayer2JumpProp().set(true);
-          //player2.jump();
         }
 
         if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2AttackKey()).get(null)) {
           gv.getPlayer2AttackProp().set(true);
-//          player2.attack();
-//          if (player2.getHitBox().getBoundsInParent()
-//              .intersects(player1.getHurtBox().getBoundsInParent())) {
-//            player1.getHurtBox().setStroke(Color.RED);
-//            player1.setHEALTH(player1.getHEALTH() - 10);
-//          }
         }
 
       } catch (IllegalAccessException | NoSuchFieldException ex) {
         new ExceptionHelper(ex);
       }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1LeftKey()).get(null)) {
-//          gv.getPlayer1LeftProp().set(true);
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
-//          //player1.jump();
-//          gv.getPlayer1FallProp().set(true);
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1FallKey()).get(null)) {
-//          gv.getPlayer1JumpProp().set(true);
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1AttackKey()).get(null)) {
-//          gv.getPlayer1AttackProp().set(true);
-////          player1.attack();
-////          if (player1.getHitBox().getBoundsInParent()
-////              .intersects(player2.getHurtBox().getBoundsInParent())) {
-////            player2.getHurtBox().setStroke(Color.RED);
-////            player2.setHEALTH(player2.getHEALTH() - 10);
-////          }
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      //~~~~~~~~~~~~~~~ Player 2 ~~~~~~~~~~~~~~//
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2LeftKey()).get(null)) {
-//          gv.getPlayer2LeftProp().set(true);
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2RightKey()).get(null)) {
-//         gv.getPlayer2RightProp().set(true);
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2FallKey()).get(null)) {
-//          gv.getPlayer2FallProp().set(true);
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2JumpKey()).get(null)) {
-//          gv.getPlayer2JumpProp().set(true);
-//          //player2.jump();
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2AttackKey()).get(null)) {
-//          gv.getPlayer2AttackProp().set(true);
-////          player2.attack();
-////          if (player2.getHitBox().getBoundsInParent()
-////              .intersects(player1.getHurtBox().getBoundsInParent())) {
-////            player1.getHurtBox().setStroke(Color.RED);
-////            player1.setHEALTH(player1.getHEALTH() - 10);
-////          }
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-
     });
 
     scene.setOnKeyReleased(e -> {
@@ -225,74 +132,6 @@ public class KeyBindingController {
       } catch (IllegalAccessException | NoSuchFieldException ex) {
         new ExceptionHelper(ex);
       }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1RightKey()).get(null)) {
-//          gv.getPlayer1RightProp().set(false);
-//          player1.idle();
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1FallKey()).get(null)) {
-//          gv.getPlayer1JumpProp().set(false);
-//          player1.idle();
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2FallKey()).get(null)) {
-//          gv.getPlayer2FallProp().set(false);
-//          player2.idle();
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2LeftKey()).get(null)) {
-//          gv.getPlayer2LeftProp().set(false);
-//          player2.idle();
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2RightKey()).get(null)) {
-//          gv.getPlayer2RightProp().set(false);
-//          player2.idle();
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1JumpKey()).get(null)) {
-//          gv.getPlayer1FallProp().set(false);
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer1AttackKey()).get(null)) {
-//          gv.getPlayer1AttackProp().set(false);
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2JumpKey()).get(null)) {
-//          gv.getPlayer2JumpProp().set(false);
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
-//      try {
-//        if (e.getCode() == KeyCode.class.getDeclaredField(keyBindManager.getPlayer2AttackKey()).get(null)) {
-//          gv.getPlayer2AttackProp().set(false);
-//        }
-//      } catch (IllegalAccessException | NoSuchFieldException ex) {
-//        new ExceptionHelper(ex);
-//      }
     });
   }
 
