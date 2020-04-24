@@ -34,6 +34,6 @@ public class SettingsPopUp{
 
     Scene settingsScene= new Scene(layout, 300, 250);
     settings.setScene(settingsScene);
-    settings.showAndWait();
+    settings.show();
   }
 }

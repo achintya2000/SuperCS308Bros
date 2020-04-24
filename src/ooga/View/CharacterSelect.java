@@ -59,6 +59,10 @@ public class CharacterSelect extends AbstractSelectScreen{
   private Group root = new Group();
   private ooga.Model.StageClasses.Stage chosenStage;
 
+  public CharacterSelect() throws IOException {
+    super();
+  }
+
   public CharacterSelect(Stage primaryStage) throws IOException {
     super();
   }

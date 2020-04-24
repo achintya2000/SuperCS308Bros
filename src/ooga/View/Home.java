@@ -9,7 +9,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import ooga.Controller.MusicManager;
+
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
 
 
 public class Home extends Application {
@@ -58,7 +61,13 @@ public class Home extends Application {
         ex.printStackTrace();
       }
     });
-    playOnline.setOnAction(e -> onlinePlay());
+    playOnline.setOnAction(e -> {
+      try {
+        onlinePlay();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    });
   }
 
   private void createButtons() {
@@ -82,8 +91,10 @@ public class Home extends Application {
     stageSelect.start(new Stage());
   }
 
-  private void onlinePlay() {
+  private void onlinePlay() throws IOException {
     currentStage.hide();
-    new OnlinePopUp();
+    Properties prop = new Properties();
+    prop.load(new FileReader("data/stylesheets/buttonStyle.properties"));
+    new OnlinePopUp(prop);
   }
 }

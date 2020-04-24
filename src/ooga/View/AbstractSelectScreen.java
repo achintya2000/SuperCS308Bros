@@ -17,7 +17,8 @@ import static javafx.geometry.Pos.CENTER;
 import static javafx.geometry.Pos.TOP_CENTER;
 
 public abstract class AbstractSelectScreen {
-    public Properties prop;
+
+    protected   Properties prop;
 
     public AbstractSelectScreen() throws IOException {
         prop = new Properties();

@@ -101,7 +101,7 @@ public class ButtonsConfigPopUp {
 
     Scene settingsScene= new Scene(borderPane, 500, 400);
     buttonConfigsStage.setScene(settingsScene);
-    buttonConfigsStage.showAndWait();
+    buttonConfigsStage.show();
   }
 
   private void createConfigureButton(Properties prop) {
