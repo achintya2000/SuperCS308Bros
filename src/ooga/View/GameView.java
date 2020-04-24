@@ -99,11 +99,11 @@ public class GameView extends Application implements ViewInternal {
 
     boolean server = true;
 
-    if (server) {
-      new MPServer(this);
-    } else {
-      new MPClient(this);
-    }
+//    if (server) {
+//      new MPServer(this);
+//    } else {
+//      new MPClient(this);
+//    }
 
     primaryStage.setTitle("FIGHT!");
     primaryStage.setScene(scene);

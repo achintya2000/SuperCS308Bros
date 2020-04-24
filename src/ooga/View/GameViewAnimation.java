@@ -20,6 +20,7 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   private ArrayList<Player> playerList;
   private Stage mainStage;
   private ArrayList<Platform> platforms;
+
   public GameViewAnimation(GameView gv, ArrayList<Player> playerList, ArrayList<Platform> platformList,
       Stage gameViewStage){
     super();
