@@ -34,12 +34,15 @@ public class StageBuilder extends Stage {
       }
       else if (key.equals("hollow")){
         hollow = true;
-      } else {
+      } else if (key.contains("rect")) {
         int x = Integer.valueOf(propsMap.get(key)[0]);
         int y = Integer.valueOf(propsMap.get(key)[1]);
         int width = Integer.valueOf(propsMap.get(key)[2]);
         int height = Integer.valueOf(propsMap.get(key)[3]);
         platforms.add(new Platform(x, y, width, height, hollow));
+      } else if (key.contains("spawn")) {
+        int x = Integer.valueOf(propsMap.get(key)[0]);
+        int y = Integer.valueOf(propsMap.get(key)[1]);
       }
     }
   }
