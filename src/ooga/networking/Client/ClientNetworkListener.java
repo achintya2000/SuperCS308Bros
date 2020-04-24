@@ -80,12 +80,6 @@ public class ClientNetworkListener extends Listener {
 
     private void sendDataToServer() {
 
-        //while (true) {
-            // Create something to sent
-            //Packets.packet01Message message = new Packets.packet01Message();
-            //message.message = "Hello server. YEETICUS";
-            //client.sendTCP(message);
-
             // Create another thing to send
 
             A_PRESSED.addListener((observable, oldValue, newValue) -> {
@@ -117,26 +111,6 @@ public class ClientNetworkListener extends Listener {
                 attackData.attackPressed = T_PRESSED.get();
                 client.sendTCP(attackData);
             });
-
-//            Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
-//            leftData.leftPressed = A_PRESSED.get();
-//            client.sendTCP(leftData);
-
-//            Packets.packetRightPressed rightData = new Packets.packetRightPressed();
-//            rightData.rightPressed = D_PRESSED.get();
-//            client.sendTCP(rightData);
-
-//            Packets.packetJumpPressed jumpData = new Packets.packetJumpPressed();
-//            jumpData.jumpPressed = W_PRESSED.get();
-//            client.sendTCP(jumpData);
-
-//            Packets.packetFallPressed fallData = new Packets.packetFallPressed();
-//            fallData.fallPressed = S_PRESSED.get();
-//            client.sendTCP(fallData);
-
-//            Packets.packetAttackPressed attackData = new Packets.packetAttackPressed();
-//            attackData.attackPressed = T_PRESSED.get();
-//            client.sendTCP(attackData);
 
             try {
                 Thread.sleep(1);

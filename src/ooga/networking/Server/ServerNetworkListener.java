@@ -49,10 +49,24 @@ public class ServerNetworkListener extends Listener {
             c.sendTCP(rightData);
         });
 
-//        Packets.packet01Message packet01Message = new Packets.packet01Message();
-//        packet01Message.message = "YOTE";
-//
-//        c.sendTCP(packet01Message);
+        UP_PRESSED.addListener((observable, oldValue, newValue) -> {
+            Packets.packetJumpPressed jumpData = new Packets.packetJumpPressed();
+            jumpData.jumpPressed = UP_PRESSED.get();
+            c.sendTCP(jumpData);
+        });
+
+        DOWN_PRESSED.addListener((observable, oldValue, newValue) -> {
+            Packets.packetFallPressed fallData = new Packets.packetFallPressed();
+            fallData.fallPressed = DOWN_PRESSED.get();
+            c.sendTCP(fallData);
+        });
+
+        L_PRESSED.addListener((observable, oldValue, newValue) -> {
+            Packets.packetAttackPressed attackData = new Packets.packetAttackPressed();
+            attackData.attackPressed = L_PRESSED.get();
+            c.sendTCP(attackData);
+        });
+
     }
 
     @Override
