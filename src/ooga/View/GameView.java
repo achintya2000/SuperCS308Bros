@@ -75,11 +75,9 @@ public class GameView extends Application implements ViewInternal {
 
   AbstractCharacter player1;
   AbstractCharacter player2;
-
-  int y;
-  int y2;
-
   ArrayList<Platform> platforms;
+
+  private boolean joiningMatch;
 
   @Override
   public void resetGame() {
@@ -96,7 +94,8 @@ public class GameView extends Application implements ViewInternal {
   }
 
 
-  public GameView(ArrayList playerlist, Pane root, ooga.Model.StageClasses.Stage chosenStage) {
+  public GameView(ArrayList playerlist, Pane root, ooga.Model.StageClasses.Stage chosenStage, boolean joiningMatch) {
+    this.joiningMatch = joiningMatch;
     this.playerList = playerlist;
     this.root = root;
     player1 = playerList.get(0).getMyCharacter();
@@ -129,9 +128,7 @@ public class GameView extends Application implements ViewInternal {
 
     new KeyBindingController(this, scene, player1, player2);
 
-    boolean server = false;
-
-    if (server) {
+    if (!joiningMatch) {
       new MPServer(this);
     } else {
       new MPClient(this);

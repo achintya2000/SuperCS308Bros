@@ -59,12 +59,11 @@ public class CharacterSelect extends AbstractSelectScreen{
   private Group root = new Group();
   private ooga.Model.StageClasses.Stage chosenStage;
 
+  private boolean joiningMatch = false;
+
   public CharacterSelect() throws IOException {
     super();
-  }
-
-  public CharacterSelect(Stage primaryStage) throws IOException {
-    super();
+    joiningMatch = true;
   }
 
   public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage) throws IOException {
@@ -159,7 +158,7 @@ public class CharacterSelect extends AbstractSelectScreen{
       root.getChildren().add(player.getMyCharacter().getGroup());
     }
     Pane newRoot = new Pane(root);
-    GameView game = new GameView(playerList, newRoot, chosenStage);
+    GameView game = new GameView(playerList, newRoot, chosenStage, joiningMatch);
     game.start(new Stage());
   }
 
