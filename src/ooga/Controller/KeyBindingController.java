@@ -5,8 +5,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
-import ooga.Model.Player;
 import ooga.View.GameView;
+
 
 public class KeyBindingController {
   private Scene scene;
@@ -14,6 +14,14 @@ public class KeyBindingController {
   private AbstractCharacter player1;
   private AbstractCharacter player2;
 
+  /**
+   * Constructor for the KeyBindingController. Simply calling the constructor is sufficient to set
+   * up bindings as the method for setting them up is private and called in the controller
+   * @param gv where the bindings need to be setup
+   * @param scene the scene where the characters are being rendered
+   * @param player1 the character of player 1
+   * @param player2 the character of player 2
+   */
   public KeyBindingController(GameView gv, Scene scene, AbstractCharacter player1, AbstractCharacter player2){
     this.gv = gv;
     this.scene = scene;
@@ -21,6 +29,7 @@ public class KeyBindingController {
     this.player2 = player2;
     setKeyBinds();
   }
+
   private void setKeyBinds() {
     KeyBindManager keyBindManager = new KeyBindManager();
 
