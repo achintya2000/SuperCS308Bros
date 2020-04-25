@@ -14,9 +14,7 @@ class CharacterSelectTest extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-      myCharacterSelect = new CharacterSelect("");
-
-
+      //myCharacterSelect = new CharacterSelect("");
   }
 
   @Test
