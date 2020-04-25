@@ -1,6 +1,8 @@
 package ooga.View;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -14,37 +16,42 @@ import java.util.ArrayList;
 import static javafx.geometry.Pos.*;
 
 public class StageSelect extends AbstractSelectScreen{
-  private BorderPane borderPane = new BorderPane();
+  private BorderPane borderPane= new BorderPane();
   private Button go;
   private Stage currentStage;
   private ooga.Model.StageClasses.Stage chosenStage;
 
-  private ArrayList<ooga.Model.StageClasses.Stage> stageList = new ArrayList<>();
-  private ArrayList<Button> buttonList = new ArrayList<>();
-  private Group root = new Group();
-  private int colThresh = 8;
+  private ArrayList<ooga.Model.StageClasses.Stage> stageList= new ArrayList<>();
+  private ArrayList<Button> buttonList= new ArrayList<>();
+  private Group root= new Group();
+  private int colThresh= 8;
   private boolean isLocal;
+  private GridPane charGrid;
+  private ArrayList<String> stageNames = new ArrayList<>();
 
   public StageSelect(boolean isLocal) throws IOException {
     super();
     this.isLocal = isLocal;
   }
 
-  public void initStages() throws FileNotFoundException {
-
+  public String initStages() throws FileNotFoundException {
     File dir = new File("data/stages/stagedata");
-    System.out.println(dir.getAbsolutePath());
     File[] directoryListing = dir.listFiles();
     if (directoryListing != null) {
       for (File child : directoryListing) {
-        System.out.println(child.getName());
         StageBuilder stage = new StageBuilder("data/stages/stagedata/"+child.getName());
-        System.out.println(child.getName());
         stageList.add(stage);
+        stageNames.add(child.getName());
       }
     }
-    GridPane charGrid = setupStageGrid();
+    charGrid = setupStageGrid();
     createStageButtons(charGrid);
+    return dir.getName();
+  }
+
+  public ArrayList<String> getStageNames()
+  {
+    return stageNames;
   }
 
   private void createStageButtons(GridPane charGrid) {
