@@ -55,7 +55,8 @@ public class IPAddress {
       StageSelect stageSelect = null;
       try {
         boolean isLocal = false;
-        stageSelect = new StageSelect(isLocal, ipAddress.getText());
+        boolean joining = true;
+        stageSelect = new StageSelect(isLocal, ipAddress.getText(), joining);
       } catch (IOException ex) {
         ex.printStackTrace();
       }

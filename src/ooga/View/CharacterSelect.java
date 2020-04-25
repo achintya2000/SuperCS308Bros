@@ -61,10 +61,11 @@ public class CharacterSelect extends AbstractSelectScreen{
   private SimpleStringProperty gameModeProperty = new SimpleStringProperty();
   private String ipAddress = "";
   private boolean isLocal;
-  private boolean joiningMatch = false;
+  private boolean joiningMatch;
 
-  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage, boolean isLocal, String ipAddress) throws IOException {
+  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage, boolean isLocal, String ipAddress, boolean joiningMatch) throws IOException {
     super();
+    this.joiningMatch = joiningMatch;
     this.ipAddress = ipAddress;
     this.isLocal = isLocal;
     this.chosenStage = chosenStage;
