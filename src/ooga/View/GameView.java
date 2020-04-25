@@ -107,6 +107,11 @@ public class GameView extends Application implements ViewInternal {
     root.getChildren().add(healthBar1);
     root.getChildren().add(healthBar2);
 
+    if (chosenStage.getName().equals("battlefield")){
+      MusicManager.playBattlefieldMusic();
+    } else if (chosenStage.getName().equals("finaldestination")) {
+      MusicManager.playFinalDestinationMusic();
+    }
 
     if(gameMode.equals("LIVES")){
       Text stonkBar1 = new Text(100, 200, String.valueOf(player1.STONKSProperty().get()));
@@ -125,7 +130,6 @@ public class GameView extends Application implements ViewInternal {
   public void start(Stage primaryStage) {
     mainStage = primaryStage;
     scene = new Scene(root, 1200, 800);
-    //MusicManager.clearMusic();
     //MusicManager.playBattlefieldMusic();
     new KeyBindingController(this, scene, player1, player2);
 

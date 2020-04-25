@@ -28,6 +28,7 @@ public class MusicManager {
   }
 
   public static void playBattlefieldMusic() {
+    clearMusic();
     try {
       clip = AudioSystem.getClip();
       clip.open(AudioSystem.getAudioInputStream(new File(BATTLEFIELD_MUSIC)));
@@ -38,6 +39,7 @@ public class MusicManager {
   }
 
   public static void playFinalDestinationMusic() {
+    clearMusic();
     try {
       clip = AudioSystem.getClip();
       clip.open(AudioSystem.getAudioInputStream(new File(FINAL_DESTINATION_MUSIC)));

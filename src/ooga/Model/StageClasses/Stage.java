@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 
 public abstract class Stage {
 
+  protected String name;
   protected Image background;
   protected List<Platform> platforms;
   protected List<List<Integer>> spawnCoordinates;
@@ -34,4 +35,6 @@ public abstract class Stage {
   public abstract ArrayList<Platform> getPlatforms();
 
   public abstract List<List<Integer>> getSpawnCoordinates();
+
+  public abstract String getName();
 }

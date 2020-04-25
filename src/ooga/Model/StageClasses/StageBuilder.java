@@ -23,6 +23,7 @@ public class StageBuilder extends Stage {
 
     try {
       stageProperties = (JSONObject) parser.parse(new FileReader(propertiesPath));
+      name = stageProperties.get("name").toString();
       background = new Image(new FileInputStream(stageProperties.get("gameImage").toString()));
 
       rectangles = (JSONArray) stageProperties.get("rectangles");
@@ -65,4 +66,9 @@ public class StageBuilder extends Stage {
 
   @Override
   public List<List<Integer>> getSpawnCoordinates() { return spawnCoordinates; }
+
+  @Override
+  public String getName() {
+    return name;
+  }
 }
