@@ -63,20 +63,9 @@ public class CharacterSelect extends AbstractSelectScreen{
   private boolean isLocal;
   private boolean joiningMatch = false;
 
-  public CharacterSelect() throws IOException {
-    super();
-    joiningMatch = true;
-    isLocal = false;
-  }
-
-  public CharacterSelect(String ipAddress) throws IOException {
+  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage, boolean isLocal, String ipAddress) throws IOException {
     super();
     this.ipAddress = ipAddress;
-    isLocal = false;
-  }
-
-  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage, boolean isLocal) throws IOException {
-    super();
     this.isLocal = isLocal;
     this.chosenStage = chosenStage;
   }
@@ -108,6 +97,7 @@ public class CharacterSelect extends AbstractSelectScreen{
     int rowCount = 0;
     int colThresh = 8;
     boolean a = (1 == 2);
+
     for (AbstractCharacter character : characterList) {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {

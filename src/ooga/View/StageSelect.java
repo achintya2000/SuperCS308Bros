@@ -28,10 +28,17 @@ public class StageSelect extends AbstractSelectScreen{
   private boolean isLocal;
   private GridPane charGrid;
   private ArrayList<String> stageNames = new ArrayList<>();
+  private String ipAddress = "";
 
   public StageSelect(boolean isLocal) throws IOException {
     super();
     this.isLocal = isLocal;
+  }
+
+  public StageSelect(boolean isLocal, String ipAddress) throws IOException {
+    super();
+    this.isLocal = isLocal;
+    this.ipAddress = ipAddress;
   }
 
   public String initStages() throws FileNotFoundException {
@@ -90,7 +97,7 @@ public class StageSelect extends AbstractSelectScreen{
   public void goToSelectScreen() throws IOException {
     System.out.println("Going to Select Screen ... ");
     currentStage.hide();
-    CharacterSelect characterSelect = new CharacterSelect(chosenStage, isLocal);
+    CharacterSelect characterSelect = new CharacterSelect(chosenStage, isLocal, ipAddress);
     characterSelect.start(new Stage());
   }
 
