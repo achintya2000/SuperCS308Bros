@@ -10,10 +10,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ooga.Controller.KeyBindManager;
+import ooga.Exceptions.ExceptionHelper;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -55,6 +64,9 @@ public class ButtonsConfigPopUp {
   HBox topElements = new HBox();
   private Button configure;
 
+  private Button selectConfigP1;
+  private Button selectConfigP2;
+
   private RadioButton toggleP1;
   private RadioButton toggleP2;
   private boolean newConfigFileP1 = false;
@@ -74,6 +86,11 @@ public class ButtonsConfigPopUp {
     topElements.getChildren().add(settingsText);
 
     createToggleButtons();
+    createConfigButtons();
+
+    topElements.getChildren().add(selectConfigP1);
+    topElements.getChildren().add(selectConfigP2);
+
     setTextOfElements(prop);
     setLabelStyles(prop);
     addElementsToParents();
@@ -154,6 +171,38 @@ public class ButtonsConfigPopUp {
     toggleP2.setText("Create New Config File for Player 2");
     toggleP2.setOnAction(e -> {
       newConfigFileP2 = !newConfigFileP2;
+    });
+  }
+
+  private void createConfigButtons() {
+    JSONParser parser = new JSONParser();
+    selectConfigP1 = new Button();
+    selectConfigP1.setText("Choose P1 Binds");
+    selectConfigP1.setOnAction(e -> {
+      FileChooser fileChooser = new FileChooser();
+      File selectedConfig = fileChooser.showOpenDialog(null);
+      System.out.println(selectedConfig.getAbsolutePath());
+      try {
+        JSONObject object = (JSONObject) parser.parse(new FileReader(selectedConfig.getAbsolutePath()));
+        buttonConfigurer.setPlayer1KeyBinds(object.get("left").toString(), object.get("right").toString(), object.get("jump").toString(), object.get("fall").toString(),
+                object.get("attack").toString(), object.get("special").toString(), false);
+      } catch (ParseException | IOException ex) {
+        new ExceptionHelper(ex);
+      }
+    });
+    selectConfigP2 = new Button();
+    selectConfigP2.setText("Choose P2 Binds");
+    selectConfigP2.setOnAction(e -> {
+      FileChooser fileChooser = new FileChooser();
+      File selectedConfig = fileChooser.showOpenDialog(null);
+      JSONObject object = null;
+      try {
+        object = (JSONObject) parser.parse(selectedConfig.getPath());
+        buttonConfigurer.setPlayer2KeyBinds(object.get("left").toString(), object.get("right").toString(), object.get("jump").toString(), object.get("fall").toString(),
+                object.get("attack").toString(), object.get("special").toString(), false);
+      } catch (ParseException ex) {
+        new ExceptionHelper(ex);
+      }
     });
   }
 }
