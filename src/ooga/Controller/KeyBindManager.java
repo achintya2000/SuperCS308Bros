@@ -39,6 +39,8 @@ public class KeyBindManager {
     jsonObject.put("attack", attack.toUpperCase());
     jsonObject.put("special", special.toUpperCase());
 
+    player1KeyBinds = jsonObject;
+
     if (newConfigFile) {
       try (FileWriter fileWriter = new FileWriter("data/keybindings/player1_" + new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date()) + ".json")) {
         fileWriter.write(jsonObject.toString());
@@ -62,6 +64,8 @@ public class KeyBindManager {
     jsonObject.put("fall", fall);
     jsonObject.put("attack", attack);
     jsonObject.put("special", special.toUpperCase());
+
+    player2KeyBinds = jsonObject;
 
     if(newConfigFile){
       try (FileWriter fileWriter = new FileWriter("data/keybindings/player2_"+ new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date()) +".json")) {
