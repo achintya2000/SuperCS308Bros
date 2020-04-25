@@ -62,6 +62,9 @@ public class CharacterSelect extends AbstractSelectScreen{
   private String ipAddress = "";
   private boolean isLocal;
   private boolean joiningMatch;
+  private GridPane charGrid;
+  private ArrayList<Label> playerViewList;
+  private ArrayList<Label> charNameLabelList;
 
   public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage, boolean isLocal, String ipAddress, boolean joiningMatch) throws IOException {
     super();
@@ -72,57 +75,16 @@ public class CharacterSelect extends AbstractSelectScreen{
   }
 
   public void initCharacters() throws FileNotFoundException {
-    ArrayList<Label> playerViewList = new ArrayList<>();
-    playerViewList.add(player1ViewBoxPic);
-    playerViewList.add(player2ViewBoxPic);
-
-    ArrayList<Label> charNameLabelList = new ArrayList<>();
-    charNameLabelList.add(char1NameText);
-    charNameLabelList.add(char2NameText);
-
+    createLists();
     Bunny bunny = new Bunny("bunny");
     Ghost ghost = new Ghost("ghost");
-
-    GridPane charGrid = new GridPane();
-    charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
-    charGrid.setGridLinesVisible(true);
-    charGrid.setMaxHeight(300);
-    charGrid.setMaxWidth(800);
-
-    setBorderPaneColor();
-    borderPane.setCenter(charGrid);
-    borderPane.setRight(makeModeSelect());
-    characterList.add(bunny);
-    characterList.add(ghost);
+    setupCharGrid(bunny, ghost);
     int colCount = 0;
     int rowCount = 0;
     int colThresh = 8;
-    boolean a = (1 == 2);
-
     for (AbstractCharacter character : characterList) {
       Button button = new Button();
-      button.setOnMouseClicked((e) -> {
-        try {
-          Class<?> cls = Class.forName(character.getClass().getName());
-          AbstractCharacter imageCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0]
-              .newInstance(character.getName());
-          AbstractCharacter newCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0]
-              .newInstance(character.getName());
-
-          playerList.get(currentPlayer - 1).setMyCharacter(newCharacter);
-          playerList.get(currentPlayer - 1).setHasChosenChar(true);
-          playerViewList.get(currentPlayer - 1).setGraphic(imageCharacter.getCharacterImage());
-          charNameLabelList.get(currentPlayer - 1).setText(character.getName());
-          charNameLabelList.get(currentPlayer - 1)
-              .setStyle(prop.getProperty("characterText"));
-          System.out.println(
-              "Player " + currentPlayer + "  character: " + playerList.get(currentPlayer - 1)
-                  .getMyCharacter().getName());
-          checkAllPlayersChosen();
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException ex) {
-          new ExceptionHelper(ex);
-        }
-      });
+      button.setOnMouseClicked((e) -> { setupButtons(character); });
       button.setDisable(true);
       button.setGraphic(character.getCharacterImage());
       charGrid.add(button, colCount, rowCount);
@@ -133,6 +95,48 @@ public class CharacterSelect extends AbstractSelectScreen{
       }
       buttonList.add(button);
     }
+  }
+
+  private void setupButtons(AbstractCharacter character) {
+    try {
+      Class<?> cls = Class.forName(character.getClass().getName());
+      AbstractCharacter imageCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0]
+          .newInstance(character.getName());
+      AbstractCharacter newCharacter = (AbstractCharacter) cls.getDeclaredConstructors()[0]
+          .newInstance(character.getName());
+
+      playerList.get(currentPlayer - 1).setMyCharacter(newCharacter);
+      playerList.get(currentPlayer - 1).setHasChosenChar(true);
+      playerViewList.get(currentPlayer - 1).setGraphic(imageCharacter.getCharacterImage());
+      charNameLabelList.get(currentPlayer - 1).setText(character.getName());
+      charNameLabelList.get(currentPlayer - 1).setStyle(prop.getProperty("characterText"));
+      checkAllPlayersChosen();
+    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException ex) {
+      new ExceptionHelper(ex);
+    }
+  }
+
+  private void createLists() {
+    playerViewList = new ArrayList<>();
+    playerViewList.add(player1ViewBoxPic);
+    playerViewList.add(player2ViewBoxPic);
+
+    charNameLabelList = new ArrayList<>();
+    charNameLabelList.add(char1NameText);
+    charNameLabelList.add(char2NameText);
+  }
+
+  private void setupCharGrid(Bunny bunny, Ghost ghost) {
+    charGrid = new GridPane();
+    charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
+    charGrid.setGridLinesVisible(true);
+    charGrid.setMaxHeight(300);
+    charGrid.setMaxWidth(800);
+    setBorderPaneColor();
+    borderPane.setCenter(charGrid);
+    borderPane.setRight(makeModeSelect());
+    characterList.add(bunny);
+    characterList.add(ghost);
   }
 
   private void setBorderPaneColor(){
