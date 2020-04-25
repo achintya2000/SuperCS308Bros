@@ -22,11 +22,11 @@ public class ServerNetworkListener extends Listener {
 
     public ServerNetworkListener(GameView gv) {
         this.gameView = gv;
-        SERVER_LEFT_PRESSED.bindBidirectional(gv.getPlayer1LeftProp());
-        SERVER_RIGHT_PRESSED.bindBidirectional(gv.getPlayer1RightProp());
-        SERVER_FALL_PRESSED.bindBidirectional(gv.getPlayer1FallProp());
-        SERVER_JUMP_PRESSED.bindBidirectional(gv.getPlayer1JumpProp());
-        SERVER_ATTACK_PRESSED.bindBidirectional(gv.getPlayer1AttackProp());
+        SERVER_LEFT_PRESSED.bindBidirectional(gv.getPlayer2LeftProp());
+        SERVER_RIGHT_PRESSED.bindBidirectional(gv.getPlayer2RightProp());
+        SERVER_FALL_PRESSED.bindBidirectional(gv.getPlayer2FallProp());
+        SERVER_JUMP_PRESSED.bindBidirectional(gv.getPlayer2JumpProp());
+        SERVER_ATTACK_PRESSED.bindBidirectional(gv.getPlayer2AttackProp());
     }
 
     @Override
