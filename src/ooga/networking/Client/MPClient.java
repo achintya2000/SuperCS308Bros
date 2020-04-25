@@ -52,8 +52,4 @@ public class MPClient {
     client.stop();
   }
 
-//  public static void main(String[] args) {
-//    new MPClient();
-//  }
-
 }

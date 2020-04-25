@@ -2,7 +2,12 @@ package ooga.networking.Server;
 
 import ooga.View.GameView;
 import ooga.networking.Client.MPClient;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +31,4 @@ class ServerNetworkListenerTest {
         assertEquals(mpServer.getServerConnection(), 0);
     }
 
-    @Test
-    void received() {
-    }
 }
