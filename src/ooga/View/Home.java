@@ -29,7 +29,6 @@ public class Home extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    System.out.println();
     Scene homeScreen = new Scene(setupBorderPane());
     primaryStage.setScene(homeScreen);
     primaryStage.setHeight(800);
