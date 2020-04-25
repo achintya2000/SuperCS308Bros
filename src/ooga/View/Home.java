@@ -35,7 +35,6 @@ public class Home extends Application {
     primaryStage.setWidth(1200);
     currentStage = primaryStage;
     primaryStage.show();
-
     //MusicManager.playMainMenuMusic();
 
   }
