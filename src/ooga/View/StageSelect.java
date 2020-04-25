@@ -1,11 +1,13 @@
 package ooga.View;
 
+import java.util.Properties;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.StageClasses.StageBuilder;
 import java.io.*;
 import java.util.ArrayList;
@@ -75,7 +77,6 @@ public class StageSelect extends AbstractSelectScreen{
     charGrid.setGridLinesVisible(true);
     charGrid.setMaxHeight(300);
     charGrid.setMaxWidth(800);
-    borderPane.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
     borderPane.setCenter(charGrid);
     return charGrid;
   }
@@ -101,7 +102,19 @@ public class StageSelect extends AbstractSelectScreen{
     bottomElements.getChildren().add(go);
     bottomElements.setAlignment(TOP_CENTER);
     borderPane.setBottom(bottomElements);
+    borderPaneStyle();
     return borderPane;
+  }
+
+  private void borderPaneStyle() {
+    Properties props = new Properties();
+    try{
+      props.load(new FileInputStream("src/ooga/View/darkmode.properties"));
+    } catch (IOException e){
+      new ExceptionHelper(e);
+    }
+    if(props.getProperty("darkmode").equals("true"))  borderPane.setStyle("-fx-background-color: rgba(0, 0, 0, .8)");
+    else borderPane.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
   }
 
   private void setupGoButton() {

@@ -4,61 +4,75 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class GhostTest {
-
+public class GhostTest {
   @Test
-  void idle() {
+  void testJump(){
+    assertThrows(NullPointerException.class, () -> {
+      Ghost testGhost = new Ghost("TestBunny");
+      testGhost.jump();
+    });
   }
 
   @Test
-  void moveLeft() {
+  void testMoveLeft(){
+    assertDoesNotThrow(() -> {
+      Ghost testGhost = new Ghost("TestBunny");
+      testGhost.moveLeft();
+    });
   }
 
   @Test
-  void moveRight() {
+  void testMoveRight(){
+    assertDoesNotThrow(() -> {
+      Ghost testGhost = new Ghost("TestBunny");
+      testGhost.moveRight();
+    });
   }
 
   @Test
-  void moveDown() {
+  void testMoveDown(){
+    assertDoesNotThrow(() -> {
+      Ghost testGhost = new Ghost("TestBunny");
+      testGhost.moveDown();
+    });
+  }
+
+
+  @Test
+  void testAttack(){
+    assertDoesNotThrow(() -> {
+      Ghost testGhost = new Ghost("TestBunny");
+      testGhost.attack();
+    });
   }
 
   @Test
-  void jump() {
+  void testGetCharacterImage(){
+    assertNotNull(new Ghost("TestBunny").getCharacterImage());
   }
 
   @Test
-  void attack() {
+  void testGetCenterY(){
+    assertTrue((new Ghost("TestBunny").getCenterY() >= 0));
   }
 
   @Test
-  void special() {
+  void testGetHitBox(){
+    assertNotNull(new Ghost("TestBunny").getHitBox());
+    assertNotEquals(new Ghost("TestGhost").getHitBox().getCenterX(), 0);
   }
 
   @Test
-  void getRoot() {
+  void testGetHurtBox(){
+    assertNotNull(new Ghost("TestBunny").getHurtBox());
   }
 
   @Test
-  void getCharacterImage() {
+  void testImageBoxSync(){
+    int OFFSET = 25;
+    Ghost testGhost = new Ghost("TestBunny");
+    assertTrue((testGhost.getCharacterImage().getX() + OFFSET) == testGhost.getHurtBox().getX());
+    assertTrue(testGhost.getCharacterImage().getX() == testGhost.getCharacterImage().getY());
   }
 
-  @Test
-  void getCenterY() {
-  }
-
-  @Test
-  void setCenterY() {
-  }
-
-  @Test
-  void getHitBox() {
-  }
-
-  @Test
-  void getHurtBox() {
-  }
-
-  @Test
-  void setImageFiles() {
-  }
 }
