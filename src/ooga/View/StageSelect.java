@@ -1,87 +1,56 @@
 package ooga.View;
 
-import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import ooga.Exceptions.ExceptionHelper;
-import ooga.Model.Player;
-import ooga.Model.Stages.StageBuilder;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import ooga.Model.StageClasses.StageBuilder;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Properties;
-import java.util.ResourceBundle;
+
 
 import static javafx.geometry.Pos.*;
 
-public class StageSelect extends Application implements ViewInternal {
-
-  public static final ResourceBundle buttonStyles = ResourceBundle
-      .getBundle("ooga.Resources.stylesheets.buttonStyle");
-  private Scene currentScene;
-  private BorderPane borderPane;
+public class StageSelect extends AbstractSelectScreen{
+  private BorderPane borderPane = new BorderPane();
   private Button go;
   private Stage currentStage;
-  private ooga.Model.Stages.Stage chosenStage;
+  private ooga.Model.StageClasses.Stage chosenStage;
 
-  private ArrayList<ooga.Model.Stages.Stage> stageList = new ArrayList<>();
+  private ArrayList<ooga.Model.StageClasses.Stage> stageList = new ArrayList<>();
   private ArrayList<Button> buttonList = new ArrayList<>();
   private Group root = new Group();
+  private int colThresh = 8;
+  private boolean isLocal;
 
-
-  @Override
-  public void resetGame() {
-
-  }
-
-  @Override
-  public void setCharacter() {
-
-  }
-
-  @Override
-  public void setStage() {
-  }
-
-  public void settings()
-  {
-    new SettingsPopUp();
+  public StageSelect(boolean isLocal) throws IOException {
+    super();
+    this.isLocal = isLocal;
   }
 
   public void initStages() throws FileNotFoundException {
-    StageBuilder battlefield = new StageBuilder("data/stages/stagedata/battlefield.json");
 
-    StageBuilder fd = new StageBuilder("data/stages/stagedata/finaldestination.json");
-    StageBuilder bridge = new StageBuilder("data/stages/stagedata/bridge.json");
-    StageBuilder norfair = new StageBuilder("data/stages/stagedata/norfair.json");
+    File dir = new File("data/stages/stagedata");
+    System.out.println(dir.getAbsolutePath());
+    File[] directoryListing = dir.listFiles();
+    if (directoryListing != null) {
+      for (File child : directoryListing) {
+        System.out.println(child.getName());
+        StageBuilder stage = new StageBuilder("data/stages/stagedata/"+child.getName());
+        System.out.println(child.getName());
+        stageList.add(stage);
+      }
+    }
+    GridPane charGrid = setupStageGrid();
+    createStageButtons(charGrid);
+  }
 
-    stageList.add(battlefield);
-    stageList.add(fd);
-    stageList.add(bridge);
-    stageList.add(norfair);
-    GridPane charGrid = new GridPane();
-    charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
-    charGrid.setGridLinesVisible(true);
-    charGrid.setMaxHeight(300);
-    charGrid.setMaxWidth(800);
-    borderPane.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
-    borderPane.setCenter(charGrid);
-
+  private void createStageButtons(GridPane charGrid) {
     int colCount = 0;
     int rowCount = 0;
-    int colThresh = 8;
-    for (ooga.Model.Stages.Stage stage : stageList) {
+    for (ooga.Model.StageClasses.Stage stage : stageList) {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
         chosenStage = stage;
@@ -100,62 +69,34 @@ public class StageSelect extends Application implements ViewInternal {
     }
   }
 
+  private GridPane setupStageGrid() {
+    GridPane charGrid = new GridPane();
+    charGrid.setStyle("-fx-background-color: rgba(0,0,0, 1)");
+    charGrid.setGridLinesVisible(true);
+    charGrid.setMaxHeight(300);
+    charGrid.setMaxWidth(800);
+    borderPane.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
+    borderPane.setCenter(charGrid);
+    return charGrid;
+  }
 
-  public void goToSelectScreen() {
+
+  public void goToSelectScreen() throws IOException {
     System.out.println("Going to Select Screen ... ");
     currentStage.hide();
-    CharacterSelect characterSelect = new CharacterSelect(chosenStage);
+    CharacterSelect characterSelect = new CharacterSelect(chosenStage, isLocal);
     characterSelect.start(new Stage());
   }
 
 
-  private BorderPane makeBorderPane() throws IOException {
-    BorderPane myborderPane = new BorderPane();
-    VBox header = new VBox();
-    header.setAlignment(CENTER);
-    HBox toolbar = new HBox();
-    toolbar.setSpacing(10);
-    toolbar.setAlignment(TOP_CENTER);
-    header.getChildren().add(toolbar);
-    borderPane = myborderPane;
+  private BorderPane integrateBorderPane() throws IOException {
+    VBox header = createToolbar();
+    setupGoButton();
+    return setupBorderPane(header);
+  }
 
-    HashMap<String, String> buttonMap = new HashMap<>();
-    Properties props = new Properties();
-    props.load(Home.class.getResourceAsStream("charSelect_buttons.properties"));
-    for (String s : props.stringPropertyNames()) {
-      buttonMap.put(s, props.getProperty(s));
-    }
-    Class<?> thisSelectScreen = StageSelect.class;
-    for (String key : buttonMap.keySet()) {
-      Button b = new Button(key);
-      for (Method m : thisSelectScreen.getDeclaredMethods()) {
-        if (buttonMap.get(key).equals(m.getName())) {
-          b.setOnAction(e -> {
-            try {
-              m.setAccessible(true);
-              m.invoke(this);
-            } catch (IllegalAccessException ex) {
-              ex.printStackTrace();
-            } catch (InvocationTargetException ex) {
-              ex.printStackTrace();
-            }
-          });
-        }
-      }
-      toolbar.getChildren().add(b);
-    }
-
+  private BorderPane setupBorderPane(VBox header) {
     borderPane.setTop(header);
-
-    go = new Button("GO!");
-    go.setStyle(buttonStyles.getString("playerText"));
-    go.setMinWidth(300);
-    go.setMinHeight(100);
-    go.setOnMouseClicked((e) -> {
-      goToSelectScreen();
-    });
-    go.setDisable(true);
-    go.setId("#GoButton");
     VBox bottomElements = new VBox();
     bottomElements.getChildren().add(go);
     bottomElements.setAlignment(TOP_CENTER);
@@ -163,11 +104,26 @@ public class StageSelect extends Application implements ViewInternal {
     return borderPane;
   }
 
+  private void setupGoButton() {
+    go = new Button("GO!");
+    go.setStyle(prop.getProperty("playerText"));
+    go.setMinWidth(300);
+    go.setMinHeight(100);
+    go.setOnMouseClicked((e) -> {
+      try {
+        goToSelectScreen();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    });
+    go.setDisable(true);
+    go.setId("#GoButton");
+  }
+
   @Override
-  public void start(Stage primaryStage) {
+  public void start(Stage primaryStage){
     try {
-      Scene selectScene = new Scene(makeBorderPane());
-      currentScene = selectScene;
+      Scene selectScene = new Scene(integrateBorderPane());
       currentStage = primaryStage;
       primaryStage.setScene(selectScene);
       primaryStage.setHeight(800);

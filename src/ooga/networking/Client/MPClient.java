@@ -17,7 +17,8 @@ public class MPClient {
 
   private GameView gameView;
 
-  public MPClient(GameView gv) {
+  public MPClient(GameView gv, String ipAddress) {
+    this.ipAddress = ipAddress;
     this.gameView = gv;
     client = new Client();
     clientNetworkListener = new ClientNetworkListener(client, gameView);

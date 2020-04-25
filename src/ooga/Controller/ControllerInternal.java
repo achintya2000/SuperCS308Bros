@@ -17,6 +17,6 @@ public interface ControllerInternal {
     /**
      * 
      */
-    public void isGameOver();
+    public void isGameOver(boolean isLocal);
 
 }

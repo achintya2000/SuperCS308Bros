@@ -50,6 +50,7 @@ public abstract class AbstractCharacter {
   protected BooleanProperty LEFT_COLLIDE = new SimpleBooleanProperty();
   protected BooleanProperty INTERSECTS = new SimpleBooleanProperty();
   protected SimpleDoubleProperty HEALTH = new SimpleDoubleProperty();
+  protected SimpleIntegerProperty STONKS = new SimpleIntegerProperty();
   private BooleanProperty HOLLOW_COLLIDE = new SimpleBooleanProperty();
   private BooleanProperty BOTTOM_COLLIDE = new SimpleBooleanProperty();
 
@@ -59,10 +60,16 @@ public abstract class AbstractCharacter {
     System.out.println(name);
     System.out.println(this.name);
     HEALTH.set(100);
+    STONKS.set(3);
     RIGHT_COLLIDE.set(false);
     LEFT_COLLIDE.set(false);
     INTERSECTS.set(false);
     HOLLOW_COLLIDE.set(false);
+  }
+
+
+  public SimpleIntegerProperty STONKSProperty() {
+    return STONKS;
   }
 
   public boolean getBOTTOM_COLLIDE(){
@@ -135,23 +142,6 @@ public abstract class AbstractCharacter {
   }
 
 
-  /**
-   * Getter for myStocks
-   *
-   * @return
-   */
-  public int getStocks() {
-    return myStocks;
-  }
-
-  /**
-   * Setter for myStocks
-   *
-   * @param newStock the new amount of stocks
-   */
-  public void setStocks(int newStock) {
-    myStocks = newStock;
-  }
 
   public ImageView getCharacterImage() {
     return spriteImageView;

@@ -1,13 +1,12 @@
 package ooga.Controller;
 
-public class Controller implements ControllerInternal {
+public class Controller {
 
-  @Override
+
   public void checkWithinBoundries() {
 
   }
 
-  @Override
   public void isGameOver() {
 
   }
