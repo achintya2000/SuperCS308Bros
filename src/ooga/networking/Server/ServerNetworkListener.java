@@ -59,12 +59,12 @@ public class ServerNetworkListener extends Listener {
 
         if (o instanceof Packets.packetJumpPressed) {
             Packets.packetJumpPressed packetJumpPressed = (Packets.packetJumpPressed) o;
-            gameView.getPlayer1FallProp().set(packetJumpPressed.jumpPressed);
+            gameView.getPlayer1JumpProp().set(packetJumpPressed.jumpPressed);
         }
 
         if (o instanceof Packets.packetFallPressed) {
             Packets.packetFallPressed packetFallPressed = (Packets.packetFallPressed) o;
-            gameView.getPlayer1JumpProp().set(packetFallPressed.fallPressed);
+            gameView.getPlayer1FallProp().set(packetFallPressed.fallPressed);
         }
 
         if (o instanceof Packets.packetAttackPressed) {
