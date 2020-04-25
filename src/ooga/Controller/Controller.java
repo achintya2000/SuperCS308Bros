@@ -163,13 +163,13 @@ public class Controller extends AnimationTimer implements ControllerInternal {
             player2.healthProperty().set(100);
           }
           if (player1.STONKSProperty().get() == 0) {
-            go = new GameOver(player2.getName(), (int) player2.healthProperty().get(), isLocal);
+            go = new GameOver("PLAYER 2", (int) player2.healthProperty().get(), isLocal);
             mainStage.close();
             this.stop();
             go.start(new Stage());
           }
           else if (player2.STONKSProperty().get() == 0) {
-            go = new GameOver(player1.getName(), (int) player1.healthProperty().get(), isLocal);
+            go = new GameOver("PLAYER 1", (int) player1.healthProperty().get(), isLocal);
             mainStage.close();
             this.stop();
             go.start(new Stage());
@@ -181,13 +181,13 @@ public class Controller extends AnimationTimer implements ControllerInternal {
       case "HEALTH":
         try {
           if (player1.healthProperty().get() == 0) {
-            go = new GameOver(player2.getName(), (int) player2.healthProperty().get(),isLocal);
+            go = new GameOver("PLAYER 2", (int) player2.healthProperty().get(),isLocal);
             mainStage.close();
             this.stop();
             go.start(new Stage());
           }
           else if (player2.healthProperty().get() == 0) {
-            go = new GameOver(player1.getName(), (int) player1.healthProperty().get(), isLocal);
+            go = new GameOver("PLAYER 1", (int) player1.healthProperty().get(), isLocal);
             mainStage.close();
             this.stop();
             go.start(new Stage());

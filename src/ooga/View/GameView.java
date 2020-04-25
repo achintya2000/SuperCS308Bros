@@ -130,7 +130,6 @@ public class GameView extends Application implements ViewInternal {
       }
     }
 
-
     primaryStage.setTitle("FIGHT!");
     primaryStage.setScene(scene);
     primaryStage.show();
