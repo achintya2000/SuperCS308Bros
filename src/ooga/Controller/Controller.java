@@ -39,8 +39,8 @@ public class Controller extends AnimationTimer implements ControllerInternal {
   }
   @Override
   public void handle(long now) {
+    isGameOver(gv.getIsLocal());
     for(Player player : playerList) {
-      isGameOver(gv.getIsLocal());
       AbstractCharacter character = player.getMyCharacter();
       if (!character.getINTERSECTS() || character.getRIGHT_COLLIDE() || character.getLEFT_COLLIDE() || character.getBOTTOM_COLLIDE()) {
         character.setCenterY(character.getHurtBox().getY() + GRAVITY);
