@@ -46,10 +46,6 @@ public class GameView extends Application implements ViewInternal {
   private BooleanProperty PLAYER_2_JUMP_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty PLAYER_2_ATTACK_PRESSED = new SimpleBooleanProperty();
 
-  private ObjectProperty STAGE_SELECTED = new SimpleObjectProperty();
-  private ObjectProperty PLAYER_1 = new SimpleObjectProperty();
-  private ObjectProperty PLAYER_2 = new SimpleObjectProperty();
-
   AbstractCharacter player1;
   AbstractCharacter player2;
   ArrayList<Platform> platforms;
@@ -193,10 +189,6 @@ public class GameView extends Application implements ViewInternal {
 
   public BooleanProperty getPlayer2AttackProp() {
     return PLAYER_2_ATTACK_PRESSED;
-  }
-
-  public ObjectProperty getStageSelectedProp() {
-    return STAGE_SELECTED;
   }
 
   class CustomStringConverter extends StringConverter<Number>{
