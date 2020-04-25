@@ -48,6 +48,10 @@ public class MPClient {
     kryo.register(Packets.packetAttackPressed.class);
   }
 
+  public void forceDisconnect() {
+    client.stop();
+  }
+
 //  public static void main(String[] args) {
 //    new MPClient();
 //  }
