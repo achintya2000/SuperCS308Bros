@@ -90,13 +90,13 @@ public class ClientNetworkListener extends Listener {
 
         CLIENT_FALL_PRESSED.addListener((observable, oldValue, newValue) -> {
             Packets.packetFallPressed fallData = new Packets.packetFallPressed();
-            fallData.fallPressed = CLIENT_JUMP_PRESSED.get();
+            fallData.fallPressed = CLIENT_FALL_PRESSED.get();
             client.sendTCP(fallData);
         });
 
         CLIENT_JUMP_PRESSED.addListener((observable, oldValue, newValue) -> {
             Packets.packetJumpPressed jumpData = new Packets.packetJumpPressed();
-            jumpData.jumpPressed = CLIENT_FALL_PRESSED.get();
+            jumpData.jumpPressed = CLIENT_JUMP_PRESSED.get();
             client.sendTCP(jumpData);
         });
 
