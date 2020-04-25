@@ -1,5 +1,6 @@
 package ooga.View;
 
+import ooga.Controller.Controller;
 import ooga.Model.Characters.Bunny;
 import ooga.Model.Player;
 import ooga.Model.StageClasses.Platform;
@@ -33,7 +34,7 @@ public class GameViewAnimationTest {
         playerList.add(player1);
         playerList.add(player2);
 
-        GameViewAnimation gva = new GameViewAnimation(gv, playerList, platformList);
+        Controller gva = new Controller(gv, playerList, platformList);
 
         assertTrue(bunny1.getCenterY() >= 0);
     }
@@ -52,7 +53,7 @@ public class GameViewAnimationTest {
         playerList.add(player1);
         playerList.add(player2);
 
-        GameViewAnimation gva = new GameViewAnimation(gv, playerList, platformList);
+        Controller gva = new Controller(gv, playerList, platformList);
         assertFalse(bunny1.getINTERSECTS());
     }
 
@@ -69,7 +70,7 @@ public class GameViewAnimationTest {
         playerList.add(player1);
         playerList.add(player2);
 
-        GameViewAnimation gva = new GameViewAnimation(gv, playerList, platformList);
+        Controller gva = new Controller(gv, playerList, platformList);
         assertFalse(bunny1.getLEFT_COLLIDE());
         assertFalse(bunny1.getRIGHT_COLLIDE());
         assertFalse(bunny1.getBOTTOM_COLLIDE());

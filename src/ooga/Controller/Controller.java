@@ -26,6 +26,16 @@ public class Controller extends AnimationTimer implements ControllerInternal {
   private ArrayList<Platform> platforms;
   private String gameMode;
 
+  public Controller(GameView gc, ArrayList<Player> playerList, ArrayList<Platform> platformList){
+    this.gv = gv;
+    this.playerList = playerList;
+    platforms = platformList;
+    player1 = playerList.get(0).getMyCharacter();
+    player2 = playerList.get(1).getMyCharacter();
+  }
+
+
+
   public Controller(GameView gv, ArrayList<Player> playerList, ArrayList<Platform> platformList,
                     Stage gameViewStage, String gameMode){
     super();
@@ -129,7 +139,7 @@ public class Controller extends AnimationTimer implements ControllerInternal {
         MusicManager.playHitSound();
       }
     }
-    if (gv.getPlayer2JumpProp().get()) {
+    if (gv.getPlayer2JumpProp().get() && !player2.getBOTTOM_COLLIDE()) {
       player2.jump();
     }
     if (gv.getPlayer2AttackProp().get()) {
