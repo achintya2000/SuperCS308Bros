@@ -1,5 +1,8 @@
 package ooga.View;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,10 +16,10 @@ import ooga.Controller.MusicManager;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
+import ooga.Exceptions.ExceptionHelper;
 
 
 public class Home extends Application {
-
   private Stage currentStage;
   private BorderPane borderPane;
   private HBox buttonHolder;
@@ -26,7 +29,6 @@ public class Home extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    System.out.println();
     Scene homeScreen = new Scene(setupBorderPane());
     primaryStage.setScene(homeScreen);
     primaryStage.setHeight(800);
@@ -48,9 +50,41 @@ public class Home extends Application {
     createButtons();
     setButtonActions();
 
-    borderPane.setCenter(buttonHolder);
+    try{
+      darkModeSwitch();
+    } catch (IOException ioe){
+      new ExceptionHelper(ioe);
+    }
 
     return borderPane;
+  }
+
+  private void darkModeSwitch() throws IOException {
+    borderPane.setCenter(buttonHolder);
+    Button darkModeBtn = new Button();
+    Properties props = new Properties();
+    props.load(new FileInputStream("src/ooga/View/darkmode.properties"));
+    darkModeBtn.setText("Dark mode?: " + props.getProperty("darkmode"));
+    darkModeBtn.setOnAction(e -> {
+      try{
+        Properties props2 = new Properties();
+        props2.load(new FileInputStream("src/ooga/View/darkmode.properties"));
+        FileOutputStream out = new FileOutputStream("src/ooga/View/darkmode.properties");
+
+        if(props.getProperty("darkmode").equals("true")) props.setProperty("darkmode", "false");
+        else if(props.getProperty("darkmode").equals("false")) props.setProperty("darkmode", "true");
+
+        props.store(out, null);
+        darkModeBtn.setText("Dark mode?: " + props.getProperty("darkmode"));
+        out.close();
+      } catch (IOException ioe){
+        new ExceptionHelper(ioe);
+      }
+
+
+    });
+    borderPane.setTop(darkModeBtn);
+
   }
 
   private void setButtonActions() {

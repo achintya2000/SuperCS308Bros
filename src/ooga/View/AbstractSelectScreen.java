@@ -69,4 +69,9 @@ public abstract class AbstractSelectScreen {
     }
 
     public abstract void start(Stage PrimaryStage);
+
+    public String getPropterties()
+    {
+        return prop.keySet()+"";
+    }
 }

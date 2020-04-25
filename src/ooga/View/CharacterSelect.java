@@ -1,5 +1,7 @@
 package ooga.View;
 
+import java.io.FileInputStream;
+import java.util.Properties;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -59,22 +61,12 @@ public class CharacterSelect extends AbstractSelectScreen{
   private SimpleStringProperty gameModeProperty = new SimpleStringProperty();
   private String ipAddress = "";
   private boolean isLocal;
-  private boolean joiningMatch = false;
+  private boolean joiningMatch;
 
-  public CharacterSelect() throws IOException {
+  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage, boolean isLocal, String ipAddress, boolean joiningMatch) throws IOException {
     super();
-    joiningMatch = true;
-    isLocal = false;
-  }
-
-  public CharacterSelect(String ipAddress) throws IOException {
-    super();
+    this.joiningMatch = joiningMatch;
     this.ipAddress = ipAddress;
-    isLocal = false;
-  }
-
-  public CharacterSelect(ooga.Model.StageClasses.Stage chosenStage, boolean isLocal) throws IOException {
-    super();
     this.isLocal = isLocal;
     this.chosenStage = chosenStage;
   }
@@ -96,7 +88,8 @@ public class CharacterSelect extends AbstractSelectScreen{
     charGrid.setGridLinesVisible(true);
     charGrid.setMaxHeight(300);
     charGrid.setMaxWidth(800);
-    borderPane.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
+
+    setBorderPaneColor();
     borderPane.setCenter(charGrid);
     borderPane.setRight(makeModeSelect());
     characterList.add(bunny);
@@ -105,6 +98,7 @@ public class CharacterSelect extends AbstractSelectScreen{
     int rowCount = 0;
     int colThresh = 8;
     boolean a = (1 == 2);
+
     for (AbstractCharacter character : characterList) {
       Button button = new Button();
       button.setOnMouseClicked((e) -> {
@@ -141,6 +135,16 @@ public class CharacterSelect extends AbstractSelectScreen{
     }
   }
 
+  private void setBorderPaneColor(){
+    Properties props = new Properties();
+    try{
+      props.load(new FileInputStream("src/ooga/View/darkmode.properties"));
+    } catch (IOException e){
+      new ExceptionHelper(e);
+    }
+    if(props.getProperty("darkmode").equals("true"))  borderPane.setStyle("-fx-background-color: rgba(0, 0, 0, .8)");
+    else borderPane.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
+  }
 
   public void p1Ready() {
     for (Button button : buttonList) {

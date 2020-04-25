@@ -51,15 +51,17 @@ public class IPAddress {
       // FILL IN CONNECTION WITH IP ADDRESS HERE
       System.out.println(ipAddress.getText());
 
-      System.out.println("Going to Select Screen ... ");
       ipAddressStage.hide();
-      CharacterSelect characterSelect = null;
+      StageSelect stageSelect = null;
       try {
-        characterSelect = new CharacterSelect();
+        boolean isLocal = false;
+        boolean joining = true;
+        stageSelect = new StageSelect(isLocal, ipAddress.getText(), joining);
       } catch (IOException ex) {
         ex.printStackTrace();
       }
-      characterSelect.start(new Stage());
+      System.out.println(stageSelect.prop.keySet());
+      stageSelect.start(new Stage());
     });
     connect.setStyle(prop.getProperty("playerText"));
   }

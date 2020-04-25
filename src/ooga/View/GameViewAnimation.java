@@ -133,7 +133,7 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
         player2.setHEALTH(player2.getHEALTH() - 10);
       }
     }
-    if (gv.getPlayer2JumpProp().get()) {
+    if (gv.getPlayer2JumpProp().get() && !player1.getBOTTOM_COLLIDE()) {
       player2.jump();
     }
     if (gv.getPlayer2AttackProp().get()) {

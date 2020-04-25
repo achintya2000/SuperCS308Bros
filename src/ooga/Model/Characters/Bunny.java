@@ -29,6 +29,38 @@ public class Bunny extends AbstractCharacter {
   private static final int WIDTH = 100;
   private static final int HEIGHT = 100;
 
+  public Bunny(String name) {
+    super(name);
+    try {
+      setImageFiles();
+    } catch (FileNotFoundException e) {
+      new ExceptionHelper(e);
+    }
+    spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
+    this.centerX = 0;
+    this.centerY = 0;
+    spriteImageView.setX(centerX);
+    spriteImageView.setY(centerY);
+
+    spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
+    spriteAnimation = new SpriteAnimation(
+            spriteImageView,
+            Duration.millis(1000),
+            COUNT, COLUMNS,
+            OFFSET_X, OFFSET_Y,
+            WIDTH, HEIGHT
+    );
+
+    spriteAnimation.setCycleCount(Animation.INDEFINITE);
+    spriteAnimation.play();
+
+    hurtBox = makeHurtBox(centerX, centerY);
+
+    hitBox = makeHitBox();
+
+    getGroup().getChildren().addAll(hurtBox, getCharacterImage());
+  }
+
   public Bunny(String name, int testNumber){
     super(name);
     try {
@@ -51,38 +83,6 @@ public class Bunny extends AbstractCharacter {
     getGroup().getChildren().addAll(hurtBox, getCharacterImage());
   }
 
-
-  public Bunny(String name) {
-    super(name);
-    try {
-      setImageFiles();
-    } catch (FileNotFoundException e) {
-      new ExceptionHelper(e);
-    }
-    spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
-    this.centerX = 0;
-    this.centerY = 0;
-    spriteImageView.setX(centerX);
-    spriteImageView.setY(centerY);
-
-    spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
-    spriteAnimation = new SpriteAnimation(
-        spriteImageView,
-        Duration.millis(1000),
-        COUNT, COLUMNS,
-        OFFSET_X, OFFSET_Y,
-        WIDTH, HEIGHT
-    );
-
-    spriteAnimation.setCycleCount(Animation.INDEFINITE);
-    spriteAnimation.play();
-
-    hurtBox = makeHurtBox(centerX, centerY);
-
-    hitBox = makeHitBox();
-
-    getGroup().getChildren().addAll(hurtBox, getCharacterImage());
-  }
 
   private Circle makeHitBox() {
     double x;

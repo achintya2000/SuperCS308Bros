@@ -1,11 +1,18 @@
 {
-  "gameImage": "data/stages/stageimages/Bridge_of_Eldin.png",
+  "gameImage": ,
   "rectangles" : [
     {
       "xPos": 0,
       "yPos": 425,
       "width": 1200,
       "height": 50,
+      "hollow": false
+    },
+    {
+      "xPos": 200,
+      "yPos": 600,
+      "width": 1000,
+      "height": 100,
       "hollow": false
     }
   ],

@@ -23,13 +23,12 @@ public class SettingsPopUp{
     settings.setTitle("Settings");
     Label settingsText= new Label("Settings");
     Button buttonConfig= new Button("Button Configuration");
-    Button uiTheme = new Button("UI THEME");
     Button close = new Button("Close this pop up window");
     close.setOnAction(e -> settings.close());
     buttonConfig.setOnAction(e -> new ButtonsConfigPopUp(prop));
 
     VBox layout= new VBox(10);
-    layout.getChildren().addAll(settingsText, buttonConfig, uiTheme, close);
+    layout.getChildren().addAll(settingsText, buttonConfig, close);
     layout.setAlignment(Pos.CENTER);
 
     Scene settingsScene= new Scene(layout, 300, 250);
