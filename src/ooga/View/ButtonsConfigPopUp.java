@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -54,6 +55,9 @@ public class ButtonsConfigPopUp {
   HBox topElements = new HBox();
   private Button configure;
 
+  private RadioButton toggle;
+  private boolean newConfigFile = false;
+
   public ButtonsConfigPopUp(Properties prop)
   {
     this.prop = prop;
@@ -67,6 +71,7 @@ public class ButtonsConfigPopUp {
     topElements.setAlignment(Pos.TOP_CENTER);
     topElements.getChildren().add(settingsText);
 
+    createToggleButton();
     setTextOfElements(prop);
     setLabelStyles(prop);
     addElementsToParents();
@@ -93,6 +98,7 @@ public class ButtonsConfigPopUp {
     HBox bottomElements = new HBox();
     bottomElements.setAlignment(Pos.CENTER);
     bottomElements.getChildren().add(configure);
+    bottomElements.getChildren().add(toggle);
     borderPane.setTop(topElements);
     borderPane.setBottom(bottomElements);
     borderPane.setLeft(p1Config);
@@ -107,8 +113,8 @@ public class ButtonsConfigPopUp {
   private void createConfigureButton(Properties prop) {
     configure= new Button("Configure Both Players");
     configure.setOnAction(e -> {
-      buttonConfigurer.setPlayer1KeyBinds(leftButton1.getText(),rightButton1.getText(), jumpButton1.getText(), fallButton1.getText(),attackButton1.getText(),specialButton1.getText());
-      buttonConfigurer.setPlayer2KeyBinds(leftButton2.getText(),rightButton2.getText(), jumpButton2.getText(), fallButton2.getText(),attackButton2.getText(),specialButton2.getText());
+      buttonConfigurer.setPlayer1KeyBinds(leftButton1.getText(),rightButton1.getText(), jumpButton1.getText(), fallButton1.getText(),attackButton1.getText(),specialButton1.getText(), newConfigFile);
+      buttonConfigurer.setPlayer2KeyBinds(leftButton2.getText(),rightButton2.getText(), jumpButton2.getText(), fallButton2.getText(),attackButton2.getText(),specialButton2.getText(), newConfigFile);
       buttonConfigsStage.close();
     });
     configure.setStyle(prop.getProperty("playerText"));
@@ -130,5 +136,13 @@ public class ButtonsConfigPopUp {
     fallText.setStyle(prop.getProperty("labelText"));
     attackText.setStyle(prop.getProperty("labelText"));
     specialText.setStyle(prop.getProperty("labelText"));
+  }
+
+  private void createToggleButton() {
+    toggle = new RadioButton();
+    toggle.setText("Create New Config File");
+    toggle.setOnAction(e -> {
+        newConfigFile = !newConfigFile;
+    });
   }
 }

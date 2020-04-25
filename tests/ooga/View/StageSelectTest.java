@@ -16,7 +16,7 @@ class StageSelectTest {
 
   @BeforeEach
   void setUp() throws FileNotFoundException {
-    myStageSelect = new StageSelect();
+    //myStageSelect = new StageSelect();
 
 
   }
