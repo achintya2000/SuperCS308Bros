@@ -128,7 +128,7 @@ public class Ghost extends AbstractCharacter {
   private void jumpTransition(Node jumpNode) {
     TranslateTransition jump = new TranslateTransition(Duration.millis(500), jumpNode);
     jump.interpolatorProperty().set(Interpolator.SPLINE(.1, .1, .7, .7));
-    jump.setByY(-150);
+    jump.setByY(-230);
     jump.setAutoReverse(false);
     jump.setCycleCount(1);
     jump.play();

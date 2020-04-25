@@ -22,6 +22,7 @@ class StageSelectTest{
   Button myGoButton;
 
   @BeforeEach
+
   void setUp() throws IOException {
     boolean isLocal = true;
     myStageSelect = new StageSelect(isLocal);

@@ -44,11 +44,11 @@ public class Bunny extends AbstractCharacter {
 
     spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
     spriteAnimation = new SpriteAnimation(
-        spriteImageView,
-        Duration.millis(1000),
-        COUNT, COLUMNS,
-        OFFSET_X, OFFSET_Y,
-        WIDTH, HEIGHT
+            spriteImageView,
+            Duration.millis(1000),
+            COUNT, COLUMNS,
+            OFFSET_X, OFFSET_Y,
+            WIDTH, HEIGHT
     );
 
     spriteAnimation.setCycleCount(Animation.INDEFINITE);
@@ -60,6 +60,29 @@ public class Bunny extends AbstractCharacter {
 
     getGroup().getChildren().addAll(hurtBox, getCharacterImage());
   }
+
+  public Bunny(String name, int testNumber){
+    super(name);
+    try {
+      setImageFiles();
+    } catch (FileNotFoundException e) {
+      new ExceptionHelper(e);
+    }
+    spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
+    this.centerX = 0;
+    this.centerY = 0;
+    spriteImageView.setX(centerX);
+    spriteImageView.setY(centerY);
+
+    spriteImageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
+
+    hurtBox = makeHurtBox(centerX, centerY);
+
+    hitBox = makeHitBox();
+
+    getGroup().getChildren().addAll(hurtBox, getCharacterImage());
+  }
+
 
   private Circle makeHitBox() {
     double x;
