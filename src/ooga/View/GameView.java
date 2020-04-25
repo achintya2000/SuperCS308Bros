@@ -73,7 +73,10 @@ public class GameView extends Application implements ViewInternal {
   public void setStage() {
   }
 
-
+  public GameView(boolean isLocal, boolean joiningMatch) {
+    this.isLocal = isLocal;
+    this.joiningMatch = joiningMatch;
+  }
 
   public GameView(ArrayList playerlist, Pane root, ooga.Model.StageClasses.Stage chosenStage, boolean joiningMatch, String ipAddress, boolean isLocal, String gameMode) {
     this.isLocal = isLocal;

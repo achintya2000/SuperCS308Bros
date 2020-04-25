@@ -5,14 +5,24 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ooga.Controller.KeyBindManager;
+import ooga.Exceptions.ExceptionHelper;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -54,6 +64,14 @@ public class ButtonsConfigPopUp {
   HBox topElements = new HBox();
   private Button configure;
 
+  private Button selectConfigP1;
+  private Button selectConfigP2;
+
+  private RadioButton toggleP1;
+  private RadioButton toggleP2;
+  private boolean newConfigFileP1 = false;
+  private boolean newConfigFileP2 = false;
+
   public ButtonsConfigPopUp(Properties prop)
   {
     this.prop = prop;
@@ -66,6 +84,12 @@ public class ButtonsConfigPopUp {
     settingsText.setStyle(prop.getProperty("characterText"));
     topElements.setAlignment(Pos.TOP_CENTER);
     topElements.getChildren().add(settingsText);
+
+    createToggleButtons();
+    createConfigButtons();
+
+    topElements.getChildren().add(selectConfigP1);
+    topElements.getChildren().add(selectConfigP2);
 
     setTextOfElements(prop);
     setLabelStyles(prop);
@@ -91,8 +115,13 @@ public class ButtonsConfigPopUp {
 
   private void configureBorderPane(HBox topElements) {
     HBox bottomElements = new HBox();
+    VBox alignBottomElements = new VBox();
     bottomElements.setAlignment(Pos.CENTER);
-    bottomElements.getChildren().add(configure);
+    alignBottomElements.setAlignment(Pos.CENTER);
+    alignBottomElements.getChildren().add(configure);
+    alignBottomElements.getChildren().add(toggleP1);
+    alignBottomElements.getChildren().add(toggleP2);
+    bottomElements.getChildren().add(alignBottomElements);
     borderPane.setTop(topElements);
     borderPane.setBottom(bottomElements);
     borderPane.setLeft(p1Config);
@@ -107,8 +136,8 @@ public class ButtonsConfigPopUp {
   private void createConfigureButton(Properties prop) {
     configure= new Button("Configure Both Players");
     configure.setOnAction(e -> {
-      buttonConfigurer.setPlayer1KeyBinds(leftButton1.getText(),rightButton1.getText(), jumpButton1.getText(), fallButton1.getText(),attackButton1.getText(),specialButton1.getText());
-      buttonConfigurer.setPlayer2KeyBinds(leftButton2.getText(),rightButton2.getText(), jumpButton2.getText(), fallButton2.getText(),attackButton2.getText(),specialButton2.getText());
+      buttonConfigurer.setPlayer1KeyBinds(leftButton1.getText(),rightButton1.getText(), jumpButton1.getText(), fallButton1.getText(),attackButton1.getText(),specialButton1.getText(), newConfigFileP1);
+      buttonConfigurer.setPlayer2KeyBinds(leftButton2.getText(),rightButton2.getText(), jumpButton2.getText(), fallButton2.getText(),attackButton2.getText(),specialButton2.getText(), newConfigFileP2);
       buttonConfigsStage.close();
     });
     configure.setStyle(prop.getProperty("playerText"));
@@ -130,5 +159,50 @@ public class ButtonsConfigPopUp {
     fallText.setStyle(prop.getProperty("labelText"));
     attackText.setStyle(prop.getProperty("labelText"));
     specialText.setStyle(prop.getProperty("labelText"));
+  }
+
+  private void createToggleButtons() {
+    toggleP1 = new RadioButton();
+    toggleP1.setText("Create New Config File for Player 1");
+    toggleP1.setOnAction(e -> {
+        newConfigFileP1 = !newConfigFileP1;
+    });
+    toggleP2 = new RadioButton();
+    toggleP2.setText("Create New Config File for Player 2");
+    toggleP2.setOnAction(e -> {
+      newConfigFileP2 = !newConfigFileP2;
+    });
+  }
+
+  private void createConfigButtons() {
+    JSONParser parser = new JSONParser();
+    selectConfigP1 = new Button();
+    selectConfigP1.setText("Choose P1 Binds");
+    selectConfigP1.setOnAction(e -> {
+      FileChooser fileChooser = new FileChooser();
+      File selectedConfig = fileChooser.showOpenDialog(null);
+      System.out.println(selectedConfig.getAbsolutePath());
+      try {
+        JSONObject object = (JSONObject) parser.parse(new FileReader(selectedConfig.getAbsolutePath()));
+        buttonConfigurer.setPlayer1KeyBinds(object.get("left").toString(), object.get("right").toString(), object.get("jump").toString(), object.get("fall").toString(),
+                object.get("attack").toString(), object.get("special").toString(), false);
+      } catch (ParseException | IOException ex) {
+        new ExceptionHelper(ex);
+      }
+    });
+    selectConfigP2 = new Button();
+    selectConfigP2.setText("Choose P2 Binds");
+    selectConfigP2.setOnAction(e -> {
+      FileChooser fileChooser = new FileChooser();
+      File selectedConfig = fileChooser.showOpenDialog(null);
+      JSONObject object = null;
+      try {
+        object = (JSONObject) parser.parse(selectedConfig.getPath());
+        buttonConfigurer.setPlayer2KeyBinds(object.get("left").toString(), object.get("right").toString(), object.get("jump").toString(), object.get("fall").toString(),
+                object.get("attack").toString(), object.get("special").toString(), false);
+      } catch (ParseException ex) {
+        new ExceptionHelper(ex);
+      }
+    });
   }
 }
