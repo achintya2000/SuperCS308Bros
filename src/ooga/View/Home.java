@@ -54,7 +54,7 @@ public class Home extends Application {
     setButtonActions();
 
     borderPane.setCenter(buttonHolder);
-    Button darkModeBtn = new Button("Click to enter dark mode!");
+    Button darkModeBtn = new Button("Click to switch dark mode on/off!");
     darkModeBtn.setOnAction(e -> {
       try{
         darkModeSwitch();
