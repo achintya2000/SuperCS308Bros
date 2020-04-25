@@ -1,0 +1,19 @@
+{
+  "gameImage": "data/stages/stageimages/Bridge_of_Eldin.png",
+  "rectangles" : [
+    {
+
+    },
+    {
+
+    }
+  ],
+  "spawns": [
+    {
+
+    },
+    {
+
+    }
+  ]
+}
