@@ -4,7 +4,9 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -43,6 +45,10 @@ public class GameView extends Application implements ViewInternal {
   private BooleanProperty PLAYER_2_DOWN_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty PLAYER_2_JUMP_PRESSED = new SimpleBooleanProperty();
   private BooleanProperty PLAYER_2_ATTACK_PRESSED = new SimpleBooleanProperty();
+
+  private ObjectProperty STAGE_SELECTED = new SimpleObjectProperty();
+  private ObjectProperty PLAYER_1 = new SimpleObjectProperty();
+  private ObjectProperty PLAYER_2 = new SimpleObjectProperty();
 
   AbstractCharacter player1;
   AbstractCharacter player2;
@@ -108,9 +114,9 @@ public class GameView extends Application implements ViewInternal {
     root.getChildren().add(healthBar2);
 
     if (chosenStage.getName().equals("battlefield")){
-      MusicManager.playBattlefieldMusic();
+      //MusicManager.playBattlefieldMusic();
     } else if (chosenStage.getName().equals("finaldestination")) {
-      MusicManager.playFinalDestinationMusic();
+      //MusicManager.playFinalDestinationMusic();
     }
 
     if(gameMode.equals("LIVES")){
@@ -130,7 +136,6 @@ public class GameView extends Application implements ViewInternal {
   public void start(Stage primaryStage) {
     mainStage = primaryStage;
     scene = new Scene(root, 1200, 800);
-    //MusicManager.playBattlefieldMusic();
     new KeyBindingController(this, scene, player1, player2);
 
     if(!isLocal) {
@@ -188,6 +193,10 @@ public class GameView extends Application implements ViewInternal {
 
   public BooleanProperty getPlayer2AttackProp() {
     return PLAYER_2_ATTACK_PRESSED;
+  }
+
+  public ObjectProperty getStageSelectedProp() {
+    return STAGE_SELECTED;
   }
 
   class CustomStringConverter extends StringConverter<Number>{

@@ -1,5 +1,7 @@
 package ooga.networking;
 
+import javafx.beans.property.ObjectProperty;
+
 public class Packets {
 
     public static class packet01Message { public String message; }
@@ -29,7 +31,7 @@ public class Packets {
     }
 
     public static class packetServerStageSelected {
-        public String stageName;
+        public Object stageName;
     }
 
     public static class packetEndGame { public boolean endGame; }

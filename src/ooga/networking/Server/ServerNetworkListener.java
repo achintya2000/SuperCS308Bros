@@ -4,7 +4,9 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import ooga.View.GameView;
 import ooga.networking.Packets;
 
@@ -20,6 +22,8 @@ public class ServerNetworkListener extends Listener {
     private BooleanProperty SERVER_JUMP_PRESSED = new SimpleBooleanProperty();
     private BooleanProperty SERVER_ATTACK_PRESSED = new SimpleBooleanProperty();
 
+    private ObjectProperty SERVER_MAP_SELECTED = new SimpleObjectProperty();
+
     public ServerNetworkListener(GameView gv) {
         this.gameView = gv;
         SERVER_LEFT_PRESSED.bindBidirectional(gv.getPlayer2LeftProp());
@@ -27,11 +31,18 @@ public class ServerNetworkListener extends Listener {
         SERVER_FALL_PRESSED.bindBidirectional(gv.getPlayer2FallProp());
         SERVER_JUMP_PRESSED.bindBidirectional(gv.getPlayer2JumpProp());
         SERVER_ATTACK_PRESSED.bindBidirectional(gv.getPlayer2AttackProp());
+
+        SERVER_MAP_SELECTED.bindBidirectional(gv.getStageSelectedProp());
     }
 
     @Override
     public void connected(Connection c) {
         System.out.println("Someone has connected");
+
+        Packets.packetServerStageSelected packetServerStageSelected = new Packets.packetServerStageSelected();
+        packetServerStageSelected.stageName = SERVER_MAP_SELECTED.get();
+        c.sendTCP(packetServerStageSelected);
+
         sendDataToClient(c);
     }
 
