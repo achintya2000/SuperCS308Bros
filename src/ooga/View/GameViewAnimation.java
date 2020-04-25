@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import ooga.Controller.ControllerInternal;
 import ooga.Controller.GameMode;
+import ooga.Controller.MusicManager;
 import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
@@ -123,6 +124,7 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
               .intersects(player2.getHurtBox().getBoundsInParent())) {
         player2.getHurtBox().setStroke(Color.RED);
         player2.setHEALTH(player2.getHEALTH() - 10);
+        MusicManager.playHitSound();
       }
     }
     if (gv.getPlayer2JumpProp().get()) {
@@ -134,6 +136,7 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
               .intersects(player1.getHurtBox().getBoundsInParent())) {
         player1.getHurtBox().setStroke(Color.RED);
         player1.setHEALTH(player1.getHEALTH() - 10);
+        MusicManager.playHitSound();
       }
     }
   }

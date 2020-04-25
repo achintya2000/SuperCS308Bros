@@ -14,6 +14,7 @@ public class MusicManager {
   public static final String MAIN_MENU_MUSIC = "./data/sound/MainMenu.wav";
   public static final String BATTLEFIELD_MUSIC = "./data/sound/Battlefield.wav";
   public static final String FINAL_DESTINATION_MUSIC = "./data/sound/FinalDestination.wav";
+  public static final String HIT_CLIP = "./data/sound/hit.wav";
   private static Clip clip = null;
 
   public static void playMainMenuMusic() {
@@ -40,6 +41,16 @@ public class MusicManager {
     try {
       clip = AudioSystem.getClip();
       clip.open(AudioSystem.getAudioInputStream(new File(FINAL_DESTINATION_MUSIC)));
+      clip.start();
+    } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+      new ExceptionHelper(e);
+    }
+  }
+
+  public static void playHitSound() {
+    try {
+      clip = AudioSystem.getClip();
+      clip.open(AudioSystem.getAudioInputStream(new File(HIT_CLIP)));
       clip.start();
     } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
       new ExceptionHelper(e);
