@@ -151,7 +151,7 @@ public class CharacterSelect extends AbstractSelectScreen{
     } catch (IOException e){
       new ExceptionHelper(e);
     }
-    if(props.getProperty("darkmode").equals("true"))  borderPane.setStyle("-fx-background-color: rgba(0, 0, 0,0)");
+    if(props.getProperty("darkmode").equals("true"))  borderPane.setStyle("-fx-background-color: rgba(0, 0, 0, .8)");
     else borderPane.setStyle("-fx-background-color: rgba(200, 200, 240, 0.5)");
   }
 
