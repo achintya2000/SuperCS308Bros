@@ -3,12 +3,8 @@ package ooga.View;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -16,10 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import ooga.Controller.Controller;
-import ooga.Controller.GameMode;
-import ooga.Controller.KeyBindingController;
-import ooga.Controller.MusicManager;
+import ooga.Controller.*;
 import ooga.Model.Characters.AbstractCharacter;
 import ooga.Model.Player;
 
@@ -142,7 +135,7 @@ public class GameView extends Application implements ViewInternal {
     primaryStage.setScene(scene);
     primaryStage.show();
 
-    AnimationTimer animationTimer = new GameViewAnimation(this, playerList, platforms, mainStage, gameMode);
+    AnimationTimer animationTimer = new Controller(this, playerList, platforms, mainStage, gameMode);
     animationTimer.start();
 
   }
