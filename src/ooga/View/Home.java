@@ -1,5 +1,7 @@
 package ooga.View;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +15,7 @@ import ooga.Controller.MusicManager;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
+import ooga.Exceptions.ExceptionHelper;
 
 
 public class Home extends Application {
@@ -50,8 +53,20 @@ public class Home extends Application {
     setButtonActions();
 
     borderPane.setCenter(buttonHolder);
+    Button darkModeBtn = new Button("Click to enter dark mode!");
+    darkModeBtn.setOnAction(e -> darkModeSwitch());
+    borderPane.setTop(darkModeBtn);
 
     return borderPane;
+  }
+
+  private void darkModeSwitch() {
+    Properties props = new Properties();
+    try{
+      props.load(new FileInputStream("darkmode.properties"));
+    } catch (IOException fnfe){
+      new ExceptionHelper(fnfe);
+    }
   }
 
   private void setButtonActions() {
