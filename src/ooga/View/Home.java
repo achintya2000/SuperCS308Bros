@@ -2,6 +2,7 @@ package ooga.View;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -54,23 +55,26 @@ public class Home extends Application {
 
     borderPane.setCenter(buttonHolder);
     Button darkModeBtn = new Button("Click to enter dark mode!");
-    darkModeBtn.setOnAction(e -> darkModeSwitch());
+    darkModeBtn.setOnAction(e -> {
+      try{
+        darkModeSwitch();
+      } catch (IOException ioe){
+        new ExceptionHelper(ioe);
+      }
+    });
     borderPane.setTop(darkModeBtn);
 
     return borderPane;
   }
 
-  private void darkModeSwitch() {
+  private void darkModeSwitch() throws IOException {
     Properties props = new Properties();
-    try{
-      props.load(new FileInputStream("darkmode.properties"));
-    } catch (IOException fnfe){
-      new ExceptionHelper(fnfe);
-    }
-
+    props.load(new FileInputStream("src/ooga/View/darkmode.properties"));
+    FileOutputStream out = new FileOutputStream("src/ooga/View/darkmode.properties");
     if(props.getProperty("darkmode").equals("true")) props.setProperty("darkmode", "false");
-    if(props.getProperty("darkmode").equals("false")) props.setProperty("darkmode", "true");
-
+    else if(props.getProperty("darkmode").equals("false")) props.setProperty("darkmode", "true");
+    props.store(out, null);
+    out.close();
   }
 
   private void setButtonActions() {
