@@ -29,6 +29,7 @@ public class StageSelect extends AbstractSelectScreen{
   private GridPane charGrid;
   private ArrayList<String> stageNames = new ArrayList<>();
   private String ipAddress = "";
+  private boolean joiningMatch = false;
 
   public StageSelect(boolean isLocal) throws IOException {
     super();
@@ -37,6 +38,13 @@ public class StageSelect extends AbstractSelectScreen{
 
   public StageSelect(boolean isLocal, String ipAddress) throws IOException {
     super();
+    this.isLocal = isLocal;
+    this.ipAddress = ipAddress;
+  }
+
+  public StageSelect(boolean isLocal, String ipAddress, boolean joiningMatch) throws IOException {
+    super();
+    this.joiningMatch = joiningMatch;
     this.isLocal = isLocal;
     this.ipAddress = ipAddress;
   }
@@ -97,7 +105,7 @@ public class StageSelect extends AbstractSelectScreen{
   public void goToSelectScreen() throws IOException {
     System.out.println("Going to Select Screen ... ");
     currentStage.hide();
-    CharacterSelect characterSelect = new CharacterSelect(chosenStage, isLocal, ipAddress);
+    CharacterSelect characterSelect = new CharacterSelect(chosenStage, isLocal, ipAddress, joiningMatch);
     characterSelect.start(new Stage());
   }
 
