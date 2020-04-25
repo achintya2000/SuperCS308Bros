@@ -1,0 +1,29 @@
+{
+  "gameImage": ,
+  "rectangles" : [
+    {
+      "xPos": 0,
+      "yPos": 425,
+      "width": 1200,
+      "height": 50,
+      "hollow": false
+    },
+    {
+      "xPos": 200,
+      "yPos": 600,
+      "width": 1000,
+      "height": 100,
+      "hollow": false
+    }
+  ],
+  "spawns": [
+    {
+      "xPos": 100,
+      "yPos": 425
+    },
+    {
+      "xPos": 1100,
+      "yPos": 425
+    }
+  ]
+}
