@@ -25,8 +25,6 @@ class StageSelectTest{
   void setUp() throws IOException {
     boolean isLocal = true;
     myStageSelect = new StageSelect(isLocal);
-
-
   }
 
   @Test

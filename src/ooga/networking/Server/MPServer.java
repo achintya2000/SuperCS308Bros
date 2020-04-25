@@ -54,6 +54,10 @@ public class MPServer {
     kryo.register(Packets.packetAttackPressed.class);
   }
 
+  public int getServerConnection() {
+    return server.getConnections().length;
+  }
+
   //public static void main(String[] args) {
   //  new MPServer();
   //}

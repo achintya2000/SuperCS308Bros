@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.GameEngine.SpriteAnimation;
 
 import java.io.FileInputStream;
@@ -29,9 +30,13 @@ public class Ghost extends AbstractCharacter {
 
   private boolean attackFinish;
 
-  public Ghost(String name) throws FileNotFoundException {
+  public Ghost(String name) {
     super(name);
-    setImageFiles();
+    try {
+      setImageFiles();
+    } catch (FileNotFoundException e) {
+      new ExceptionHelper(e);
+    }
     spriteImageView = new ImageView(IDLE_IMAGE_LEFT);
     this.centerX = 0;
     this.centerY = 0;

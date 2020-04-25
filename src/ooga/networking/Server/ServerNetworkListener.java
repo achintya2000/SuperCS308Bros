@@ -8,6 +8,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import ooga.View.GameView;
 import ooga.networking.Packets;
 
+import java.io.OutputStream;
+
 public class ServerNetworkListener extends Listener {
 
     private GameView gameView;
@@ -74,7 +76,6 @@ public class ServerNetworkListener extends Listener {
 
     private void sendDataToClient(Connection c) {
         SERVER_LEFT_PRESSED.addListener((observable, oldValue, newValue) -> {
-            System.out.println("YEETICUS");
             Packets.packetLeftPressed leftData = new Packets.packetLeftPressed();
             leftData.leftPressed = SERVER_LEFT_PRESSED.get();
             c.sendTCP(leftData);
@@ -104,6 +105,5 @@ public class ServerNetworkListener extends Listener {
             c.sendTCP(attackData);
         });
     }
-
 
 }

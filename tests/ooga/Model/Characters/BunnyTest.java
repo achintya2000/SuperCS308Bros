@@ -2,68 +2,80 @@ package ooga.Model.Characters;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
+import java.awt.Rectangle;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
-class BunnyTest {
-
-  @BeforeEach
-  void setUp() {
+public class BunnyTest {
+  @Test
+  void testJump(){
+    assertThrows(NullPointerException.class, () -> {
+      Bunny testBunny = new Bunny("TestBunny");
+      testBunny.jump();
+    });
   }
 
   @Test
-  void testIdle() {
+  void testMoveLeft(){
+    assertDoesNotThrow(() -> {
+      Bunny testBunny= new Bunny("TestBunny");
+      testBunny.moveLeft();
+    });
   }
 
   @Test
-  void testMoveLeft() {
+  void testMoveRight(){
+    assertDoesNotThrow(() -> {
+      Bunny testBunny = new Bunny("TestBunny");
+      testBunny.moveRight();
+    });
   }
 
   @Test
-  void testMoveRight() {
+  void testMoveDown(){
+    assertDoesNotThrow(() -> {
+      Bunny testBunny = new Bunny("TestBunny");
+      testBunny.moveDown();
+    });
+  }
+
+
+  @Test
+  void testAttack(){
+    assertDoesNotThrow(() -> {
+      AbstractCharacter testBunny = new Bunny("TestBunny");
+      testBunny.attack();
+    });
   }
 
   @Test
-  void testMoveDown() {
+  void testGetCharacterImage(){
+    assertNotNull(new Bunny("TestBunny").getCharacterImage());
   }
 
   @Test
-  void testJump() {
+  void testGetCenterY(){
+    assertTrue((new Bunny("TestBunny").getCenterY() >= 0));
   }
 
   @Test
-  void testAttack() {
+  void testGetHitBox(){
+    assertNotNull(new Bunny("TestBunny").getHitBox());
   }
 
   @Test
-  void testSpecial() {
+  void testGetHurtBox(){
+    assertNotNull(new Bunny("TestBunny").getHurtBox());
   }
 
   @Test
-  void getRoot() {
+  void testImageBoxSync(){
+    int OFFSET = 25;
+    Bunny testBunny = new Bunny("TestBunny");
+    assertTrue((testBunny.getCharacterImage().getX() + OFFSET) == testBunny.getHurtBox().getX());
+    assertTrue(testBunny.getCharacterImage().getX() == testBunny.getCharacterImage().getY());
   }
 
-  @Test
-  void testGetCharacterImage() {
-  }
-
-  @Test
-  void testGetCenterY() {
-  }
-
-  @Test
-  void testSetCenterY() {
-  }
-
-  @Test
-  void testGetHitBox() {
-  }
-
-  @Test
-  void testGetHurtBox() {
-  }
-
-  @Test
-  void testSetImageFiles() {
-  }
 }

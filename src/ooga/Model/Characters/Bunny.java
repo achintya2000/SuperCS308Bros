@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import ooga.Exceptions.ExceptionHelper;
 import ooga.Model.GameEngine.SpriteAnimation;
 
 import java.io.FileInputStream;
@@ -28,9 +29,13 @@ public class Bunny extends AbstractCharacter {
   private static final int WIDTH = 100;
   private static final int HEIGHT = 100;
 
-  public Bunny(String name) throws FileNotFoundException {
+  public Bunny(String name) {
     super(name);
-    setImageFiles();
+    try {
+      setImageFiles();
+    } catch (FileNotFoundException e) {
+      new ExceptionHelper(e);
+    }
     spriteImageView = new ImageView(IDLE_IMAGE_RIGHT);
     this.centerX = 0;
     this.centerY = 0;
