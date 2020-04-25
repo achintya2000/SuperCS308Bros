@@ -67,6 +67,10 @@ public class Home extends Application {
     } catch (IOException fnfe){
       new ExceptionHelper(fnfe);
     }
+
+    if(props.getProperty("darkmode").equals("true")) props.setProperty("darkmode", "false");
+    if(props.getProperty("darkmode").equals("false")) props.setProperty("darkmode", "true");
+
   }
 
   private void setButtonActions() {
