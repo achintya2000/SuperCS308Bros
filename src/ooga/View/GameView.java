@@ -73,6 +73,12 @@ public class GameView extends Application implements ViewInternal {
   public void setStage() {
   }
 
+  public GameView(AbstractCharacter bunny1, AbstractCharacter bunny2, Platform platform){
+    player1 = bunny1;
+    player2 = bunny2;
+    platforms = new ArrayList<Platform>();
+    platforms.add(platform);
+  }
 
 
   public GameView(ArrayList playerlist, Pane root, ooga.Model.StageClasses.Stage chosenStage, boolean joiningMatch, String ipAddress, boolean isLocal, String gameMode) {

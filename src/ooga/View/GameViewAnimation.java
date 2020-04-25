@@ -23,6 +23,14 @@ public class GameViewAnimation extends AnimationTimer implements ControllerInter
   private ArrayList<Platform> platforms;
   private String gameMode;
 
+  public GameViewAnimation(GameView gc, ArrayList<Player> playerList, ArrayList<Platform> platformList){
+    this.gv = gv;
+    this.playerList = playerList;
+    platforms = platformList;
+    player1 = playerList.get(0).getMyCharacter();
+    player2 = playerList.get(1).getMyCharacter();
+  }
+
   public GameViewAnimation(GameView gv, ArrayList<Player> playerList, ArrayList<Platform> platformList,
       Stage gameViewStage, String gameMode){
     super();
