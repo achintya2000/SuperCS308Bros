@@ -1,7 +1,7 @@
-## Names of all people who worked on the project
+* Names of all people who worked on the project
     * Thomas Chemmanoor, Benjamin Lu, Sebastian Williams, Achintya Kumar, Michael Dodd
 
-## Each person's role in developing the project
+* Each person's role in developing the project
     * Thomas Chemmanoor
         * Did the UI design for the home, stage selection, character selection screens.
         * Created the settings button and did the json editing and UI needed for the button configuration screen.
