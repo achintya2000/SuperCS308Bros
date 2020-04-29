@@ -1,6 +1,5 @@
 * Names of all people who worked on the project
-
-    *Thomas Chemmanoor, Benjamin Lu, Sebastian Williams, Achintya Kumar, Michael Dodd
+    * Thomas Chemmanoor, Benjamin Lu, Sebastian Williams, Achintya Kumar, Michael Dodd
 
 * Each person's role in developing the project
     * Thomas Chemmanoor
