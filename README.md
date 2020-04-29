@@ -3,18 +3,19 @@ final
 
 This project implements a player for multiple related games.
 
-Names:
+Names: Achintya Kumar, Thomas Chemmanoor, Benjamin Lu, Michael Doddd, Sebastian Williams
 
 
 ### Timeline
 
-Start Date: 
+Start Date: Apr 2, 2020
 
-Finish Date: 
+Finish Date: Apr 24, 2020
 
-Hours Spent:
+Hours Spent: ~60
 
 ### Primary Roles
+
 
 
 ### Resources Used
@@ -22,7 +23,7 @@ Hours Spent:
 
 ### Running the Program
 
-Main class:
+Main class: 
 
 Data files needed: 
 
