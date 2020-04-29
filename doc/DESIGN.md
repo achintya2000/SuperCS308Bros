@@ -1,33 +1,34 @@
-Names of all people who worked on the project
-Thomas Chemmanoor, Benjamin Lu, Sebastian Williams, Achintya Kumar, Michael Dodd
-Each person's role in developing the project
-Thomas Chemmanoor
-Did the UI design for the home, stage selection, character selection screens.
-Created the settings button and did the json editing and UI needed for the button configuration screen.
-Made tests for the stage selection screen
-Helped debug collision logic
-Benjamin Lu
-Player - Player interaction
-Hitbox/HurtBox generation
-Detecting when a player is damaged
-Player - Stage interaction
-Allow players to stand on platforms
-Differentiate how players interact with hollow and non-hollow stages
-Apply gravity to players when in the air
-Sebastian Williams
-Basic implementation for stages
-Added lives gamemode
-Added game over functionality
-Added parts of animations via sprite sheets
-Added dark mode
-Refactored the controller to implement the API
-Worked on some player stage interaction
-Achintya Kumar
-Figured out how to do sprite animations from sprite sheets. 
-Worked on keybindings - getting multiple keys working on the same keyboard for multiplayer and also creating custom keybinding to save and load from JSON files. 
-Converted stage information to JSON format and changed the parser to read the json data. 
-Did all of the networking to get networked games working using the KryoNet package. Added the background and hit music. 
-Michael Dodd
+* Names of all people who worked on the project
+    *Thomas Chemmanoor, Benjamin Lu, Sebastian Williams, Achintya Kumar, Michael Dodd
+
+* Each person's role in developing the project
+    * Thomas Chemmanoor
+        * Did the UI design for the home, stage selection, character selection screens.
+        * Created the settings button and did the json editing and UI needed for the button configuration screen.
+        * Made tests for the stage selection screen
+        * Helped debug collision logic
+    * Benjamin Lu
+        * Player - Player interaction
+            * Hitbox/HurtBox generation
+            * Detecting when a player is damaged
+        * Player - Stage interaction
+            * Allow players to stand on platforms
+            * Differentiate how players interact with hollow and non-hollow stages
+            * Apply gravity to players when in the air
+    * Sebastian Williams
+        * Basic implementation for stages
+        * Added lives gamemode
+        * Added game over functionality
+        * Added parts of animations via sprite sheets
+        * Added dark mode
+        * Refactored the controller to implement the API
+        * Worked on some player stage interaction
+    * Achintya Kumar
+        * Figured out how to do sprite animations from sprite sheets. 
+        * Worked on keybindings - getting multiple keys working on the same keyboard for multiplayer and also creating custom keybinding to save and load from JSON files. 
+        * Converted stage information to JSON format and changed the parser to read the json data. 
+        * Did all of the networking to get networked games working using the KryoNet package. Added the background and hit music. 
+    * Michael Dodd
 Outlined basic structure for the AbstractCharacter class and worked on determining the best implementation. This included finding ways to abstract the Bunny class into the AbstractCharacter class to make the addition of players easier. For stages, I outlined the general structure for our abstract Stage class and worked on the parser for our stages JSON files. Also helped with debugging and testing networked games.
 What are the project's design goals, specifically what kinds of new features did you want to make easy to add
 We wanted to make the stage selection screen and the character selection screen to be extensible. Specifically, we wanted to make it easy to add new characters and new stages to the project. Additionally, we wanted these added stages to automatically show up on the selection screens. We were successful in doing this since all that is required to add a new stage is to create a JSON file in the correct format and add the image to the correct package.
