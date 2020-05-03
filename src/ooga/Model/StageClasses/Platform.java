@@ -18,8 +18,8 @@ public class Platform extends Rectangle {
   public Platform(int x, int y, int  width, int height, boolean isHollow){
     super(x, y, width, height);
     setHollow(isHollow);
-    //this.setFill(Color.TRANSPARENT);
-    this.setFill(Color.rgb(0, 0, 200, 0.5));
+    this.setFill(Color.TRANSPARENT);
+    //this.setFill(Color.rgb(0, 0, 200, 0.5));
 
   }
 
