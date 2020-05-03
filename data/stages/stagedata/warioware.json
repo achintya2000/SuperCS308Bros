@@ -1,0 +1,51 @@
+{
+  "name": "warioware",
+  "gameImage": "data/stages/stageimages/warioware.png",
+  "rectangles" : [
+    {
+      "xPos": 140,
+      "yPos": 200,
+      "width": 195,
+      "height": 25,
+      "hollow": false
+    },
+    {
+      "xPos": 130,
+      "yPos": 409,
+      "width": 340,
+      "height": 25,
+      "hollow": false
+    },
+    {
+      "xPos": 120,
+      "yPos": 620,
+      "width": 1000,
+      "height": 50,
+      "hollow": false
+    },
+    {
+      "xPos": 770,
+      "yPos": 409,
+      "width": 340,
+      "height": 25,
+      "hollow": false
+    },
+    {
+      "xPos": 900,
+      "yPos": 200,
+      "width": 195,
+      "height": 25,
+      "hollow": false
+    }
+  ],
+  "spawns": [
+    {
+      "xPos": 150,
+      "yPos": 290
+    },
+    {
+      "xPos": 1000,
+      "yPos": 290
+    }
+  ]
+}

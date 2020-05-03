@@ -14,9 +14,13 @@ Finish Date: Apr 24, 2020
 
 Hours Spent: ~60
 
-### Primary Roles
+### Video Links
 
+- Project Demo: https://youtu.be/9HcagrWexHA
+- Achintya's Added Example: https://youtu.be/ForehV4T6zA
 
+### Roles
+- Achintya: Backend (Animations, Networking, Keybinding, JSON Data)
 
 ### Resources Used
 
