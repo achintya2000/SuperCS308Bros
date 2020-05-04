@@ -1,0 +1,44 @@
+{
+  "name": "Dream Land",
+  "gameImage": "data/stages/stageimages/Dream_Land.png",
+  "rectangles" : [
+    {
+      "xPos": 275,
+      "yPos": 500,
+      "width": 650,
+      "height": 200,
+      "hollow": false
+    },
+    {
+      "xPos": 358,
+      "yPos": 375,
+      "width": 150,
+      "height": 25,
+      "hollow": true
+    },
+    {
+      "xPos": 540,
+      "yPos": 280,
+      "width": 150,
+      "height": 25,
+      "hollow": true
+    },
+    {
+      "xPos": 674,
+      "yPos": 375,
+      "width": 150,
+      "height": 25,
+      "hollow": true
+    }
+  ],
+  "spawns": [
+    {
+      "xPos": 300,
+      "yPos": 450
+    },
+    {
+      "xPos": 800,
+      "yPos": 450
+    }
+  ]
+}
