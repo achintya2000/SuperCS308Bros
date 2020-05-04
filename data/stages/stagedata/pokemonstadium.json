@@ -1,0 +1,22 @@
+{
+  "gameImage": "data/stages/stageimages/PokemonStadium.png",
+  "rectangles" : [
+    {
+      "xPos": 200,
+      "yPos": 450,
+      "width": 875,
+      "height": 50,
+      "hollow": false
+    }
+  ],
+  "spawns": [
+    {
+      "xPos": 150,
+      "yPos": 425
+    },
+    {
+      "xPos": 1050,
+      "yPos": 425
+    }
+  ]
+}
